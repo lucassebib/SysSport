@@ -57,8 +57,17 @@ WSGI_APPLICATION = 'syssport.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'sqlserver_ado',
+        'NAME': 'misitio',
+        'HOST': 'localhost',
+        'USER': 'sa',
+        'PASSWORD': '36206924',
+
+        'OPTIONS': {
+                    'uncicode_result': 'True',
+                    'provider': 'SQLNCLI11',
+                    'use_mars': 'DataTypeCompatibility=80;MARS Connection=True;'
+        }
     }
 }
 
