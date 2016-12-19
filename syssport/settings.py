@@ -58,10 +58,10 @@ WSGI_APPLICATION = 'syssport.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'sqlserver_ado',
-        'NAME': 'misitio',
+        'NAME': 'syssport',
         'HOST': 'localhost',
-        'USER': 'sa',
-        'PASSWORD': '36206924',
+        'USER': 'proyecto',
+        'PASSWORD': 'proyecto2016',
 
         'OPTIONS': {
                     'uncicode_result': 'True',
