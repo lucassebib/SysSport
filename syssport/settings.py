@@ -35,6 +35,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'novedades',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -50,6 +51,8 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'syssport.urls'
 
 WSGI_APPLICATION = 'syssport.wsgi.application'
+
+TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),)
 
 
 # Database
