@@ -8,6 +8,9 @@ class Deporte(models.Model):
 	nombre = models.CharField(max_length=100)
 	descripcion = models.TextField()
 
+	class Meta:
+		verbose_name_plural = "Deportes"
+
 	def __unicode__(self):
 		return self.nombre
 
@@ -24,6 +27,9 @@ class Persona(models.Model):
 class Profesor(Persona):
 	lista_deporte = models.ManyToManyField(Deporte)
 
+	class Meta:
+		verbose_name_plural = "Profesores"
+
 	def __unicode__(self):
 		return '%s %s' % (self.nombre, self.apellido)
 
@@ -32,8 +38,11 @@ class Profesor(Persona):
 		#return self.lista_deporte.all()
 
 class Alumno(Persona):
-	ficha_medica = models.FileField(upload_to='fichas_medicas/')
+	ficha_medica = models.FileField(upload_to='fichas_medicas/', blank=True)
 	lista_deporte = models.ManyToManyField(Deporte)
+
+	class Meta:
+		verbose_name_plural = "Alumnos"
 
 	def deportes_inscripto(self):
 		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
@@ -41,9 +50,12 @@ class Alumno(Persona):
 class Novedades(models.Model):
 	titulo = models.CharField(max_length=100)
 	contenido = models.TextField()
-	fecha_publicacion = models.DateField()
+	fecha_publicacion = models.DateField(blank=True, null=True)
 	autor = models.ForeignKey(Profesor)  
-	pueden_ver = ((1,"Todos"),(2,"Usuarios Deportes")) 
+	pueden_ver = ((1,"Todos"),(2,"Usuarios Deportes"))
+
+	class Meta:
+		verbose_name_plural = "Novedades" 
 
 ##################AGREGAMOS CLASES AL PANEL DE ADMINISTRACION##################################
 
@@ -59,10 +71,11 @@ admin.site.register(Profesor,ProfesorAdmin)
 
 class AlumnoAdmin(admin.ModelAdmin):
 	list_display = ('legajo','dni', 'nombre', 'apellido','fecha_nacimiento','telefono','email', 'deportes_inscripto')
+	filter_vertical = ('lista_deporte',)
 
 admin.site.register(Alumno,AlumnoAdmin)
 
 class NovedadesAdmin(admin.ModelAdmin):
-	list_display = ('titulo','contenido','fecha_publicacion')
+	list_display = ('titulo','contenido','fecha_publicacion')	
 
 admin.site.register(Novedades,NovedadesAdmin)
