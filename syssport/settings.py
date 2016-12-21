@@ -54,6 +54,9 @@ WSGI_APPLICATION = 'syssport.wsgi.application'
 
 TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),)
 
+MEDIA_ROOT = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'media').replace('\\','/')
+
+MEDIA_URL = '/images/'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
