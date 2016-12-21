@@ -4,3 +4,9 @@ from django.shortcuts import render_to_response
 
 def pagina_principal(request):
 	return render_to_response('index.html')
+
+def  base(request):
+	return render_to_response('base.html')
+
+def login(request):
+	return render_to_response('login.html')

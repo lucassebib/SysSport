@@ -1,0 +1,52 @@
+body{
+
+}
+
+#principal{
+	width: 850px;
+	border: 1px solid #000000;
+	margin: 0 auto;
+}
+
+#cabecera{
+	height: 100px;
+	border: 1px solid #000000;
+	width: 0 auto;
+	background: #EAFAF1;
+
+}
+
+#logoUTN{
+	height: 100px;
+	border: 1px solid #000000;
+	width: 84px;
+	background-image: url('img/utnLogo.png');
+}
+
+#menuIzq{
+	width: 200px;
+	margin: 10px;
+	border: 1px solid #000000;
+	float: left;
+	background: #F4F6F6;
+}
+
+#contenedor{
+	border: 1px solid #000000;
+	width: 605px;
+	margin: 10px;
+	float: left;
+	background: #F4F6F6;
+
+}
+.clear{
+	clear:both;
+}
+
+#pie{
+	border: 1px solid #000000;
+	height: 50px;
+	margin: 10px;
+	background: #EAFAF1;
+	
+} 
