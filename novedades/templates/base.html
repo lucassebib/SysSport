@@ -9,33 +9,42 @@
             <title>proyecto2016</title>
 
            
-            <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css" > <!-llamamos al archivo CSS->    
+            <link rel="stylesheet" type="text/css" href="static/bootstrap/bootstrap.min.css" > <!-llamamos al archivo CSS->    
             <link rel="stylesheet" type="text/css" href="static/estilos.css"> 
                        
         </head>
         <body>
             <div id="principal">
-                <div id="cabecera">
+                <nav class="navbar navbar-default navbar-fixed-top">
+                    <div id="cabecera">
                     
-                  <div id="logoUTN">
-                    <h1>logo</h1>
-                  </div>
+                        <div id="logoUTN">
+                             <h1>logo</h1>
+                        </div>
+                        <div id="SAU">
+                            <h1>SAU</h1>
+                        </div>
 
+                    </div>
+                </nav>
+                <div class="container">
+
+                    <div id="menuIzq">
+                        {% block menu_izquierdo %}
+                        {% endblock %}
+                    </div>
+                    <div class="page-header">
+                        {% block contenedor %}
+                        {% endblock %}
+                    </div>
+                    <div class="clear">
+                    </div>
                 </div>
-                
-                <div id="menuIzq">
-                    {% block menu_izquierdo %}
-                    {% endblock %}
-                </div>
-                <div id="contenedor">
-                    contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor contenedor
-                </div>
-                <div class="clear">
-                 
-                </div>
-                <div id="pie">
-                    pie
-                </div>
+                <footer class="footer">
+                    <div class="container">
+                       <p class="text-muted">pie</p>
+                    </div>
+                </footer>
             </div>    
             <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> <!– Importante llamar antes a jQuery para que funcione bootstrap.min.js -->     
 

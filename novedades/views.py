@@ -10,3 +10,6 @@ def  base(request):
 
 def login(request):
 	return render_to_response('login.html')
+
+def formulario(request):
+	return render_to_response('formularioRegistro.html')

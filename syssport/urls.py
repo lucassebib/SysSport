@@ -9,5 +9,6 @@ urlpatterns = patterns('',
     url(r'^index$', 'novedades.views.pagina_principal'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^base/$', base),
-    url(r'^login$', login)
+    url(r'^login$', login),
+    url(r'^formularioRegistro$', formulario),
 )
