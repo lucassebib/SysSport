@@ -10,5 +10,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^base/$', base),
     url(r'^login$', login),
-    url(r'^formularioRegistro$', formulario),
+    url(r'^formulario_registro$', formulario_registro),
+    url(r'^enviar/', enviar),
 )

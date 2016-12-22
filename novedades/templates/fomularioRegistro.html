@@ -1,21 +1,13 @@
-<!--Fromulario algunos campos que puede tener serian los siguientes, despues vemos donde lo ponemos-->
 {% extends "base.html" %}
-{% block contenedor %}
-  <form method="get" action="http://aprenderaprogramar.com">
+
+{% block body %}
+  
+  <form method="get" action="/enviar/">
         Nº de legajo: <input type="text" name="nombre" /><br />
         Dirección: <input type="text" name="direccion" /><br />
         Correo electrónico: <input type="text" name="correo" /><br />
         Teléfono: <input type="text" name="telefono" /><br />
         <input type="submit" name="boton" value="Subir ficha Medica"><input type="text" name="ficha" />
-        <button onclick= "gracias()">Enviar</button>
-
-        <script>
-         function gracias(){
-         
-         {% block ir_gracias %}
-         {% endblock %}
-         
-         }
-       </script>
-   </form>
- {% endblock %}
+        <input type="submit" name="boton" value="enviar">
+  </form>
+{% endblock %}

@@ -11,5 +11,8 @@ def  base(request):
 def login(request):
 	return render_to_response('login.html')
 
-def formulario(request):
+def formulario_registro(request):
 	return render_to_response('formularioRegistro.html')
+
+def enviar(request):
+	return render_to_response('gracias.html')
