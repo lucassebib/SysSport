@@ -10,12 +10,14 @@
 
            
             <link rel="stylesheet" type="text/css" href="../static/bootstrap/bootstrap.min.css" > <!-llamamos al archivo CSS->    
-            <link rel="stylesheet" type="text/css" href="../static/estilos.css">
+            <link rel="stylesheet" type="text/css" href="../static/bootstrap/estilos.css">
                        
         </head>
 
-        <body>
+        <body >
             
+                
+           
             <nav class="navbar">
                         <div class="">
                             <a href="index">
@@ -24,11 +26,12 @@
                         </div>
           
             </nav>
+            <div class="color-fondo">
             <div class="container">
 
 
-                    <div class="row">
-                        <div class="col-md-3" style="border: 1px solid #000000; border-radius:5px; padding:10px; margin:0px 10px 0px 10px">
+                    <div class="row row-color" >
+                        <div class="col-md-3 border-login">
                             {% block menu_izq %}
                             {% endblock %}
                         </div>
@@ -38,7 +41,7 @@
                         </div>  
                     </div>
             </div>
-
+        </div>
         <footer class="footer-distributed">
 
             <div class="footer-left">
