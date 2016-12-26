@@ -5,8 +5,6 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
-    
-    url(r'^inicial_alumnos$', inicial_alumnos),
 
     url(r'^index$', pagina_principal),
     url(r'^base$', base),
@@ -14,4 +12,6 @@ urlpatterns = patterns('',
     url(r'^formularioRegistro$', registro),
     url(r'^enviar', enviar),
     url(r'^formulario2/$', formulario2),
+
+    url(r'^', include('novedades.urls')),
 )
