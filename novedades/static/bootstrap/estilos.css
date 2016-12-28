@@ -1,6 +1,6 @@
 
 
-.clear{
+.base-clear{
 	clear:both;
 }
 
@@ -208,13 +208,17 @@
 }
 /*Fin Footer*/
 
-/*color de fondo*/
-.color-fondo{
-	background-color: #c7be49;
-	}
+/*color de fondo arriba*/
+.base-top, .base-center-top{
+	background-color: #2a84de;
+	
+
+}
+.container{
+	background-color: #2a84de;
+}
 /*borde de login*/
 .border-login, .border-resgistracion{
-
 
 border: 1px solid #000000; 
 border-radius:5px;
@@ -222,4 +226,3 @@ padding:10px;
 margin:0px 10px 0px 10px
 }
 
-/**/
