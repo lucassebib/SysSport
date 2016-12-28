@@ -1,5 +1,5 @@
 from django.db import models
-
+from tinymce import  models as tinymce_models
 from django.contrib import admin
 
 # Create your models here.
@@ -49,7 +49,7 @@ class Alumno(Persona):
 
 class Novedades(models.Model):
 	titulo = models.CharField(max_length=100)
-	contenido = models.TextField()
+	contenido = tinymce_models.HTMLField()
 	fecha_publicacion = models.DateField(blank=True, null=True)
 	autor = models.ForeignKey(Profesor)  
 	pueden_ver = ((1,"Todos"),(2,"Usuarios Deportes"))
