@@ -1,6 +1,7 @@
 from django.conf.urls import *
 from django.contrib import admin
 from novedades.views import *
+from django.conf import settings
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -14,4 +15,6 @@ urlpatterns = patterns('',
     url(r'^formulario2/$', formulario2),
 
     url(r'^', include('novedades.urls')),
+
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root':settings.MEDIA_ROOT,}),
 )
