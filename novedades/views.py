@@ -23,6 +23,6 @@ def formulario2(request):
 	return render_to_response('formulario2.html')
 
 def inicial_alumnos(request):
-	posts = Novedades.objects.all()
+	posts = Novedades.todos_novedades_objects.all()
 	#diccionario de datos
 	return render_to_response('inicial_alumnos.html',{'posts':posts})
