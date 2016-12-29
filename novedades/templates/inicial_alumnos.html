@@ -5,7 +5,7 @@
 		<h2>{{post.titulo}}</h2>
 		<p1>{{post.fecha_publicacion}}</p1>
 		</br></br>
-		<p2>{{post.contenido}}</p2>
+		<p2>{{post.contenido|safe}}</p2>
 		<hr></hr>
 	{% endfor %}
 {% endblock %}

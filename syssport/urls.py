@@ -1,7 +1,7 @@
 from django.conf.urls import *
 from django.contrib import admin
 from novedades.views import *
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -16,4 +16,5 @@ urlpatterns = patterns('',
     url(r'^formulario2/$', formulario2),
 
     url(r'^', include('novedades.urls')),
+
 )
