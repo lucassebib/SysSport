@@ -1,5 +1,5 @@
 from django.db import models
-
+from tinymce import  models as tinymce_models
 from django.contrib import admin
 
 # Create your models here.
@@ -47,12 +47,22 @@ class Alumno(Persona):
 	def deportes_inscripto(self):
 		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
 
+class ManejadorNovedades(models.Manager):
+	def get_query_set(self):
+		default_queryset = super(ManejadorNovedades, self).get_query_set()
+		return default_queryset.filter(visibilidad__in=[1])
+
 class Novedades(models.Model):
+	pueden_ver = ((1,"Todos"),(2,"UsuariosRegistrados"), (3, "UsuarioDeporte"))
+
 	titulo = models.CharField(max_length=100)
-	contenido = models.TextField()
+	contenido = tinymce_models.HTMLField()
 	fecha_publicacion = models.DateField(blank=True, null=True)
 	autor = models.ForeignKey(Profesor)  
-	pueden_ver = ((1,"Todos"),(2,"Usuarios Deportes"))
+	visibilidad = models.IntegerField(choices=pueden_ver, default=3)
+
+	objects = models.Manager()
+	todos_novedades_objects = ManejadorNovedades()
 
 	class Meta:
 		verbose_name_plural = "Novedades" 
@@ -76,6 +86,6 @@ class AlumnoAdmin(admin.ModelAdmin):
 admin.site.register(Alumno,AlumnoAdmin)
 
 class NovedadesAdmin(admin.ModelAdmin):
-	list_display = ('titulo','contenido','fecha_publicacion')	
+	list_display = ('titulo', 'visibilidad','autor')	
 
 admin.site.register(Novedades,NovedadesAdmin)
