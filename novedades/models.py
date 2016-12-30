@@ -30,12 +30,11 @@ class Profesor(Persona):
 	class Meta:
 		verbose_name_plural = "Profesores"
 
-	def __unicode__(self):
-		return '%s %s' % (self.nombre, self.apellido)
+	#def __unicode__(self):
+	#	return '%s %s' % (self.nombre, self.apellido)
 
 	def profesor_de(self):
 		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
-		#return self.lista_deporte.all()
 
 class Alumno(Persona):
 	ficha_medica = models.FileField(upload_to='fichas_medicas/', blank=True)
