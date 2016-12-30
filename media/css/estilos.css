@@ -5,8 +5,10 @@ body,header,footer,div,h1,h2,li,a{
 	color: #000000;
 }
 header{
-	background-color: #EFEFEF;
+	background-image: url(img-fondo.jpg);
 	width: 100%;
+	background-color: #cccccc;
+
 }
 
 a{

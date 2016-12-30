@@ -11,7 +11,6 @@ urlpatterns = patterns('',
     url(r'^index$', pagina_principal),
     url(r'^base$', base),
     url(r'^login$', login),
-    url(r'^formularioRegistro$', registro),
     url(r'^enviar', enviar),
     url(r'^formulario2/$', formulario2),
    
