@@ -1,55 +1,53 @@
-{% extends "login.html" %}
+{% extends "index.html" %}
 
 
 {% block contenido %}
-    <div class="container">
+    <div class="panel panel-default">
         <div class="row">
-            <div class="col-md-5 border-resgistracion">
-                
+            <div class="col-md-5">
+                <div class="panel panel-heading">
                     <h2>Registración</h2>
+                </div>
+                <div class="panel panel-body">
                     <form method="get" action="/enviar/">
-                        <div class="form-group">
-                    	   <label for="inputLegajo"> N° de Legajo:</label>
-                    	   <input type="text" class="form-control" id="inputLegajo" placeholder="Ingrese legajo">
-                    	 
-                        </div>
-                        <div class="form-group">
-                       	<label for="inputDireccion">Direccion:</label>
-                        	<input type="text" class="form-control" id="inputDireccion" placeholder="ingrese una Direccion">
-                         </div>
-                         <div class="form-group">
-                       	 <label for="inputCorreo">Email:</label>
-                        	<input type="email" class="form-control" id="inputEmail" placeholder="micorreo@email.com">
-                         </div>
-                         <div class="form-group">
-                        	<label for="inputTelefono">Telefono:</label>
-                        	<input type="text" class="form-control" id="inputTelefono" placeholder="xxx-xxx xxxx">
-                        	 
-                         </div>
-                         <div class="form-group">
-                        	<label for="carreraSelect1">Deporte</label>
-                        	<select class="form-control" id="exampleSelect1">
-                         		 <option>Voley</option>
-                         		 <option>Futbol Femenino</option>
-                          		 <option>Futbol Masculino</option>
-                    	         <option>Basquet</option>
-                          		 <option>Padel</option>
-                        	</select>
-                         </div>
-                         
-                         <div class="form-group">
-                    	
-                        	<label for="inputArchivo">Subir archivo</label>
-                        	<input type="file" class="form-control-file" id="inputArchivo">
-                        	
-                         </div>
-                     <button type="submit" class="btn btn-primary">Enviar</button>
-                </form>
-                
-            </div>  
-        <div class="col-md-3">
-            
+                            <div class="form-group">
+                        	   <label for="inputLegajo"> N° de Legajo:</label>
+                        	   <input type="text" class="form-control" id="inputLegajo" placeholder="Ingrese legajo">
+                            </div>
+                            <div class="form-group">
+                           	<label for="inputDireccion">Direccion:</label>
+                            	<input type="text" class="form-control" id="inputDireccion" placeholder="ingrese una Direccion">
+                            </div>
+                            <div class="form-group">
+                           	 <label for="inputCorreo">Email:</label>
+                            	<input type="email" class="form-control" id="inputEmail" placeholder="micorreo@email.com">
+                            </div>
+                            <div class="form-group">
+                            	<label for="inputTelefono">Telefono:</label>
+                            	<input type="text" class="form-control" id="inputTelefono" placeholder="xxx-xxx xxxx">
+                            </div>
+                            <div class="form-group">
+                            	<label for="carreraSelect1">Deporte</label>
+                            	<select class="form-control" id="exampleSelect1">
+                             		 <option>Voley</option>
+                             		 <option>Futbol Femenino</option>
+                              		 <option>Futbol Masculino</option>
+                        	         <option>Basquet</option>
+                              		 <option>Padel</option>
+                            	</select>
+                            </div>
+                            <div class="form-group">
+                            	<label for="inputArchivo">Subir archivo</label>
+                            	<input type="file" class="form-control-file" id="inputArchivo">
+                            	
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>    
+                </div>  
+                <div class="col-md-3">
+                </div>
+            </div>
+        
     </div>
-</div>
-</div>
 {% endblock %}

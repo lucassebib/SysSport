@@ -11,41 +11,53 @@
             <link rel="stylesheet" href="{% static "css/estilos.css" %} ">
         </head>
         <body>
-                <header>            
-                        <a href="index">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <img src="../static/img/logoSAU.png" class="img-responsive" alt="SysSport">  
-                                </div>
-                                <div class="col-md-4">
-                                                                                         
-                                    <img src="../static/img/logoFrre.png" class="img-responsive" alt="SysSport">                
-                                </div>                 
-                            </div>
-                        </a> 
-                    <hr>  
+                <header class="navbar-primary">            
+                    <div class="navbar">
+                        <div class="navbar-header">
+                            <a  href="#">
+                                                                  
+                                <img src="../static/img/logoSAU.png" class="img-responsive" alt>  
+                            </a> 
+                                              
+                        </div>
+                        
+                    </div>
                 </header><!-- /header -->
 
                 <section>          
-                    <div class="container">
-                        <div class="row">
-                            
-                        </style> >
-                            <div class="col-md-3 border-login">
-                                {% block menu_izq %}
+                    <div id="page" class="container-fluid">
+                        <div class="page-header">
+                            <h1>Dirección de Deportes UTN-Facultad Regional Resistencia </h1>
+                        </div>
+                        <div class="page-content">
+                            <div class="page-content col-md-3">
+                                <div class="panel panel-default">
+                                    <div class="panel panel-heading">
+                                        <h3 class="panel-title">Navegación</h3>
+                                    </div>
+                                    <div class="panel panel-body">
+                                        <ul class="nav nav-pills nav-stacked">
+                                            <li class="active"><a href="#">Inicio</a></li>
+                                            <li><a href="#">Deportes</a></li>
+                                            <li><a href="#">Novedades</a></li>
+                                        </ul>
+                                    </div>
+                                    
+                                </div>
+                                {% block login %}
                                 {% endblock %}
                             </div>
-                            <div class="col-md-8">
+                            <div class="page-content col-md-9">
                                 {% block contenido %}
-                                {% endblock %}
-                            </div>  
+                                {% endblock %} 
+                            </div>
                         </div>
-                    </div>
+                    </div>  
                 </section>
                  <footer class="footer-distributed">
                      <div class="footer-left">
-                        <h2>Company<span>logo</span></h2>
-                        <p class="footer-company-name">Company Name &copy; 2016</p>
+                        <h2>UTN-FRRE <span><small>Deportes</small></span></h2>
+                        <p class="footer-company-name">2016</p>
 
                     </div>
                     <div class="footer-right">

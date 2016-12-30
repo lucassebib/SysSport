@@ -26,3 +26,4 @@ def inicial_alumnos(request):
 	posts = Novedades.todos_novedades_objects.all()
 	#diccionario de datos
 	return render_to_response('inicial_alumnos.html',{'posts':posts})
+

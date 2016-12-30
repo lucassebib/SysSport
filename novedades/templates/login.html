@@ -1,10 +1,10 @@
 {% extends "base.html" %} 
 
 
-{% block menu_izq %}
+{% block login %}
 
 
-		<div class="panel panel-primary">
+		<div class="panel panel-default">
   			<div class="panel-heading">
    				 <h3 class="panel-title">Iniciar Sesion</h3>
   			</div>
@@ -33,20 +33,22 @@
 					      </div>
 					    </div>
 					</div>
-					  <div class="form-group">
+					<div class="form-group">
 					    <div class="col-lg-offset-2 col-lg-10">
 					      	<button type="submit" class="btn btn-default">Entrar</button>
 					    </div>
-					  </div>
+					</div>
+
 				</form>
+  			</div>
+  			<div class="panel panel-footer">
+  				<a href="falta definir donde lo lleva">Olvidaste tu contraseña?</a><br/>
+				<a href="formulario2">Desea registrarse?</a><br/>
+				<a href="admin">Ir a Panel de Administracion</a><br/>
+				<a href="inicial_alumnos">Ver novedades</a><br/>	
+
   			</div>
 		</div>	
 	
-<a href="falta definir donde lo lleva">Olvidaste tu contraseña?</a><br/>
-<a href="formulario2">Desea registrarse?</a><br/>
-<a href="admin">Ir a Panel de Administracion</a><br/>
-<a href="inicial_alumnos">Ver novedades</a><br/>	
-
-
 {% endblock %}
 

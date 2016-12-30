@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^formularioRegistro$', registro),
     url(r'^enviar', enviar),
     url(r'^formulario2/$', formulario2),
+   
 
     url(r'^', include('novedades.urls')),
 

@@ -2,20 +2,19 @@
 body,header,footer,div,h1,h2,li,a{
 	margin: 0;
 	padding: 0;
+	color: #000000;
 }
 header{
-	background-color: #008500;
-	color: #ffffff;
+	background-color: #EFEFEF;
+	width: 100%;
 }
 
 a{
 	text-decoration: none;
-	color:#fff;
+	color:#000000;
 	margin: 10px;
 }
-.row{
-background-color: #000000;
-}
+
 
 /*Footer*/
 
@@ -220,18 +219,13 @@ background-color: #000000;
 	}
 }
 /*Fin Footer*/
-
-
-.container{
-	background-color: #ffffff;
+.panel .page-header,.panel .panel-body{
+	background-color: :#088A85;
 }
 
-/*borde de login*/
-.border-login, .border-resgistracion{
-
-border: 1px solid #000000; 
-border-radius:5px;
-padding:10px;
-margin:0px 10px 0px 10px
+.panel .panel-footer{
+	background-color: #088A85; 
 }
+
+
 
