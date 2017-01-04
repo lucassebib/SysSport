@@ -221,8 +221,10 @@ a{
 	}
 }
 /*Fin Footer*/
-.panel .page-header,.panel .panel-body{
+.page-header {
 	background-color: :#088A85;
+	padding: 0;
+	margin: 0;
 }
 
 .panel .panel-footer{
