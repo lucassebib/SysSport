@@ -11,20 +11,19 @@
         <body>
             <header>            
                 <div class="container">
-                    <div class="jumbotron-fluid">
+                   <div class="jumbotron-fluid">
                         <a  href="bienvenida">
                             <img src="{% static "img/logoSAU-UTN.png" %}" class="img-responsive" alt>  
                         </a>
-
-                        <ul class= "nav nav-pills navbar-right navbar-default">
-                            <li><a href="formulario2" class="navbar-link" ><span class="glyphicon glyphicon-pencil"></span> Registrarse</a></li>
-                            <li><a href="login" class="navbar-link"><span></span> Ingresar</a></li>
-                        </ul> 
-                    </div>
-                </div>  
+                    </div>  
+                    <ul class= "nav nav-pills navbar-right navbar-default">
+                        <li><a href="registro" class="navbar-link" ><span class="glyphicon glyphicon-pencil"></span> Registrarse</a></li>
+                        <li><a href="ingreso" class="navbar-link"><span></span> Ingresar</a></li>
+                    </ul> 
+                </div>
             </header><!-- /header -->
             <section>
-                <div class="container-fluid">
+                <div class="container">
                     {% block principal %}
                     {% endblock %}     
                 </div>          
