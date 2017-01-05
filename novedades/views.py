@@ -6,11 +6,19 @@ from novedades.models import Novedades, Alumno
 from django.template import Context
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 
-def pagina_principal(request):
-	return render_to_response('index.html')
 
+def principal(request):
+	return render_to_response('inicio.html')
+def ingreso(request):
+	return render_to_response('ingreso.html')
 def base(request):
 	return render_to_response('base.html')
+def base2(request):
+	return render_to_response('base2.html')
+
+
+def login(request):
+	return render_to_response('login.html')
 
 def login2(request):
 	return render_to_response('login.html')
@@ -18,8 +26,8 @@ def login2(request):
 def enviar(request):
 	return render_to_response('gracias.html')
 
-def formulario2(request):
-	return render_to_response('formulario2.html')
+def formulario(request):
+	return render_to_response('registro.html')
 
 def inicial_alumnos(request):
 	posts = Novedades.todos_novedades_objects.all()

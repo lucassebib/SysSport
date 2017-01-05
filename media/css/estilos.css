@@ -1,13 +1,20 @@
 
-body,header,footer,div,h1,h2,li,a{
+header,body, footer,div,h1,h2,li,a{
 	margin: 0;
 	padding: 0;
 	color: #000000;
 }
+
+body{
+	background-color: ;
+}
+
 header{
-	background-image: url(img-fondo.jpg);
+
 	width: 100%;
-	background-color: #cccccc;
+	background-color: #D8D8D8;
+	position: relative;
+	background-image: url("../img/img-fondo2.jpg");
 
 }
 
@@ -16,20 +23,29 @@ a{
 	color:#000000;
 	margin: 10px;
 }
+.page-header  {
+	background-color: #A9D0F5;
+	
+}
 
+.panel .panel-footer{
+	background-color: #A9D0F5; 
+}
+
+.container{
+	margin: 0px;
+	padding:20px 10px 10px 10px;
+}
 
 /*Footer*/
 
 .footer-distributed{
 	background-color: #292c2f;
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
-	box-sizing: border-box;
 	width: 100%;
 	font: bold 16px sans-serif;
 	text-align: left;
-
-	padding: 50px 60px 40px;
-	margin-top: 80px;
+	padding:50px 60px 40px;
 	overflow: hidden;
 }
 
@@ -221,15 +237,3 @@ a{
 	}
 }
 /*Fin Footer*/
-.page-header {
-	background-color: :#088A85;
-	padding: 0;
-	margin: 0;
-}
-
-.panel .panel-footer{
-	background-color: #088A85; 
-}
-
-
-
