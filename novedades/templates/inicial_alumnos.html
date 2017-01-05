@@ -1,17 +1,20 @@
 {% extends "base2.html" %}
 
 {% block contenido %}
-
-	<ul class="nav nav-pills">
-  			<li class="active"><a href="#">Novedades <span class="badge">42</span></a></li>
-  			<li><a href="#">Perfil <span class="badge"></span></a></li>
- 			<li><a href="#">Mensajes <span class="badge">3</span></a></li>
-	</ul>
-	{% for post in posts %}
-		<h2>{{post.titulo}}</h2>
-		<p1>{{post.fecha_publicacion}}</p1>
-		</br></br>
-		<p2>{{post.contenido|safe}}</p2>
-		<hr></hr>
-	{% endfor %}
+	<div class="">
+		
+	
+		<ul class="nav nav-pills">
+	  			<li class="active"><a href="#">Novedades <span class="badge">42</span></a></li>
+	  			<li><a href="#">Perfil <span class="badge"></span></a></li>
+	 			<li><a href="#">Mensajes <span class="badge">3</span></a></li>
+		</ul>
+		{% for post in posts %}
+			<h2>{{post.titulo}}</h2>
+			<p1>{{post.fecha_publicacion}}</p1>
+			</br></br>
+			<p2>{{post.contenido|safe}}</p2>
+			<hr></hr>
+		{% endfor %}
+	</div>
 {% endblock %}
