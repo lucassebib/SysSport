@@ -4,33 +4,34 @@
    				 <h3 class="panel-title">Iniciar Sesion</h3>
   			</div>
   			<div class="panel-body">
-    			<form >
-				  <div class="form-group">
-				    <label for="usuario" class="col-lg-2 control-label">Usuario</label>
-				    
-				      <input type="text" class="form-control" id="usuario"
-				             placeholder="Usuario">
-				  </div>
-		  		    <div class="form-group">
-					    <label for="password" class="col-lg-2 control-label">Contraseña</label>
-					    
-					      <input type="password" class="form-control" id="password" 
-					             placeholder="Contraseña">
+    			<form id=login-form method="post" action="">
+    			{% csrf_token %}
+					<div class="form-group">
+					    <label for="usuario" class="col-lg-2 control-label">Usuario</label>
+					    <input type="text" class="form-control" id="usuario"
+					             placeholder="Usuario">
 					</div>
-		  			<div class="form-group">
+			  		<div class="form-group">
+						<label for="password" class="col-lg-2 control-label">Contraseña</label>
+						<input type="password" class="form-control" id="password"        placeholder="Contraseña">
+					</div>
+			  		<div class="form-group">
 					    <div class="col-lg-offset-2 col-lg-10">
-					      <div class="checkbox">
-					        <label>
-					          <input type="checkbox"> No cerrar sesión
-					        </label>
-					      </div>
-					    </div>
+						    <div class="checkbox">
+						        <label>
+						          <input type="checkbox"> No cerrar sesión
+						        </label>
+						    </div>
+						</div>
 					</div>
 					<div class="form-group">
 					    <div class="col-lg-offset-2 col-lg-10">
 					      	<button type="submit" class="btn btn-default">Entrar</button>
 					    </div>
 					</div>
+					{% if form.errors %}
+						<p class="label label-danger">Su usuario y contraseña son incorrectos. Intente nuevamente</p>
+					{% endif %}
 				</form>
   			</div>
   			<div class="panel panel-footer">

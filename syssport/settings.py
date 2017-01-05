@@ -36,7 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'novedades',
-    'tinymce',
+    'tinymce'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -107,4 +107,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+#Redirecciona cuando el login es correcto
+LOGIN_REDIRECT_URL = "/gracias"
+# Redirecciona cuando el login no es correcto
 LOGIN_URL= '/autenticar/'
+
