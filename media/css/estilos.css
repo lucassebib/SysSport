@@ -6,7 +6,7 @@ header,body,section, footer,div,h1,h2,li,a{
 }
 
 body{
-	background-color: ;
+	background-color: #CEF6F5 ;
 }
 
 header{
@@ -15,7 +15,6 @@ header{
 	background-color: #D8D8D8;
 	position: relative;
 	background-image: url("../img/img-fondo2.jpg");
-
 }
 
 a{
@@ -23,9 +22,16 @@ a{
 	color:#000000;
 	margin: 10px;
 }
-.page-header  {
+
+.content .container{
+	background-color: #CEF6F5;
+	margin:10px;
+	width: 100%;
+}
+
+.page-header {
 	background-color: #A9D0F5;
-	
+	margin: 10;
 }
 
 .panel .panel-footer{
@@ -36,12 +42,23 @@ a{
 	margin: 0;
 	padding:10px 10px 10px 10px;
 }
+.container-fluid{
+	width: 100%;
+}
 
 .nav{
 	margin-left: 0;
 	padding-left: 0;
 }
 
+#contenido_der{
+	background-image: url("../img/img-fondo.jpg");
+	margin:0;
+}
+
+.panel .panel-default{
+	padding: 10px;
+}
 
 /*Footer*/
 

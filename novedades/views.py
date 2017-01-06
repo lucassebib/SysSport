@@ -16,12 +16,11 @@ def base(request):
 def base2(request):
 	return render_to_response('base2.html')
 
-
 def login(request):
 	return render_to_response('login.html')
 
-def login2(request):
-	return render_to_response('login2.html')
+def clave(request):
+	return render_to_response('recup_clave.html')
 
 def enviar(request):
 	return render_to_response('gracias.html')
