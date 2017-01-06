@@ -18,14 +18,14 @@ class Deporte(models.Model):
 class Persona(Usuario):
 	#Hereda de Usuario> 'username', 'password', 'first_name', 'last_name', 'groups', 'user_permissions', 
 	#'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined'
-	legajo =  models.IntegerField()
 	dni = models.IntegerField()
 	fecha_nacimiento = models.DateField()
 	telefono = models.IntegerField()
 	foto_perfil = models.ImageField(upload_to='fotos_de_perfil/', blank=True, null=True)
+	lista_deporte = models.ManyToManyField(Deporte, verbose_name='Deportes Inscripto')
 
 class Profesor(Persona):
-	lista_deporte = models.ManyToManyField(Deporte, verbose_name='Deportes Inscriptos')
+	legajo =  models.IntegerField()
 
 	class Meta:
 		verbose_name_plural = "Profesores"
@@ -37,14 +37,26 @@ class Profesor(Persona):
 		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
 
 class Alumno(Persona):
+	legajo =  models.IntegerField()
 	ficha_medica = models.FileField(upload_to='fichas_medicas/', blank=True)
-	lista_deporte = models.ManyToManyField(Deporte, verbose_name='Deportes Inscripto')
+	
 
 	class Meta:
 		verbose_name_plural = "Alumnos"
 
 	def deportes_inscripto(self):
 		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
+
+class UsuarioInvitado(Persona): 
+	institucion = models.CharField(max_length=100)
+	ficha_medica = models.FileField(upload_to='fichas_medicas/', blank=True)
+
+	class Meta:
+		verbose_name_plural = "UsuariosInvitados"
+
+	def deportes_inscripto(self):
+		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
+
 
 class ManejadorNovedades(models.Manager):
 	def get_queryset(self):
@@ -56,7 +68,7 @@ class Novedades(models.Model):
 
 	titulo = models.CharField(max_length=100)
 	contenido = tinymce_models.HTMLField()
-	fecha_publicacion = models.DateField(blank=True, null=True)
+	fecha_publicacion = models.DateTimeField(auto_now_add=True)
 	autor = models.ForeignKey(Profesor)  
 	imagen = models.ImageField(upload_to='fotos_posts', blank=True, null=True)
 	visibilidad = models.IntegerField(choices=pueden_ver, default=3)
@@ -87,7 +99,14 @@ class AlumnoAdmin(admin.ModelAdmin):
 
 admin.site.register(Alumno,AlumnoAdmin)
 
+class UsuarioInvitadoAdmin(admin.ModelAdmin):
+	list_display = ('institucion', 'deportes_inscripto')
+	fields = ('username', 'password', 'first_name', 'last_name', 'dni', 'institucion' , 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
+
+admin.site.register(UsuarioInvitado,UsuarioInvitadoAdmin)
+
+
 class NovedadesAdmin(admin.ModelAdmin):
-	list_display = ('titulo', 'visibilidad','autor')	
+	list_display = ('titulo', 'fecha_publicacion' ,'visibilidad','autor')	
 
 admin.site.register(Novedades,NovedadesAdmin)
