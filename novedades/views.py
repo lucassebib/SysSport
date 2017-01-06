@@ -1,6 +1,6 @@
 from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login as loguear, logout
 from forms import FormularioAutenticacion
 from novedades.models import Novedades, Alumno
 from django.template import Context
@@ -8,7 +8,32 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 
 
 def principal(request):
-	return render_to_response('inicio.html')
+	form = FormularioAutenticacion()
+	
+	if request.method == "POST":
+		form = FormularioAutenticacion(request.POST)
+		if form.is_valid():
+			usuario = form.cleaned_data['username']
+			password = form.cleaned_data['password']
+			user = authenticate(username=usuario, password=password)
+ 
+			if user is not None:
+				if user.is_active:
+					loguear(request, user)
+					return HttpResponseRedirect('/hola')
+				else:
+					ctx = {"form":form, "mensaje": "Usuario Inactivo"}
+					return render_to_response("index_prueba.html",ctx, context_instance=RequestContext(request))
+			else:
+				ctx = {"form":form, "mensaje": "Nombre de usuario o password incorrectos"}
+				return render_to_response("index_prueba.html",ctx, context_instance=RequestContext(request))
+				
+	
+	
+	ctx = {"form":form, "mensaje":""}
+	return render_to_response("inicio.html",ctx, context_instance=RequestContext(request))
+	#return render_to_response('inicio.html')
+	
 def ingreso(request):
 	return render_to_response('ingreso.html')
 def base(request):
@@ -70,5 +95,5 @@ def app_login(request):
 
 def app_logout(request):
 	logout(request)
-	return HttpResponseRedirect('/autenticar')
+	return HttpResponseRedirect('/inicio')
 
