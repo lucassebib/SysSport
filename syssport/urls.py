@@ -8,6 +8,11 @@ urlpatterns = patterns('',
 	
     url(r'^admin/', include(admin.site.urls)),
     url(r'^inicio$', principal, name="url_login"),
+
+    url(r'^inicial_alumnos$', vista_index_alumnos),
+    url(r'^inicial_profesores$', vista_index_profesores),
+    url(r'^inicial_invitados$', vista_index_invitados),    
+
     url(r'^ingreso$', ingreso),
     url(r'^recup_clave$', clave),
     url(r'^login$', login),

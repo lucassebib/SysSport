@@ -9,7 +9,7 @@
 		</ul>
 	</div>
 	<div class="page-content">
-		<h1>Hola PROFESOR <a href="{% url 'url_logout'%}">Salir</a>
+		<h1>Hola INVITADO <a href="{% url 'url_logout'%}">Salir</a>
 				{% if user.is_authenticated %}
 					{{ user.username }} 
 					<a href="{% url 'url_logout'%}">Salir</a>

@@ -33,6 +33,9 @@ class Profesor(Persona):
 	#def __unicode__(self):
 	#	return '%s %s' % (self.nombre, self.apellido)
 
+	def tipo_usuario(self, cadena):
+		return cadena == 'profesor'
+
 	def profesor_de(self):
 		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
 
@@ -47,6 +50,9 @@ class Alumno(Persona):
 	def deportes_inscripto(self):
 		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
 
+	def tipo_usuario(self, cadena):
+		return cadena == 'alumno'
+
 class UsuarioInvitado(Persona): 
 	institucion = models.CharField(max_length=100)
 	ficha_medica = models.FileField(upload_to='fichas_medicas/', blank=True)
@@ -57,6 +63,8 @@ class UsuarioInvitado(Persona):
 	def deportes_inscripto(self):
 		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
 
+	def tipo_usuario(self, cadena):
+		return cadena=='invitado'
 
 class ManejadorNovedades(models.Manager):
 	def get_queryset(self):
