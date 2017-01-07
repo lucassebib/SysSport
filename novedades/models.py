@@ -3,8 +3,6 @@ from tinymce import  models as tinymce_models
 from django.contrib import admin
 from django.contrib.auth.models import User as Usuario
 
-# Create your models here.
-
 class Deporte(models.Model):
 	nombre = models.CharField(max_length=100)
 	descripcion = models.TextField()
@@ -43,9 +41,12 @@ class Alumno(Persona):
 	legajo =  models.IntegerField()
 	ficha_medica = models.FileField(upload_to='fichas_medicas/', blank=True)
 	
-
 	class Meta:
 		verbose_name_plural = "Alumnos"
+
+	def obtener_deportes(self):
+		lista = self.lista_deporte.all()
+		return lista
 
 	def deportes_inscripto(self):
 		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
@@ -80,12 +81,16 @@ class Novedades(models.Model):
 	autor = models.ForeignKey(Profesor)  
 	imagen = models.ImageField(upload_to='fotos_posts', blank=True, null=True)
 	visibilidad = models.IntegerField(choices=pueden_ver, default=3)
+	categoria = models.ManyToManyField(Deporte, verbose_name='Categorias')
 
 	objects = models.Manager()
 	todos_novedades_objects = ManejadorNovedades()
 
 	class Meta:
 		verbose_name_plural = "Novedades" 
+
+	def obtener_categorias(self):
+		return "\n -".join([d.nombre for d in self.categoria.all()])
 
 ##################AGREGAMOS CLASES AL PANEL DE ADMINISTRACION##################################
 
@@ -96,8 +101,7 @@ admin.site.register(Deporte,DeporteAdmin)
 
 class ProfesorAdmin(admin.ModelAdmin):
 	list_display = ('legajo','dni','fecha_nacimiento','telefono','email','profesor_de')
-	fields = ('username', 'password', 'first_name', 'last_name', 'legajo', 'dni', 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
-
+	fields = ('username', 'password', 'first_name', 'last_name', 'legajo', 'dni', 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte')
 
 admin.site.register(Profesor,ProfesorAdmin)
 
@@ -115,6 +119,6 @@ admin.site.register(UsuarioInvitado,UsuarioInvitadoAdmin)
 
 
 class NovedadesAdmin(admin.ModelAdmin):
-	list_display = ('titulo', 'fecha_publicacion' ,'visibilidad','autor')	
+	list_display = ('titulo', 'fecha_publicacion' ,'visibilidad','autor', 'obtener_categorias')	
 
 admin.site.register(Novedades,NovedadesAdmin)

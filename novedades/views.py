@@ -2,7 +2,7 @@ from django.shortcuts import render, render_to_response, RequestContext, get_obj
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
 from forms import FormularioAutenticacion
-from novedades.models import Novedades, Alumno, Persona, Profesor, UsuarioInvitado
+from novedades.models import Novedades, Alumno, Persona, Profesor, UsuarioInvitado, Deporte
 from django.template import Context
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 
@@ -38,23 +38,44 @@ def principal(request):
 						else: 
 							if g.tipo_usuario(cadena= "invitado"):
 								return HttpResponseRedirect('/inicial_invitados')
-
-					#return HttpResponseRedirect('/hola')
 				else:
 					ctx = {"form":form, "mensaje": "Usuario Inactivo"}
-					return render_to_response("index_prueba.html",ctx, context_instance=RequestContext(request))
+					return render_to_response("inicio.html",ctx, context_instance=RequestContext(request))
 			else:
 				ctx = {"form":form, "mensaje": "Nombre de usuario o password incorrectos"}
-				return render_to_response("index_prueba.html",ctx, context_instance=RequestContext(request))
-				
-	
+				return render_to_response("inicio.html",ctx, context_instance=RequestContext(request))
 	
 	ctx = {"form":form, "mensaje":""}
 	return render_to_response("inicio.html",ctx, context_instance=RequestContext(request))
-	#return render_to_response('inicio.html')
 
+
+@login_required	
 def vista_index_alumnos(request):
-	return render_to_response('inicial_alumnos.html')
+
+	template = "inicial_alumnos.html"
+	
+	id_usuario = request.user.id
+	alumno = Alumno.objects.get(id=id_usuario)
+	
+	deportes_alumno = alumno.obtener_deportes()
+	
+	#posts = Novedades.objects.filter(visibilidad__in=[1,2])
+	#post_exclusivos = Novedades.objects.filter(visibilidad__in=[3], categoria__in=deportes_alumno)
+
+	#posts_visibles = posts | post_exclusivos
+	posts_visibles = []
+
+	deportes_existentes = Deporte.objects.all()
+
+
+	ctx = {
+		"deportes": deportes_alumno,
+		"sport": deportes_existentes,
+		#"posts": posts_visibles.order_by('-fecha_publicacion'),
+		"posts": posts_visibles
+	}
+	return render_to_response(template,ctx , context_instance=RequestContext(request))
+	#return render_to_response('inicial_alumnos.html')
 
 def vista_index_profesores(request):
 	return render_to_response('inicial_profesores.html')
@@ -86,41 +107,6 @@ def inicial_alumnos(request):
 	posts = Novedades.todos_novedades_objects.all()
 	#diccionario de datos
 	return render_to_response('inicial_alumnos.html',{'posts':posts})
-
-def error(request):
-	return render_to_response('error.html')
-
-
-@login_required
-def app_home(request):
-	template = "error.html"
-	return render_to_response(template, context_instance=RequestContext(request))
-
-def app_login(request):
-	form = FormularioAutenticacion()
-	
-	if request.method == "POST":
-		form = FormularioAutenticacion(request.POST)
-		if form.is_valid():
-			usuario = form.cleaned_data['username']
-			password = form.cleaned_data['password']
-			user = authenticate(username=usuario, password=password)
- 
-			if user is not None:
-				if user.is_active:
-					login(request, user)
-					return HttpResponseRedirect('/hola')
-				else:
-					ctx = {"form":form, "mensaje": "Usuario Inactivo"}
-					return render_to_response("index_prueba.html",ctx, context_instance=RequestContext(request))
-			else:
-				ctx = {"form":form, "mensaje": "Nombre de usuario o password incorrectos"}
-				return render_to_response("index_prueba.html",ctx, context_instance=RequestContext(request))
-				
-	
-	
-	ctx = {"form":form, "mensaje":""}
-	return render_to_response("index_prueba.html",ctx, context_instance=RequestContext(request))
 
 def app_logout(request):
 	logout(request)
