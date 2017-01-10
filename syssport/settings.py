@@ -76,7 +76,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'sqlserver_ado',
         'NAME': 'syssport',
-        'HOST': 'LAILA\MSSQLSERVER14',
+        'HOST': 'localhost',
         'USER': 'proyecto',
         'PASSWORD': 'proyecto2016',
 
