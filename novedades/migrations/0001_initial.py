@@ -103,10 +103,4 @@ class Migration(migrations.Migration):
             field=models.ForeignKey(to='novedades.Profesor'),
             preserve_default=True,
         ),
-        migrations.AddField(
-            model_name='novedades',
-            name='categoria',
-            field=models.ManyToManyField(to='novedades.Deporte', verbose_name=b'Categorias'),
-            preserve_default=True,
-        ),
     ]

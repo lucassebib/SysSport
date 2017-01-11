@@ -15,36 +15,42 @@ def principal(request):
 		if form.is_valid():
 			usuario = form.cleaned_data['username']
 			password = form.cleaned_data['password']
+			
 			user = authenticate(username=usuario, password=password)
- 
-			if user is not None:
-				if user.is_active:
-					loguear(request, user)
-					id_usuario = request.user.id
-					gente = Persona.objects.get(id=id_usuario)
-					try:
-						g = Alumno.objects.get(id=id_usuario)
-					except Exception as e:
+ 			try:
+				if user is not None:
+					if user.is_active:
+						loguear(request, user)
+						id_usuario = request.user.id
+						gente = Persona.objects.get(id=id_usuario)
 						try:
-							g = Profesor.objects.get(id=id_usuario)
+							g = Alumno.objects.get(id=id_usuario)
 						except Exception as e:
-							g = UsuarioInvitado.objects.get(id=id_usuario)
-	
-					if g.tipo_usuario(cadena='alumno'):
-						return HttpResponseRedirect('/inicial_alumnos')
+							try:
+								g = Profesor.objects.get(id=id_usuario)
+							except Exception as e:
+								g = UsuarioInvitado.objects.get(id=id_usuario)
+		
+						if g.tipo_usuario(cadena='alumno'):
+							return HttpResponseRedirect('/inicial_alumnos')
+						else:
+							if g.tipo_usuario(cadena="profesor"):
+								return HttpResponseRedirect('/inicial_profesores')
+							else: 
+								if g.tipo_usuario(cadena= "invitado"):
+									return HttpResponseRedirect('/inicial_invitados')
 					else:
-						if g.tipo_usuario(cadena="profesor"):
-							return HttpResponseRedirect('/inicial_profesores')
-						else: 
-							if g.tipo_usuario(cadena= "invitado"):
-								return HttpResponseRedirect('/inicial_invitados')
+						ctx = {"form":form, "mensaje": "Usuario Inactivo"}
+						return render_to_response("inicio.html",ctx, context_instance=RequestContext(request))
 				else:
-					ctx = {"form":form, "mensaje": "Usuario Inactivo"}
+					ctx = {"form":form, "mensaje": "Nombre de usuario o password incorrectos"}
 					return render_to_response("inicio.html",ctx, context_instance=RequestContext(request))
-			else:
-				ctx = {"form":form, "mensaje": "Nombre de usuario o password incorrectos"}
-				return render_to_response("inicio.html",ctx, context_instance=RequestContext(request))
-	
+			except Exception as e:
+				if user.is_staff:
+					return HttpResponseRedirect('/admin')
+					#ctx = {"form":form, "mensaje": "Nada que ver entres por aca wacho"}
+					#return render_to_response("inicio.html",ctx, context_instance=RequestContext(request))
+
 	ctx = {"form":form, "mensaje":""}
 	return render_to_response("inicio.html",ctx, context_instance=RequestContext(request))
 
@@ -59,11 +65,10 @@ def vista_index_alumnos(request):
 	
 	deportes_alumno = alumno.obtener_deportes()
 	
-	#posts = Novedades.objects.filter(visibilidad__in=[1,2])
-	#post_exclusivos = Novedades.objects.filter(visibilidad__in=[3], categoria__in=deportes_alumno)
+	posts = Novedades.objects.filter(visibilidad__in=[1,2])
+	post_exclusivos = Novedades.objects.filter(visibilidad__in=[3], categoria__in=deportes_alumno)
 
-	#posts_visibles = posts | post_exclusivos
-	posts_visibles = []
+	posts_visibles = posts | post_exclusivos
 
 	deportes_existentes = Deporte.objects.all()
 
@@ -71,8 +76,7 @@ def vista_index_alumnos(request):
 	ctx = {
 		"deportes": deportes_alumno,
 		"sport": deportes_existentes,
-		#"posts": posts_visibles.order_by('-fecha_publicacion'),
-		"posts": posts_visibles
+		"posts": posts_visibles.order_by('-fecha_publicacion'),
 	}
 	return render_to_response(template,ctx , context_instance=RequestContext(request))
 	#return render_to_response('inicial_alumnos.html')

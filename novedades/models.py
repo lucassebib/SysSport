@@ -67,10 +67,10 @@ class UsuarioInvitado(Persona):
 	def tipo_usuario(self, cadena):
 		return cadena=='invitado'
 
-class ManejadorNovedades(models.Manager):
-	def get_queryset(self):
-		default_queryset = super(ManejadorNovedades, self).get_query_set()
-		return default_queryset.filter(visibilidad__in=[1])
+#class ManejadorNovedades(models.Manager):
+#	def get_queryset(self):
+#		default_queryset = super(ManejadorNovedades, self).get_query_set()
+#		return default_queryset.filter(visibilidad__in=[1])
 
 class Novedades(models.Model):
 	pueden_ver = ((1,"Todos"),(2,"Todos los Usuarios Registrados"), (3, "Solo los Usuarios del Deporte"))
@@ -81,10 +81,10 @@ class Novedades(models.Model):
 	autor = models.ForeignKey(Profesor)  
 	imagen = models.ImageField(upload_to='fotos_posts', blank=True, null=True)
 	visibilidad = models.IntegerField(choices=pueden_ver, default=3)
-	categoria = models.ManyToManyField(Deporte, verbose_name='Categorias')
+	categoria = models.ManyToManyField(Deporte)
 
-	objects = models.Manager()
-	todos_novedades_objects = ManejadorNovedades()
+#	objects = models.Manager()
+#	todos_novedades_objects = ManejadorNovedades()
 
 	class Meta:
 		verbose_name_plural = "Novedades" 
@@ -119,6 +119,6 @@ admin.site.register(UsuarioInvitado,UsuarioInvitadoAdmin)
 
 
 class NovedadesAdmin(admin.ModelAdmin):
-	list_display = ('titulo', 'fecha_publicacion' ,'visibilidad','autor', 'obtener_categorias')	
+	list_display = ('titulo', 'fecha_publicacion' ,'visibilidad','autor','obtener_categorias')	
 
 admin.site.register(Novedades,NovedadesAdmin)
