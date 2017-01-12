@@ -1,71 +1,9 @@
 from django.db import models
 from tinymce import  models as tinymce_models
 from django.contrib import admin
-from django.contrib.auth.models import User as Usuario
-
-class Deporte(models.Model):
-	nombre = models.CharField(max_length=100)
-	descripcion = models.TextField()
-
-	class Meta:
-		verbose_name_plural = "Deportes"
-
-	def __unicode__(self):
-		return self.nombre
-
-class Persona(Usuario):
-	#Hereda de Usuario> 'username', 'password', 'first_name', 'last_name', 'groups', 'user_permissions', 
-	#'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined'
-	dni = models.IntegerField()
-	fecha_nacimiento = models.DateField()
-	telefono = models.IntegerField()
-	foto_perfil = models.ImageField(upload_to='fotos_de_perfil/', blank=True, null=True)
-	lista_deporte = models.ManyToManyField(Deporte, verbose_name='Deportes Inscripto')
-
-class Profesor(Persona):
-	legajo =  models.IntegerField()
-
-	class Meta:
-		verbose_name_plural = "Profesores"
-
-	#def __unicode__(self):
-	#	return '%s %s' % (self.nombre, self.apellido)
-
-	def tipo_usuario(self, cadena):
-		return cadena == 'profesor'
-
-	def profesor_de(self):
-		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
-
-class Alumno(Persona):
-	legajo =  models.IntegerField()
-	ficha_medica = models.FileField(upload_to='fichas_medicas/', blank=True)
-	
-	class Meta:
-		verbose_name_plural = "Alumnos"
-
-	def obtener_deportes(self):
-		lista = self.lista_deporte.all()
-		return lista
-
-	def deportes_inscripto(self):
-		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
-
-	def tipo_usuario(self, cadena):
-		return cadena == 'alumno'
-
-class UsuarioInvitado(Persona): 
-	institucion = models.CharField(max_length=100)
-	ficha_medica = models.FileField(upload_to='fichas_medicas/', blank=True)
-
-	class Meta:
-		verbose_name_plural = "UsuariosInvitados"
-
-	def deportes_inscripto(self):
-		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
-
-	def tipo_usuario(self, cadena):
-		return cadena=='invitado'
+#from django.contrib.auth.models import User as Usuario
+from usuarios.models import Profesor
+from deportes.models import Deporte
 
 #class ManejadorNovedades(models.Manager):
 #	def get_queryset(self):
@@ -94,31 +32,10 @@ class Novedades(models.Model):
 
 ##################AGREGAMOS CLASES AL PANEL DE ADMINISTRACION##################################
 
-class DeporteAdmin(admin.ModelAdmin):
-	list_display = ('nombre', 'descripcion')
-
-admin.site.register(Deporte,DeporteAdmin)
-
-class ProfesorAdmin(admin.ModelAdmin):
-	list_display = ('legajo','dni','fecha_nacimiento','telefono','email','profesor_de')
-	fields = ('username', 'password', 'first_name', 'last_name', 'legajo', 'dni', 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte')
-
-admin.site.register(Profesor,ProfesorAdmin)
-
-class AlumnoAdmin(admin.ModelAdmin):
-	list_display = ('legajo', 'deportes_inscripto')
-	fields = ('username', 'password', 'first_name', 'last_name', 'legajo', 'dni', 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
-
-admin.site.register(Alumno,AlumnoAdmin)
-
-class UsuarioInvitadoAdmin(admin.ModelAdmin):
-	list_display = ('institucion', 'deportes_inscripto')
-	fields = ('username', 'password', 'first_name', 'last_name', 'dni', 'institucion' , 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
-
-admin.site.register(UsuarioInvitado,UsuarioInvitadoAdmin)
-
-
 class NovedadesAdmin(admin.ModelAdmin):
-	list_display = ('titulo', 'fecha_publicacion' ,'visibilidad','autor','obtener_categorias')	
+	list_display = ('titulo', 'fecha_publicacion' ,'visibilidad','autor', 'obtener_categorias')	
 
 admin.site.register(Novedades,NovedadesAdmin)
+
+
+

@@ -36,6 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'novedades',
+    'usuarios',
+    'deportes',
     'tinymce'
 )
 
@@ -60,7 +62,8 @@ ROOT_URLCONF = 'syssport.urls'
 
 WSGI_APPLICATION = 'syssport.wsgi.application'
 
-TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),)
+#TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),)
+TEMPLATE_DIRS = ('templates',)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
