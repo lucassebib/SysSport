@@ -1,5 +1,6 @@
 from django.conf.urls import *
 from django.contrib import admin
+from django.conf import settings
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -9,11 +10,11 @@ urlpatterns = patterns('',
     url(r'^', include('usuarios.urls')),
 
     url(r'^inicio$', 'usuarios.views.vista_pagina_inicio', name="url_login"),
-
+    url(r'^logout/$', 'usuarios.views.app_logout', name="url_logout"),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root':settings.MEDIA_ROOT,}),
     #url(r'^ingreso$', ingreso),
-    
     #url(r'^login$', login),
     #url(r'^enviar', enviar),
    
-    url(r'^logout/$', 'usuarios.views.app_logout', name="url_logout"),
+    
 )
