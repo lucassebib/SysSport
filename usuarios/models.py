@@ -54,6 +54,10 @@ class UsuarioInvitado(Persona):
 	class Meta:
 		verbose_name_plural = "UsuariosInvitados"
 
+	def obtener_deportes(self):
+		lista = self.lista_deporte.all()
+		return lista
+
 	def deportes_inscripto(self):
 		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
 

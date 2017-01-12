@@ -13,38 +13,17 @@
 		</ul>
 	</div>
 	<div class="page-content">
-		<h1>Hola ALUMNO! <a href="{% url 'url_logout'%}">Salir</a> 
-			</br>
-			Usuario:
-			
-			{% if user.is_authenticated %}
-				{{ user.username }} 
-				
-				</br>
-					
-				<p>Deportes inscriptos</p>
-				{% for d in deportes %}
-					<li>{{d.nombre}}</li>
-					</br>
-				{% endfor %}
-
-				<p>Deportes que existen</p>
-				{% for s in sport %}
-					<li>{{s.nombre}}</li>
-					</br>
-				{% endfor %}
-
-				<p>Novedades</p>
-				{% for post in posts %}
-						<h2>{{post.titulo}}</h2>
-						<p1>{{post.fecha_publicacion}}</p1>
-						</br></br>
-						<p2>{{post.contenido|safe}}</p2>
-						<li><strong><u>Categoria:</u></strong>{{post.obtener_categorias}}</li>
-						<hr></hr>
-				{% endfor %}
-			{% endif %}
-		</h1>
-	</div>
-	
+		<a href="{% url 'url_logout'%}">Salir</a> 
+		</br>		
+		{% if user.is_authenticated %}				
+			{% for post in posts %}
+				<h2>{{post.titulo}}</h2>
+				<p1>{{post.fecha_publicacion}}</p1>
+				</br></br>
+				<p2>{{post.contenido|safe}}</p2>
+				<li><strong><u>Categoria:</u></strong>{{post.obtener_categorias}}</li>
+				<hr></hr>
+			{% endfor %}
+		{% endif %}		
+	</div>	
 {% endblock %}
