@@ -8,6 +8,8 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('novedades.urls')),
     url(r'^', include('usuarios.urls')),
+    url(r'^', include('deportes.urls')),
+    url(r'^', include('canchas.urls')),
 
     url(r'^inicio$', 'usuarios.views.vista_pagina_inicio', name="url_login"),
     url(r'^logout/$', 'usuarios.views.app_logout', name="url_logout"),

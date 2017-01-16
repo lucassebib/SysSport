@@ -7,11 +7,18 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('deportes', '0001_initial'),
+        ('usuarios', '0001_initial'),
         ('novedades', '0001_initial'),
+        ('deportes', '0001_initial'),
     ]
 
     operations = [
+        migrations.AddField(
+            model_name='novedades',
+            name='autor',
+            field=models.ForeignKey(to='usuarios.Profesor'),
+            preserve_default=True,
+        ),
         migrations.AddField(
             model_name='novedades',
             name='categoria',

@@ -8,7 +8,6 @@ import tinymce.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('usuarios', '0001_initial'),
     ]
 
     operations = [
@@ -21,7 +20,6 @@ class Migration(migrations.Migration):
                 ('fecha_publicacion', models.DateTimeField(auto_now_add=True)),
                 ('imagen', models.ImageField(null=True, upload_to=b'fotos_posts', blank=True)),
                 ('visibilidad', models.IntegerField(default=3, choices=[(1, b'Todos'), (2, b'Todos los Usuarios Registrados'), (3, b'Solo los Usuarios del Deporte')])),
-                ('autor', models.ForeignKey(to='usuarios.Profesor')),
             ],
             options={
                 'verbose_name_plural': 'Novedades',

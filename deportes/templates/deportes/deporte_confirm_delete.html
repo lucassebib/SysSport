@@ -1,0 +1,6 @@
+¿Está seguro que desea eliminar el deporte {{deportes.nombre}}?
+<form action='' method='POST'>
+	{% csrf_token %}
+	<input type='submit' value='Si'>
+</form>
+<a href="{{deportes.get_absolute_url}}">Volver</a>

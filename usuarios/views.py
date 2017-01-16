@@ -4,7 +4,6 @@ from django.contrib.auth import authenticate, login as loguear, logout
 from forms import FormularioAutenticacion
 from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado 
 from deportes.models import Deporte
-
 from django.template import Context
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 

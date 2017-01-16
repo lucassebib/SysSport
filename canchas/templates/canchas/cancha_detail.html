@@ -1,0 +1,7 @@
+<h1>{{canchas.nombre}}</h1>
+<p>Descripcion: {{canchas.descripcion}}</p>
+
+
+<a href="{% url 'cancha-actualizar' canchas.id %}">Modificar</a>
+<a href="{% url 'eliminar-canchas' canchas.id %}">Eliminar</a>-
+<a href="{% url 'listar-canchas' %}">Ver Todas</a>

@@ -1,0 +1,7 @@
+<h1>{{deportes.nombre}}</h1>
+<p>Descripcion: {{deportes.descripcion}}</p>
+
+
+<a href="{% url 'deporte-actualizar' deportes.id %}">Modificar</a>
+<a href="{% url 'eliminar-deportes' deportes.id %}">Eliminar</a>-
+<a href="{% url 'listar-deporte' %}">Ver Todas</a>

@@ -1,0 +1,6 @@
+¿Está seguro que desea eliminar la cancha {{cancha.nombre}}?
+<form action='' method='POST'>
+	{% csrf_token %}
+	<input type='submit' value='Si'>
+</form>
+<a href="{{cancha.get_absolute_url}}">Volver</a>

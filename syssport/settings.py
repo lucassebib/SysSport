@@ -28,6 +28,7 @@ INSTALLED_APPS = (
     'novedades',
     'usuarios',
     'deportes',
+    'canchas',
     'tinymce'
 )
 

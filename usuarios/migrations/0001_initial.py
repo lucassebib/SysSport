@@ -14,6 +14,22 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Direccion',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('calle', models.CharField(max_length=100, null=True, blank=True)),
+                ('altura', models.IntegerField(null=True, blank=True)),
+                ('piso', models.IntegerField(null=True, blank=True)),
+                ('nro_departamento', models.IntegerField(null=True, blank=True)),
+                ('provincia', models.CharField(max_length=100, null=True, blank=True)),
+                ('localidad', models.CharField(max_length=100, null=True, blank=True)),
+            ],
+            options={
+                'verbose_name_plural': 'Direcciones',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Persona',
             fields=[
                 ('user_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
@@ -35,6 +51,7 @@ class Migration(migrations.Migration):
                 ('persona_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='usuarios.Persona')),
                 ('legajo', models.IntegerField()),
                 ('ficha_medica', models.FileField(upload_to=b'fichas_medicas/', blank=True)),
+                ('carrera', models.IntegerField(default=1, choices=[(1, b'ISI'), (2, b'IQ'), (3, b'IEM'), (4, b'LAR'), (5, b'TSP')])),
             ],
             options={
                 'verbose_name_plural': 'Alumnos',
@@ -60,9 +77,15 @@ class Migration(migrations.Migration):
                 ('ficha_medica', models.FileField(upload_to=b'fichas_medicas/', blank=True)),
             ],
             options={
-                'verbose_name_plural': 'UsuariosInvitados',
+                'verbose_name_plural': 'Usuarios Invitados',
             },
             bases=('usuarios.persona',),
+        ),
+        migrations.AddField(
+            model_name='persona',
+            name='direccion',
+            field=models.ForeignKey(blank=True, to='usuarios.Direccion', null=True),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='persona',

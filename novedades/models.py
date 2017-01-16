@@ -1,7 +1,6 @@
 from django.db import models
 from tinymce import  models as tinymce_models
 from django.contrib import admin
-#from django.contrib.auth.models import User as Usuario
 from usuarios.models import Profesor
 from deportes.models import Deporte
 
