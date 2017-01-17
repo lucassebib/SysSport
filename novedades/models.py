@@ -3,6 +3,7 @@ from tinymce import  models as tinymce_models
 from django.contrib import admin
 from usuarios.models import Profesor
 from deportes.models import Deporte
+from django.core.urlresolvers import reverse
 
 #class ManejadorNovedades(models.Manager):
 #	def get_queryset(self):
@@ -28,6 +29,13 @@ class Novedades(models.Model):
 
 	def obtener_categorias(self):
 		return "\n -".join([d.nombre for d in self.categoria.all()])
+
+
+	def __unicode__(self):
+		return self.nombre
+
+	def get_absolute_url(self):
+		return reverse('detalle-novedad',kwargs={'pk': self.pk})
 
 ##################AGREGAMOS CLASES AL PANEL DE ADMINISTRACION##################################
 

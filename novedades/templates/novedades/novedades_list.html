@@ -1,0 +1,11 @@
+<a href="{% url 'crear-novedad' %}">Crear Novedad</a>
+<table>
+	<tr>
+	<td> Titulo </td>
+	</tr>
+	{% for novedad in object_list %}
+		<tr>
+		<td> <a href="{{novedad.get_absolute_url}}">{{novedad.titulo}}</a> </td>
+	</tr>
+	{% endfor %}	
+</table>

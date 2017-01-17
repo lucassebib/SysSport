@@ -7,6 +7,9 @@ from novedades.models import Novedades
 from usuarios.models import Alumno, Profesor, UsuarioInvitado
 from deportes.models import Deporte
 from django.db.models import Q
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.core.urlresolvers import reverse_lazy
 
 @login_required	
 def vista_index_alumnos(request):
@@ -57,6 +60,27 @@ def vista_index_invitados(request):
 
 #def formulario(request):
 	#return render_to_response('registro.html')
+
+class ListarNovedades(ListView):
+    model = Novedades
+    context_object_name = 'novedades'
+
+class DetallesNovedades(DetailView):
+    model = Novedades
+    context_object_name = 'novedades'
+
+class CrearNovedades(CreateView):
+    model = Novedades
+    
+
+class ActualizarNovedades(UpdateView):
+    model = Novedades
+    
+
+class EliminarNovedades(DeleteView):
+    model = Novedades
+    context_object_name = 'novedades'
+    success_url = reverse_lazy('listar-novedades')
 
 
 

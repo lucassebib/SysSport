@@ -1,0 +1,6 @@
+¿Está seguro que desea eliminar esta novedad {{novedades.titulo}}?
+<form action='' method='POST'>
+	{% csrf_token %}
+	<input type='submit' value='Si'>
+</form>
+<a href="{{novedades.get_absolute_url}}">Volver</a>
