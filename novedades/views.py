@@ -40,6 +40,7 @@ def vista_index_invitados(request):
 		"posts": posts.order_by('-fecha_publicacion'),
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
 	
 #def ingreso(request):
 	#return render_to_response('ingreso.html')
@@ -61,17 +62,30 @@ def vista_index_invitados(request):
 #def formulario(request):
 	#return render_to_response('registro.html')
 
+#@login_required	esto debe ir en cada definicion 
+
 class ListarNovedades(ListView):
     model = Novedades
     context_object_name = 'novedades'
 
 class DetallesNovedades(DetailView):
     model = Novedades
-    context_object_name = 'novedades'
-
-class CrearNovedades(CreateView):
-    model = Novedades
     
+
+class CrearNovedades(CreateView):	 
+	model = Novedades	
+	context_object_name = 'novedades'  
+	fields = ['titulo','contenido', 'imagen','visibilidad','categoria',]
+
+	def form_valid(self, form):
+		a = form.save(commit = False)
+		profe = Profesor.objects.get(id = self.request.user.id)
+		a.autor = profe
+		return super(CrearNovedades, self).form_valid(form)
+
+    
+    #novedades.autor_id= 
+	
 
 class ActualizarNovedades(UpdateView):
     model = Novedades

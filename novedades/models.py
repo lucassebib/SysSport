@@ -16,7 +16,7 @@ class Novedades(models.Model):
 	titulo = models.CharField(max_length=100)
 	contenido = tinymce_models.HTMLField()
 	fecha_publicacion = models.DateTimeField(auto_now_add=True)
-	autor = models.ForeignKey(Profesor)  
+	autor = models.ForeignKey(Profesor)   
 	imagen = models.ImageField(upload_to='fotos_posts', blank=True, null=True)
 	visibilidad = models.IntegerField(choices=pueden_ver, default=3)
 	categoria = models.ManyToManyField(Deporte)
