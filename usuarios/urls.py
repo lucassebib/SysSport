@@ -7,5 +7,6 @@ admin.autodiscover()
 urlpatterns = patterns('',
 	url(r'^recuperar-contrasenia$', vista_recuperar_clave), 
 	url(r'^registrarse$', vista_registrarse),
+	url(r'^inicial-admin$', vista_inicial_admin),
 
 )

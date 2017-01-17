@@ -48,9 +48,7 @@ def vista_pagina_inicio(request):
 					return render_to_response("inicio.html",ctx, context_instance=RequestContext(request))
 			except Exception as e:
 				if user.is_staff:
-					return HttpResponseRedirect('/admin')
-					#ctx = {"form":form, "mensaje": "Nada que ver entres por aca wacho"}
-					#return render_to_response("inicio.html",ctx, context_instance=RequestContext(request))
+					return HttpResponseRedirect('/inicial-admin')
 
 	ctx = {"form":form, "mensaje":""}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
@@ -64,3 +62,8 @@ def vista_recuperar_clave(request):
 
 def vista_registrarse(request):
 	return render_to_response('registro.html')
+
+@login_required
+def vista_inicial_admin(request):
+	template = "inicial_admin.html"
+	return render_to_response(template)
