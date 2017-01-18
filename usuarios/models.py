@@ -14,6 +14,9 @@ class Direccion(models.Model):
 	class Meta:
 		verbose_name_plural = "Direcciones"
 
+	def __unicode__(self):
+		return '%s %s' % (self.calle, self.altura)
+
 class Persona(Usuario):
 	#Hereda de Usuario> 'username', 'password', 'first_name', 'last_name', 'groups', 'user_permissions', 
 	#'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined'
@@ -59,6 +62,9 @@ class Alumno(Persona):
 	def tipo_usuario(self, cadena):
 		return cadena == 'alumno'
 
+	def ver_nombre_carrera(self):
+		return self.get_carrera_display()
+		
 class UsuarioInvitado(Persona): 
 	institucion = models.CharField(max_length=100)
 	ficha_medica = models.FileField(upload_to='fichas_medicas/', blank=True)

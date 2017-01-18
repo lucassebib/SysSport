@@ -1,0 +1,32 @@
+Usuario: {{usuario}} 
+
+<form method='POST'>{% csrf_token %}
+	Nueva Contraseña:<input type="password" name="psw"></br>
+	<input type='submit' name="btn-cambiar-pass" value='Cambiar'>		
+</form>
+
+Datos Personales<hr size=5 width=50% align=LEFT>
+Nombre: {{nombre}} </br>
+Apellido: {{apellido}} </br>
+DNI: {{dni}} </br>
+Legajo: {{legajo}} </br>
+Carrera: {{carrera}} </br>
+Fecha de Nacimiento: {{fecha_nacimiento}}</br>
+<hr size=5 width=50% align=LEFT>
+		
+<form method='POST'>{% csrf_token %}
+	Telefono:{{telefono}}<input type='submit' name="btn-cambiar-telefono" value='editar'>
+</form>
+
+<hr size=5 width=50% align=LEFT>
+		
+<form method='POST'>{% csrf_token %}
+	Direccion:{{direccion}}
+	<input type='submit' name="btn-cambiar-direccion" value='editar'></br>
+</form>
+
+<hr size=5 width=50% align=LEFT>
+
+	
+
+	

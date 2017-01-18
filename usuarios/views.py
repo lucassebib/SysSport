@@ -1,11 +1,12 @@
 from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
-from forms import FormularioAutenticacion
+from forms import FormularioAutenticacion, FormularioDireccion
 from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado 
 from deportes.models import Deporte
 from django.template import Context
 from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.views.generic.edit import UpdateView
 
 def vista_pagina_inicio(request):
 	form = FormularioAutenticacion()
@@ -64,7 +65,51 @@ def vista_registrarse(request):
 	return render_to_response('registro.html')
 
 @login_required
-def vista_inicial_admin(request):
-	
+def vista_inicial_admin(request):	
 	template = "admin/inicial_admin.html"
 	return render_to_response(template)
+
+@login_required
+def modificarPerfilAlumno(request):
+	template = "modificar_perfil_alumno.html"
+	alumno = Alumno.objects.get(id=request.user.id)	 
+
+	if request.method=='POST' and 'btn-cambiar-pass' in request.POST:
+		return HttpResponseRedirect('/cambiar-pass')
+
+	if request.method=='POST' and 'btn-cambiar-telefono' in request.POST:
+		return HttpResponseRedirect('/cambiar-telefono')
+
+	if request.method=='POST' and 'btn-cambiar-direccion' in request.POST:
+		return HttpResponseRedirect('/cambiar-direccion')
+
+	ctx = {
+			'usuario':request.user.username,
+			'nombre': request.user.first_name,
+			'apellido': request.user.last_name,
+			'dni': alumno.dni,
+			'fecha_nacimiento': alumno.fecha_nacimiento,
+			'telefono': alumno.telefono,
+			'direccion': alumno.direccion,
+			'legajo': alumno.legajo,
+			'carrera': alumno.ver_nombre_carrera,
+			}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+@login_required
+def cambiar_contrasenia(request):
+	template = "confirm_cambiopass.html"
+	return render_to_response(template)
+
+@login_required
+def cambiar_telefono(request):
+	template = "cambiar_telefono.html"
+	return render_to_response(template)
+
+@login_required
+def cambiar_direccion(request):
+	template = "cambiar_direccion.html"
+	ctx = {
+		'form': FormularioDireccion
+	}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
