@@ -65,5 +65,6 @@ def vista_registrarse(request):
 
 @login_required
 def vista_inicial_admin(request):
-	template = "inicial_admin.html"
+	
+	template = "admin/inicial_admin.html"
 	return render_to_response(template)

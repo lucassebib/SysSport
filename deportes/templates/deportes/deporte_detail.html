@@ -1,7 +1,31 @@
-<h1>{{deportes.nombre}}</h1>
-<p>Descripcion: {{deportes.descripcion}}</p>
+{% extends "base2.html" %}
+
+{% block login %}
+	{% include "menu-admin.html" %}
+{% endblock %}
+{% block contenido %}
+		<table class="table table-striped">
+			<caption><h1>Deporte</h1></caption>
+			<thead>
+				<tr class="success">
+					<th>Nombre</th>
+					<th>Descripción</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{deportes.nombre}}</td>
+					<td>{{deportes.descripcion}}</td>
+					<td><a href="{% url 'deporte-actualizar' deportes.id %}">Modificar</a></td>
+					<td><a href="{% url 'eliminar-deportes' deportes.id %}">Eliminar</a></td>
+			</tbody>
+		</table>
+		<a href="{% url 'listar-deporte' %}">Ver Todas</a>
+		</div>
+	
+{% endblock %}
 
 
-<a href="{% url 'deporte-actualizar' deportes.id %}">Modificar</a>
-<a href="{% url 'eliminar-deportes' deportes.id %}">Eliminar</a>-
-<a href="{% url 'listar-deporte' %}">Ver Todas</a>
+
+
+

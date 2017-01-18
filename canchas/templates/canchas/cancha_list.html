@@ -1,11 +1,20 @@
-<a href="{% url 'crear-cancha' %}">Agregar cancha</a>
-<table>
-	<tr>
-	<td> Nombre </td>
-	</tr>
-	{% for cancha in object_list %}
-		<tr>
-		<td> <a href="{{cancha.get_absolute_url}}">{{cancha.nombre}}</a> </td>
-	</tr>
-	{% endfor %}	
-</table>
+{% extends "base2.html" %}
+
+{% block login %}
+	{% include "menu-admin.html" %}
+{% endblock %}
+{% block contenido %}
+	<table class="table table-hover table-striped">
+		<caption><h1>Canchas</h1></caption>
+		
+		{% for cancha in object_list %}
+		<tbody>
+			<tr>
+				<td><a href="{{cancha.get_absolute_url}}">{{cancha.nombre}}</a> </td>
+			</tr>
+		</tbody>
+		{% endfor %}
+
+	</table>
+	<a href="{% url 'crear-cancha' %}">Agregar cancha</a>
+{% endblock %}

@@ -1,11 +1,25 @@
-<a href="{% url 'crear-deporte' %}">Agregar deporte</a>
-<table>
-	<tr>
-	<td> Nombre </td>
-	</tr>
-	{% for deporte in object_list %}
-		<tr>
-		<td> <a href="{{deporte.get_absolute_url}}">{{deporte.nombre}}</a> </td>
-	</tr>
-	{% endfor %}	
-</table>
+{% extends "base2.html" %}
+
+{% block login %}
+	{% include "menu-admin.html" %}
+{% endblock %}
+{% block contenido %}
+	<table class="table table-hover table-striped">
+		<caption><h1>Deportes</h1></caption>
+		
+		{% for deporte in object_list %}
+		<tbody>
+			<tr>
+				<td> <a href="{{deporte.get_absolute_url}}">{{deporte.nombre}}</a> </td>
+	
+			</tr>
+		</tbody>
+		{% endfor %}
+	</table>
+		<a href="{% url 'crear-deporte' %}">Agregar deporte</a>
+
+{% endblock %}
+
+
+
+

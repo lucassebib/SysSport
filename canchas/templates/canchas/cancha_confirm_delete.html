@@ -1,6 +1,24 @@
-¿Está seguro que desea eliminar la cancha {{cancha.nombre}}?
-<form action='' method='POST'>
-	{% csrf_token %}
-	<input type='submit' value='Si'>
-</form>
-<a href="{{cancha.get_absolute_url}}">Volver</a>
+{% extends "base2.html" %}
+
+{% block login %}
+	{% include "menu-admin.html" %}
+{% endblock %}
+{% block contenido %}
+	<div class="panel-heading" align="center">
+		<p>¿Está seguro que desea eliminar la cancha {{canchas.nombre}}?</p>
+	</div>
+	<div class="panel-body" align="center" >
+		<form action='' method='POST'>
+			{% csrf_token %}
+			<input type='submit' value='Confirmar'>
+		</form>
+	</div>
+	<a href="{{canchas.get_absolute_url}}">Volver</a>
+	
+{% endblock %}
+
+
+
+
+
+
