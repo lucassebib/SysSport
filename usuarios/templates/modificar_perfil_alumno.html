@@ -4,37 +4,69 @@
 	{% include "menu-admin.html" %}
 {% endblock %}
 {% block contenido %}
-		
-	Usuario: {{usuario}} 
-	
-<form method='POST'>{% csrf_token %}
-	Nueva Contraseña:<input type="password" name="psw"></br>
-	<input type='submit' name="btn-cambiar-pass" value='Cambiar'>		
-</form>
 
-Datos Personales<hr size=5 width=50% align=LEFT>
-Nombre: {{nombre}} </br>
-Apellido: {{apellido}} </br>
-DNI: {{dni}} </br>
-Legajo: {{legajo}} </br>
-Carrera: {{carrera}} </br>
-Fecha de Nacimiento: {{fecha_nacimiento}}</br>
-<hr size=5 width=50% align=LEFT>
-		
-<form method='POST'>{% csrf_token %}
-	Telefono:{{telefono}}<input type='submit' name="btn-cambiar-telefono" value='editar'>
-</form>
+<div class="container well">
+	<div class="row">
+		<div class="col-xs-12">
+			<h2>Mi perfil {{usuario}} </h2>
+		</div>
+		<br /><br />
+	</div>
+	<form class="form-horizontal" method='POST'>{% csrf_token %}
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Nueva Contraseña:</label>
+			<div class="col-sm-4">
+				<input type="password" ></br>
+			</div>
+			<input type='submit' name="btn-cambiar-pass" value='Cambiar'>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Nombre: </label>
+			<label class="col-sm-2 control-label">{{nombre}}</label>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Apellido: </label>
+			<label class="col-sm-2 control-label">{{apellido}}</label>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">DNI: </label>
+			<label class="col-sm-2 control-label"> {{dni}}</label>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Legajo: </label>
+			<label class="col-sm-2 control-label">{{legajo}}</label>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Carrera:  </label>
+			<label class="col-sm-2 control-label">{{carrera}}</label>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Fecha de Nacimiento: </label>
+			<label class="col-sm-2 control-label">{{fecha_nacimiento}}</label>
+		</div>
 
-<hr size=5 width=50% align=LEFT>
-		
-<form method='POST'>{% csrf_token %}
-	Direccion:{{direccion}}
-	<input type='submit' name="btn-cambiar-direccion" value='editar'></br>
-</form>
+	</form>
+	<form class="form-horizontal" method='POST'>{% csrf_token %}
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Telefono:</label>
+			<div class="col-sm-4">
+			<span class="input-group-addon"><span class="glyphicon glyphicon-phone"> </ span> </span>
+				<input type="text" value="{{telefono}}" ></br>
+			</div>
+			<input type='submit' name="btn-cambiar-telefono" value='Editar'>
+		</div>
+	</form>
+		<form class="form-horizontal" method='POST'>{% csrf_token %}
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Dirección:</label>
+			<div class="col-sm-4">
+				<input type="text" value="{{direccion}}"></br>
+			</div>
+			<input type='submit' name="btn-cambiar-direccion" value='Editar'></br>
+		</div>
+	</form>	
 
-<hr size=5 width=50% align=LEFT>
-
-	
+</div>	
 {% endblock %}
 
 
