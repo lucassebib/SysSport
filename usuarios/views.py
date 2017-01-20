@@ -67,7 +67,7 @@ def vista_registrarse(request):
 @login_required
 def vista_inicial_admin(request):	
 	template = "admin/inicial_admin.html"
-	return render_to_response(template)
+	return render_to_response(template, context_instance=RequestContext(request))
 
 @login_required
 def modificarPerfilAlumno(request):

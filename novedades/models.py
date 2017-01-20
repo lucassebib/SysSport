@@ -31,8 +31,8 @@ class Novedades(models.Model):
 		return "\n -".join([d.nombre for d in self.categoria.all()])
 
 
-	def __unicode__(self):
-		return self.nombre
+	#def __unicode__(self):
+	#	return self.nombre
 
 	def get_absolute_url(self):
 		return reverse('detalle-novedad',kwargs={'pk': self.pk})

@@ -1,5 +1,12 @@
-Usuario: {{usuario}} 
+{% extends "base2.html" %}
 
+{% block login %}
+	{% include "menu-admin.html" %}
+{% endblock %}
+{% block contenido %}
+		
+	Usuario: {{usuario}} 
+	
 <form method='POST'>{% csrf_token %}
 	Nueva Contraseña:<input type="password" name="psw"></br>
 	<input type='submit' name="btn-cambiar-pass" value='Cambiar'>		
@@ -26,6 +33,10 @@ Fecha de Nacimiento: {{fecha_nacimiento}}</br>
 </form>
 
 <hr size=5 width=50% align=LEFT>
+
+	
+{% endblock %}
+
 
 	
 

@@ -1,10 +1,13 @@
 {% extends "base2.html" %}
+
+
 {% block login %}
 	{% include "menu-admin.html" %}
 {% endblock %}
+
 {% block contenido %}
 	
-	<h1>Hola admin </h1>
-	<a href="{% url 'url_logout'%}">Salir</a>
+	<h1>Hola {{user.username}} </h1>
+
 	
 {% endblock %}

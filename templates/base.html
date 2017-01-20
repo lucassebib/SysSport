@@ -7,18 +7,25 @@
             <title>SysSport - Proyecto 2016</title>
             <link rel="stylesheet" href="{% static "bootstrap/bootstrap.min.css" %} "> <!-llamamos al archivo CSS->
             <link rel="stylesheet" href="{% static "css/estilos.css" %} ">
+            <link rel="stylesheet" href="{% static "css/novedades.css" %} ">
         </head>
         <body>
-            <header>            
-                <div class="container-fluid">
+            <header>
+                
+                    <div class="container-fluid">
                         <a  href="bienvenida">
                             <img src="{% static "img/logoSAU-UTN.png" %}" class="img-responsive" alt>  
                         </a>
-                     <ul class= "nav nav-pills navbar-right navbar-default">
-                        <li><a href="registro" class="navbar-link" ><span></span> Registrarse</a></li>
-                        <li><a href="ingreso" class="navbar-link"><span></span> Ingresar</a></li>
-                    </ul> 
-                </div>
+                        <ul class= "nav nav-pills navbar-right navbar-default">
+                            {% if user.is_authenticated %}  
+                                <li><a href="{% url 'url_logout'%}" class="nav-link"><span>Salir</span></a></li>
+                                
+                            {% else %}
+                                <li><a href="registro" class="navbar-link" ><span></span> Registrarse</a></li>
+                                <li><a href="ingreso" class="navbar-link"><span></span> Ingresar</a></li>
+                            {% endif %}
+                        </ul> 
+                    </div>
             </header><!-- /header -->
             <section>
                 <div class="content container">

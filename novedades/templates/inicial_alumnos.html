@@ -6,23 +6,35 @@
 
 {% block contenido %}
 	<div class="page-header">
-		<ul class="nav nav-pills">
+		<h1><b>Novedades</b></h1>
+		<!---<ul class="nav nav-pills">
 	  		<li class="active"><a href="#">Novedades <span class="badge">42</span></a></li>
 	  		<li><a href="#">Perfil <span class="badge"></span></a></li>
 	 		<li><a href="#">Mensajes <span class="badge">3</span></a></li>
-		</ul>
-	</div>
+		</ul>-->
+	</div> 
+
 	<div class="page-content">
-		<a href="{% url 'url_logout'%}">Salir</a> 
-		</br>		
 		{% if user.is_authenticated %}				
 			{% for post in posts %}
-				<h2>{{post.titulo}}</h2>
-				<p1>{{post.fecha_publicacion}}</p1>
-				</br></br>
-				<p2>{{post.contenido|safe}}</p2>
-				<li><strong><u>Categoria:</u></strong>{{post.obtener_categorias}}</li>
-				<hr></hr>
+				<div class="fondo_mensaje esquinas">
+					<div class="titular-comentario contenido-comentario esquinas">
+						
+						<table cellpadding="0" cellspacing="2">
+							<tr>
+								<td><img src="../media/img/perfil.jpg" width="40px" height="50px" border="0"></td>
+								<td width="10px"></td>
+								<td><b><h2 class="titulo_novedad">{{post.titulo}}</h2></b>
+								<p1>{{post.fecha_publicacion}}</p1></td> 
+							</tr>
+						</table>
+					</div>
+					<div class="texto_mensaje">
+						<p2>{{post.contenido|safe}}</p2>
+						<li><strong><u>Categoria:</u></strong>{{post.obtener_categorias}}</li>
+					</div>
+
+				</div>
 			{% endfor %}
 		{% endif %}		
 	</div>	
