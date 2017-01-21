@@ -113,3 +113,21 @@ def cambiar_direccion(request):
 		'form': FormularioDireccion
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def ver_deportes(request):
+	profesor = Profesor.objects.get(id=request.user.id)	 
+	template = "profesor/ver_deportes.html"
+	ctx = {
+		'deportes': profesor.lista_deporte.all(), 
+	}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def listar_alumnos_deporte(request, pk):
+	template = "profesor/listar-alumno-deporte.html"
+	alumnos = Alumno.objects.filter(lista_deporte__in=pk )
+	ctx = {
+		'alumnos': alumnos,
+		'nombre': Deporte.objects.get(id=pk).nombre
+	}
+	
+	return render_to_response(template,ctx)

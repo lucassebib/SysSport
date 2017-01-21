@@ -27,6 +27,9 @@ class Persona(Usuario):
 	lista_deporte = models.ManyToManyField(Deporte, verbose_name='Deportes Inscripto')
 	direccion = models.ForeignKey(Direccion, blank=True, null=True)
 
+	def obtenerNombreCompleto(self):
+		return '%s %s' % (self.first_name, self.last_name)
+
 class Profesor(Persona):
 	legajo =  models.IntegerField()
 
