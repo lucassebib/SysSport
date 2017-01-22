@@ -17,12 +17,19 @@ class Direccion(models.Model):
 	def __unicode__(self):
 		return '%s %s' % (self.calle, self.altura)
 
+class ContactoDeUrgencia(models.Model):
+	nombre = models.CharField(max_length=100, blank=True, null=True)
+	apellido = models.CharField(max_length=100, blank=True, null=True)
+	parentezco = models.CharField(max_length=100, blank=True, null=True)
+	direccion = models.ForeignKey(Direccion, blank=True, null=True)
+	telefono = models.IntegerField(blank=True, null=True)
+
 class Persona(Usuario):
 	#Hereda de Usuario> 'username', 'password', 'first_name', 'last_name', 'groups', 'user_permissions', 
 	#'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined'
-	dni = models.IntegerField()
-	fecha_nacimiento = models.DateField()
-	telefono = models.IntegerField()
+	dni = models.IntegerField(blank=True, null=True)
+	fecha_nacimiento = models.DateField(blank=True, null=True)
+	telefono = models.IntegerField(blank=True, null=True)
 	foto_perfil = models.ImageField(upload_to='fotos_de_perfil/', blank=True, null=True)
 	lista_deporte = models.ManyToManyField(Deporte, verbose_name='Deportes Inscripto')
 	direccion = models.ForeignKey(Direccion, blank=True, null=True)
@@ -31,7 +38,7 @@ class Persona(Usuario):
 		return '%s %s' % (self.first_name, self.last_name)
 
 class Profesor(Persona):
-	legajo =  models.IntegerField()
+	legajo =  models.IntegerField(blank=True, null=True)
 
 	class Meta:
 		verbose_name_plural = "Profesores"
@@ -48,9 +55,10 @@ class Profesor(Persona):
 class Alumno(Persona):
 	carreras_disponibles = ((1,"ISI"),(2,"IQ"), (3, "IEM"), (4, "LAR"), (5, "TSP"))
 
-	legajo =  models.IntegerField()
+	legajo =  models.IntegerField(blank=True, null=True)
 	ficha_medica = models.FileField(upload_to='fichas_medicas/', blank=True)
 	carrera = models.IntegerField(choices=carreras_disponibles, default=1)
+	contactos_de_urgencia = models.ManyToManyField(ContactoDeUrgencia, verbose_name='Contacto de Urgencia', blank=True, null=True)
 
 	class Meta:
 		verbose_name_plural = "Alumnos"
