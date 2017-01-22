@@ -1,0 +1,4 @@
+Seleccione deportes:
+{% for d in deportes %}
+	<li><a href="{% url 'ver-alumnos' d.id %}">{{d.nombre}}</a></li>
+{% endfor %}
