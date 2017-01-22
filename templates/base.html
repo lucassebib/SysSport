@@ -16,22 +16,25 @@
                         <a  href="bienvenida">
                             <img src="{% static "img/logoSAU-UTN.png" %}" class="img-responsive" alt>  
                         </a>
-                        <ul class= "nav nav-pills navbar-right navbar-default">
-                            {% if user.is_authenticated %}  
-                                <li><a href="{% url 'url_logout'%}" class="nav-link"><span>Salir</span></a></li>
+                        <nav class="navbar navbar-default" role="navigation">
+                            <ul class= "nav nav-pills navbar-right navbar-default">
+                                {% if user.is_authenticated %}  
+                                    <li><a href="{% url 'url_logout'%}" class="navbar-link"><span>Salir</span></a></li>
+                                    
+                                {% else %}
+                                    <li><a href="registrarse" class="navbar-link" ><span></span> Registrarse</a></li>
+                                    <li><a href="inicio" class="navbar-link"><span></span> Ingresar</a></li>
+                                {% endif %}
+                                </ul>
                                 
-                            {% else %}
-                                <li><a href="registro" class="navbar-link" ><span></span> Registrarse</a></li>
-                                <li><a href="ingreso" class="navbar-link"><span></span> Ingresar</a></li>
-                            {% endif %}
-                        </ul> 
+                        </nav>
+                        
                     </div>
             </header><!-- /header -->
             <section>
-                <div class="content container">
+              
                     {% block principal %}
-                    {% endblock %}     
-                </div>          
+                    {% endblock %}              
             </section>
             <footer class="footer-distributed">
                 <div class="footer-left">

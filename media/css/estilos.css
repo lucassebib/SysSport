@@ -1,5 +1,5 @@
 
-header,body,section, footer,div,h1,h2,li,a{
+header,body,section,footer,div,h1,h2,li,a {
 	margin: 0;
 	padding: 0;
 	color: #000000;
@@ -10,11 +10,9 @@ body{
 }
 
 header{
-
+	background-image: url("../img/fondo-cabecera.png");
 	width: 100%;
-	background-color: #D8D8D8;
 	position: relative;
-	background-image: url("../img/img-fondo2.jpg");
 }
 
 a{
@@ -23,48 +21,80 @@ a{
 	margin: 10px;
 }
 
+label{
+	font-style: italic;
+}
+
+.navbar {
+	background-color: #2c3e50;
+	margin-bottom: 0;
+	margin-right: 15px;
+}
+
+}
 .content .container{
-	background-color: #CEF6F5;
+	background-image: url("../img/img-fondo.jpg");
 	margin:10px;
-	width: 100%;
+	
 }
 
 .page-header {
 	background-color: #A9D0F5;
 	margin: 10px;
+	padding: 10px;
+	border-radius: 5px;
+}
+.page-content{
+
+	margin: 10px;
+	padding: 10px 80px 10px 5px;
+	height: 661.5px;
+
 }
 
-.panel .panel-footer{
+.panel .panel-footer {
 	background-color: #A9D0F5; 
 }
 
 .container{
 	margin: 0;
 	padding:10px 10px 10px 10px;
+	width: 80%;
+
 }
 .container-fluid{
 	width: 100%;
 }
 
-.nav{
+.nav , .navbar{
 	margin-left: 0;
 	padding-left: 0;
+	border-radius: 5px;
 }
 
 #contenido_der{
-	background-image: url("../img/img-fondo.jpg");
 	margin:0;
+	padding:0;
 }
 
 .panel .panel-default{
 	padding: 10px;
+}
+
+.well{
+	padding: 10px 20px 0px 20px;
+	margin: 0px 70px 10px 70px;
+	
+}
+.img-responsive{
+	border-radius: 75px;
 	
 }
 
 /*Footer*/
 
 .footer-distributed{
-	background-color: #292c2f;
+	background-color: #2c3e50;
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
 	width: 100%;
 	font: bold 16px sans-serif;

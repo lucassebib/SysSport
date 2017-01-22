@@ -1,6 +1,21 @@
-¿Está seguro que desea eliminar esta novedad {{novedades.titulo}}?
-<form action='' method='POST'>
-	{% csrf_token %}
-	<input type='submit' value='Si'>
-</form>
-<a href="{{novedades.get_absolute_url}}">Volver</a>
+{% extends "base2.html" %}
+
+{% block login %}
+	{% include "menu-admin.html" %}
+{% endblock %}
+{% block contenido %}
+	<div class="panel-heading" align="center">
+		<p>¿Está seguro que desea eliminar esta novedad {{novedades.titulo}}?</p>
+	</div>
+	<div class="panel-body" align="center" >
+		<form action='' method='POST'>
+			{% csrf_token %}
+			<input type='submit' value='Si'>
+		</form>
+	</div>
+	<a href="{{novedades.get_absolute_url}}">Volver</a>
+{% endblock %}
+
+
+
+

@@ -11,13 +11,13 @@ from django.views.generic.edit import UpdateView
 def vista_pagina_inicio(request):
 	form = FormularioAutenticacion()
 	template = "inicio.html"
-	
+
 	if request.method == "POST":
 		form = FormularioAutenticacion(request.POST)
 		if form.is_valid():
 			usuario = form.cleaned_data['username']
 			password = form.cleaned_data['password']
-			
+		
 			user = authenticate(username=usuario, password=password)
  			try:
 				if user is not None:
@@ -99,12 +99,12 @@ def modificarPerfilAlumno(request):
 @login_required
 def cambiar_contrasenia(request):
 	template = "confirm_cambiopass.html"
-	return render_to_response(template)
+	return render_to_response(template, context_instance=RequestContext(request))
 
 @login_required
 def cambiar_telefono(request):
 	template = "cambiar_telefono.html"
-	return render_to_response(template)
+	return render_to_response(template, context_instance=RequestContext(request))
 
 @login_required
 def cambiar_direccion(request):

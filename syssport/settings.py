@@ -105,6 +105,6 @@ STATIC_URL = '/static/'
 
 LOGIN_URL = reverse_lazy('url_login')
 
-
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 

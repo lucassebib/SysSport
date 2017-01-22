@@ -1,5 +1,23 @@
-<form action='' method='POST'>
-	{% csrf_token %}
-	{{ form.as_p }}
-	<input type='submit' value='Confirmar'>
-</form>
+{% extends "base2.html" %}
+
+{% block login %}
+	{% include "menu-admin.html" %}
+{% endblock %}
+{% block contenido %}
+	
+		<div class="panel-heading" align="center">
+			<h1>Cancha {{cancha.nombre}}</h1>
+		</div>
+		<div class="panel-body" >
+			<form action='' method='POST'>
+				{% csrf_token %}
+				{{ form.as_p }}
+				<input type='submit' value='Confirmar'>
+			</form>
+		</div>
+
+	
+{% endblock %}
+
+
+

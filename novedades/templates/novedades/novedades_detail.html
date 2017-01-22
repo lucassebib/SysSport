@@ -1,15 +1,43 @@
-<h1>{{novedades.titulo}}</h1>
-<p>Descripcion: {{novedades.contenido}}</p>
-<p>Fecha publicacion: {{novedades.fecha_publicacion}}</p>
-<p>Imagen: {{novedades.imagen}}</p>
-<p>Autor: {{novedades.autor}}</p>
-<p>Grupo: {{novedades.visibilidad}}</p>
-<p>categoria: {{novedades.obtener_categoria}}</p>
+{% extends "base2.html" %}
 
-
+{% block login %}
+	{% include "menu-admin.html" %}
+{% endblock %}
+{% block contenido %}
+		<table class="table table-striped">
+			<caption><h1>Novedades</h1></caption>
+			<thead>
+				<tr class="success">
+					
+				</tr>
+			</thead>
+			<tbody>
+				
+				<tr>
+					<th>{{novedades.titulo}}</th>
+					<td>{{novedades.contenido}}</td>
+					<td> {{novedades.fecha_publicacion}}</td>
+					<td>{{novedades.autor}}</td>
+					<td>Grupo: {{novedades.visibilidad}}</td>
+					<td>categoria: {{novedades.obtener_categoria}}</td>
+				</tr>	
+				<tr>
+				{% if user.is_authenticated %}
+					<td><a href="{% url 'actualizar-novedad' novedades.id %}">Modificar</a></td>
+					<td><a href="{% url 'eliminar-novedad' novedades.id %}">Eliminar</a></td>
+					<td><a href="{% url 'listar-novedades' %}"> Ver Todas</a></td>
+				{% endif %}
+				</tr>
+			</tbody>
+			
+		</table>
+		
+		
+	</div>
 
 	
-	
-<a href="{% url 'actualizar-novedad' novedades.id %}">Modificar</a>
-<a href="{% url 'eliminar-novedad' novedades.id %}">Eliminar</a>-
-<a href="{% url 'listar-novedades' %}">Ver Todas</a>
+{% endblock %}
+
+
+
+
