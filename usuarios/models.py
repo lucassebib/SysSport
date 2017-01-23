@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User as Usuario
 from deportes.models import Deporte
 from django.contrib import admin
+from .validators import valid_extension
 
 class Direccion(models.Model):
 	calle = models.CharField(max_length=100, blank=True, null=True)
@@ -56,7 +57,7 @@ class Alumno(Persona):
 	carreras_disponibles = ((1,"ISI"),(2,"IQ"), (3, "IEM"), (4, "LAR"), (5, "TSP"))
 
 	legajo =  models.IntegerField(blank=True, null=True)
-	ficha_medica = models.FileField(upload_to='fichas_medicas/', blank=True)
+	ficha_medica = models.FileField(upload_to='fichas_medicas/', blank=True, validators=[valid_extension])
 	carrera = models.IntegerField(choices=carreras_disponibles, default=1)
 	contactos_de_urgencia = models.ManyToManyField(ContactoDeUrgencia, verbose_name='Contacto de Urgencia', blank=True, null=True)
 
