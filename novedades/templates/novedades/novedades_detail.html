@@ -1,4 +1,4 @@
-{% extends "base2.html" %}
+{% extends "baseProfesor.html" %}
 
 {% block login %}
 	{% include "menu-admin.html" %}
@@ -19,7 +19,7 @@
 					<td> {{novedades.fecha_publicacion}}</td>
 					<td>{{novedades.autor}}</td>
 					<td>Grupo: {{novedades.visibilidad}}</td>
-					<td>categoria: {{novedades.obtener_categoria}}</td>
+					<td>categoria: {{novedades.obtener_categorias}}</td>
 				</tr>	
 				<tr>
 				{% if user.is_authenticated %}

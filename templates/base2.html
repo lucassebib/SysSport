@@ -1,16 +1,14 @@
 {% extends "base.html" %}
 
 {% block principal %}
+
     <div class="page-content col-md-3 hidden-sm">
         <div class="panel panel-primary">
             <div class="panel panel-heading">
-                 <h3 class="panel-title">Navegación</h3>
+                <h3 class="panel-title">Navegación</h3>
             </div>
-            <ul class="nav nav-pills nav-stacked">
-                <li><a href="inicio">Inicio</a></li>
-                <li><a href="#">Deportes</a></li>
-                <li><a href="novedades">Novedades</a></li>
-            </ul>
+             {% block navegacion %}
+             {% endblock %}
         </div>
         {% block login %}
         {% endblock %}
