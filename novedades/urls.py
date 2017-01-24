@@ -7,7 +7,7 @@ from views import *
 admin.autodiscover()
 
 urlpatterns = patterns('',
-	url(r'^inicial_alumnos$', vista_index_alumnos),
+	url(r'^inicial_alumnos$', vista_index_alumnos, name='inicio-Alumno'),
     url(r'^inicial_profesores$', vista_index_profesores),
     url(r'^inicial_invitados$', vista_index_invitados),
 

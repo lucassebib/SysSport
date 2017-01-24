@@ -1,4 +1,8 @@
+{% extends "baseProfesor.html" %}
+{% block contenido %}
 Lista de Alumnos de <u>{{nombre}}</u>:
 {% for a in alumnos %}
 	<li>{{a.obtenerNombreCompleto}}</li>
 {% endfor %}
+
+{% endblock %}
