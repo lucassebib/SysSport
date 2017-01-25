@@ -54,6 +54,8 @@ ROOT_URLCONF = 'syssport.urls'
 WSGI_APPLICATION = 'syssport.wsgi.application'
 
 #TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),)
+
+
 TEMPLATE_DIRS = ('templates',)
 
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -106,5 +108,7 @@ STATIC_URL = '/static/'
 LOGIN_URL = reverse_lazy('url_login')
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+
 
 

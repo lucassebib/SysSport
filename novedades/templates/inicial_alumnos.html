@@ -1,8 +1,8 @@
-{% extends "baseAlumno.html" %}
+{% extends "base2.html" %}
 
-{% block login %}
-	{% include "perfil.html" %}
-{% endblock %}
+{% block menu %}
+	{% include "baseAlumno.html" %}
+{%endblock %}
 
 {% block contenido %}
 	<div class="page-header">
@@ -13,7 +13,6 @@
 	 		<li><a href="#">Mensajes <span class="badge">3</span></a></li>
 		</ul>-->
 	</div> 
-
 	<div class="container-fluid">
 		{% if user.is_authenticated %}				
 			{% for post in posts %}

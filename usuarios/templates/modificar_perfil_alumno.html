@@ -1,7 +1,7 @@
-{% extends "baseAlumno.html" %}
+{% extends "base2.html" %}
 
-{% block login %}
-	{% include "menu-admin.html" %}
+{% block menu %}
+	{% include "baseAlumno.html" %}
 {% endblock %}
 {% block contenido %}
 
@@ -58,9 +58,9 @@
 		<form class="form-horizontal" method='POST'>{% csrf_token %}
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Dirección:</label>
+				<label class="col-sm-2 control-label">{{direccion}}</label>
 				<div class="col-sm-4">
 					<span class="input-group-addon"><span class="glyphicon glyphicon-pencil"> </ span> </span>
-					<input type="text" value="{{direccion}}">
 					<input type='submit' class="btn btn-default" name="btn-cambiar-direccion" value='Editar'>
 				</div>
 							

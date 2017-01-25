@@ -20,7 +20,7 @@ def vista_index_alumnos(request):
 	ctx = {
 		"posts": posts.order_by('-fecha_publicacion'),
 	}
-	return render_to_response(template,ctx , context_instance=RequestContext(request))
+	return render_to_response(template, ctx , context_instance=RequestContext(request))
 
 def vista_index_profesores(request):
 	template = "inicial_profesores.html"	

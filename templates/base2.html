@@ -7,10 +7,13 @@
             <div class="panel panel-heading">
                 <h3 class="panel-title">Navegación</h3>
             </div>
-             {% block navegacion %}
-             {% endblock %}
+             <ul class="nav nav-pills nav-stacked">
+                <li><a href="{% url 'url_login' %}">Inicio</a></li>
+                <li><a href="{% url 'ver_deportes_personas' %}">Deportes</a></li>
+                <li><a href="#">Novedades</a></li>
+            </ul>
         </div>
-        {% block login %}
+        {% block menu %}
         {% endblock %}
     </div>
     <div class="page-content col-md-7 col-sm-10">

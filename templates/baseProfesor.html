@@ -1,11 +1,18 @@
-{% extends 'base2.html' %}
-  {% block navegacion %}
 
-            <ul class="nav nav-pills nav-stacked">
-                <li><a href="#">Inicio</a></li>
-                <li><a href="{% url 'ver_deportes_personas' %}">Deportes</a></li>
-                <li><a href="{% url 'listar-novedades' %}">Novedades</a></li>
-                <li><a href="{% url 'ver-deportes' %}">Participantes</a></li>
-            </ul>
+
+	<div class="panel panel-primary">
+        <div class="panel panel-heading">
+             <h3 class="panel-title">Administración</h3>
+        </div>
+    	<ul class="nav nav-pills nav-stacked">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="{% url 'ver_deportes_personas' %}">Deportes</a></li>
+            <li><a href="{% url 'listar-novedades' %}">Novedades</a></li>
+            <li><a href="{% url 'ver-deportes' %}">Participantes</a></li>
+        </ul>
+    </div>
+
+
+
+          
         
-  {% endblock %}
