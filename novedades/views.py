@@ -77,7 +77,7 @@ def ver_novedades_visibilidadTodos(request):
 	ctx = {
 		'posts': Novedades.objects.filter(visibilidad__in=[1]).order_by('-fecha_publicacion'), 
 	}
-	return render_to_response(template, ctx)
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 
 

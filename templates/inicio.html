@@ -1,7 +1,7 @@
 {% extends "base2.html" %}
 {% block inicio %}
    <li class="{% if '#' == request.resolver_match.view_name %}active{% endif %}">
-    <a href="#">Inicio</a></li>
+    <a href="{% url 'url_login' %}">Inicio</a></li>
 {% endblock %}
 
 

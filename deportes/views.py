@@ -1,4 +1,6 @@
+from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
 from models import Deporte
+from django.template import Context
 from django.shortcuts import render_to_response
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -39,4 +41,4 @@ def listar_deportes(request):
     ctx = {
         'deportes': Deporte.objects.all()
     }
-    return render_to_response(template, ctx)
+    return render_to_response(template, ctx, context_instance=RequestContext(request))

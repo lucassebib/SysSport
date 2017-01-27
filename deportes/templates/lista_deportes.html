@@ -1,5 +1,38 @@
-{% for d in deportes %}
-	Deporte:{{d.nombre}}</br>
-	Descripcion{{d.descripcion}}
-	<hr noshade width=100% size=4>	
-{% endfor %}
+{% extends "base2.html" %}
+{% block inicio %}
+   <li class="{% if '#' == request.resolver_match.view_name %}active{% endif %}">
+    <a href="#">Inicio</a></li>
+{% endblock %}
+
+
+{% block menu %}
+	{%if user.is_authenticated %}
+	{% else %}
+		{% include "login.html" %}	
+	{% endif %}
+
+{% endblock %}
+{% block contenido %}
+	<div class="page-header">
+		<h1><b><i>Deportes UTN FRRE</i></b></h1>
+	</div>
+	<div class="page-content">
+		<h3>Animate a formar parte de alguno de estos grupos...</h3>
+		
+		{% for d in deportes %}
+			<table class="table table-condensed">
+				<thead>
+					<tr>
+						<th class="success">{{d.nombre}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td >{{d.descripcion}}</td>
+					</tr>
+				</tbody>
+			</table>
+				
+		{% endfor %}
+	</div>
+{% endblock %}
