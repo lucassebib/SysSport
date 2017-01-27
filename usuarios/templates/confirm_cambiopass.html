@@ -1,8 +1,12 @@
 {% extends "base2.html" %}
-
-{% block login %}
-	{% include "menu-admin.html" %}
+{% block inicio %}
+   <li class="{% if 'inicial_alumnos' == request.resolver_match.view_name %}active{% endif %}">
+    <a href="{% url 'inicial_alumnos' %}">Inicio</a></li>
 {% endblock %}
+
+{% block menu %}
+	{% include "baseAlumno.html" %}
+{%endblock %}
 {% block contenido %}
 	<div class="panel-heading" align="center">
 		<p>¿Está seguro que desea cambiar su contraseña <b>{{user.username}}</b>?</p>

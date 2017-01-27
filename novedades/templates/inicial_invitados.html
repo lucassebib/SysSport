@@ -1,29 +1,23 @@
 {% extends "base2.html" %}
 
+{% block inicio %}
+   <li class="{% if 'inicial_invitados' == request.resolver_match.view_name %}active{% endif %}">
+    <a href="{% url 'inicial_invitados' %}">Inicio</a></li>
+{% endblock %}
 {% block menu %}
 	{% include "login.html" %}
 {% endblock %}
 {% block contenido %}
-	<div class="page-header">
-		<ul class="nav nav-pills">
-	  		<li class="active"><a href="#">Novedades <span class="badge">42</span></a></li>
-	  		<li><a href="#">Perfil <span class="badge"></span></a></li>
-	 		<li><a href="#">Mensajes <span class="badge">3</span></a></li>
-		</ul>
+<div class="page-header">
+			<h2><b><i>¡Bienvenidos!</i></b></h2>
 	</div>
 	<div class="page-content">
-		<a href="{% url 'url_logout'%}">Salir</a> 
-		</br>		
-		{% if user.is_authenticated %}				
-			{% for post in posts %}
-				<h2>{{post.titulo}}</h2>
-				<p1>{{post.fecha_publicacion}}</p1>
-				</br></br>
-				<p2>{{post.contenido|safe}}</p2>
-				<li><strong><u>Categoria:</u></strong>{{post.obtener_categorias}}</li>
-				<hr></hr>
-			{% endfor %}
-		{% endif %}	
+		
+			<h4>Sys-Sporte  esta desarrollado para acercar a alumnos y profesores, logrando la mayor interaccion entre ellos. Sys-Sport es super comodo, rapido y seguro, vas a poder enterarte de todas las noticia, los eventos nuevos y cuando son tus horarios de entrenamiento...!!!!</h4><br/>
+			<h4>Accede a todos los beneficios de SysaSport</h4><br/>
+			<p>1. Selecciona <b>Registrarte</b></p><br/>
+			<p>2. Completa tu legajo</p><br/>
+			<p>3. Y LISTO!!!!! ya podes empezar a disbrutar de SYS-SPORT</p><br/>
 	</div>
 	
 {% endblock %}

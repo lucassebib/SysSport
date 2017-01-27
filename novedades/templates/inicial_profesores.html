@@ -1,41 +1,23 @@
 {% extends "base2.html" %}
 
+{% block inicio %}
+   <li class="{% if 'inicial_profesores' == request.resolver_match.view_name %}active{% endif %}">
+    <a href="{% url 'inicial_profesores' %}">Inicio</a></li>
+{% endblock %}
 {% block menu %}
 	{% include "baseProfesor.html" %}
 {%endblock %}
 {% block contenido %}
-	<div class="page-header">
-		<h1><b>Novedades</b></h1>
-		<!---<ul class="nav nav-pills">
-	  		<li class="active"><a href="#">Novedades <span class="badge">42</span></a></li>
-	  		<li><a href="#">Perfil <span class="badge"></span></a></li>
-	 		<li><a href="#">Mensajes <span class="badge">3</span></a></li>
-		</ul>-->
-	</div> 
-
-	<div class="container-fluid">
-		{% if user.is_authenticated %}				
-			{% for post in posts %}
-				<div class="fondo_mensaje esquinas">
-					<div class="titular-comentario contenido-comentario esquinas">
-						<table cellpadding="0" cellspacing="2">
-							<tr>
-								<td><img src="../media/img/perfil.jpg" width="40px" height="50px" border="0"></td>
-								<td width="10px"></td>
-								<td><b><h2 class="titulo_novedad">{{post.titulo}}</h2></b>
-								<p1>{{post.fecha_publicacion}}</p1></td> 
-							</tr>
-						</table>
-					</div>
-					<div class="texto_mensaje">
-						<p2>{{post.contenido|safe}}</p2>
-						<li><strong><u>Categoria:</u></strong>{{post.obtener_categorias}}</li>
-					</div>
-
-				</div>
-			{% endfor %}
-		{% endif %}		
+<div class="page-header">
+			<h2><b><i>¡Bienvenidos!</i></b></h2>
+	</div>
+	<div class="page-content">
 		
-	</div>	
+			<h4>Sys-Sporte  esta desarrollado para acercar a alumnos y profesores, logrando la mayor interaccion entre ellos. Sys-Sport es super comodo, rapido y seguro, vas a poder enterarte de todas las noticia, los eventos nuevos y cuando son tus horarios de entrenamiento...!!!!</h4><br/>
+			<h4>Accede a todos los beneficios de SysaSport</h4><br/>
+			<p>1. Selecciona <b>Registrarte</b></p><br/>
+			<p>2. Completa tu legajo</p><br/>
+			<p>3. Y LISTO!!!!! ya podes empezar a disbrutar de SYS-SPORT</p><br/>
+	</div>
 	
 {% endblock %}

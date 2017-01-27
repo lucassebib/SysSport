@@ -8,13 +8,12 @@ from django.template import Context
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.views.generic.edit import UpdateView
 
+
 def vista_pagina_inicio(request):
 	form = FormularioAutenticacion()
 	template = "inicio.html"
-
-	if request.method == "POST":
-		form = FormularioAutenticacion(request.POST)
-		if form.is_valid():
+	if request.method == "POST":form = FormularioAutenticacion(request.POST)
+	if form.is_valid():
 			usuario = form.cleaned_data['username']
 			password = form.cleaned_data['password']
 		
@@ -133,3 +132,5 @@ def listar_alumnos_deporte(request, pk):
 	
 	return render_to_response(template,ctx)
 #####################################################################################
+####################Navegacion Principal#############################################
+
