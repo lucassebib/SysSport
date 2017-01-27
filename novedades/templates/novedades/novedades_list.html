@@ -1,18 +1,14 @@
-{% extends "baseProfesor.html" %}
+{% extends "base2.html" %}
 
-  {% block navegacion %}
-
-            <ul class="nav nav-pills nav-stacked">
-                <li><a href="{% url 'url_login' %}">Inicio</a></li>
-                <li><a href="#">Deportes</a></li>
-                <li><a href="{% url 'listar-novedades' %}">Novedades</a></li>
-            </ul>
-        
-  {% endblock %}
-  
-{% block login %}
-	{% include "menu-admin.html" %}
+{% block inicio %}
+   <li class="{% if 'inicial_profesores' == request.resolver_match.view_name %}active{% endif %}">
+    <a href="{% url 'inicial_profesores' %}">Inicio</a></li>
 {% endblock %}
+
+{% block menu %}
+	{% include "baseProfesor.html" %}
+{%endblock %}
+
 {% block contenido %}
 	<table class="table table-hover table-striped">
 		<caption><h1>Novedades</h1></caption>

@@ -3,19 +3,24 @@
 {% block principal %}
 
     <div class="page-content col-md-3 hidden-sm">
+        
         <div class="panel panel-primary">
             <div class="panel panel-heading">
                 <h3 class="panel-title">Navegación</h3>
             </div>
              <ul class="nav nav-pills nav-stacked">
-                <li class="{% if 'url_login' == request.resolver_match.view_name %}active{% endif %}">
-                    <a href="{% url 'url_login' %}">Inicio</a></li>
-                <li class="{% if 'ver_deportes_personas' == request.resolver_match.view_name %}active{% endif %}">
+
+                {% block inicio %}
+                {% endblock %}
+                
+               <li class="{% if 'ver_deportes_personas' == request.resolver_match.view_name %}active{% endif %}">
                     <a href="{% url 'listar_deportes' %}">Deportes</a></li>
                 <li>
                 <a href="{% url 'ver_novedades_visibilidadTodos' %}">Novedades</a></li>
+
             </ul>
         </div>
+
         {% block menu %}
         {% endblock %}
     </div>

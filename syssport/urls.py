@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     url(r'^', include('deportes.urls')),
     url(r'^', include('canchas.urls')),
 
-    url(r'^inicio$', 'usuarios.views.vista_pagina_inicio', name="url_login"),
+    url(r'^inicio$', 'usuarios.views.vista_pagina_inicio', name='url_login'),
     url(r'^logout/$', 'usuarios.views.app_logout', name="url_logout"),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root':settings.MEDIA_ROOT,}),
     #url(r'^ingreso$', ingreso),
