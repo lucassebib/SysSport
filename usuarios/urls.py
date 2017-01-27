@@ -16,5 +16,9 @@ urlpatterns = patterns('',
 	url(r'^cambiar-direccion$', cambiar_direccion),
 	url(r'^ver-deportes$', ver_deportes_profesor, name='ver-deportes'),
 	url(r'^ver-alumnos/deporte/(?P<pk>[0-9]+)$', listar_alumnos_deporte, name='ver-alumnos'),
-	
-	)
+)
+
+
+urlpatterns += patterns('',
+	url(r'^ver-usuarios$', ver_usuarios, name='ver_usuarios'),  
+)
