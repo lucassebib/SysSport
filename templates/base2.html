@@ -13,7 +13,7 @@
                 <li class="{% if 'ver_deportes_personas' == request.resolver_match.view_name %}active{% endif %}">
                     <a href="{% url 'listar_deportes' %}">Deportes</a></li>
                 <li>
-                <a href="#">Novedades</a></li>
+                <a href="{% url 'ver_novedades_visibilidadTodos' %}">Novedades</a></li>
             </ul>
         </div>
         {% block menu %}

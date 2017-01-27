@@ -1,0 +1,19 @@
+{% for post in posts %}
+	<div class="fondo_mensaje esquinas">
+		<div class="titular-comentario contenido-comentario esquinas">
+			<table cellpadding="0" cellspacing="2">
+				<tr>
+					<td><img src="../media/img/perfil.jpg" width="40px" height="50px" border="0"></td>
+					<td width="10px"></td>
+					<td><b><h2 class="titulo_novedad">{{post.titulo}}</h2></b>
+					<p1>{{post.fecha_publicacion}}</p1></td> 
+				</tr>
+			</table>
+		</div>
+		<div class="texto_mensaje">
+			<p2>{{post.contenido|safe}}</p2>
+			<li><strong><u>Categoria:</u></strong>{{post.obtener_categorias}}</li>
+		</div>
+
+	</div>
+{% endfor %}
