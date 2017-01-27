@@ -115,6 +115,7 @@ def cambiar_direccion(request):
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 ###########################PARA PROFESOR###########################################
+@login_required
 def ver_deportes_profesor(request):
 	profesor = Profesor.objects.get(id=request.user.id)	 
 	template = "profesor/ver_deportes.html"
@@ -123,6 +124,7 @@ def ver_deportes_profesor(request):
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
+@login_required
 def listar_alumnos_deporte(request, pk):
 	template = "profesor/listar-alumno-deporte.html"
 	alumnos = Alumno.objects.filter(lista_deporte__in=pk )
@@ -133,3 +135,11 @@ def listar_alumnos_deporte(request, pk):
 	
 	return render_to_response(template,ctx)
 #####################################################################################
+
+###########################PARA ADMIN###########################################
+def ver_usuarios(request):
+	template='admin/ver_usuarios.html'
+	ctx = {
+		'usuarios': Persona.objects.all(),
+	}
+	return render_to_response(template,ctx)
