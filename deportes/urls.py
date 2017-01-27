@@ -12,4 +12,5 @@ urlpatterns = patterns('',
     url(r'^deportes/(?P<pk>[0-9]+)/eliminar/$', EliminarDeportes.as_view(), name='eliminar-deportes'),
 
     url(r'^ver-lista-deportes$',ver_deportes_personas, name='ver_deportes_personas'),
+    url(r'^listar_deportes$',listar_deportes, name='listar_deportes'),
 )

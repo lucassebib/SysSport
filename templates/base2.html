@@ -11,7 +11,7 @@
                 <li class="{% if 'url_login' == request.resolver_match.view_name %}active{% endif %}">
                     <a href="{% url 'url_login' %}">Inicio</a></li>
                 <li class="{% if 'ver_deportes_personas' == request.resolver_match.view_name %}active{% endif %}">
-                    <a href="{% url 'ver_deportes_personas' %}">Deportes</a></li>
+                    <a href="{% url 'listar_deportes' %}">Deportes</a></li>
                 <li>
                 <a href="#">Novedades</a></li>
             </ul>

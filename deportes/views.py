@@ -33,3 +33,10 @@ def ver_deportes_personas(request):
         'usuario': request.user.username
     }
     return render_to_response(template, ctx)
+
+def listar_deportes(request):
+    template = "lista_deportes.html"
+    ctx = {
+        'deportes': Deporte.objects.all()
+    }
+    return render_to_response(template, ctx)
