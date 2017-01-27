@@ -41,27 +41,6 @@ def vista_index_invitados(request):
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
-	
-#def ingreso(request):
-	#return render_to_response('ingreso.html')
-
-#def base(request):
-	#return render_to_response('base.html')
-	
-#def base2(request):
-	#return render_to_response('base2.html')
-
-#def login(request):
-	#return render_to_response('login.html')
-
-
-
-#def enviar(request):
-	#return render_to_response('gracias.html')
-
-#def formulario(request):
-	#return render_to_response('registro.html')
-
 #@login_required	esto debe ir en cada definicion 
 
 class ListarNovedades(ListView):
@@ -71,7 +50,6 @@ class ListarNovedades(ListView):
 class DetallesNovedades(DetailView):
     model = Novedades
     
-
 class CrearNovedades(CreateView):	 
 	model = Novedades	
 	context_object_name = 'novedades'  
@@ -82,11 +60,9 @@ class CrearNovedades(CreateView):
 		profe = Profesor.objects.get(id = self.request.user.id)
 		a.autor = profe
 		return super(CrearNovedades, self).form_valid(form)
-
     
     #novedades.autor_id= 
 	
-
 class ActualizarNovedades(UpdateView):
     model = Novedades
     
@@ -95,6 +71,13 @@ class EliminarNovedades(DeleteView):
     model = Novedades
     context_object_name = 'novedades'
     success_url = reverse_lazy('listar-novedades')
+
+def ver_novedades_visibilidadTodos(request):
+	template = "novedades_visibilidad_todos.html"
+	ctx = {
+		'posts': Novedades.objects.filter(visibilidad__in=[1]).order_by('-fecha_publicacion'), 
+	}
+	return render_to_response(template, ctx)
 
 
 

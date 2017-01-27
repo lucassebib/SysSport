@@ -114,7 +114,7 @@ def cambiar_direccion(request):
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 ###########################PARA PROFESOR###########################################
-def ver_deportes(request):
+def ver_deportes_profesor(request):
 	profesor = Profesor.objects.get(id=request.user.id)	 
 	template = "profesor/ver_deportes.html"
 	ctx = {
