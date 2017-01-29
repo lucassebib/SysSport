@@ -1,3 +1,14 @@
+{% extends "base2.html" %}
+{% block inicio %}
+  		 <li class="{% if 'inicial_admin' == request.resolver_match.view_name %}active{% endif %}">
+    	<a href="{% url 'inicial_admin' %}">Inicio</a></li>
+    	<li class="{% if 'ver_deportes_personas' == request.resolver_match.view_name %}active{% endif %}">
+    		<a href="{% url 'listar_deportes' %}">Deportes</a></li>
+    	<li class="{% if 'ver_novedades_visibilidadTodos' == request.resolver_match.view_name %}active{% endif %}">
+    		<a href="{% url 'ver_novedades_visibilidadTodos' %}">Novedades</a></li>
+{% endblock %}
+
+{% block menu %}
 <div class="panel panel-primary">
     <div class="panel panel-heading">
          <h3 class="panel-title">Administración</h3>
@@ -11,4 +22,5 @@
     </ul>
         
 </div>
+{% endblock %}
         

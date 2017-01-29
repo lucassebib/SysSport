@@ -74,10 +74,29 @@ class EliminarNovedades(DeleteView):
 
 def ver_novedades_visibilidadTodos(request):
 	template = "novedades_visibilidad_todos.html"
+	id_usuario = request.user.id
+	try:
+		g = Alumno.objects.get(id=id_usuario)
+		extiende = 'baseAlumno.html'
+	except Exception as e:
+		try:
+			g = Profesor.objects.get(id=id_usuario)
+			extiende = 'baseProfesor.html'
+		except Exception as e:
+			try:
+				g = UsuarioInvitado.objects.get(id=id_usuario)
+				extiende = 'baseAlumno.html'
+			except Exception as e:
+				try:
+					extiende = 'inicio.html'
+				except Exception as e:
+					if request.user.is_staff:
+						extiende = 'baseAdmin.html'
 	ctx = {
 		'posts': Novedades.objects.filter(visibilidad__in=[1]).order_by('-fecha_publicacion'), 
+		'extiende': extiende,
 	}
-	return render_to_response(template, ctx)
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 
 

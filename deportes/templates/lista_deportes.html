@@ -1,5 +1,11 @@
-{% for d in deportes %}
-	Deporte:{{d.nombre}}</br>
-	Descripcion{{d.descripcion}}
-	<hr noshade width=100% size=4>	
-{% endfor %}
+{% extends extiende %}
+
+	{% block contenido %}
+
+		{% for d in deportes %}
+			Deporte:{{d.nombre}}</br>
+			Descripcion{{d.descripcion}}
+			<hr noshade width=100% size=4>	
+		{% endfor %}
+		
+	{% endblock %}
