@@ -1,11 +1,23 @@
+{% extends extiende %}
+{% block contenido %}
+	<table class="table table-hover table-striped">
+		<caption><h1>Deportes inscriptos de <b>{{usuario}}</b>: </h1></caption>
+		<thead>
+			<tr class="success">
+				<th>Nombre</th>
+				<th>Descripción</th>
+			</tr>
+		</thead>
+		
+		{% for d in deportes %}
+		<tbody>
+			<tr>
+				<td>{{d.nombre}} </td>
+				<td>{{d.descripcion}}</td>
+			</tr>
+		</tbody>
+		{% endfor %}
 
-
-	Deportes Inscriptos de <b>{{usuario}}</b>: 
-	<hr noshade width=100% size=4>
-	{% for d in deportes %}
-		<li>Nombre:{{d.nombre}}</li>
-		<li>Descripcion:{{d.descripcion}}</li>
-		<hr noshade width=100% size=4>	
-	{% endfor %}
-
-
+	</table>
+	
+{% endblock %}
