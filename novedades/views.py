@@ -7,6 +7,7 @@ from novedades.models import Novedades
 from usuarios.models import Alumno, Profesor, UsuarioInvitado
 from deportes.models import Deporte
 from django.db.models import Q
+from django.template import Context
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
@@ -14,6 +15,20 @@ from django.core.urlresolvers import reverse_lazy
 @login_required	
 def vista_index_alumnos(request):
 	template = "inicial_alumnos.html"	
+	return render_to_response(template, context_instance=RequestContext(request))
+
+def vista_index_profesores(request):
+	template = "inicial_profesores.html"	
+	return render_to_response(template, context_instance=RequestContext(request))
+
+def vista_index_noLogueado(request):
+	template = "usuario_noLogueado.html"	
+	return render_to_response(template, context_instance=RequestContext(request))
+
+##################### Novedades de usuarios#############################################
+#Novedades de alumnos
+def novedades_alumnos(request):
+	template = "novedades_alumnos.html"	
 	id_usuario = request.user.id
 	alumno = Alumno.objects.get(id=id_usuario)	
 	posts = Novedades.objects.filter(visibilidad__in=[1,2]) | Novedades.objects.filter(visibilidad__in=[3], categoria__in=alumno.obtener_deportes())
@@ -22,24 +37,10 @@ def vista_index_alumnos(request):
 	}
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
 
-def vista_index_profesores(request):
-	template = "inicial_profesores.html"	
-	id_usuario = request.user.id	
-	posts = Novedades.objects.filter(autor__id=id_usuario)
-	ctx = {
-		"posts": posts.order_by('-fecha_publicacion'),
-	}
-	return render_to_response(template, ctx, context_instance=RequestContext(request))
+#Novedades de Profesores
 
-def vista_index_invitados(request):
-	template = "inicial_invitados.html"	
-	id_usuario = request.user.id
-	invitado = UsuarioInvitado.objects.get(id=id_usuario)	
-	posts = Novedades.objects.filter(visibilidad__in=[1,2]) | Novedades.objects.filter(visibilidad__in=[3], categoria__in=invitado.obtener_deportes())
-	ctx = {
-		"posts": posts.order_by('-fecha_publicacion'),
-	}
-	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+
 
 #@login_required	esto debe ir en cada definicion 
 
@@ -88,7 +89,7 @@ def ver_novedades_visibilidadTodos(request):
 				extiende = 'baseAlumno.html'
 			except Exception as e:
 				try:
-					extiende = 'inicio.html'
+					extiende = 'usuario_noLogueado.html'
 				except Exception as e:
 					if request.user.is_staff:
 						extiende = 'baseAdmin.html'

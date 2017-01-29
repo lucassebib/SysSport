@@ -1,24 +1,5 @@
-{% extends "base2.html" %}
+{% extends "usuario_noLogueado.html" %}
 
-{% block inicio %}
-
-  		 <li class="{% if '#' == request.resolver_match.view_name %}active{% endif %}">
-    	<a href="#">Inicio</a></li>
-    	<li class="{% if 'listar_deportes' == request.resolver_match.view_name %}active{% endif %}">
-    		<a href="{% url 'listar_deportes' %}">Deportes</a></li>
-    	<li class="{% if 'ver_novedades_visibilidadTodos' == request.resolver_match.view_name %}active{% endif %}">
-    		<a href="{% url 'ver_novedades_visibilidadTodos' %}">Novedades</a></li>
-
-{% endblock %}
-
-
-{% block menu %}
-	{%if user.is_authenticated %}
-	{% else %}
-		{% include "login.html" %}	
-	{% endif %}
-
-{% endblock %}
 {% block contenido %}
 	<div class="page-header">
 			<h2><b><i>¡Bienvenidos!</i></b></h2>

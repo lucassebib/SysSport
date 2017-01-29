@@ -18,8 +18,8 @@
             <li class="{% if 'modificar_perfil_alumno' == request.resolver_match.view_name %}active{% endif %}">
              <a href="{% url 'modificar_perfil_alumno' %}">Mi Perfil</a></li>
             <li class="{% if 'ver_deportes_personas' ==  request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_deportes_personas' %}">Mis Deportes</a></li>
-            <li class="{% if 'listar-novedades' == request.resolver_match.view_name %}active{% endif %}">
-            <a href="{% url 'listar-novedades' %}">Novedades</a></li>
+            <li class="{% if 'novedades_alumnos' == request.resolver_match.view_name %}active{% endif %}">
+            <a href="{% url 'novedades_alumnos' %}">Mis Novedades</a></li>
         </ul> 
     </div>
     {% endblock %}
