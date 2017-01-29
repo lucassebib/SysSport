@@ -1,15 +1,27 @@
+{% extends "base2.html" %}
+{% block inicio %}
+         <li class="{% if 'inicial_profesores' == request.resolver_match.view_name %}active{% endif %}">
+        <a href="{% url 'inicial_profesores' %}">Inicio</a></li>
+        <li class="{% if 'listar_deportes' == request.resolver_match.view_name %}active{% endif %}">
+            <a href="{% url 'listar_deportes' %}">Deportes</a></li>
+        <li class="{% if 'ver_novedades_visibilidadTodos' == request.resolver_match.view_name %}active{% endif %}">
+            <a href="{% url 'ver_novedades_visibilidadTodos' %}">Novedades</a></li>
+{% endblock %}
 
+{% block menu%}
 
 	<div class="panel panel-primary">
         <div class="panel panel-heading">
              <h3 class="panel-title">Administración</h3>
         </div>
     	<ul class="nav nav-pills nav-stacked">
-            <li><a href="#">Deportes</a></li>
-            <li><a href="{% url 'listar-novedades' %}">Novedades</a></li>
-            <li><a href="{% url 'ver-deportes' %}">Participantes</a></li>
+            <li class="{% if 'ver_deportes_personas' == request.resolver_match.view_name %}active{% endif %}">
+            <a href="{% url 'ver_deportes_personas' %}">Mis Deportes</a></li>
+            <li  class="{% if 'listar-novedades' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar-novedades' %}">Novedades</a></li>
+            <li class="{% if 'ver-deportes' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver-deportes' %}">Participantes</a></li>
         </ul>
     </div>
+{% endblock %}
 
 
 

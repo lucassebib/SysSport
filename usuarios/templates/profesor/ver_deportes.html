@@ -1,17 +1,7 @@
-{% extends "base2.html" %}
-
-{% block inicio %}
-   <li class="{% if 'inicial_profesores' == request.resolver_match.view_name %}active{% endif %}">
-    <a href="{% url 'inicial_profesores' %}">Inicio</a></li>
-{% endblock %}
-
-{% block menu %}
-	{% include "baseProfesor.html" %}
-{%endblock %}
-
+{% extends "baseProfesor.html" %}
 {% block contenido %}
-Seleccione deportes:
-{% for d in deportes %}
-	<li><a href="{% url 'ver-alumnos' d.id %}">{{d.nombre}}</a></li>
-{% endfor %}
+	Seleccione deportes:
+	{% for d in deportes %}
+		<li><a href="{% url 'ver-alumnos' d.id %}">{{d.nombre}}</a></li>
+	{% endfor %}
 {% endblock %}

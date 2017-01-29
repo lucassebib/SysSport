@@ -1,18 +1,6 @@
-{% extends "base2.html" %}
-{% block inicio %}
-   <li class="{% if '#' == request.resolver_match.view_name %}active{% endif %}">
-    <a href="#">Inicio</a></li>
-{% endblock %}
+{% extends extiende %}
 
-
-{% block menu %}
-	{%if user.is_authenticated %}
-	{% else %}
-		{% include "login.html" %}	
-	{% endif %}
-
-{% endblock %}
-{% block contenido %}
+	{% block contenido %}
 	<div class="page-header">
 		<h1><b><i>Deportes UTN FRRE</i></b></h1>
 	</div>
@@ -35,4 +23,4 @@
 				
 		{% endfor %}
 	</div>
-{% endblock %}
+	{% endblock %}

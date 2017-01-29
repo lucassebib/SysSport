@@ -9,8 +9,11 @@ admin.autodiscover()
 urlpatterns = patterns('',
 	url(r'^inicial_alumnos$', vista_index_alumnos, name='inicial_alumnos'),
     url(r'^inicial_profesores$', vista_index_profesores, name='inicial_profesores'),
-    url(r'^inicial_invitados$', vista_index_invitados, name= 'inicial_invitados'),
+    url(r'^usuario_noLogueado$', vista_index_noLogueado, name= 'usuario_noLogueado'),
 
+    url(r'^novedades_alumnos$', novedades_alumnos, name='novedades_alumnos'),
+    
+    
     url(r'^novedades/$', ListarNovedades.as_view(), name='listar-novedades'),
     url(r'^novedades/(?P<pk>[0-9]+)/$', DetallesNovedades.as_view(), name='detalle-novedad'),
     url(r'^novedades/crear/$', CrearNovedades.as_view(), name='crear-novedad'),

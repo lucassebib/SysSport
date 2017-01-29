@@ -1,13 +1,6 @@
-{% extends "base2.html" %}
+{% extends "baseProfesor.html" %}
 
-{% block inicio %}
-   <li class="{% if 'inicial_profesores' == request.resolver_match.view_name %}active{% endif %}">
-    <a href="{% url 'inicial_profesores' %}">Inicio</a></li>
-{% endblock %}
 
-{% block menu %}
-	{% include "baseProfesor.html" %}
-{%endblock %}
 
 {% block contenido %}
 	

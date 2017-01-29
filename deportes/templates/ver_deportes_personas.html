@@ -1,13 +1,4 @@
-{% extends "base2.html" %}
-
-{% block inicio %}
-   <li class="{% if 'inicial_alumnos' == request.resolver_match.view_name %}active{% endif %}">
-    <a href="{% url 'inicial_alumnos' %}">Inicio</a></li>
-{% endblock %}
-
-{% block menu %}
-	{% include "baseAlumno.html" %}
-{% endblock %}
+{% extends extiende %}
 {% block contenido %}
 	<table class="table table-hover table-striped">
 		<caption><h1>Deportes inscriptos de <b>{{usuario}}</b>: </h1></caption>

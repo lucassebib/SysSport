@@ -1,12 +1,24 @@
 {% extends "base2.html" %}
 
 {% block inicio %}
-   <li class="{% if 'inicial_invitados' == request.resolver_match.view_name %}active{% endif %}">
-    <a href="{% url 'inicial_invitados' %}">Inicio</a></li>
+
+  		 <li class="{% if 'url_login' == request.resolver_match.view_name %}active{% endif %}">
+    	<a href="{% url 'url_login' %}">Inicio</a></li>
+    	<li class="{% if 'listar_deportes' == request.resolver_match.view_name %}active{% endif %}">
+    		<a href="{% url 'listar_deportes' %}">Deportes</a></li>
+    	<li class="{% if 'ver_novedades_visibilidadTodos' == request.resolver_match.view_name %}active{% endif %}">
+    		<a href="{% url 'ver_novedades_visibilidadTodos' %}">Novedades</a></li>
+
 {% endblock %}
+
 {% block menu %}
-	{% include "login.html" %}
+	{%if user.is_authenticated %}
+	{% else %}
+		{% include "login.html" %}	
+	{% endif %}
+
 {% endblock %}
+
 {% block contenido %}
 <div class="page-header">
 			<h2><b><i>¡Bienvenidos!</i></b></h2>
