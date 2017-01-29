@@ -7,6 +7,7 @@ from deportes.models import Deporte
 from django.template import Context
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.views.generic.edit import UpdateView
+from django.conf import settings
 
 
 def vista_pagina_inicio(request):
@@ -132,12 +133,21 @@ def listar_alumnos_deporte(request, pk):
 		'nombre': Deporte.objects.get(id=pk).nombre
 	}
 	
-	return render_to_response(template,ctx)
+	return render_to_response(template,ctx, context_instance=RequestContext(request))
 
 def ver_usuarios(request):
 	template='admin/ver_usuarios.html'
 	ctx = {
 		'usuarios': Persona.objects.all(),
 	}
-	return render_to_response(template,ctx)
+	return render_to_response(template,ctx, context_instance=RequestContext(request))
+
+def ver_informacion_alumno(request, pk):
+	template = "profesor/ver_informacion_alumno.html"
+	#url_fotoPerfil = (settings.BASE_DIR + settings.MEDIA_ROOT).replace('\\','/') + Alumno.objects.get(id=pk).foto_perfil.name
+	ctx = {
+		'alumno': Alumno.objects.get(id=pk),
+		'contactos': Alumno.objects.get(id=pk).contactos_de_urgencia.all(),
+	}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
 

@@ -14,11 +14,18 @@ urlpatterns = patterns('',
 	url(r'^cambiar-pass$', cambiar_contrasenia),
 	url(r'^cambiar-telefono$', cambiar_telefono),
 	url(r'^cambiar-direccion$', cambiar_direccion),
-	url(r'^ver-deportes$', ver_deportes_profesor, name='ver-deportes'),
-	url(r'^ver-alumnos/deporte/(?P<pk>[0-9]+)$', listar_alumnos_deporte, name='ver-alumnos'),
+	
 )
 
-
+#URLs ADMIN
 urlpatterns += patterns('',
 	url(r'^ver-usuarios$', ver_usuarios, name='ver_usuarios'),  
+)
+
+#URLs PROFESOR
+urlpatterns += patterns('',
+	url(r'^ver-deportes$', ver_deportes_profesor, name='ver-deportes'),
+	url(r'^ver-alumnos/deporte/(?P<pk>[0-9]+)$', listar_alumnos_deporte, name='ver-alumnos'),
+	url(r'^ver-alumnos/deporte/alumno/(?P<pk>[0-9]+)$', ver_informacion_alumno, name='info-alumno'),
+
 )

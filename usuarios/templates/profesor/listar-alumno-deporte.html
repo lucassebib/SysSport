@@ -9,9 +9,10 @@
 {%endblock %}
 
 {% block contenido %}
-Lista de Alumnos de <u>{{nombre}}</u>:
+<h1>Lista de Alumnos de <u>{{nombre}}</u></br></h1>
+Seleccione alumno para ver informacion:
 {% for a in alumnos %}
-	<li>{{a.obtenerNombreCompleto}}</li>
+	<li><a href="{% url 'info-alumno' a.id %}">{{a.obtenerNombreCompleto}}</a></li>
 {% endfor %}
 
 {% endblock %}

@@ -104,7 +104,7 @@ admin.site.register(Profesor,ProfesorAdmin)
 
 class AlumnoAdmin(admin.ModelAdmin):
 	list_display = ('legajo', 'deportes_inscripto')
-	fields = ('username', 'password', 'first_name', 'last_name', 'direccion', 'carrera', 'legajo', 'dni', 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
+	fields = ('username', 'password', 'first_name', 'last_name', 'direccion', 'carrera', 'legajo', 'dni', 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica','contactos_de_urgencia', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
 
 admin.site.register(Alumno,AlumnoAdmin)
 
@@ -118,3 +118,8 @@ class DireccionAdmin(admin.ModelAdmin):
 	list_display = ('calle', 'altura', 'piso', 'nro_departamento', 'provincia', 'localidad')
 
 admin.site.register(Direccion,DireccionAdmin)
+
+class ContactoUrgenciaAdmin(admin.ModelAdmin):
+	list_display = ('nombre', 'apellido', 'parentezco', 'direccion', 'telefono')
+
+admin.site.register(ContactoDeUrgencia,ContactoUrgenciaAdmin)
