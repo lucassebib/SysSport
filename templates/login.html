@@ -1,5 +1,5 @@
 
-<div class="panel panel-primary" >
+<div id="login" class="panel panel-primary" >
 	<div class="panel-heading" align="center">
 		 <h3 class="panel-title">Iniciar Sesion</h3>
 	</div>
@@ -12,23 +12,19 @@
 	  		<div class="form-group">
 			</div>
 	  		<div class="form-group">
-			    <div class="col-lg-offset-2 col-lg-10">
-				    <div class="checkbox">
-				        <label>
+			    <div class="col-lg-10">
+				    <label>
 				          <input type="checkbox"> No cerrar sesión
-				        </label>
-				    </div>
+				    </label>
+				</div>
+				<div class="col-lg-offset-2 col-lg-10">   
+				    <button type="submit" class="btn btn-default" value="Login">Entrar</button>
 				</div>
 			</div>
-			<div class="form-group">
-			    <div class="col-lg-offset-2 col-lg-10">
-			      	<button type="submit" class="btn btn-default" value="Login">Entrar</button>
-			    </div>
-			</div>
-			{{mensaje}}
+			<label>{{mensaje}}</label>
 		</form>
 	</div>
-	<div class="panel panel-footer">
+	<div class="panel-footer">
 		<a href="recuperar-contrasenia">Olvidaste tu contraseña?</a><br/>
 		<a href="registrarse">Desea registrarse?</a><br/>
 	</div>

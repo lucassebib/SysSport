@@ -5,15 +5,17 @@
     <div class="page-content col-md-3 hidden-sm">
         
         <div class="panel panel-primary">
-            <div class="panel panel-heading">
+            <div class="panel-heading">
                 <h3 class="panel-title">Navegación</h3>
             </div>
-             <ul class="nav nav-pills nav-stacked">
+            <div class="panel-body">
+                <ul class="nav nav-pills nav-stacked">
 
-                {% block inicio %}
-                {% endblock %}
+                    {% block inicio %}
+                    {% endblock %}
                 
                </ul>
+            </div>
         </div>
 
         {% block menu %}
