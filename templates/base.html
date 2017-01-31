@@ -8,22 +8,24 @@
             <link rel="stylesheet" href="{% static "bootstrap/bootstrap.min.css" %} "> <!-llamamos al archivo CSS->
             <link rel="stylesheet" href="{% static "css/estilos.css" %} ">
             <link rel="stylesheet" href="{% static "css/novedades.css" %} ">
+            <link rel="stylesheet" href="{% static "css/deporte.css" %} ">
         </head>
         <body>
             <header>
                 
                     <div class="container-fluid">
-                        <a  href="bienvenida">
+                        <a  href="{% url 'url_login' %}">
                             <img src="{% static "img/logoSAU-UTN.png" %}" class="img-responsive" alt>  
                         </a>
                         <nav class="navbar navbar-default" role="navigation">
                             <ul class= "nav nav-pills navbar-right navbar-default">
                                 {% if user.is_authenticated %}  
+                                    
                                     <li><a href="{% url 'url_logout'%}" class="navbar-link"><span>Salir</span></a></li>
                                     
                                 {% else %}
                                     <li><a href="registrarse" class="navbar-link" ><span></span> Registrarse</a></li>
-                                    <li><a href="inicio" class="navbar-link"><span></span> Ingresar</a></li>
+                                    <li><a href="{% url 'url_logout'%}#login" class="navbar-link"><span></span> Ingresar</a></li>
                                 {% endif %}
                                 </ul>
                                 
