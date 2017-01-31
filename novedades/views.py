@@ -4,13 +4,14 @@ from django.contrib.auth import authenticate, login as loguear, logout
 from django.template import Context
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from novedades.models import Novedades
-from usuarios.models import Alumno, Profesor, UsuarioInvitado
+from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona
 from deportes.models import Deporte
 from django.db.models import Q
 from django.template import Context
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
+from forms import FormularioNovedades
 
 @login_required	
 def vista_index_alumnos(request):
@@ -48,21 +49,32 @@ class ListarNovedades(ListView):
     model = Novedades
     context_object_name = 'novedades'
 
+    def get_queryset(self):
+        queryset = super(ListarNovedades, self).get_queryset()
+        return queryset.filter(autor=self.request.user.id)
+
 class DetallesNovedades(DetailView):
     model = Novedades
     
 class CrearNovedades(CreateView):	 
 	model = Novedades	
 	context_object_name = 'novedades'  
-	fields = ['titulo','contenido', 'imagen','visibilidad','categoria',]
+	#form_class = FormularioNovedades
+	fields = ['titulo','contenido', 'imagen','visibilidad', 'categoria']	
+
+#	def get_form_kwargs(self, **kwargs):
+#	    kwargs = super(CrearNovedades, self).get_form_kwargs(**kwargs)
+#	    kwargs['categoria'] = Persona.objects.get(id=self.request.user.id).lista_deporte.all()
+#	    return kwargs 
 
 	def form_valid(self, form):
 		a = form.save(commit = False)
-		profe = Profesor.objects.get(id = self.request.user.id)
-		a.autor = profe
+		a.autor = Profesor.objects.get(id = self.request.user.id)
 		return super(CrearNovedades, self).form_valid(form)
-    
-    #novedades.autor_id= 
+
+#	def get_form_class(self):
+#		return FormularioNovedades
+	 
 	
 class ActualizarNovedades(UpdateView):
     model = Novedades

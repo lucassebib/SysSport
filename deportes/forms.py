@@ -3,4 +3,4 @@ from models import Deporte
 
 class FormularioCrearDeporte(forms.ModelForm):
 	class Meta:
-		model = Deporte
+		model = Novedades
