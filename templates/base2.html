@@ -17,8 +17,12 @@
                </ul>
             </div>
         </div>
-
         {% block menu %}
+        {%if user.is_authenticated %}
+            
+        {% else %}
+            {% include "login.html" %}  
+        {% endif %}
         {% endblock %}
     </div>
     <div class="page-content col-md-7 col-sm-10">
