@@ -85,7 +85,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'sqlserver_ado',
         'NAME': 'syssport',
-        'HOST': 'localhost',
+        'HOST': 'LAILA\MSSQLSERVER14',
         'USER': 'proyecto',
         'PASSWORD': 'proyecto2016',
 
@@ -119,6 +119,15 @@ STATIC_URL = '/static/'
 LOGIN_URL = reverse_lazy('url_login')
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+LOGIN_URL = reverse_lazy('url_login')
+
+EMAIL_USE_TLS = True 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'syssport2017@gmail.com'
+EMAIL_HOST_PASSWORD ='proyecto2017'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 
 
