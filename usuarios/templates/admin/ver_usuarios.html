@@ -1,3 +1,10 @@
-{% for u in usuarios %}
-	{{u.first_name}}
-{% endfor %}
+{% extends "baseAdmin.html " %}
+
+{% block contenido %}
+
+
+	{% for u in usuarios %}
+		{{u.first_name}}
+	{% endfor %}
+
+{% endblock %}
