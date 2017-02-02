@@ -11,23 +11,23 @@ from django.template import Context
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-from forms import FormularioNovedades
 
 @login_required	
 def vista_index_alumnos(request):
 	template = "inicial_alumnos.html"	
 	return render_to_response(template, context_instance=RequestContext(request))
-
+@login_required	
 def vista_index_profesores(request):
 	template = "inicial_profesores.html"	
 	return render_to_response(template, context_instance=RequestContext(request))
-
+@login_required	
 def vista_index_noLogueado(request):
 	template = "usuario_noLogueado.html"	
 	return render_to_response(template, context_instance=RequestContext(request))
 
 ##################### Novedades de usuarios#############################################
 #Novedades de alumnos
+@login_required	
 def novedades_alumnos(request):
 	template = "novedades_alumnos.html"	
 	id_usuario = request.user.id
@@ -40,11 +40,7 @@ def novedades_alumnos(request):
 
 #Novedades de Profesores
 
-
-
-
-#@login_required	esto debe ir en cada definicion 
-
+#@login_required	
 class ListarNovedades(ListView):
     model = Novedades
     context_object_name = 'novedades'
@@ -59,32 +55,22 @@ class DetallesNovedades(DetailView):
 class CrearNovedades(CreateView):	 
 	model = Novedades	
 	context_object_name = 'novedades'  
-	#form_class = FormularioNovedades
-	fields = ['titulo','contenido', 'imagen','visibilidad', 'categoria']	
-
-#	def get_form_kwargs(self, **kwargs):
-#	    kwargs = super(CrearNovedades, self).get_form_kwargs(**kwargs)
-#	    kwargs['categoria'] = Persona.objects.get(id=self.request.user.id).lista_deporte.all()
-#	    return kwargs 
+	fields = ['titulo', 'contenido', 'imagen','visibilidad', 'categoria']
 
 	def form_valid(self, form):
 		a = form.save(commit = False)
 		a.autor = Profesor.objects.get(id = self.request.user.id)
 		return super(CrearNovedades, self).form_valid(form)
 
-#	def get_form_class(self):
-#		return FormularioNovedades
-	 
-	
 class ActualizarNovedades(UpdateView):
     model = Novedades
     
-
 class EliminarNovedades(DeleteView):
     model = Novedades
     context_object_name = 'novedades'
     success_url = reverse_lazy('listar-novedades')
 
+@login_required	
 def ver_novedades_visibilidadTodos(request):
 	template = "novedades_visibilidad_todos.html"
 	id_usuario = request.user.id

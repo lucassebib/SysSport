@@ -53,9 +53,6 @@ ROOT_URLCONF = 'syssport.urls'
 
 WSGI_APPLICATION = 'syssport.wsgi.application'
 
-#TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),)
-
-
 TEMPLATE_DIRS = ('templates',)
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -68,8 +65,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 "django.contrib.messages.context_processors.messages",
 "django.core.context_processors.request",
 )
-
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_ROOT = '/media/'
 
