@@ -64,6 +64,7 @@ class CrearNovedades(CreateView):
 
 class ActualizarNovedades(UpdateView):
     model = Novedades
+    fields = ['titulo', 'contenido', 'imagen','visibilidad', 'categoria']
     
 class EliminarNovedades(DeleteView):
     model = Novedades
