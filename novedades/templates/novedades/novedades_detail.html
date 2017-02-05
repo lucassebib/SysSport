@@ -20,12 +20,10 @@
 					<td>Grupo: {{novedades.visibilidad}}</td>
 					<td>categoria: {{novedades.obtener_categorias}}</td>
 				</tr>	
-				<tr>
-				{% if user.is_authenticated %}
+				<tr>			
 					<td><a href="{% url 'actualizar-novedad' novedades.id %}">Modificar</a></td>
 					<td><a href="{% url 'eliminar-novedad' novedades.id %}">Eliminar</a></td>
 					<td><a href="{% url 'listar-novedades' %}"> Ver Todas</a></td>
-				{% endif %}
 				</tr>
 			</tbody>
 			

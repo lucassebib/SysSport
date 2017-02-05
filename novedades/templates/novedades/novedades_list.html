@@ -2,21 +2,20 @@
 
 
 {% block contenido %}
+	<a href="{% url 'crear-novedad' %}">Crear Novedad</a>
 	<table class="table table-hover table-striped">
-		<caption><h1>Novedades</h1></caption>
-		
+		<caption><h1>Novedades</h1></caption>		
 		{% for novedad in object_list %}
-		<tbody>
-			<tr>
-				<td><a href="{{novedad.get_absolute_url}}">{{novedad.titulo}}</a> </td>
-			</tr>
-		</tbody>
+			<tbody>
+				<tr>
+					<td><a href="{% url 'actualizar-novedad' novedad.id %}">{{novedad.titulo}}</a> </td>
+				</tr>
+			</tbody>
 		{% endfor %}
 
 	</table>
-	{% if user.is_authenticated %}
-		<a href="{% url 'crear-novedad' %}">Crear Novedad</a>
-	{% endif %}
+		
+	
 {% endblock %}
 
 

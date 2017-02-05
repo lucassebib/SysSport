@@ -50,6 +50,9 @@ class Profesor(Persona):
 	def tipo_usuario(self, cadena):
 		return cadena == 'profesor'
 
+	def tipo_usuario(self):
+		return 'profesor'
+
 	def profesor_de(self):
 		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
 
@@ -74,6 +77,9 @@ class Alumno(Persona):
 	def tipo_usuario(self, cadena):
 		return cadena == 'alumno'
 
+	def tipo_usuario(self):
+		return 'alumno'
+
 	def ver_nombre_carrera(self):
 		return self.get_carrera_display()
 		
@@ -93,6 +99,9 @@ class UsuarioInvitado(Persona):
 
 	def tipo_usuario(self, cadena):
 		return cadena=='invitado'
+
+	def tipo_usuario(self):
+		return 'invitado'
 
 ##################AGREGAMOS CLASES AL PANEL DE ADMINISTRACION##################################
 

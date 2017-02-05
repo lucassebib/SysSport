@@ -8,6 +8,8 @@ from django.template import Context
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.views.generic.edit import UpdateView
 from django.conf import settings
+from django.db.models import Q
+from itertools import chain
 
 
 def vista_pagina_inicio(request):
@@ -120,17 +122,18 @@ def ver_deportes_profesor(request):
 	profesor = Profesor.objects.get(id=request.user.id)	 
 	template = "profesor/ver_deportes.html"
 	ctx = {
-		'deportes': profesor.lista_deporte.all(), 
+		'deportes': profesor.lista_deporte.all(),
+		'otrosDeportes': Deporte.objects.filter(~Q(id__in=profesor.lista_deporte.all())) 
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 @login_required
 def listar_alumnos_deporte(request, pk):
 	template = "profesor/listar-alumno-deporte.html"
-	alumnos = Alumno.objects.filter(lista_deporte__in=pk )
+	alumnos = chain(Alumno.objects.filter(lista_deporte__in=pk ), UsuarioInvitado.objects.filter(lista_deporte__in=pk ))  
 	ctx = {
 		'alumnos': alumnos,
-		'nombre': Deporte.objects.get(id=pk).nombre
+		'nombre': Deporte.objects.get(id=pk).nombre,
 	}
 	
 	return render_to_response(template,ctx, context_instance=RequestContext(request))
@@ -144,10 +147,18 @@ def ver_usuarios(request):
 
 def ver_informacion_alumno(request, pk):
 	template = "profesor/ver_informacion_alumno.html"
-	#url_fotoPerfil = (settings.BASE_DIR + settings.MEDIA_ROOT).replace('\\','/') + Alumno.objects.get(id=pk).foto_perfil.name
+	try:
+		alumno = Alumno.objects.get(id=pk)
+		tipo_usuario = 'alumno'
+	except Exception as e:
+		alumno = UsuarioInvitado.objects.get(id=pk)
+		tipo_usuario = 'invitado'
+
 	ctx = {
-		'alumno': Alumno.objects.get(id=pk),
+		'alumno': alumno,
 		'contactos': Alumno.objects.get(id=pk).contactos_de_urgencia.all(),
+		'alumnoUTN': tipo_usuario=='alumno',
+		'alumnoInvitado': tipo_usuario=='invitado',
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
