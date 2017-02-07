@@ -71,7 +71,7 @@ class EliminarNovedades(DeleteView):
     context_object_name = 'novedades'
     success_url = reverse_lazy('listar-novedades')
 
-@login_required	
+	
 def ver_novedades_visibilidadTodos(request):
 	template = "novedades_visibilidad_todos.html"
 	id_usuario = request.user.id
