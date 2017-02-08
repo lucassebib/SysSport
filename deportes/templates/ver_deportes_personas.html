@@ -2,6 +2,7 @@
 {% block contenido %}
 	<table class="table table-hover table-striped">
 		<caption><h1>Deportes inscriptos de <b>{{usuario}}</b>: </h1></caption>
+		<a href="{% url 'inscribir_deportes' %}">Inscribirme a mas Deportes!</a>
 		<thead>
 			<tr class="success">
 				<th>Nombre</th>
@@ -10,12 +11,13 @@
 		</thead>
 		
 		{% for d in deportes %}
-		<tbody>
-			<tr>
-				<td>{{d.nombre}} </td>
-				<td>{{d.descripcion}}</td>
-			</tr>
-		</tbody>
+			<tbody>
+				<tr>
+					<td>{{d.nombre}} </td>
+					<td>{{d.descripcion}}</td>
+					<td><a type="text" href="{% url 'desinscribir_deporte' d.id %}">Darse de Baja</a></td>
+				</tr>
+			</tbody>
 		{% endfor %}
 
 	</table>

@@ -10,7 +10,7 @@
 		DNI: {{alumno.dni}} </br>
 		Fecha de Nacimiento: {{alumno.fecha_nacimiento}} </br>
 		Telefono: {{alumno.telefono}} </br>
-		Direccion: {{alumno.direccion}} </br>
+		Direccion: {{alumno.direccion}} </br>{{ alumno.foto_perfil.url }}
 
 		</br>CONTACTOS DE URGENCIA </br>
 		{% for c in contactos %}
@@ -30,7 +30,10 @@
 		Cantidad de Materias: <input type="Text">
 		<input type="submit"></br>
 		</br>INFORMACION DEPORTIVA </br>
-		Ficha Medica: <a href="{{ alumno.ficha_medica.url }}">Descargar</a>
+			{% if alumno.ficha_medica %}
+				Ficha Medica: <a href="{{ alumno.ficha_medica.url }}">Descargar</a>
+			{% endif %}
+		
 	{% endif %}
 {% endblock %}
 

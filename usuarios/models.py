@@ -31,7 +31,7 @@ class Persona(Usuario):
 	dni = models.IntegerField(blank=True, null=True)
 	fecha_nacimiento = models.DateField(blank=True, null=True)
 	telefono = models.IntegerField(blank=True, null=True)
-	foto_perfil = models.ImageField(upload_to='fotos_de_perfil/', blank=True, null=True)
+	foto_perfil = models.ImageField(upload_to='fotos_de_perfil/', default='default_profile.jpg', blank=True, null=True)
 	lista_deporte = models.ManyToManyField(Deporte, verbose_name='Deportes Inscripto')
 	direccion = models.ForeignKey(Direccion, blank=True, null=True)
 

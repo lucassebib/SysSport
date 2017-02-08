@@ -15,40 +15,35 @@ from itertools import chain
 def vista_pagina_inicio(request):
 	form = FormularioAutenticacion()
 	template = "inicio.html"
-	if request.method == "POST":form = FormularioAutenticacion(request.POST)
-	if form.is_valid():
+
+	if request.method == "POST":
+		form = FormularioAutenticacion(request.POST)
+		if form.is_valid():
 			usuario = form.cleaned_data['username']
 			password = form.cleaned_data['password']
-		
 			user = authenticate(username=usuario, password=password)
+
  			try:
 				if user is not None:
 					if user.is_active:
 						loguear(request, user)
 						id_usuario = request.user.id
-						gente = Persona.objects.get(id=id_usuario)
-						try:
+						try:							
 							g = Alumno.objects.get(id=id_usuario)
+							return HttpResponseRedirect('/inicial_alumnos')
 						except Exception as e:
 							try:
 								g = Profesor.objects.get(id=id_usuario)
+								return HttpResponseRedirect('/inicial_profesores')
 							except Exception as e:
 								g = UsuarioInvitado.objects.get(id=id_usuario)
-		
-						if g.tipo_usuario(cadena='alumno'):
-							return HttpResponseRedirect('/inicial_alumnos')
-						else:
-							if g.tipo_usuario(cadena="profesor"):
-								return HttpResponseRedirect('/inicial_profesores')
-							else: 
-								if g.tipo_usuario(cadena= "invitado"):
-									return HttpResponseRedirect('/inicial_invitados')
+								return HttpResponseRedirect('/inicial_invitados')									
 					else:
 						ctx = {"form":form, "mensaje": "Usuario Inactivo"}
-						return render_to_response("inicio.html",ctx, context_instance=RequestContext(request))
+						return render_to_response(template,ctx, context_instance=RequestContext(request))
 				else:
 					ctx = {"form":form, "mensaje": "Nombre de usuario o password incorrectos"}
-					return render_to_response("inicio.html",ctx, context_instance=RequestContext(request))
+					return render_to_response(template,ctx, context_instance=RequestContext(request))
 			except Exception as e:
 				if user.is_staff:
 					return HttpResponseRedirect('/inicial-admin')

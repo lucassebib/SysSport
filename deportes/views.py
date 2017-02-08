@@ -8,6 +8,8 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from usuarios.models import Persona
+from django.http import HttpResponseRedirect
+
 
 
 ###############################ABM DEPORTES##############################################
@@ -84,6 +86,46 @@ def listar_deportes(request):
         'extiende': extiende,
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+#Para Alumno y Usuario Invitado
+@login_required
+def inscripcion_deportes(request):
+    template = "inscripcion_deportes.html"
+    ctx = {
+        'deportes': Deporte.objects.all(), 
+        'deportes_alumno': Persona.objects.get(id=request.user.id).lista_deporte.all(),
+    }
+    return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+#Para Alumno y Usuario Invitado
+@login_required
+def baja_deporte(request, pk):
+    template = "baja_deporte.html"
+
+    if request.method == "POST":
+        Persona.objects.get(id=request.user.id).lista_deporte.remove(pk)
+        return HttpResponseRedirect('/ver-lista-deportes')   
+
+    ctx = {
+        'deporte': Deporte.objects.get(id=pk).nombre,
+    }
+    return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+#Para Alumno y Usuario Invitado
+@login_required
+def inscribir_deporte(request, pk):
+    template = "inscribir_deporte.html"
+
+    if request.method == "POST":
+        Persona.objects.get(id=request.user.id).lista_deporte.add(Deporte.objects.get(id=pk))
+        return HttpResponseRedirect('/ver-lista-deportes')   
+
+    ctx = {
+        'deporte': Deporte.objects.get(id=pk).nombre,
+    }
+    return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+
 
 
         
