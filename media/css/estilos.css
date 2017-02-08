@@ -3,13 +3,7 @@
 	margin-bottom: 0;
 	background-color: #2c3e50;
 }
-.jumbotron{
-	background-color: #00BFFF;
-	color: #fff;
-	padding-top: 0px;
-	height: 200px;
 
-}
 .navbar-brand{
 	width: 1200px;
 	height: 200px;
@@ -19,8 +13,8 @@
 }
 .container.cabecera{
 	width: 970px;
-	height: 160px;
-	padding-top: 10px;
+	height: 260px;
+	padding-top: 5px;
 	margin: 0;
 }
 /*FIN HEADER*/
@@ -29,8 +23,19 @@ body{
 	font-family: 'Tahoma';
 
 }
-a, li {
+a, li, h3 {
+	color: #424242;
+}
+.jumbotron{
+	background-color: #00BFFF;
 	color: #fff;
+	padding-top: 0px;
+	height: 250px;
+
+}
+.panel-title{
+	color: #fff;
+	text-align: left;
 }
 .panel-body{
 	background-color: #A9E2F3;
@@ -38,8 +43,23 @@ a, li {
 .panel-footer{
 	background-color: #1995dc;
 }
+#syssport{
+	font-size: 210%;
+	font-family: fantasy;
+	padding: 0;
+	margin: 0;
+}
+
+#login{
+	width: 300px;
+	text-align: center
+}
 /*FIN BODY*/
 /*FOOTER*/
+#utn-footer{
+	font-family: fantasy;
+}
+
 .footer-distributed{
 	background-color: #2c3e50;
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
