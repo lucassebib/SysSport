@@ -50,7 +50,7 @@ class Migration(migrations.Migration):
                 ('dni', models.IntegerField(null=True, blank=True)),
                 ('fecha_nacimiento', models.DateField(null=True, blank=True)),
                 ('telefono', models.IntegerField(null=True, blank=True)),
-                ('foto_perfil', models.ImageField(null=True, upload_to=b'fotos_de_perfil/', blank=True)),
+                ('foto_perfil', models.ImageField(default=b'default_profile.jpg', null=True, upload_to=b'fotos_de_perfil/', blank=True)),
             ],
             options={
                 'abstract': False,

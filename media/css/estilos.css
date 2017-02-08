@@ -1,106 +1,54 @@
-
-header,body,section,footer,div,h1,h2,li,a {
-	margin: 0;
-	padding: 0;
-	color: #000000;
-}
-
-body{
-	background-color: #CEF6F5 ;
-}
-
-header{
-	background-image: url("../img/fondo-cabecera.png");
-	width: 100%;
-	position: relative;
-}
-
-a{
-	text-decoration: none;
-	color:#000000;
-	margin: 10px;
-}
-
-label{
-	font-style: italic;
-}
-
-.navbar {
-	background-color: #2c3e50;
+/*HEADER*/
+.navbar{
 	margin-bottom: 0;
-	margin-right: 15px;
+	background-color: #2c3e50;
 }
+.jumbotron{
+	background-color: #00BFFF;
+	color: #fff;
+	padding-top: 0px;
+	height: 200px;
 
 }
-.content .container{
-	background-image: url("../img/img-fondo.jpg");
-	margin:10px;
-	
+.navbar-brand{
+	width: 1200px;
+	height: 200px;
 }
-
-.page-header {
-	background-color: #A9D0F5;
-	margin: 10px;
-	padding: 10px;
-	border-radius: 5px;
+#logo-cabecera{
+	border-radius: 70px;
 }
-.page-content{
-
-	margin: 10px;
-	padding: 10px 80px 10px 5px;
-	height: 661.5px;
-
-}
-
-.panel .panel-footer {
-	background-color: #A9D0F5; 
-}
-
-.container{
+.container.cabecera{
+	width: 970px;
+	height: 160px;
+	padding-top: 10px;
 	margin: 0;
-	padding:10px 10px 10px 10px;
-	width: 80%;
+}
+/*FIN HEADER*/
+/*BODY*/
+body{
+	font-family: 'Tahoma';
 
 }
-.container-fluid{
-	width: 100%;
+a, li {
+	color: #fff;
 }
-
-.nav , .navbar{
-	margin-left: 0;
-	padding-left: 0;
-	border-radius: 5px;
+.panel-body{
+	background-color: #A9E2F3;
 }
-
-#contenido_der{
-	margin:0;
-	padding:0;
+.panel-footer{
+	background-color: #1995dc;
 }
-
-.panel .panel-default{
-	padding: 10px;
-}
-
-.well{
-	padding: 10px 20px 0px 20px;
-	margin: 0px 70px 10px 70px;
-	
-}
-.img-responsive{
-	border-radius: 75px;
-	
-}
-
-/*Footer*/
-
+/*FIN BODY*/
+/*FOOTER*/
 .footer-distributed{
 	background-color: #2c3e50;
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
 	width: 100%;
 	font: bold 16px sans-serif;
 	text-align: left;
-	padding:50px 60px 40px;
+	padding:1em;
 	overflow: hidden;
+	position: relative;
 }
 
 /* Footer left */
@@ -189,7 +137,6 @@ label{
 .footer-distributed form textarea{
 	display: block;
 	border-radius: 3px;
-	box-sizing: border-box;
 	background-color:  #1f2022;
 	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
 	border: none;
@@ -261,8 +208,11 @@ label{
 
 }
 
-@media (max-width: 800px) {
-
+@media (max-width: 768px) {
+	.sidebar-nav{
+		padding: 0;
+	} 
+	
 	.footer-distributed{
 		padding: 30px;
 	}
@@ -290,4 +240,4 @@ label{
 		float: none;
 	}
 }
-/*Fin Footer*/
+/*FIN FOOTER*/
