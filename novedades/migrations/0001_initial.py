@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             name='Comentario',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('texto', models.TextField(help_text=b'tu comentario', verbose_name=b'comentario')),
+                ('texto', models.TextField(verbose_name=b'comentario')),
             ],
             options={
             },

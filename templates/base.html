@@ -45,10 +45,8 @@
             <section class="jumbotron">
             	<div class="container-fluid cabecera">
             		<div id="logoSAU-Sysport" class="col-md-2">
-            			<a class= "navbar-brand" href="{% url 'url_logout' %}">
-	            			<h1 id="syssport">SysSport</h1>
-	            			<img id="logo-cabecera" class="img-responsive" src="{% static "img/logoSAU.png" %}">
-                    	</a>
+            			{% block inicio %}
+            			{% endblock %}
             		</div>
                     <!--<div id="mural-cabecera" class="col-md-9" >
                     	<img class="img-responsive" src="{% static "img/mural.png" %}">

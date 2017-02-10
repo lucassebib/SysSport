@@ -16,7 +16,7 @@
                         </div>
                     </span>
                 </div>
-                <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                <div class="navbar-collapse collapse ">
                   <ul class="nav nav-pills nav-stacked">
              
                          {% block inicio %}
@@ -25,17 +25,13 @@
                 </div> 
                 </div>
             </div>
-        </br>
-        <div >
-            {% block menu %}
-                {%if not user.is_authenticated %}
+        
+        {% block menu %}
+            {%if not user.is_authenticated %}
                  {% include "login.html" %}  
                 {% endif %}
             {% endblock %}
-           
 
-        </div>
-  
 {% endblock %} 
 {% block contenido %}
 {% endblock %}
