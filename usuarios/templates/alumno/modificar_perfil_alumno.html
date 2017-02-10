@@ -1,12 +1,13 @@
 {% extends "baseAlumno.html" %}
 {% block contenido %}
-
+<!-- -->
 <div class="well ">
 	<div class="panel-heading panel-primary">
 		<h2><i>Mi perfil </i><b>{{usuario}}</b> </h2>
 	</div>
 	<div class="panel-body panel-primary">
 		<form class="form-horizontal" method='POST'>{% csrf_token %}
+			<!--
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Nueva Contraseña:</label>
 				<div class="col-sm-4">
@@ -15,6 +16,7 @@
 					<input type='submit' class="btn btn-default" name="btn-cambiar-pass" value='Editar'>
 				</div>
 			</div>
+			-->
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Nombre: </label>
 				<label class="col-sm-2 control-label">{{nombre}}</label>
@@ -24,44 +26,66 @@
 				<label class="col-sm-2 control-label">{{apellido}}</label>
 			</div>
 			<div class="form-group">
+				<label class="col-sm-2 control-label">Sexo: </label>
+				<label class="col-sm-2 control-label">{{sexo}}</label>
+			</div>
+			<div class="form-group">
 				<label class="col-sm-2 control-label">DNI: </label>
 				<label class="col-sm-2 control-label"> {{dni}}</label>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-2 control-label">Legajo: </label>
-				<label class="col-sm-2 control-label">{{legajo}}</label>
+				{% if is_alumno %}
+					<label class="col-sm-2 control-label">Legajo: </label>
+					<label class="col-sm-2 control-label">{{legajo}}</label>
+				{% endif %}
+
+				{% if is_invitado %}
+					<label class="col-sm-2 control-label">Institucion: </label>
+					<label class="col-sm-2 control-label">{{institucion}}</label>
+				{% endif %}
 			</div>
-			<div class="form-group">
-				<label class="col-sm-2 control-label">Carrera:  </label>
-				<label class="col-sm-2 control-label">{{carrera}}</label>
-			</div>
+			{% if is_alumno %}
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Carrera:  </label>
+					<label class="col-sm-2 control-label">{{carrera}}</label>
+				</div>
+			{% endif %}
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Fecha de Nacimiento: </label>
 				<label class="col-sm-2 control-label">{{fecha_nacimiento}}</label>
 			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Telefono: </label>
+				<label class="col-sm-2 control-label">{{telefono}}</label>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Dirección </label>
+				<label class="col-sm-2 control-label">{{direccion}}</label>
+			</div>
 		</form>
-		<form class="form-horizontal" method='POST'>{% csrf_token %}
+
+		<!--<form class="form-horizontal" method='POST'>{% csrf_token %}
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Telefono:</label>
 				<div class="col-sm-4">
 					<span class="input-group-addon"><span class="glyphicon glyphicon-earphone"> </ span> </span>
-					<input type="text" value="{{telefono}}">
-					<input type='submit' class="btn btn-default" name="btn-cambiar-telefono" value='Editar'>
+					<input type="text" value="{{telefono}}" readonly="">
+					
 				</div>
 				
 			</div>
-		</form>
+		</form> 
 		<form class="form-horizontal" method='POST'>{% csrf_token %}
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Dirección:</label>
 				<div class="col-sm-4">
 					<span class="input-group-addon"><span class="glyphicon glyphicon-pencil"> </ span> </span>
 					<label>{{direccion}}</label>
-					<input type='submit' class="btn btn-default" name="btn-cambiar-direccion" value='Editar'>
+					 <input type='submit' class="btn btn-default" name="btn-cambiar-direccion" value='Editar'> 
 				</div>
 							
 			</div>
-		</form>	
+		</form>	-->
 	</div>
 </div>	
 {% endblock %}

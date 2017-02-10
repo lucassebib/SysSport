@@ -16,11 +16,12 @@ from forms import FormularioComentario
 def vista_index_alumnos(request):
 	template = "inicial_alumnos.html"	
 	return render_to_response(template, context_instance=RequestContext(request))
-	
+
 @login_required	
 def vista_index_profesores(request):
 	template = "inicial_profesores.html"	
 	return render_to_response(template, context_instance=RequestContext(request))
+
 @login_required	
 def vista_index_noLogueado(request):
 	template = "usuario_noLogueado.html"	
@@ -65,13 +66,14 @@ class CrearNovedades(CreateView):
 
 class ActualizarNovedades(UpdateView):
     model = Novedades
+    fields = ['titulo', 'contenido', 'imagen','visibilidad', 'categoria']
     
 class EliminarNovedades(DeleteView):
     model = Novedades
     context_object_name = 'novedades'
     success_url = reverse_lazy('listar-novedades')
 
-@login_required	
+	
 def ver_novedades_visibilidadTodos(request):
 	template = "novedades_visibilidad_todos.html"
 	id_usuario = request.user.id

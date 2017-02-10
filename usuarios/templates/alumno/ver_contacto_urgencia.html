@@ -1,0 +1,35 @@
+{% extends "baseAlumno.html" %}
+{% block contenido %}
+	<div class="well ">
+		<div class="panel-heading panel-primary">
+			<h2><i>Contactos de Urgencia de </i><b>{{request.user}}</b> </h2>
+		</div>
+		<div class="panel-body panel-primary">
+			<form class="form-horizontal" method='POST'>{% csrf_token %}
+				{% for c in contactos %}
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Nombre: </label>
+						<label class="col-sm-2 control-label">{{c.nombre}}</label>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Apellido: </label>
+						<label class="col-sm-2 control-label">{{c.apellido}}</label>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Parenctezco: </label>
+						<label class="col-sm-2 control-label"> {{c.parentezco}}</label>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Direccion: </label>
+						<label class="col-sm-2 control-label">{{c.direccion}}</label>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Telefono:  </label>
+						<label class="col-sm-2 control-label">{{c.telefono}}</label>
+					</div>
+					</div>
+				{% endfor %}
+			</form>
+		</div>
+	</div>		
+{% endblock %}

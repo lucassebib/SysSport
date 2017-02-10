@@ -2,52 +2,94 @@
 <!DOCTYPE html>
     <html lang="es">
         <head>
+            <title>SysSport-UTN-Facultad Regional Resistencia</title>
+            <link rel="shortcut icon" href="">
             <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1"> <!-con esto garantizamos que se vea bien en dispositivos moviles->
-            <title>SysSport - Proyecto 2016</title>
-            <link rel="stylesheet" href="{% static "bootstrap/bootstrap.min.css" %} "> <!-llamamos al archivo CSS->
-            <link rel="stylesheet" href="{% static "css/estilos.css" %} ">
-            <link rel="stylesheet" href="{% static "css/novedades.css" %} ">
-            <link rel="stylesheet" href="{% static "css/deporte.css" %} ">
+            <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0 maximum-scale=1.0, minimum-scale=1.0"> 
+            <link rel="stylesheet" type="text/css" href="{% static "bootstrap/css/bootstrap.min.css" %} "> 
+            <link rel="stylesheet" type="text/css" href="{% static "css/estilos.css" %} ">
+            <link rel="stylesheet" type="text/css" href="{% static "css/novedades.css" %} ">
+            <link rel="stylesheet" type="text/css" href="{% static "css/deporte.css" %} ">
         </head>
         <body>
+            <!--MENU DE ARRIBA CON Registrarse e Ingresar-->
             <header>
-                
-                    <div class="container-fluid">
-                        <a  href="{% url 'url_login' %}">
-                            <img src="{% static "img/logoSAU-UTN.png" %}" class="img-responsive" alt>  
-                        </a>
-                        <nav class="navbar navbar-default" role="navigation">
-                            <ul class= "nav nav-pills navbar-right navbar-default">
-                                {% if user.is_authenticated %}  
-                                    
-                                    <li><a href="{% url 'url_logout'%}" class="navbar-link"><span>Salir</span></a></li>
-                                    
-                                {% else %}
+                <nav role="navigation" class=" navbar navbar-default">
+                  	<div class="container">
+                  		<div class="navbar-header">
+                  			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navegacion-dep">
+                  				<span class="sr-only">Desplegar/ocultar menu</span>
+                  				<span class="icon-bar"></span>
+                  				<span class="icon-bar"></span>
+                  				<span class="icon-bar"></span>
+                  			</button>
+                  			
+                  		</div>
+                  		
+                  		<div class="collapse navbar-collapse" id="navegacion-dep">
+                  			<ul class="nav navbar-nav navbar-right">
+                  				{% if user.is_authenticated %} 
+	                    			<li><a href="{% url 'url_logout'%}" class="navbar-link"><span>Salir</span></a></li> 
+	                    		{% else %}
                                     <li><a href="registrarse" class="navbar-link" ><span></span> Registrarse</a></li>
                                     <li><a href="{% url 'url_logout'%}#login" class="navbar-link"><span></span> Ingresar</a></li>
                                 {% endif %}
-                                </ul>
-                                
-                        </nav>
-                        
-                    </div>
-            </header><!-- /header -->
-            <section>
-              
-                    {% block principal %}
-                    {% endblock %}              
+                  			</ul>
+                  		</div>
+                  	</div>
+                </nav>
+            </header> 
+            <!--Fin MENU ARRIBA-->      
+                  
+           <!-- JUMBOTRON -->
+            <section class="jumbotron">
+            	<div class="container-fluid cabecera">
+            		<div id="logoSAU-Sysport" class="col-md-2">
+            			<a class= "navbar-brand" href="{% url 'url_logout' %}">
+	            			<h1 id="syssport">SysSport</h1>
+	            			<img id="logo-cabecera" class="img-responsive" src="{% static "img/logoSAU.png" %}">
+                    	</a>
+            		</div>
+                    <!--<div id="mural-cabecera" class="col-md-9" >
+                    	<img class="img-responsive" src="{% static "img/mural.png" %}">
+                    </div> -->
+            	</div>
             </section>
+            <!--fin JUMBOTRON-->
+            <!--CONTENIDO PRINCIPAL-->
+            <section class="main container-fluid">
+            	<div class="row">
+    				<aside class="region-izquierda col-md-3">
+    					{% block menu_izq %}
+    					{% endblock %}
+
+    				</aside>
+    				<section class="region-principal col-md-8">
+    					{% block contenido %}
+        				{% endblock %}  
+    				</section>
+				</div>
+            </section>
+	        <!-- fin CONTENIDO PRINCIPAL -->
+            <!-- FOOTER -->
             <footer class="footer-distributed">
                 <div class="footer-left">
-                    <h2>UTN-FRRE <span><small>Deportes</small></span></h2>
-                    <p class="footer-company-name">2016</p>
+                    <h2 id="utn-footer">UTN-FRRE <span><small>Dirección de Deportes</small></span></h2>
+                    <p class="footer-company-name"><b>2016</b></p>
 
                 </div>
                 <div class="footer-right">
-                    <a href="http://www.facebook.com/saufrre" target="_blank"><img alt="Siguenos en Facebook" src="https://lh6.googleusercontent.com/-CYt37hfDnQ8/T3nNydojf_I/AAAAAAAAAr0/P5OtlZxV4rk/s32/facebook32.png" width=32 height=32  /> SAU </a>
+                    <a href="http://www.facebook.com/saufrre" target="_blank"><img alt="Siguenos en Facebook" src="https://lh6.googleusercontent.com/-CYt37hfDnQ8/T3nNydojf_I/AAAAAAAAAr0/P5OtlZxV4rk/s32/facebook32.png" width=32 height=32  /></a>
 
                 </div>
-            </footer>
+	        </footer> 
+	        <!--fin FOOTER -->
+	       <script src="{% static "bootstrap/js/jquery.js" %}"></script>
+	       <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
         </body>
     </html>
+                    
+
+
+           
+            

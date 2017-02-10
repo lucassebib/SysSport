@@ -1,97 +1,93 @@
+/*HEADER*/
+.navbar{
+	margin-bottom: 0;
+	background-color: #2c3e50;
+}
 
-header,body,section,footer,div,h1,h2,li,a {
+
+#logo-cabecera{
+	border-radius: 70px;
+	margin-left: 150px;
+}
+
+
+.container-fluid.cabecera{
+	width: 970px;
+	height: 260px;
+	padding-top: 5px;
+	margin: 0 ;
+	padding-left: 0;
+}
+/*FIN HEADER*/
+/*BODY*/
+body{
+	font-family: 'Tahoma';
+
+}
+a, li,h1, h2, h3, h4, p {
+	color: #424242;
+}
+.jumbotron{
+	background-color: #00BFFF;
+	background-image: url("../img/banner_deportes.png");
+	color: #fff;
+	padding-top: 0px;
+	height: 250px;
+
+}
+#logoSAU-Sysport{
 	margin: 0;
 	padding: 0;
-	color: #000000;
 }
-
-body{
-	background-color: #CEF6F5 ;
+@media (max-width: 991px) and (min-width: 300px){
+	#mural-cabecera{
+		display: none; 
+	}
+	  .header { width:333px; }
+	  .main { width: 333px; }
+	  .footer { width:333px; }
+	   /* no mostraremos ninguna sidebar */
+	  #sidebar-wrapper { display:none; }
+	  #sidebar-wrapper2 { display:none; }
 }
-
-header{
-	background-image: url("../img/fondo-cabecera.png");
-	width: 100%;
-	position: relative;
+.panel-title{
+	color: #fff;
+	text-align: left;
 }
-
-a{
-	text-decoration: none;
-	color:#000000;
-	margin: 10px;
+.panel-body{
+	background-color: #A9E2F3;
 }
-
-label{
-	font-style: italic;
+.panel-footer{
+	background-color: #1995dc;
 }
-
-.navbar {
-	background-color: #2c3e50;
-	margin-bottom: 0;
-	margin-right: 15px;
+.page-header, .well{
+	margin-top: 0;
+	padding-top: 0;
 }
-
-}
-.content .container{
-	background-image: url("../img/img-fondo.jpg");
-	margin:10px;
-	
-}
-
-.page-header {
-	background-color: #A9D0F5;
-	margin: 10px;
-	padding: 10px;
-	border-radius: 5px;
-}
-.page-content{
-
-	margin: 10px;
-	padding: 10px 80px 10px 5px;
-	height: 661.5px;
+#syssport{
+	font-size: 210%;
+	font-family: fantasy;
+	color: #fff;
+	padding: 0;
+	margin:0 0 0 0px;
 
 }
 
-.panel .panel-footer {
-	background-color: #A9D0F5; 
+#login{
+	text-align: center
 }
 
-.container{
-	margin: 0;
-	padding:10px 10px 10px 10px;
-	width: 80%;
+.main{
+	padding-bottom: 15px; 
+	margin-bottom: 10px;
 
 }
-.container-fluid{
-	width: 100%;
+/*FIN BODY*/
+/*FOOTER*/
+#utn-footer{
+	font-family: fantasy;
+	color: #fff;
 }
-
-.nav , .navbar{
-	margin-left: 0;
-	padding-left: 0;
-	border-radius: 5px;
-}
-
-#contenido_der{
-	margin:0;
-	padding:0;
-}
-
-.panel .panel-default{
-	padding: 10px;
-}
-
-.well{
-	padding: 10px 20px 0px 20px;
-	margin: 0px 70px 10px 70px;
-	
-}
-.img-responsive{
-	border-radius: 75px;
-	
-}
-
-/*Footer*/
 
 .footer-distributed{
 	background-color: #2c3e50;
@@ -99,8 +95,9 @@ label{
 	width: 100%;
 	font: bold 16px sans-serif;
 	text-align: left;
-	padding:50px 60px 40px;
+	padding:1em;
 	overflow: hidden;
+	position: relative;
 }
 
 /* Footer left */
@@ -189,7 +186,6 @@ label{
 .footer-distributed form textarea{
 	display: block;
 	border-radius: 3px;
-	box-sizing: border-box;
 	background-color:  #1f2022;
 	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
 	border: none;
@@ -261,8 +257,11 @@ label{
 
 }
 
-@media (max-width: 800px) {
-
+@media (max-width: 768px) {
+	.sidebar-nav{
+		padding: 0;
+	} 
+	
 	.footer-distributed{
 		padding: 30px;
 	}
@@ -290,4 +289,4 @@ label{
 		float: none;
 	}
 }
-/*Fin Footer*/
+/*FIN FOOTER*/

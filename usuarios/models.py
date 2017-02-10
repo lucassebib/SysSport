@@ -26,17 +26,24 @@ class ContactoDeUrgencia(models.Model):
 	telefono = models.IntegerField(blank=True, null=True)
 
 class Persona(Usuario):
+	lista_sexos = ((1,"Masculino"),(2,"Femenino"))
+
 	#Hereda de Usuario> 'username', 'password', 'first_name', 'last_name', 'groups', 'user_permissions', 
 	#'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined'
 	dni = models.IntegerField(blank=True, null=True)
 	fecha_nacimiento = models.DateField(blank=True, null=True)
 	telefono = models.IntegerField(blank=True, null=True)
-	foto_perfil = models.ImageField(upload_to='fotos_de_perfil/', blank=True, null=True)
+	foto_perfil = models.ImageField(upload_to='fotos_de_perfil/', default='default_profile.jpg', blank=True, null=True)
 	lista_deporte = models.ManyToManyField(Deporte, verbose_name='Deportes Inscripto')
 	direccion = models.ForeignKey(Direccion, blank=True, null=True)
+	sexo = models.IntegerField(choices=lista_sexos, default=1)
 
 	def obtenerNombreCompleto(self):
 		return '%s %s' % (self.first_name, self.last_name)
+
+	
+	def ver_sexo(self):
+		return self.get_sexo_display()
 
 class Profesor(Persona):
 	legajo =  models.IntegerField(blank=True, null=True)
@@ -49,6 +56,9 @@ class Profesor(Persona):
 
 	def tipo_usuario(self, cadena):
 		return cadena == 'profesor'
+
+	def tipo_usuario(self):
+		return 'profesor'
 
 	def profesor_de(self):
 		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
@@ -74,12 +84,16 @@ class Alumno(Persona):
 	def tipo_usuario(self, cadena):
 		return cadena == 'alumno'
 
+	def tipo_usuario(self):
+		return 'alumno'
+
 	def ver_nombre_carrera(self):
 		return self.get_carrera_display()
 		
 class UsuarioInvitado(Persona): 
 	institucion = models.CharField(max_length=100)
 	ficha_medica = models.FileField(upload_to='fichas_medicas/', blank=True)
+	contactos_de_urgencia = models.ManyToManyField(ContactoDeUrgencia, verbose_name='Contacto de Urgencia', blank=True, null=True)
 
 	class Meta:
 		verbose_name_plural = "Usuarios Invitados"
@@ -94,23 +108,26 @@ class UsuarioInvitado(Persona):
 	def tipo_usuario(self, cadena):
 		return cadena=='invitado'
 
+	def tipo_usuario(self):
+		return 'invitado'
+
 ##################AGREGAMOS CLASES AL PANEL DE ADMINISTRACION##################################
 
 class ProfesorAdmin(admin.ModelAdmin):
 	list_display = ('legajo','dni','fecha_nacimiento','telefono','email','profesor_de')
-	fields = ('username', 'password', 'first_name', 'last_name', 'direccion', 'legajo', 'dni', 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte')
+	fields = ('username', 'password','sexo', 'first_name', 'last_name', 'direccion', 'legajo', 'dni', 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte')
 
 admin.site.register(Profesor,ProfesorAdmin)
 
 class AlumnoAdmin(admin.ModelAdmin):
 	list_display = ('legajo', 'deportes_inscripto')
-	fields = ('username', 'password', 'first_name', 'last_name', 'direccion', 'carrera', 'legajo', 'dni', 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica','contactos_de_urgencia', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
+	fields = ('username', 'password', 'first_name', 'last_name','sexo', 'direccion', 'carrera', 'legajo', 'dni', 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica','contactos_de_urgencia', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
 
 admin.site.register(Alumno,AlumnoAdmin)
 
 class UsuarioInvitadoAdmin(admin.ModelAdmin):
 	list_display = ('institucion', 'deportes_inscripto')
-	fields = ('username', 'password', 'first_name', 'last_name', 'dni', 'institucion' , 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
+	fields = ('username', 'password', 'first_name', 'last_name', 'dni', 'sexo','institucion' , 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
 
 admin.site.register(UsuarioInvitado,UsuarioInvitadoAdmin)
 

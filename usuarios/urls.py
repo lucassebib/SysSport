@@ -12,7 +12,7 @@ urlpatterns = patterns('',
 
 	url(r'^registrarse$', vista_registrarse),
 	url(r'^inicial-admin$', vista_inicial_admin, name= 'inicial_admin'),
-	url(r'^modificar_perfil_alumno$', modificarPerfilAlumno, name='modificar_perfil_alumno'),
+	
 	url(r'^cambiar-pass$', cambiar_contrasenia),
 	url(r'^cambiar-telefono$', cambiar_telefono),
 	url(r'^cambiar-direccion$', cambiar_direccion),
@@ -43,4 +43,11 @@ urlpatterns += patterns('',
 	url(r'^ver-alumnos/deporte/(?P<pk>[0-9]+)$', listar_alumnos_deporte, name='ver-alumnos'),
 	url(r'^ver-alumnos/deporte/alumno/(?P<pk>[0-9]+)$', ver_informacion_alumno, name='info-alumno'),
 
+)
+
+#URLs ALUMNOS
+urlpatterns += patterns('',
+	url(r'^modificar_perfil_alumno$', modificarPerfilAlumno, name='modificar_perfil_alumno'),
+	url(r'^contacto_urgencia$', ver_contacto_urgencia, name='ver_contacto_urgencia'),
+	url(r'^datos_medicos$', ver_datos_medicos, name='ver_datos_medicos'),
 )

@@ -1,0 +1,9 @@
+{% extends "baseAlumno.html" %}
+{% block contenido %}
+	<h1>Esta a punto de inscribirse a: </br><u>{{deporte}}</u></h1>
+	<form action='' method='POST'>
+		{% csrf_token %}
+		<input type='submit' value='Confirmar'>
+	</form>
+	<input type="button" value="Cancelar" onclick="history.back(-1)" />
+{% endblock %}
