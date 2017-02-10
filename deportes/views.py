@@ -13,9 +13,12 @@ from django.http import HttpResponseRedirect
 
 
 ###############################ABM DEPORTES##############################################
-class ListarDeportes(ListView):
-    model = Deporte
-    context_object_name = 'deportes'
+def lista_deportes(request):
+    template = "listar_deportes.html"
+    ctx = {
+        'deportes': Deporte.objects.all() 
+    }
+    return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 class DetallesDeportes(DetailView):
     model = Deporte
@@ -30,7 +33,7 @@ class ActualizarDeportes(UpdateView):
 class EliminarDeportes(DeleteView):
     model = Deporte
     context_object_name = 'deportes'
-    success_url = reverse_lazy('listar-deporte')
+    success_url = reverse_lazy('listar-deportes')
 
 ##########################################################################################
 def ver_deportes_personas(request):

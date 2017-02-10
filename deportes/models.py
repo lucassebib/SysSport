@@ -13,7 +13,7 @@ class Deporte(models.Model):
 		return self.nombre
 
 	def get_absolute_url(self):
-		return reverse('deporte-detalles',kwargs={'pk': self.pk})
+		return reverse('listar-deportes')
 
 ##################AGREGAMOS CLASES AL PANEL DE ADMINISTRACION##################################
 

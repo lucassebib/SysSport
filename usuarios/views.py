@@ -1,7 +1,7 @@
 from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
-from forms import FormularioAutenticacion, FormularioDireccion
+from forms import FormularioAutenticacion, FormularioDireccion, FormularioContactoDeUrgencia
 from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado 
 from deportes.models import Deporte
 from django.template import Context
@@ -67,8 +67,6 @@ def vista_inicial_admin(request):
 	return render_to_response(template, context_instance=RequestContext(request))
 
 ###########################PARA ALUMNOS###########################################
-
-
 @login_required
 def modificarPerfilAlumno(request):
 	template = "alumno/modificar_perfil_alumno.html"
@@ -118,16 +116,24 @@ def cambiar_contrasenia(request):
 	template = "confirm_cambiopass.html"
 	return render_to_response(template, context_instance=RequestContext(request))
 
-@login_required
-def cambiar_telefono(request):
-	template = "cambiar_telefono.html"
-	return render_to_response(template, context_instance=RequestContext(request))
+#@login_required
+#def cambiar_telefono(request):
+#	template = "cambiar_telefono.html"
+#	return render_to_response(template, context_instance=RequestContext(request))
+
+#@login_required
+#def cambiar_direccion(request):
+#	template = "cambiar_direccion.html"
+#	ctx = {
+#		'form': FormularioDireccion
+#	}
+#	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 @login_required
-def cambiar_direccion(request):
-	template = "cambiar_direccion.html"
+def agregar_contactoUrgencia(request):
+	template = "alumno/agregar_contacto_urgencia.html"
 	ctx = {
-		'form': FormularioDireccion
+		'form': FormularioContactoDeUrgencia,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 

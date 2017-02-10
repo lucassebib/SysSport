@@ -32,8 +32,7 @@ def vista_index_noLogueado(request):
 @login_required	
 def novedades_alumnos(request):
 	template = "novedades_alumnos.html"	
-	id_usuario = request.user.id
-	alumno = Alumno.objects.get(id=id_usuario)	
+	alumno = Persona.objects.get(id=request.user.id)	
 	posts = Novedades.objects.filter(visibilidad__in=[1,2]) | Novedades.objects.filter(visibilidad__in=[3], categoria__in=alumno.obtener_deportes())
 	ctx = {
 		"posts": posts.order_by('-fecha_publicacion'),

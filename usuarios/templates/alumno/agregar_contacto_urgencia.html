@@ -1,0 +1,14 @@
+{% extends "baseAlumno.html" %}
+{% block contenido %}
+	<div class="well ">
+		<div class="panel-heading panel-primary">
+			<h2><i>Nuevo contactos de Urgencia</b> </h2>
+			<form method="POST">{% csrf_token %}
+				{{form.as_p}}
+				<input type='submit' value='Agregar'>
+			</form>
+			<input type="button" value="Cancelar" onclick="history.back(-1)" />
+			
+		</div>
+	</div>	
+{% endblock %}

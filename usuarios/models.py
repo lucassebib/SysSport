@@ -40,10 +40,12 @@ class Persona(Usuario):
 
 	def obtenerNombreCompleto(self):
 		return '%s %s' % (self.first_name, self.last_name)
-
 	
 	def ver_sexo(self):
 		return self.get_sexo_display()
+
+	def obtener_deportes(self):
+		return self.lista_deporte.all()
 
 class Profesor(Persona):
 	legajo =  models.IntegerField(blank=True, null=True)
@@ -74,9 +76,7 @@ class Alumno(Persona):
 	class Meta:
 		verbose_name_plural = "Alumnos"
 
-	def obtener_deportes(self):
-		lista = self.lista_deporte.all()
-		return lista
+
 
 	def deportes_inscripto(self):
 		return "\n -".join([d.nombre for d in self.lista_deporte.all()])

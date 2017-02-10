@@ -4,8 +4,6 @@ from usuarios.views import *
 from django.contrib.auth.views import  password_reset, password_reset_done, password_reset_confirm, password_reset_complete
 from django.contrib.auth import views as auth_views
 
-
-
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -14,8 +12,8 @@ urlpatterns = patterns('',
 	url(r'^inicial-admin$', vista_inicial_admin, name= 'inicial_admin'),
 	
 	url(r'^cambiar-pass$', cambiar_contrasenia),
-	url(r'^cambiar-telefono$', cambiar_telefono),
-	url(r'^cambiar-direccion$', cambiar_direccion),
+#	url(r'^cambiar-telefono$', cambiar_telefono),
+#	url(r'^cambiar-direccion$', cambiar_direccion),
 	url(r'^password_reset$', password_reset, 
 		{ 'template_name' : 'registracion/password_reset_form.html' , 
 		'email_template_name' : 'registracion/password_reset_email.html'},
@@ -50,4 +48,6 @@ urlpatterns += patterns('',
 	url(r'^modificar_perfil_alumno$', modificarPerfilAlumno, name='modificar_perfil_alumno'),
 	url(r'^contacto_urgencia$', ver_contacto_urgencia, name='ver_contacto_urgencia'),
 	url(r'^datos_medicos$', ver_datos_medicos, name='ver_datos_medicos'),
+	url(r'^nuevo_contacto$', agregar_contactoUrgencia, name='agregar_contactoUrgencia'),
+
 )

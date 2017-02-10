@@ -1,9 +1,4 @@
 {% extends "base2.html" %}
-    
-
-    
-
-
     {% block menu %}
     <!--Menu de perfil -->
 
@@ -23,8 +18,7 @@
             </ul> 
         </div>
     </div>
-
-    
+ 
     <!--Menu de Novedades -->
         <div class="panel panel-primary">
         <div class="panel-heading">
@@ -32,11 +26,8 @@
         </div>
         <div class="panel-body">
              <ul class="nav nav-pills nav-stacked">
-               <li class="{% if 'novedades_alumnos' == request.resolver_match.view_name %}active{% endif %}">
-                <a href="{% url 'novedades_alumnos' %}">Mis Novedades</a></li>
-                 <li class="{% if 'ver_novedades_visibilidadTodos' == request.resolver_match.view_name %}active{% endif %}">
-            <a href="{% url 'ver_novedades_visibilidadTodos' %}">Novedades Generales</a></li>              
-                
+                <li class="{% if 'novedades_alumnos' == request.resolver_match.view_name %}active{% endif %}">
+                <a href="{% url 'novedades_alumnos' %}">Mis Novedades</a></li>          
             </ul> 
         </div>
     </div>

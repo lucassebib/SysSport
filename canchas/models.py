@@ -14,7 +14,7 @@ class Cancha(models.Model):
 		return self.nombre
 
 	def get_absolute_url(self):
-		return reverse('cancha-detalles',kwargs={'pk': self.pk})
+		return reverse('listar-canchas')
 
 ##################AGREGAMOS CLASES AL PANEL DE ADMINISTRACION##################################
 

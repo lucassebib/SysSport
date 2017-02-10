@@ -6,6 +6,7 @@
 		</div>
 		<div class="panel-body panel-primary">
 			<form class="form-horizontal" method='POST'>{% csrf_token %}
+				<a href="{% url 'agregar_contactoUrgencia' %}">Agregar Contacto</a>
 				{% for c in contactos %}
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Nombre: </label>
