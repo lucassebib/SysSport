@@ -26,6 +26,8 @@ class ContactoDeUrgencia(models.Model):
 	telefono = models.IntegerField(blank=True, null=True)
 
 class Persona(Usuario):
+	lista_sexos = ((1,"Masculino"),(2,"Femenino"))
+
 	#Hereda de Usuario> 'username', 'password', 'first_name', 'last_name', 'groups', 'user_permissions', 
 	#'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined'
 	dni = models.IntegerField(blank=True, null=True)
@@ -34,9 +36,14 @@ class Persona(Usuario):
 	foto_perfil = models.ImageField(upload_to='fotos_de_perfil/', default='default_profile.jpg', blank=True, null=True)
 	lista_deporte = models.ManyToManyField(Deporte, verbose_name='Deportes Inscripto')
 	direccion = models.ForeignKey(Direccion, blank=True, null=True)
+	sexo = models.IntegerField(choices=lista_sexos, default=1)
 
 	def obtenerNombreCompleto(self):
 		return '%s %s' % (self.first_name, self.last_name)
+
+	
+	def ver_sexo(self):
+		return self.get_sexo_display()
 
 class Profesor(Persona):
 	legajo =  models.IntegerField(blank=True, null=True)
@@ -86,6 +93,7 @@ class Alumno(Persona):
 class UsuarioInvitado(Persona): 
 	institucion = models.CharField(max_length=100)
 	ficha_medica = models.FileField(upload_to='fichas_medicas/', blank=True)
+	contactos_de_urgencia = models.ManyToManyField(ContactoDeUrgencia, verbose_name='Contacto de Urgencia', blank=True, null=True)
 
 	class Meta:
 		verbose_name_plural = "Usuarios Invitados"
@@ -107,19 +115,19 @@ class UsuarioInvitado(Persona):
 
 class ProfesorAdmin(admin.ModelAdmin):
 	list_display = ('legajo','dni','fecha_nacimiento','telefono','email','profesor_de')
-	fields = ('username', 'password', 'first_name', 'last_name', 'direccion', 'legajo', 'dni', 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte')
+	fields = ('username', 'password','sexo', 'first_name', 'last_name', 'direccion', 'legajo', 'dni', 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte')
 
 admin.site.register(Profesor,ProfesorAdmin)
 
 class AlumnoAdmin(admin.ModelAdmin):
 	list_display = ('legajo', 'deportes_inscripto')
-	fields = ('username', 'password', 'first_name', 'last_name', 'direccion', 'carrera', 'legajo', 'dni', 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica','contactos_de_urgencia', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
+	fields = ('username', 'password', 'first_name', 'last_name','sexo', 'direccion', 'carrera', 'legajo', 'dni', 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica','contactos_de_urgencia', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
 
 admin.site.register(Alumno,AlumnoAdmin)
 
 class UsuarioInvitadoAdmin(admin.ModelAdmin):
 	list_display = ('institucion', 'deportes_inscripto')
-	fields = ('username', 'password', 'first_name', 'last_name', 'dni', 'institucion' , 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
+	fields = ('username', 'password', 'first_name', 'last_name', 'dni', 'sexo','institucion' , 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
 
 admin.site.register(UsuarioInvitado,UsuarioInvitadoAdmin)
 

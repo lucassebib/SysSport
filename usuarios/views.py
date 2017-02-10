@@ -37,7 +37,7 @@ def vista_pagina_inicio(request):
 								return HttpResponseRedirect('/inicial_profesores')
 							except Exception as e:
 								g = UsuarioInvitado.objects.get(id=id_usuario)
-								return HttpResponseRedirect('/inicial_invitados')									
+								return HttpResponseRedirect('/inicial_alumnos')									
 					else:
 						ctx = {"form":form, "mensaje": "Usuario Inactivo"}
 						return render_to_response(template,ctx, context_instance=RequestContext(request))
@@ -66,31 +66,51 @@ def vista_inicial_admin(request):
 	template = "admin/inicial_admin.html"
 	return render_to_response(template, context_instance=RequestContext(request))
 
+###########################PARA ALUMNOS###########################################
+
+
 @login_required
 def modificarPerfilAlumno(request):
-	template = "modificar_perfil_alumno.html"
-	alumno = Alumno.objects.get(id=request.user.id)	 
+	template = "alumno/modificar_perfil_alumno.html"
+	try:
+		alumno = Alumno.objects.get(id=request.user.id)
+		tipo_usuario = "alumno"
+		ctx1 = {
+			'legajo': alumno.legajo,
+			'carrera': alumno.ver_nombre_carrera,
+		} 	 
+	except Exception as e:
+		alumno = UsuarioInvitado.objects.get(id=request.user.id)
+		tipo_usuario = "invitado"
+		ctx1 = {
+			'institucion': alumno.institucion,
+		} 		
+	 
 
-	if request.method=='POST' and 'btn-cambiar-pass' in request.POST:
-		return HttpResponseRedirect('/cambiar-pass')
+	#if request.method=='POST' and 'btn-cambiar-pass' in request.POST:
+	#	return HttpResponseRedirect('/cambiar-pass')
+	#
+	#if request.method=='POST' and 'btn-cambiar-telefono' in request.POST:
+	#	return HttpResponseRedirect('/cambiar-telefono')
 
-	if request.method=='POST' and 'btn-cambiar-telefono' in request.POST:
-		return HttpResponseRedirect('/cambiar-telefono')
-
-	if request.method=='POST' and 'btn-cambiar-direccion' in request.POST:
-		return HttpResponseRedirect('/cambiar-direccion')
+	#if request.method=='POST' and 'btn-cambiar-direccion' in request.POST:
+	#	return HttpResponseRedirect('/cambiar-direccion')
 
 	ctx = {
 			'usuario':request.user.username,
 			'nombre': request.user.first_name,
 			'apellido': request.user.last_name,
 			'dni': alumno.dni,
+			'sexo': alumno.ver_sexo,
 			'fecha_nacimiento': alumno.fecha_nacimiento,
 			'telefono': alumno.telefono,
 			'direccion': alumno.direccion,
-			'legajo': alumno.legajo,
-			'carrera': alumno.ver_nombre_carrera,
+			'is_alumno': "alumno"==tipo_usuario,
+			'is_invitado': "invitado"==tipo_usuario,		
 			}
+
+	ctx.update(ctx1)
+
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 @login_required
@@ -109,6 +129,26 @@ def cambiar_direccion(request):
 	ctx = {
 		'form': FormularioDireccion
 	}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def ver_contacto_urgencia(request):
+	template = "alumno/ver_contacto_urgencia.html"
+	contactos = ''
+
+	try:
+		contactos = Alumno.objects.get(id=request.user.id).contactos_de_urgencia.all()
+	except Exception as e:
+		contactos = UsuarioInvitado.objects.get(id=request.user.id).contactos_de_urgencia.all()
+
+
+	ctx = {
+		'contactos': contactos,
+	}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def ver_datos_medicos(request):
+	template = "alumno/ver_datos_medicos.html"
+	ctx = {}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 ###########################PARA PROFESOR###########################################
@@ -156,24 +196,5 @@ def ver_informacion_alumno(request, pk):
 		'alumnoInvitado': tipo_usuario=='invitado',
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
-
-def ver_contacto_urgencia(request):
-	template = "alumno/ver_contacto_urgencia.html"
-	contactos = ''
-
-	try:
-		contactos = Alumno.objects.get(id=request.user.id).contactos_de_urgencia.all()
-	except Exception as e:
-		contactos = UsuarioInvitado.objects.get(id=request.user.id).contactos_de_urgencia.all()
-
-
-	ctx = {
-		'contactos': contactos,
-	}
-	return render_to_response(template, ctx, context_instance=RequestContext(request))
-
-def ver_datos_medicos(request):
-	template = "alumno/ver_datos_medicos.html"
-	ctx = {}
-	return render_to_response(template, ctx, context_instance=RequestContext(request))
+#############################################################################################################################
 

@@ -26,17 +26,30 @@
 				<label class="col-sm-2 control-label">{{apellido}}</label>
 			</div>
 			<div class="form-group">
+				<label class="col-sm-2 control-label">Sexo: </label>
+				<label class="col-sm-2 control-label">{{sexo}}</label>
+			</div>
+			<div class="form-group">
 				<label class="col-sm-2 control-label">DNI: </label>
 				<label class="col-sm-2 control-label"> {{dni}}</label>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-2 control-label">Legajo: </label>
-				<label class="col-sm-2 control-label">{{legajo}}</label>
+				{% if is_alumno %}
+					<label class="col-sm-2 control-label">Legajo: </label>
+					<label class="col-sm-2 control-label">{{legajo}}</label>
+				{% endif %}
+
+				{% if is_invitado %}
+					<label class="col-sm-2 control-label">Institucion: </label>
+					<label class="col-sm-2 control-label">{{institucion}}</label>
+				{% endif %}
 			</div>
-			<div class="form-group">
-				<label class="col-sm-2 control-label">Carrera:  </label>
-				<label class="col-sm-2 control-label">{{carrera}}</label>
-			</div>
+			{% if is_alumno %}
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Carrera:  </label>
+					<label class="col-sm-2 control-label">{{carrera}}</label>
+				</div>
+			{% endif %}
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Fecha de Nacimiento: </label>
 				<label class="col-sm-2 control-label">{{fecha_nacimiento}}</label>
