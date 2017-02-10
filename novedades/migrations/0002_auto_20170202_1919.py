@@ -25,4 +25,16 @@ class Migration(migrations.Migration):
             field=models.ManyToManyField(to='deportes.Deporte'),
             preserve_default=True,
         ),
+        migrations.AddField(
+            model_name='novedades',
+            name='lista_comentarios',
+            field=models.ManyToManyField(to='novedades.Comentario', null=True, blank=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='comentario',
+            name='autor',
+            field=models.ForeignKey(to='usuarios.Persona'),
+            preserve_default=True,
+        ),
     ]

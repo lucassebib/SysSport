@@ -150,4 +150,4 @@ def ver_informacion_alumno(request, pk):
 		'contactos': Alumno.objects.get(id=pk).contactos_de_urgencia.all(),
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
-
+#hacer parecido a este para que me tome el id de alumno en novedades

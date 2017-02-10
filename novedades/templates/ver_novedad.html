@@ -1,0 +1,26 @@
+{% extends "baseAlumno.html" %}
+
+
+{% block contenido %}
+
+	{{novedad.titulo}}
+	{{novedad.contenido|safe}}
+
+	<div class="texto">
+		{% for c in comentarios %}
+			<P1> {{ c.texto }}</P1></br>
+			<P1> {{ c.autor}}</P1></br>
+		{% endfor %}
+						    
+	</div>
+	  
+	<form action='' method='POST'>
+		{% csrf_token %}
+		{{ formulario.as_p }}
+		<input type='submit' value='Agregar'>
+
+		
+	</form>
+
+{% endblock %}
+		

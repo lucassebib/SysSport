@@ -19,6 +19,8 @@ urlpatterns = patterns('',
     url(r'^novedades/crear/$', CrearNovedades.as_view(), name='crear-novedad'),
     url(r'^novedades/(?P<pk>[0-9]+)/modificar/$', ActualizarNovedades.as_view(), name='actualizar-novedad'),
     url(r'^novedades/(?P<pk>[0-9]+)/eliminar/$', EliminarNovedades.as_view(), name='eliminar-novedad'), 
+    url(r'^novedades/ver/(?P<pk>[0-9]+)/$', ver_novedades , name='ver_novedades'),
+
 
     url(r'^novedades_todos$', ver_novedades_visibilidadTodos, name='ver_novedades_visibilidadTodos'),	
 )

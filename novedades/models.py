@@ -3,7 +3,12 @@ from tinymce import  models as tinymce_models
 from django.contrib import admin
 from usuarios.models import Profesor
 from deportes.models import Deporte
+from usuarios.models import Persona
 from django.core.urlresolvers import reverse
+
+class Comentario(models.Model):
+		texto = models.TextField( verbose_name ='comentario')
+		autor = models.ForeignKey(Persona)
 
 class Novedades(models.Model):
 	pueden_ver = ((1,"Todos"),(2,"Todos los Usuarios Registrados"), (3, "Solo los Usuarios del Deporte"))
@@ -15,6 +20,7 @@ class Novedades(models.Model):
 	imagen = models.ImageField(upload_to='fotos_posts', blank=True, null=True)
 	visibilidad = models.IntegerField(choices=pueden_ver, default=3)
 	categoria = models.ManyToManyField(Deporte)
+	lista_comentarios = models.ManyToManyField(Comentario, blank=True, null=True)
 
 	class Meta:
 		verbose_name_plural = "Novedades" 
@@ -22,9 +28,12 @@ class Novedades(models.Model):
 	def obtener_categorias(self):
 		return "\n -".join([d.nombre for d in self.categoria.all()])
 
+	def obtener_textoComentarios(self):
+		return "\n -".join([t.texto for t in self.lista_comentarios.all()])
 
-	#def __unicode__(self):
-	#	return self.nombre
+	
+	def obtener_autoresComentario(self):
+		return "\n -".join([d.autor for d in self.lista_comentarios.all()])
 
 	def get_absolute_url(self):
 		return reverse('detalle-novedad',kwargs={'pk': self.pk})
