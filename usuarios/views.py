@@ -157,3 +157,23 @@ def ver_informacion_alumno(request, pk):
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
+def ver_contacto_urgencia(request):
+	template = "alumno/ver_contacto_urgencia.html"
+	contactos = ''
+
+	try:
+		contactos = Alumno.objects.get(id=request.user.id).contactos_de_urgencia.all()
+	except Exception as e:
+		contactos = UsuarioInvitado.objects.get(id=request.user.id).contactos_de_urgencia.all()
+
+
+	ctx = {
+		'contactos': contactos,
+	}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def ver_datos_medicos(request):
+	template = "alumno/ver_datos_medicos.html"
+	ctx = {}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+

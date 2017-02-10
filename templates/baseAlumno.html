@@ -14,8 +14,11 @@
         <div class="panel-body">
              <ul class="nav nav-pills nav-stacked">
                 <li class="{% if 'modificar_perfil_alumno' == request.resolver_match.view_name %}active{% endif %}">
-                 <a href="{% url 'modificar_perfil_alumno' %}"> Ver perfil</a></li>
-                <li class="#">Modificar Perfil</a></li>
+                <a href="{% url 'modificar_perfil_alumno' %}">Ver perfil</a></li>
+                <li class="{% if 'ver_contacto_urgencia' == request.resolver_match.view_name %}active{% endif %}">
+                <a href="{% url 'ver_contacto_urgencia' %}">Contactos de Urgencia</a></li>
+                <li class="{% if 'ver_datos_medicos' == request.resolver_match.view_name %}active{% endif %}">
+                <a href="{% url 'ver_datos_medicos' %}">Datos Medicos</a></li>
                 
             </ul> 
         </div>
@@ -46,7 +49,7 @@
              <ul class="nav nav-pills nav-stacked">
                <li class="{% if 'ver_deportes_personas' ==  request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_deportes_personas' %}">Mis Deportes</a></li>
                <li class="{% if 'inscribir_deportes' ==  request.resolver_match.view_name %}active{% endif %}">
-                <a href="{% url 'inscribir_deportes' %}">Inscribirme a mas Deportes!</a></li>
+                <a href="{% url 'inscribir_deportes' %}">Ver mas Deporte</a></li>
              
                 
             </ul> 
