@@ -12,6 +12,7 @@
             <link rel="stylesheet" type="text/css" href="{% static "css/deporte.css" %} ">
         </head>
         <body>
+            <!--MENU DE ARRIBA CON Registrarse e Ingresar-->
             <header>
                 <nav role="navigation" class=" navbar navbar-default">
                   	<div class="container">
@@ -24,7 +25,7 @@
                   			</button>
                   			
                   		</div>
-                  		<!--INICIA MENUU -->
+                  		
                   		<div class="collapse navbar-collapse" id="navegacion-dep">
                   			<ul class="nav navbar-nav navbar-right">
                   				{% if user.is_authenticated %} 
@@ -37,22 +38,25 @@
                   		</div>
                   	</div>
                 </nav>
-            </header> <!-- /header -->
+            </header> 
+            <!--Fin MENU ARRIBA-->      
                   
-            <!-- contenido principal -->
+           <!-- JUMBOTRON -->
             <section class="jumbotron">
-            	<div class="container cabecera">
-            		<a class= "navbar-brand" href="{% url 'url_logout' %}">
-            			<h1 id="syssport">SysSport</h1>
-                        <div class="logo">
-                        	<img id="logo-cabecera" src="{% static "img/logoSAU.png" %}">
-                        
-                        	<img id="mural-cabecera" src="{% static "img/mural.png" %}">
-                        </div>
-	                 </a>
+            	<div class="container-fluid cabecera">
+            		<div id="logoSAU-Sysport" class="col-md-2">
+            			<a class= "navbar-brand" href="{% url 'url_logout' %}">
+	            			<h1 id="syssport">SysSport</h1>
+	            			<img id="logo-cabecera" class="img-responsive" src="{% static "img/logoSAU.png" %}">
+                    	</a>
+            		</div>
+                    <!--<div id="mural-cabecera" class="col-md-9" >
+                    	<img class="img-responsive" src="{% static "img/mural.png" %}">
+                    </div> -->
             	</div>
-            	
             </section>
+            <!--fin JUMBOTRON-->
+            <!--CONTENIDO PRINCIPAL-->
             <section class="main container-fluid">
             	<div class="row">
     				<aside class="region-izquierda col-md-3">
@@ -61,13 +65,13 @@
 
     				</aside>
     				<section class="region-principal col-md-8">
-    					{% block principal %}
+    					{% block contenido %}
         				{% endblock %}  
     				</section>
 				</div>
             </section>
-	        <!-- fin contenido principal -->
-            <!-- footer -->
+	        <!-- fin CONTENIDO PRINCIPAL -->
+            <!-- FOOTER -->
             <footer class="footer-distributed">
                 <div class="footer-left">
                     <h2 id="utn-footer">UTN-FRRE <span><small>Dirección de Deportes</small></span></h2>
@@ -78,7 +82,8 @@
                     <a href="http://www.facebook.com/saufrre" target="_blank"><img alt="Siguenos en Facebook" src="https://lh6.googleusercontent.com/-CYt37hfDnQ8/T3nNydojf_I/AAAAAAAAAr0/P5OtlZxV4rk/s32/facebook32.png" width=32 height=32  /></a>
 
                 </div>
-	        </footer> <!--fin footer -->
+	        </footer> 
+	        <!--fin FOOTER -->
 	       <script src="{% static "bootstrap/js/jquery.js" %}"></script>
 	       <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
         </body>

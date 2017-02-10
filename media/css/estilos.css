@@ -4,18 +4,19 @@
 	background-color: #2c3e50;
 }
 
-.navbar-brand{
-	width: 1200px;
-	height: 200px;
-}
+
 #logo-cabecera{
 	border-radius: 70px;
+	margin-left: 150px;
 }
-.container.cabecera{
+
+
+.container-fluid.cabecera{
 	width: 970px;
 	height: 260px;
 	padding-top: 5px;
-	margin: 0;
+	margin: 0 ;
+	padding-left: 0;
 }
 /*FIN HEADER*/
 /*BODY*/
@@ -23,15 +24,31 @@ body{
 	font-family: 'Tahoma';
 
 }
-a, li, h3 {
+a, li,h1, h2, h3, h4, p {
 	color: #424242;
 }
 .jumbotron{
 	background-color: #00BFFF;
+	background-image: url("../img/banner_deportes.png");
 	color: #fff;
 	padding-top: 0px;
 	height: 250px;
 
+}
+#logoSAU-Sysport{
+	margin: 0;
+	padding: 0;
+}
+@media (max-width: 991px) and (min-width: 300px){
+	#mural-cabecera{
+		display: none; 
+	}
+	  .header { width:333px; }
+	  .main { width: 333px; }
+	  .footer { width:333px; }
+	   /* no mostraremos ninguna sidebar */
+	  #sidebar-wrapper { display:none; }
+	  #sidebar-wrapper2 { display:none; }
 }
 .panel-title{
 	color: #fff;
@@ -43,21 +60,33 @@ a, li, h3 {
 .panel-footer{
 	background-color: #1995dc;
 }
+.page-header, .well{
+	margin-top: 0;
+	padding-top: 0;
+}
 #syssport{
 	font-size: 210%;
 	font-family: fantasy;
+	color: #fff;
 	padding: 0;
-	margin: 0;
+	margin:0 0 0 0px;
+
 }
 
 #login{
-	width: 300px;
 	text-align: center
+}
+
+.main{
+	padding-bottom: 15px; 
+	margin-bottom: 10px;
+
 }
 /*FIN BODY*/
 /*FOOTER*/
 #utn-footer{
 	font-family: fantasy;
+	color: #fff;
 }
 
 .footer-distributed{

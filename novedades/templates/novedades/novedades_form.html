@@ -4,10 +4,11 @@
 
 {% block contenido %}
 	<input type="button" value="Atras" onclick="history.back(-1)" />
-		<div class="panel-heading" align="center">
-			<h1>Novedades {{novedades.titulo}}</h1>
-		</div>
-		<div class="panel-body" >
+	<div class="well ">
+        <div class="panel-heading panel-primary">
+            <h2><i>Novedad</i> </h2>
+        </div>
+		<div class="panel-primary panel-body" >
 			<form action='' method='POST'>
 				{% csrf_token %}
 				{{form.as_p}}
@@ -15,7 +16,7 @@
 				<input type='submit' value='Confirmar'>
 			</form>
 		</div>
-
+	</div>
 	
 {% endblock %}
 
