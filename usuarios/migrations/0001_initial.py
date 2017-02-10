@@ -51,6 +51,7 @@ class Migration(migrations.Migration):
                 ('fecha_nacimiento', models.DateField(null=True, blank=True)),
                 ('telefono', models.IntegerField(null=True, blank=True)),
                 ('foto_perfil', models.ImageField(default=b'default_profile.jpg', null=True, upload_to=b'fotos_de_perfil/', blank=True)),
+                ('sexo', models.IntegerField(default=1, choices=[(1, b'Masculino'), (2, b'Femenino')])),
             ],
             options={
                 'abstract': False,
@@ -89,6 +90,7 @@ class Migration(migrations.Migration):
                 ('persona_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='usuarios.Persona')),
                 ('institucion', models.CharField(max_length=100)),
                 ('ficha_medica', models.FileField(upload_to=b'fichas_medicas/', blank=True)),
+                ('contactos_de_urgencia', models.ManyToManyField(to='usuarios.ContactoDeUrgencia', null=True, verbose_name=b'Contacto de Urgencia', blank=True)),
             ],
             options={
                 'verbose_name_plural': 'Usuarios Invitados',

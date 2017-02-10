@@ -1,23 +1,45 @@
 {% extends "base2.html" %}
+<<<<<<< HEAD
+=======
+    {%block inicio %}
+        <li class="{% if 'inicial_alumnos' == request.resolver_match.view_name %}active{% endif %}">
+                    <a href="{% url 'inicial_alumnos' %}">Inicio</a></li>
+    {% endblock %}
+>>>>>>> 4c11e751906ad88d4ee168c2cdfb4d43428202a2
     {% block menu %}
     <!--Menu de perfil -->
-
-        <div class="panel panel-primary">
-        <div class="panel-heading">
-             <h3 class="panel-title">Perfil</h3>
-        </div>
-        <div class="panel-body">
-             <ul class="nav nav-pills nav-stacked">
-                <li class="{% if 'modificar_perfil_alumno' == request.resolver_match.view_name %}active{% endif %}">
-                <a href="{% url 'modificar_perfil_alumno' %}">Ver perfil</a></li>
-                <li class="{% if 'ver_contacto_urgencia' == request.resolver_match.view_name %}active{% endif %}">
-                <a href="{% url 'ver_contacto_urgencia' %}">Contactos de Urgencia</a></li>
-                <li class="{% if 'ver_datos_medicos' == request.resolver_match.view_name %}active{% endif %}">
-                <a href="{% url 'ver_datos_medicos' %}">Datos Medicos</a></li>
-                
-            </ul> 
+   
+      <div class=" sidebar-nav">
+          <div class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navegacion-alum">
+                    <span class="sr-only">Desplegar/ocultar menu</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span class="navbar-header">
+                    <div class="visible-xs panel-heading" align="center">
+                         <h3 class="panel-title">Mi perfil</h3>
+                    </div>
+                </span>
+            </div>
+            <div class="navbar-collapse collapse" id="navegacion-alum">
+                <div class=" visible-lg panel-heading" align="center">
+                         <h3 class="panel-title">Mi perfil</h3>
+                </div>
+                <ul class="nav nav-pills nav-stacked" >
+                    <li class="{% if 'modificar_perfil_alumno' == request.resolver_match.view_name %}active{% endif %}">
+                    <a href="{% url 'modificar_perfil_alumno' %}">Ver perfil</a></li>
+                    <li class="{% if 'ver_contacto_urgencia' == request.resolver_match.view_name %}active{% endif %}">
+                    <a href="{% url 'ver_contacto_urgencia' %}">Contactos de Urgencia</a></li>
+                    <li class="{% if 'ver_datos_medicos' == request.resolver_match.view_name %}active{% endif %}">
+                    <a href="{% url 'ver_datos_medicos' %}">Datos Medicos</a></li>
+                </ul>  
+            </div>
         </div>
     </div>
+<<<<<<< HEAD
  
     <!--Menu de Novedades -->
         <div class="panel panel-primary">
@@ -29,23 +51,70 @@
                 <li class="{% if 'novedades_alumnos' == request.resolver_match.view_name %}active{% endif %}">
                 <a href="{% url 'novedades_alumnos' %}">Mis Novedades</a></li>          
             </ul> 
+=======
+  
+    <!--Menu de Novedades -->
+    <div class=" sidebar-nav">
+          <div class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navegacion-alum">
+                    <span class="sr-only">Desplegar/ocultar menu</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span class="navbar-header">
+                    <div class="visible-xs panel-heading" align="center">
+                         <h3 class="panel-title">Novedades</h3>
+                    </div>
+                </span>
+            </div>
+            <div class="navbar-collapse collapse" id="navegacion-alum">
+                <div class=" visible-lg panel-heading" align="center">
+                         <h3 class="panel-title">Novedades</h3>
+                </div>
+                <ul class="nav nav-pills nav-stacked">
+                   <li class="{% if 'novedades_alumnos' == request.resolver_match.view_name %}active{% endif %}">
+                        <a href="{% url 'novedades_alumnos' %}">Mis Novedades</a></li>
+                    <li class="{% if 'ver_novedades_visibilidadTodos' == request.resolver_match.view_name %}active{% endif %}">
+                        <a href="{% url 'ver_novedades_visibilidadTodos' %}">Novedades Generales</a></li>              
+                    
+                </ul> 
+            </div>
+>>>>>>> 4c11e751906ad88d4ee168c2cdfb4d43428202a2
         </div>
-    </div>
+    </div>     
+                 
+            
      <!--Menu de deportes -->
-             <div class="panel panel-primary">
-        <div class="panel-heading">
-             <h3 class="panel-title">Deportes</h3>
-        </div>
-        <div class="panel-body">
-             <ul class="nav nav-pills nav-stacked">
-               <li class="{% if 'ver_deportes_personas' ==  request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_deportes_personas' %}">Mis Deportes</a></li>
-               <li class="{% if 'inscribir_deportes' ==  request.resolver_match.view_name %}active{% endif %}">
-                <a href="{% url 'inscribir_deportes' %}">Ver mas Deporte</a></li>
+     <div class=" sidebar-nav">
+          <div class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navegacion-alum">
+                    <span class="sr-only">Desplegar/ocultar menu</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span class="navbar-header">
+                    <div class="visible-xs panel-heading" align="center">
+                         <h3 class="panel-title">Deportes</h3>
+                    </div>
+                </span>
+            </div>
+            <div class="navbar-collapse collapse" id="navegacion-alum">
+                <div class=" visible-lg panel-heading" align="center">
+                         <h3 class="panel-title">Deportes</h3>
+                </div>
+                <ul class="nav nav-pills nav-stacked" >
+                    <li class="{% if 'ver_deportes_personas' ==  request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_deportes_personas' %}">Mis Deportes</a></li>
+                    <li class="{% if 'inscribir_deportes' ==  request.resolver_match.view_name %}active{% endif %}">
+                        <a href="{% url 'inscribir_deportes' %}">Ver mas Deporte</a></li>
              
-                
-            </ul> 
+                </ul>  
+            </div>
         </div>
-    </div>
-
+    </div>     
+   
     {% endblock %}
 

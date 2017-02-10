@@ -202,5 +202,4 @@ def ver_informacion_alumno(request, pk):
 		'alumnoInvitado': tipo_usuario=='invitado',
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
-#############################################################################################################################
 

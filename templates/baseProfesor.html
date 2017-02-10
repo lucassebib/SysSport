@@ -2,10 +2,7 @@
 {% block inicio %}
          <li class="{% if 'inicial_profesores' == request.resolver_match.view_name %}active{% endif %}">
         <a href="{% url 'inicial_profesores' %}">Inicio</a></li>
-        <li class="{% if 'listar_deportes' == request.resolver_match.view_name %}active{% endif %}">
-            <a href="{% url 'listar_deportes' %}">Deportes</a></li>
-        <li class="{% if 'ver_novedades_visibilidadTodos' == request.resolver_match.view_name %}active{% endif %}">
-            <a href="{% url 'ver_novedades_visibilidadTodos' %}">Novedades</a></li>
+       
 {% endblock %}
 
 {% block menu%}

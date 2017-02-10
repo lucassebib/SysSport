@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
 from django.template import Context
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from novedades.models import Novedades
+from novedades.models import Novedades, Comentario
 from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona
 from deportes.models import Deporte
 from django.db.models import Q
@@ -11,7 +11,7 @@ from django.template import Context
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-
+from forms import FormularioComentario
 @login_required	
 def vista_index_alumnos(request):
 	template = "inicial_alumnos.html"	
@@ -96,6 +96,30 @@ def ver_novedades_visibilidadTodos(request):
 	ctx = {
 		'posts': Novedades.objects.filter(visibilidad__in=[1]).order_by('-fecha_publicacion'), 
 		'extiende': extiende,
+	}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def ver_novedades(request, pk):
+	template = "ver_novedad.html"
+	form = FormularioComentario()
+	if request.method == "POST":
+		form = FormularioComentario(request.POST)
+		if form.is_valid():
+			texto = form.cleaned_data['texto']
+			autor = Persona.objects.get(id=request.user.id)
+			comentario = Comentario(texto=texto, autor=autor)
+			comentario.save()
+			novedad = Novedades.objects.get(id=pk)
+			novedad.lista_comentarios.add(comentario)
+			novedad.save()
+			return HttpResponseRedirect('/novedades_alumnos') 
+
+	 
+	#url_fotoPerfil = (settings.BASE_DIR + settings.MEDIA_ROOT).replace('\\','/') + Alumno.objects.get(id=pk).foto_perfil.name
+	ctx = {
+		'novedad': Novedades.objects.get(id=pk),
+		'formulario':form,
+		'comentarios':Novedades.objects.get(id=pk).lista_comentarios.all(),
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 

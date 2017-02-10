@@ -12,6 +12,16 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Comentario',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('texto', models.TextField(verbose_name=b'comentario')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Novedades',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),

@@ -1,6 +1,7 @@
 /*HEADER*/
 .navbar{
 	margin-bottom: 0;
+	margin-top: 0;
 	background-color: #2c3e50;
 }
 
@@ -10,13 +11,15 @@
 	margin-left: 150px;
 }
 
-
 .container-fluid.cabecera{
 	width: 970px;
 	height: 260px;
 	padding-top: 5px;
 	margin: 0 ;
 	padding-left: 0;
+}
+.sidebar-nav{
+	margin: 10px;
 }
 /*FIN HEADER*/
 /*BODY*/
@@ -33,7 +36,6 @@ a, li,h1, h2, h3, h4, p {
 	color: #fff;
 	padding-top: 0px;
 	height: 250px;
-
 }
 #logoSAU-Sysport{
 	margin: 0;
@@ -49,6 +51,18 @@ a, li,h1, h2, h3, h4, p {
 	   /* no mostraremos ninguna sidebar */
 	  #sidebar-wrapper { display:none; }
 	  #sidebar-wrapper2 { display:none; }
+}
+.navbar-collapse.collapse{
+	padding: 0;
+}
+.nav.nav-pills.nav-stacked{
+	background-color: #A9E2F3;
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus{
+	background-color: #eee;
+}
+.a:hover, a:focus{
+	color: #ffffff;
 }
 .panel-title{
 	color: #fff;
@@ -82,6 +96,7 @@ a, li,h1, h2, h3, h4, p {
 	margin-bottom: 10px;
 
 }
+
 /*FIN BODY*/
 /*FOOTER*/
 #utn-footer{
