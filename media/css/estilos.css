@@ -5,7 +5,6 @@
 	background-color: #2c3e50;
 }
 
-
 #logo-cabecera{
 	border-radius: 70px;
 	margin-left: 150px;
@@ -21,12 +20,15 @@
 .sidebar-nav{
 	margin: 10px;
 }
+#hola_usuario{
+	margin: 15px;
+}
 /*FIN HEADER*/
 /*BODY*/
 body{
 	font-family: 'Tahoma';
-
 }
+
 a, li,h1, h2, h3, h4, p {
 	color: #424242;
 }
@@ -52,6 +54,7 @@ a, li,h1, h2, h3, h4, p {
 	  #sidebar-wrapper { display:none; }
 	  #sidebar-wrapper2 { display:none; }
 }
+
 .navbar-collapse.collapse{
 	padding: 0;
 }
@@ -59,10 +62,10 @@ a, li,h1, h2, h3, h4, p {
 	background-color: #A9E2F3;
 }
 .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus{
-	background-color: #eee;
+	background-color: #AED6F1 ;
 }
-.a:hover, a:focus{
-	color: #ffffff;
+.a:hover, .a:focus{
+	/*color: #5383d3 ;*/
 }
 .panel-title{
 	color: #fff;
@@ -88,7 +91,9 @@ a, li,h1, h2, h3, h4, p {
 }
 
 #login{
-	text-align: center
+	text-align: center;
+	width: 288px; 
+	margin-left: 10px;
 }
 
 .main{

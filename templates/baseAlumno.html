@@ -1,11 +1,10 @@
 {% extends "base2.html" %}
-<<<<<<< HEAD
-=======
+
     {%block inicio %}
         <li class="{% if 'inicial_alumnos' == request.resolver_match.view_name %}active{% endif %}">
-                    <a href="{% url 'inicial_alumnos' %}">Inicio</a></li>
+            <a href="{% url 'inicial_alumnos' %}">Inicio</a></li>
     {% endblock %}
->>>>>>> 4c11e751906ad88d4ee168c2cdfb4d43428202a2
+
     {% block menu %}
     <!--Menu de perfil -->
    
@@ -39,19 +38,6 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
- 
-    <!--Menu de Novedades -->
-        <div class="panel panel-primary">
-        <div class="panel-heading">
-             <h3 class="panel-title">Novedades</h3>
-        </div>
-        <div class="panel-body">
-             <ul class="nav nav-pills nav-stacked">
-                <li class="{% if 'novedades_alumnos' == request.resolver_match.view_name %}active{% endif %}">
-                <a href="{% url 'novedades_alumnos' %}">Mis Novedades</a></li>          
-            </ul> 
-=======
   
     <!--Menu de Novedades -->
     <div class=" sidebar-nav">
@@ -76,12 +62,8 @@
                 <ul class="nav nav-pills nav-stacked">
                    <li class="{% if 'novedades_alumnos' == request.resolver_match.view_name %}active{% endif %}">
                         <a href="{% url 'novedades_alumnos' %}">Mis Novedades</a></li>
-                    <li class="{% if 'ver_novedades_visibilidadTodos' == request.resolver_match.view_name %}active{% endif %}">
-                        <a href="{% url 'ver_novedades_visibilidadTodos' %}">Novedades Generales</a></li>              
-                    
                 </ul> 
             </div>
->>>>>>> 4c11e751906ad88d4ee168c2cdfb4d43428202a2
         </div>
     </div>     
                  
@@ -110,7 +92,6 @@
                     <li class="{% if 'ver_deportes_personas' ==  request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_deportes_personas' %}">Mis Deportes</a></li>
                     <li class="{% if 'inscribir_deportes' ==  request.resolver_match.view_name %}active{% endif %}">
                         <a href="{% url 'inscribir_deportes' %}">Ver mas Deporte</a></li>
-             
                 </ul>  
             </div>
         </div>
