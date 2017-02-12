@@ -1,9 +1,19 @@
 {% extends "baseAdmin.html" %}
 
 {% block contenido %}
+
+	<caption><h1>Canchas</h1></caption>
+
+	<div class="panel-body panel-primary">
+
+		 <form class="form-horizontal" method='POST'>
+			<a href="{% url 'crear-cancha' %}">Alta cancha</a>
+		 </form>
+
+	 </div>
 	<table class="table table-hover table-striped">
-		<a href="{% url 'crear-cancha' %}">Agregar cancha</a>
-		<caption><h1>Canchas</h1></caption>
+		
+		
 		{% for c in canchas %}
 			<tbody>				
 				<tr>

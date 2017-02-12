@@ -1,9 +1,19 @@
 {% extends "baseAdmin.html" %}
 
 {% block contenido %}
+
+	<caption><h1>Deportes</h1></caption>
+
+	<div class="panel-body panel-primary">
+
+		 <form class="form-horizontal" method='POST'>
+			<a href="{% url 'crear-deporte' %}">Agregar Deporte</a>
+		 </form>
+
+	 </div>
 	<table class="table table-hover table-striped">
-		<a href="{% url 'crear-deporte' %}">Agregar Deporte</a>
-		<caption><h1>Deportes</h1></caption>
+		
+		
 		{% for d in deportes %}
 			<tbody>				
 				<tr>

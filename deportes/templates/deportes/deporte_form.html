@@ -6,10 +6,18 @@
         </div>
 		<div class="panel-primary panel-body" >
 			<form action='' method='POST'>
+				{% for field in form %}
+			 	<div >    		
 				{% csrf_token %}
-				{{ form.as_p }}
-				<input type='submit' value='Confirmar'>
+				<p>{{field.label}}</p>
+				<p>{{field}} </p>	
+
+				</div>
+			{% endfor %}
+				
 			</form>
+			<input type='submit' value='Confirmar'>
+			<input type='submit' value='Cancelar'>
 		</div>
 	</div>
 	
