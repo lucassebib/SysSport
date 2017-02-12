@@ -3,7 +3,7 @@
 
 
 {% block contenido %}
-	<input type="button" value="Atras" onclick="history.back(-1)" />
+	
 	<div class="well ">
         <div class="panel-heading panel-primary">
             <h2><i>Novedad</i> </h2>
@@ -19,6 +19,8 @@
 				</div>
 			{% endfor %}
 				<input type='submit' value='Confirmar'>
+				<input type="button" value="Cancelar" onclick="history.back(-1)" />
+
 			</form>
 		</div>
 	</div>

@@ -6,7 +6,7 @@
         </div>
 		<div class="panel-primary panel-body" >
 			<form action='' method='POST'>
-				{% for field in form %}
+			{% for field in form %}
 			 	<div >    		
 				{% csrf_token %}
 				<p>{{field.label}}</p>
@@ -14,10 +14,10 @@
 
 				</div>
 			{% endfor %}
-				
+				<input type='submit' value='Confirmar'>
+				<input type="button" value="Cancelar" onclick="history.back(-1)" />
 			</form>
-			<input type='submit' value='Confirmar'>
-			<input type='submit' value='Cancelar'>
+			
 		</div>
 	</div>
 	
