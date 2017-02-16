@@ -14,10 +14,12 @@ from django.http import HttpResponseRedirect
 
 ###############################ABM DEPORTES##############################################
 def lista_deportes(request):
-    template = "listar_deportes.html"
+    template = "lista_deportes.html"
+    
     ctx = {
-        'deportes': Deporte.objects.all() 
+        'deportes': Deporte.objects.all(), 
     }
+   
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 class DetallesDeportes(DetailView):
@@ -65,28 +67,11 @@ def ver_deportes_personas(request):
 
 
 def listar_deportes(request):
-    template = "lista_deportes.html"
-    id_usuario = request.user.id
-    try:
-        g = Alumno.objects.get(id=id_usuario)
-        extiende = 'baseAlumno.html'
-    except Exception as e:
-        try:
-            g = Profesor.objects.get(id=id_usuario)
-            extiende = 'baseProfesor.html'
-        except Exception as e:
-            try:
-                g = UsuarioInvitado.objects.get(id=id_usuario)
-                extiende = 'baseAlumno.html'
-            except Exception as e:
-                try:
-                    extiende = 'inicio.html'
-                except Exception as e:
-                    if request.user.is_staff:
-                        extiende = 'baseAdmin.html'
+    template = "listar_deportes.html"
+   
     ctx = {
         'deportes': Deporte.objects.all(), 
-        'extiende': extiende,
+        
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 

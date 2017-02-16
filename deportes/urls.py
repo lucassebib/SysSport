@@ -5,7 +5,7 @@ from views import *
 admin.autodiscover()
 
 urlpatterns = patterns('',
-	url(r'^deportes/$', lista_deportes, name='listar-deportes'),
+	url(r'^deportes/$', lista_deportes, name='lista_deportes'),
     url(r'^deportes/(?P<pk>[0-9]+)/$', DetallesDeportes.as_view(), name='deporte-detalles'),
     url(r'^deportes/crear/$', CrearDeportes.as_view(), name='crear-deporte'),
     url(r'^deportes/(?P<pk>[0-9]+)/modificar/$', ActualizarDeportes.as_view(), name='deporte-actualizar'),

@@ -29,11 +29,11 @@
                 </div>
                 <ul class="nav nav-pills nav-stacked" >
                     <li class="{% if 'modificar_perfil_alumno' == request.resolver_match.view_name %}active{% endif %}">
-                    <a href="{% url 'modificar_perfil_alumno' %}">Ver perfil</a></li>
+                    <a href="{% url 'modificar_perfil_alumno' %}#contenido">Ver perfil</a></li>
                     <li class="{% if 'ver_contacto_urgencia' == request.resolver_match.view_name %}active{% endif %}">
-                    <a href="{% url 'ver_contacto_urgencia' %}">Contactos de Urgencia</a></li>
+                    <a href="{% url 'ver_contacto_urgencia' %}#contenido">Contactos de Urgencia</a></li>
                     <li class="{% if 'ver_datos_medicos' == request.resolver_match.view_name %}active{% endif %}">
-                    <a href="{% url 'ver_datos_medicos' %}">Datos Medicos</a></li>
+                    <a href="{% url 'ver_datos_medicos' %}#contenido">Datos Medicos</a></li>
                 </ul>  
             </div>
         </div>
@@ -61,12 +61,11 @@
                 </div>
                 <ul class="nav nav-pills nav-stacked">
                    <li class="{% if 'novedades_alumnos' == request.resolver_match.view_name %}active{% endif %}">
-                        <a href="{% url 'novedades_alumnos' %}">Mis Novedades</a></li>
+                        <a href="{% url 'novedades_alumnos' %}#contenido">Mis Novedades</a></li>
                 </ul> 
             </div>
         </div>
     </div>     
-                 
             
      <!--Menu de deportes -->
      <div class=" sidebar-nav">
@@ -89,9 +88,9 @@
                          <h3 class="panel-title">Deportes</h3>
                 </div>
                 <ul class="nav nav-pills nav-stacked" >
-                    <li class="{% if 'ver_deportes_personas' ==  request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_deportes_personas' %}">Mis Deportes</a></li>
+                    <li class="{% if 'ver_deportes_personas' ==  request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_deportes_personas' %}#contenido">Mis Deportes</a></li>
                     <li class="{% if 'inscribir_deportes' ==  request.resolver_match.view_name %}active{% endif %}">
-                        <a href="{% url 'inscribir_deportes' %}">Ver mas Deporte</a></li>
+                        <a href="{% url 'inscribir_deportes' %}#contenido">Ver mas Deporte</a></li>
                 </ul>  
             </div>
         </div>

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load  %}
 
 {% block menu_izq %}
         <div class=" sidebar-nav">
@@ -26,11 +27,6 @@
         </div>
         
         {% block menu %}
-            {%if not user.is_authenticated %}
-                 {% include "login.html" %}  
-                {% endif %}
         {% endblock %}
 
 {% endblock %} 
-{% block contenido %}
-{% endblock %}

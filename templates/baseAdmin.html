@@ -9,19 +9,33 @@
 {% endblock %}
 
 {% block menu %}
-<div class="panel-primary">
-    <div class="panel-heading">
-         <h3 class="panel-title">Administración</h3>
+<div class=" sidebar-nav">
+        <div class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navegacion-alum">
+                    <span class="sr-only">Desplegar/ocultar menu</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span class="navbar-header">
+                    <div class="visible-xs panel-heading" align="center">
+                         <h3 class="panel-title">Administración</h3>
+                    </div>
+                </span>
+            </div>
+            <div class="navbar-collapse collapse" id="navegacion-alum">
+                <div class=" visible-lg panel-heading" align="center">
+                         <h3 class="panel-title">Administración</h3>
+                </div>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="{% if 'listar-canchas' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar-canchas' %}#contenido">Canchas</a></li>
+                        <li class="{% if 'lista_deportes' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'lista_deportes' %}#contenido">Deportes</a></li>
+                        <li class="{% if 'ver_novedades' == request.resolver_match.view_name %}active{% endif %}"><a href="">Novedades</a></li> 
+                        <li class="{% if 'ver_usuarios' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_usuarios' %}">Usuarios</a></li>
+                    </ul>
+            </div>        
+        </div>
     </div>
-    <div class="panel-body">
-        <ul class="nav nav-pills nav-stacked">
-            <li><a href="{% url 'listar-canchas' %}">Canchas</a></li>
-            <li><a href="{% url 'listar-deportes' %}">Deportes</a></li>
-            <li><a href="# %}">Novedades</a></li> 
-            <li><a href="{% url 'ver_usuarios' %}">Usuarios</a></li>
-        </ul>
-    </div>
-        
-</div>
 {% endblock %}
         

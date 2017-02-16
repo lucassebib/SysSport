@@ -13,14 +13,14 @@ from itertools import chain
 
 
 def vista_pagina_inicio(request):
-	form = FormularioAutenticacion()
+	form1 = FormularioAutenticacion()
 	template = "inicio.html"
 
 	if request.method == "POST":
-		form = FormularioAutenticacion(request.POST)
-		if form.is_valid():
-			usuario = form.cleaned_data['username']
-			password = form.cleaned_data['password']
+		form1 = FormularioAutenticacion(request.POST)
+		if form1.is_valid():
+			usuario = form1.cleaned_data['username']
+			password = form1.cleaned_data['password']
 			user = authenticate(username=usuario, password=password)
 
  			try:
@@ -39,16 +39,16 @@ def vista_pagina_inicio(request):
 								g = UsuarioInvitado.objects.get(id=id_usuario)
 								return HttpResponseRedirect('/inicial_alumnos')									
 					else:
-						ctx = {"form":form, "mensaje": "Usuario Inactivo"}
+						ctx = {"form1":form1, "mensaje": "Usuario Inactivo"}
 						return render_to_response(template,ctx, context_instance=RequestContext(request))
 				else:
-					ctx = {"form":form, "mensaje": "Nombre de usuario o password incorrectos"}
+					ctx = {"form1":form1, "mensaje": "Nombre de usuario o password incorrectos"}
 					return render_to_response(template,ctx, context_instance=RequestContext(request))
 			except Exception as e:
 				if user.is_staff:
 					return HttpResponseRedirect('/inicial-admin')
 
-	ctx = {"form":form, "mensaje":""}
+	ctx = {"form1":form1, "mensaje":""}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 def app_logout(request):
@@ -67,6 +67,11 @@ def vista_inicial_admin(request):
 	return render_to_response(template, context_instance=RequestContext(request))
 
 ###########################PARA ALUMNOS###########################################
+@login_required	
+def vista_index_noLogueado(request):
+	template = "usuario_noLogueado.html"	
+	return render_to_response(template, context_instance=RequestContext(request))
+
 @login_required
 def modificarPerfilAlumno(request):
 	template = "alumno/modificar_perfil_alumno.html"

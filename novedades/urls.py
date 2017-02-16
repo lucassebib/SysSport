@@ -9,7 +9,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^inicial_alumnos$', vista_index_alumnos, name='inicial_alumnos'),
     url(r'^inicial_profesores$', vista_index_profesores, name='inicial_profesores'),
-    url(r'^usuario_noLogueado$', vista_index_noLogueado, name= 'usuario_noLogueado'),
+    
 
     url(r'^novedades_alumnos$', novedades_alumnos, name='novedades_alumnos'),
     

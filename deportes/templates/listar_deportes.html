@@ -1,27 +1,19 @@
-{% extends "baseAdmin.html" %}
+{% extends "usuario_noLogueado.html" %}
 
 {% block contenido %}
-
-	<caption><h1>Deportes</h1></caption>
-
-	<div class="panel-body panel-primary">
-
-		 <form class="form-horizontal" method='POST'>
-			<a href="{% url 'crear-deporte' %}">Agregar Deporte</a>
-		 </form>
-
-	 </div>
-	<table class="table table-hover table-striped">
+	<div class="page-header">
+		<h1><b><i>Deportes </i></b></h1>
 		
-		
+	</div>
+	<div class="page-content">
 		{% for d in deportes %}
-			<tbody>				
-				<tr>
-					<td>{{d.nombre}}</td>
-					<td>{{d.descripcion}}</td>
-					<td><a href="{% url 'deporte-actualizar' d.id %}">Modificar</a>&nbsp; &nbsp;<a href="{% url 'eliminar-deportes' d.id %}">Eliminar</a></td>
-				</tr>								
-			</tbody>
+			<div class="columns">
+				<ul class="price">
+					<li class="header">{{d.nombre}}</li>
+					<!--<li class="grey"><h4>{{d.descripcion}}</h4></li>
+					<li class="grey"><a href="#" class="button">Inscribirse</a></li> -->
+				</ul>
+			</div>
 		{% endfor %}
-	</table>	
+	</div>
 {% endblock %}

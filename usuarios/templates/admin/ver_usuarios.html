@@ -2,9 +2,29 @@
 
 {% block contenido %}
 
+<caption><h1>Usuarios</h1></caption>
 
-	{% for u in usuarios %}
-		{{u.first_name}}
-	{% endfor %}
+	<div class="panel-body panel-primary">
+
+		 <form class="form-horizontal" method='POST'>
+			 <ul class="navbar-right">
+			 	<li><span class="glyphicon glyphicon-plus"></span><a id="agregar" href=""> Agregar Usuario </a></li>
+			 </ul>
+			
+		 </form>
+
+	 </div>
+	<table class="table table-hover table-striped">
+		
+		
+		{% for u in usuarios %}
+			<tbody>				
+				<tr>
+					<td>{{u.first_name}}</td>
+					<td><a href="#">Modificar</a>&nbsp; &nbsp;<a href="#">Eliminar</a></td>
+				</tr>								
+			</tbody>
+		{% endfor %}
+	</table>	
 
 {% endblock %}

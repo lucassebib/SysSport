@@ -30,7 +30,7 @@
                   		<div class="collapse navbar-collapse" id="navegacion-dep">
                   			<ul class="nav navbar-nav navbar-right">
                   				{% if user.is_authenticated %} 
-                  					<li><h5 id="hola_usuario">Hola <b>{{ user.username }}! </b></h5></li>
+                  					<li><p class="navbar-text" id="hola_usuario">Hola <b>{{ user.username }}! </b></p></li>
 	                    			<li><a href="{% url 'url_logout'%}" class="navbar-link"><span>Salir</span></a></li> 
 	                    		{% else %}
                                     <li><a href="registrarse" class="navbar-link" ><span></span> Registrarse</a></li>
@@ -64,7 +64,7 @@
     					{% endblock %}
 
     				</aside>
-    				<section class="region-principal col-md-8">
+    				<section class="region-principal col-md-8" id="contenido">
     					{% block contenido %}
         				{% endblock %}  
     				</section>

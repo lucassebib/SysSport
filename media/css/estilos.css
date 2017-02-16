@@ -27,10 +27,15 @@
 /*BODY*/
 body{
 	font-family: 'Tahoma';
+	background-color: #D8D8D8;
 }
 
 a, li,h1, h2, h3, h4, p {
 	color: #424242;
+}
+
+ul.navbar-rigth{
+	list-style-type: none;
 }
 .jumbotron{
 	background-color: #00BFFF;
@@ -59,23 +64,27 @@ a, li,h1, h2, h3, h4, p {
 	padding: 0;
 }
 .nav.nav-pills.nav-stacked{
-	background-color: #A9E2F3;
+	background-color: #2fa4e7 ;
 }
 .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus{
-	background-color: #AED6F1 ;
+	color: #fff ;
 }
 .a:hover, .a:focus{
-	/*color: #5383d3 ;*/
+	text-decoration: underline;
 }
+
 .panel-title{
 	color: #fff;
 	text-align: left;
+
 }
 .panel-body{
 	background-color: #A9E2F3;
+	border: 1px solid #1995dc;
 }
 .panel-footer{
 	background-color: #1995dc;
+	border: 1px solid #1995dc;
 }
 .page-header, .well{
 	margin-top: 0;
@@ -108,7 +117,7 @@ a, li,h1, h2, h3, h4, p {
   padding: 10px;
   border: solid 1px #fff;
   box-shadow: inset 1px 1px 2px 0 #707070;
-  transition: box-shadow 0.3s;
+ 
 }
 
 

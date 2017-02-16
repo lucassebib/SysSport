@@ -22,10 +22,6 @@ def vista_index_profesores(request):
 	template = "inicial_profesores.html"	
 	return render_to_response(template, context_instance=RequestContext(request))
 
-@login_required	
-def vista_index_noLogueado(request):
-	template = "usuario_noLogueado.html"	
-	return render_to_response(template, context_instance=RequestContext(request))
 
 ##################### Novedades de usuarios#############################################
 #Novedades de alumnos
