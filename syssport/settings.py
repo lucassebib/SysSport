@@ -66,7 +66,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 "django.core.context_processors.request",
 )
 
-MEDIA_ROOT = '/media/'
+#MEDIA_ROOT = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 MEDIA_URL = '/media/'
 

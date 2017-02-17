@@ -33,7 +33,7 @@ class Persona(Usuario):
 	dni = models.IntegerField(blank=True, null=True)
 	fecha_nacimiento = models.DateField(blank=True, null=True)
 	telefono = models.IntegerField(blank=True, null=True)
-	foto_perfil = models.ImageField(upload_to='fotos_de_perfil/', default='default_profile.jpg', blank=True, null=True)
+	foto_perfil = models.ImageField(upload_to='usuarios/fotos_de_perfil/', default="usuarios/fotos_de_perfil/None/default_profile.jpg")
 	lista_deporte = models.ManyToManyField(Deporte, verbose_name='Deportes Inscripto')
 	direccion = models.ForeignKey(Direccion, blank=True, null=True)
 	sexo = models.IntegerField(choices=lista_sexos, default=1)
@@ -69,14 +69,12 @@ class Alumno(Persona):
 	carreras_disponibles = ((1,"ISI"),(2,"IQ"), (3, "IEM"), (4, "LAR"), (5, "TSP"))
 
 	legajo =  models.IntegerField(blank=True, null=True)
-	ficha_medica = models.FileField(upload_to='fichas_medicas/', blank=True, validators=[valid_extension])
+	ficha_medica = models.FileField(upload_to='usuarios/fichas_medicas/', blank=True, validators=[valid_extension])
 	carrera = models.IntegerField(choices=carreras_disponibles, default=1)
 	contactos_de_urgencia = models.ManyToManyField(ContactoDeUrgencia, verbose_name='Contacto de Urgencia', blank=True, null=True)
 
 	class Meta:
 		verbose_name_plural = "Alumnos"
-
-
 
 	def deportes_inscripto(self):
 		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
@@ -92,7 +90,7 @@ class Alumno(Persona):
 		
 class UsuarioInvitado(Persona): 
 	institucion = models.CharField(max_length=100)
-	ficha_medica = models.FileField(upload_to='fichas_medicas/', blank=True)
+	ficha_medica = models.FileField(upload_to='usuarios/fichas_medicas/', blank=True)
 	contactos_de_urgencia = models.ManyToManyField(ContactoDeUrgencia, verbose_name='Contacto de Urgencia', blank=True, null=True)
 
 	class Meta:
@@ -121,7 +119,7 @@ admin.site.register(Profesor,ProfesorAdmin)
 
 class AlumnoAdmin(admin.ModelAdmin):
 	list_display = ('legajo', 'deportes_inscripto')
-	fields = ('username', 'password', 'first_name', 'last_name','sexo', 'direccion', 'carrera', 'legajo', 'dni', 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica','contactos_de_urgencia', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
+	fields = ('username', 'password', 'first_name', 'last_name','sexo', 'email', 'direccion', 'carrera', 'legajo', 'dni', 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica','contactos_de_urgencia', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
 
 admin.site.register(Alumno,AlumnoAdmin)
 

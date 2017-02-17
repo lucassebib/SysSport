@@ -67,37 +67,31 @@ def vista_inicial_admin(request):
 	return render_to_response(template, context_instance=RequestContext(request))
 
 ###########################PARA ALUMNOS###########################################
-@login_required	
-def vista_index_noLogueado(request):
-	template = "usuario_noLogueado.html"	
-	return render_to_response(template, context_instance=RequestContext(request))
+#@login_required	
+#def vista_index_noLogueado(request):
+#	template = "usuario_noLogueado.html"	
+#	return render_to_response(template, context_instance=RequestContext(request))
 
 @login_required
 def modificarPerfilAlumno(request):
 	template = "alumno/modificar_perfil_alumno.html"
+
 	try:
 		alumno = Alumno.objects.get(id=request.user.id)
 		tipo_usuario = "alumno"
 		ctx1 = {
 			'legajo': alumno.legajo,
+			'alumno': alumno,
 			'carrera': alumno.ver_nombre_carrera,
 		} 	 
 	except Exception as e:
 		alumno = UsuarioInvitado.objects.get(id=request.user.id)
 		tipo_usuario = "invitado"
+
 		ctx1 = {
 			'institucion': alumno.institucion,
+			'alumno': alumno,
 		} 		
-	 
-
-	#if request.method=='POST' and 'btn-cambiar-pass' in request.POST:
-	#	return HttpResponseRedirect('/cambiar-pass')
-	#
-	#if request.method=='POST' and 'btn-cambiar-telefono' in request.POST:
-	#	return HttpResponseRedirect('/cambiar-telefono')
-
-	#if request.method=='POST' and 'btn-cambiar-direccion' in request.POST:
-	#	return HttpResponseRedirect('/cambiar-direccion')
 
 	ctx = {
 			'usuario':request.user.username,
