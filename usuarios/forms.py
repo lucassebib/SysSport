@@ -1,5 +1,5 @@
 from django import forms
-from models import Alumno, Direccion, ContactoDeUrgencia
+from models import Alumno, Direccion, ContactoDeUrgencia, Persona
 from django.db import models
 
 class FormularioAutenticacion(forms.Form):	
@@ -13,6 +13,11 @@ class FormularioDireccion(forms.ModelForm):
 class FormularioContactoDeUrgencia(forms.ModelForm):
 	class Meta:
 		model = ContactoDeUrgencia
+
+class FormularioCargarImagen(forms.ModelForm):
+	class Meta:
+		model = Persona
+		fields = ["foto_perfil"]
 
 	
 
