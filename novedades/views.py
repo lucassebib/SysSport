@@ -36,13 +36,12 @@ def novedades_alumnos(request):
 	}
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
 
-<<<<<<< HEAD
 #Novedades de Profesores 
 
 #@login_required	
-=======
+
 ##################################CRUD NOVEDADES########################################	
->>>>>>> a0a8ec728a1ad77b399264079a2ef2ea9632b327
+
 class ListarNovedades(ListView):
     model = Novedades
     context_object_name = 'novedades'
