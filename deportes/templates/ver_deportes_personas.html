@@ -15,7 +15,9 @@
 				<tr>
 					<td>{{d.nombre}} </td>
 					<td>{{d.descripcion}}</td>
-					<td><a type="text" href="{% url 'desinscribir_deporte' d.id %}">Darse de Baja</a></td>
+					{% if darse_de_baja %}
+						<td><a type="text" href="{% url 'desinscribir_deporte' d.id %}">Darse de Baja</a></td>
+					{% endif %}
 				</tr>
 			</tbody>
 		{% endfor %}

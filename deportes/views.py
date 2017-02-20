@@ -41,6 +41,8 @@ class EliminarDeportes(DeleteView):
 def ver_deportes_personas(request):
     template = "ver_deportes_personas.html" 
     id_usuario = request.user.id
+    darse_de_baja = True
+
     try:
         g = Alumno.objects.get(id=id_usuario)
         extiende = 'baseAlumno.html'
@@ -48,6 +50,7 @@ def ver_deportes_personas(request):
         try:
             g = Profesor.objects.get(id=id_usuario)
             extiende = 'baseProfesor.html'
+            darse_de_baja = False
         except Exception as e:
             try:
                 g = UsuarioInvitado.objects.get(id=id_usuario)
@@ -61,7 +64,8 @@ def ver_deportes_personas(request):
     ctx = {
         'deportes': Persona.objects.get(id=request.user.id).lista_deporte.all(),
         'extiende': extiende,
-        'usuario': request.user.username
+        'usuario': request.user.username,
+        'darse_de_baja': darse_de_baja,
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
