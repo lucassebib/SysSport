@@ -24,7 +24,6 @@ table.tr_comentario{
     margin-top: 30px;
 }
 .titular-comentario {
-    margin: 0.3em;
     padding-bottom: 4px;
     padding-left: 0.2em;
 }
@@ -67,9 +66,13 @@ table.tr_comentario{
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-bottom: 10px;
+    margin-left: 3px;
+    margin-right: 3px;
     background-color: #E6E6E6;
-    border-top: 1px solid transparent;
-    border-bottom: 1px solid #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    
+
 }
 
 .comentario{

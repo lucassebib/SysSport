@@ -2,7 +2,7 @@
 
 
 {% block contenido %}
-	<caption><h1>Novedades</h1></caption>
+	<caption><h1><b><i>Novedades</i></b></h1></caption>
 	<div class=" panel-heading">
 		 <form class="form-horizontal" method='POST'>
 		 	<ul class="nav navbar-right">
@@ -12,8 +12,8 @@
 	 </div>
 	 {% for novedad in object_list %}
 		<div class="fondo_mensaje esquinas">
-			<div class="contenido-comentario esquinas">
-				<table class="tabla-comentario">
+			<div class="titular-comentario contenido-comentario esquinas">
+				<table>
 					<tr>
 						<td class="td_perfil"><img src="../media/img/perfil.jpg" width="40px" height="50px" border="0"></td>
 						<td class="td_titulo"><b><h2 class="titulo_novedad">{{novedad.titulo}}</h2></b>
@@ -24,10 +24,11 @@
 
 					</tr>
 				</table>
-				<div class="texto_mensaje">
-					<p>{{novedad.contenido|safe}}</p>
-				</div>
 			</div>
+			<div class="texto_mensaje">
+				<p>{{novedad.contenido|safe}}</p>
+			</div>
+			
 		</div>
 		
 	{% endfor %}

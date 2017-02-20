@@ -53,7 +53,7 @@ ul.navbar-rigth{
 		display: none; 
 	}
 	  .header { width:333px; }
-	  .main { width: 333px; }
+	  .main { width: 433px; }
 	  .footer { width:333px; }
 	   /* no mostraremos ninguna sidebar */
 	  #sidebar-wrapper { display:none; }

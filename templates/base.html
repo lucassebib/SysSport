@@ -33,9 +33,9 @@
                   					<li><p class="navbar-text" id="hola_usuario">Hola <b>{{ user.username }}! </b></p></li>
 	                    			<li><a href="{% url 'url_logout'%}" class="navbar-link"><span>Salir</span></a></li> 
 	                    		{% else %}
-                                    <li><a href="registrarse" class="navbar-link" ><span></span> Registrarse</a></li>
-                                    <li><a href="{% url 'url_logout'%}#login" class="navbar-link"><span></span> Ingresar</a></li>
-                                {% endif %}
+                              <li><a href="registrarse" class="navbar-link" ><span></span> Registrarse</a></li>
+                              <li><a href="{% url 'url_logout'%}#login" class="navbar-link"><span></span> Ingresar</a></li>
+                          {% endif %}
                   			</ul>
                   		</div>
                   	</div>
@@ -47,9 +47,7 @@
             <section class="jumbotron">
             	<div class="container-fluid cabecera">
             		<div id="logoSAU-Sysport" class="col-md-2">
-            			{% block inicio %}
-            			{% endblock %}
-            		</div>
+            			</div>
                     <!--<div id="mural-cabecera" class="col-md-9" >
                     	<img class="img-responsive" src="{% static "img/mural.png" %}">
                     </div> -->
