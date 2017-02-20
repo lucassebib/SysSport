@@ -2,7 +2,7 @@ from django.shortcuts import render, render_to_response, RequestContext, get_obj
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
 from forms import FormularioAutenticacion, FormularioDireccion, FormularioContactoDeUrgencia, FormularioCargarImagen
-from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado 
+from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccion, ContactoDeUrgencia 
 from deportes.models import Deporte
 from django.template import Context
 from django.http import HttpResponse, Http404, HttpResponseRedirect
@@ -135,8 +135,56 @@ def cambiar_contrasenia(request):
 @login_required
 def agregar_contactoUrgencia(request):
 	template = "alumno/agregar_contacto_urgencia.html"
+	form_principal = FormularioContactoDeUrgencia()
+	form_direccion = FormularioDireccion()
+
+	if request.method == "POST":
+		form_principal = FormularioContactoDeUrgencia(request.POST)
+		if form_principal.is_valid():
+			
+
+			nombre = form_principal.cleaned_data['nombre']
+			apellido = form_principal.cleaned_data['apellido']
+			parentezco = form_principal.cleaned_data['parentezco']
+			telefono = form_principal.cleaned_data['telefono']
+
+			form_direccion = FormularioDireccion(request.POST)
+
+			calle = request.POST.get('calle')
+			altura = request.POST.get('altura')
+			if altura == '':
+				altura = 0
+
+			piso = request.POST.get('piso')
+			if piso == '':
+				piso = 0
+
+			nro_departamento = request.POST.get('nro_departamento')
+			if nro_departamento == '':
+				nro_departamento = 0
+
+			provincia = request.POST.get('provincia')
+			localidad = request.POST.get('localidad')
+
+			direccion = Direccion(calle=calle, altura=altura, piso=piso, nro_departamento=nro_departamento, provincia=provincia, localidad=localidad)
+			direccion.save()
+			
+			contacto = ContactoDeUrgencia(nombre=nombre, apellido=apellido, parentezco=parentezco, telefono=telefono, direccion=direccion)
+			contacto.save()
+
+			try:
+				alumno = Alumno.objects.get(id=request.user.id)
+			except Exception as e:
+				alumno = UsuarioInvitado.objects.get(id=request.user.id)
+			
+			alumno.contactos_de_urgencia.add(contacto)
+			alumno.save()
+			
+			return HttpResponseRedirect('/contacto_urgencia')
+
 	ctx = {
-		'form': FormularioContactoDeUrgencia,
+		'form_principal': form_principal,
+		'form_direccion': form_direccion,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 

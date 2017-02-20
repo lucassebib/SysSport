@@ -5,11 +5,19 @@
 			<h2><i>Nuevo contactos de Urgencia</b> </h2>
 			<form role="form" method="POST" accept-charset="utf-8">
 
-			{% for field in form %}
+			{% for field in form_principal %}
 			 	<div >    		
 				{% csrf_token %}
-				<p>{{field.label}}</p>
-				<p>{{field}} </p>	
+				{% if field.label = 'Direccion' %}
+					Direccion:
+					{% for field2 in form_direccion %}
+						<p>{{field2.label}}</p>
+						<p>{{field2}} </p>
+					{% endfor %}
+					{% else %}
+						<p>{{field.label}}</p>
+						<p>{{field}} </p>
+				{% endif %}	
 
 				</div>
 			{% endfor %}
