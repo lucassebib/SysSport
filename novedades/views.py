@@ -118,6 +118,7 @@ def ver_novedades(request, pk):
 			novedad.lista_comentarios.add(comentario)
 			novedad.save()
 			form = FormularioComentario()
+			return HttpResponseRedirect('')
 	 
 	#url_fotoPerfil = (settings.BASE_DIR + settings.MEDIA_ROOT).replace('\\','/') + Alumno.objects.get(id=pk).foto_perfil.name
 	ctx = {
