@@ -1,6 +1,6 @@
 {% extends "baseProfesor.html" %}
 {% block contenido %}
-	<h1>Seleccione el deporte:</h1></br>
+	<h1>Deportes:</h1></br>
 	Deportes de {{user.first_name}}
 	{% for d in deportes %}
 		<li><a href="{% url 'ver-alumnos' d.id %}">{{d.nombre}}</a></li>

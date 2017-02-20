@@ -1,26 +1,53 @@
 {% extends "baseAlumno.html" %}
 
-
 {% block contenido %}
+	<div class="page-header">
+		<div class="fondo_mensaje esquinas">
+			<div class="titular-comentario contenido-comentario esquinas">
+				<table cellpadding="0" cellspacing="2">
+					<tr>
+						<td class="td_perfil" ><img src="../media/img/perfil.jpg" width="40px" height="50px" border="0"></td>
+						<td class="td_titulo"><b><h2 class="titulo_novedad">{{novedad.titulo}}</h2></b>
+						<p>{{novedad.fecha_publicacion}}</p></td> 
+					</tr>
+				</table>
+			</div>
+			<div class="texto_mensaje">
+				<p2>{{novedad.contenido|safe}}</p2>
+			</div>
+			<div class="texto_mensaje">
+				<p2>{{post.contenido|safe}}</p2>
+				<li><strong><b>Deporte: </b></strong>{{novedad.obtener_categorias}}</li>
+			</div>
 
-	{{novedad.titulo}}
-	{{novedad.contenido|safe}}
-
-	<div class="texto">
-		{% for c in comentarios %}
-			<P1> {{ c.texto }}</P1></br>
-			<P1> {{ c.autor}}</P1></br>
-		{% endfor %}
-						    
+		</div>
 	</div>
-	  
-	<form action='' method='POST'>
-		{% csrf_token %}
-		{{ formulario.as_p }}
-		<input type='submit' value='Agregar'>
+	<div class="page-content page-comentarios">
+		<div class="fondo_mensaje esquinas">
+			{% for c in comentarios %}	
+				<div class="texto_mensaje">
+					<table class="tabla-comentario">
+						<tr>
+							<td class="td_perfil" ><img src="../media/img/perfil.jpg" width="40px" height="50px" border="0"></td>
+							<td class="td_autor">{{ c.autor }}</td>
+							<td class="comentario">{{ c.texto }}</td>
+							<td><a href="#">Eliminar</a> </td>
+							<td><a href="#">Editar</a> </td>
+													
+						</tr>
+					</table>
+				</div>
+			{% endfor %}
+			<div class="comentario">
+				<form class="form-horizontal" role="form" action='' method='POST'>
+					{% csrf_token %}
+					{{ formulario.as_p }}
+					<button type="submit" class="btn btn-primary">Agregar</button>
+				</form>
+			</div>
+		</div>
+	</div>
 
-		
-	</form>
 
 {% endblock %}
 		

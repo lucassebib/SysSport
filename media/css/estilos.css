@@ -76,7 +76,10 @@ ul.navbar-rigth{
 .panel-title{
 	color: #fff;
 	text-align: left;
+}
 
+.visible-lg.panel-heading{
+	background-color: #0B0B61;
 }
 .panel-body{
 	background-color: #A9E2F3;
@@ -86,10 +89,11 @@ ul.navbar-rigth{
 	background-color: #1995dc;
 	border: 1px solid #1995dc;
 }
-.page-header, .well{
+.page-header {
 	margin-top: 0;
 	padding-top: 0;
 }
+
 #syssport{
 	font-size: 210%;
 	font-family: fantasy;

@@ -10,7 +10,7 @@
 /* Style the list */
 .price {
     list-style-type: none;
-    border: 1px solid #eee;
+    border: 4px solid #eee;
     margin: 0;
     padding: 0;
 }
@@ -22,9 +22,7 @@
 
 /* Pricing header */
 .price .header {
-    background-image: url("../img/fondotitulo.png");
-    background-repeat: repeat-x;
-    color: white;
+    color: #464646;
     font-size: 25px;
     height: 80px;
 }

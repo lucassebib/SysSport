@@ -12,6 +12,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from forms import FormularioComentario
+
 @login_required	
 def vista_index_alumnos(request):
 	template = "inicial_alumnos.html"	
@@ -35,7 +36,7 @@ def novedades_alumnos(request):
 	}
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
 
-#Novedades de Profesores
+#Novedades de Profesores 
 
 #@login_required	
 class ListarNovedades(ListView):
@@ -108,8 +109,7 @@ def ver_novedades(request, pk):
 			novedad = Novedades.objects.get(id=pk)
 			novedad.lista_comentarios.add(comentario)
 			novedad.save()
-			return HttpResponseRedirect('/novedades_alumnos') 
-
+			form = FormularioComentario()
 	 
 	#url_fotoPerfil = (settings.BASE_DIR + settings.MEDIA_ROOT).replace('\\','/') + Alumno.objects.get(id=pk).foto_perfil.name
 	ctx = {

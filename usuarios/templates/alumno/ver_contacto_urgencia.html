@@ -1,12 +1,14 @@
 {% extends "baseAlumno.html" %}
 {% block contenido %}
-	<div class="well ">
-		<div class="panel-heading panel-primary">
-			<h2><i>Contactos de Urgencia de </i><b>{{request.user}}</b> </h2>
+	<div class="panel-info">
+		<div class="page-header">
+			<h1><i>Contactos de Urgencia de </i><b>{{request.user}}</b> </h1>
 		</div>
-		<div class="panel-body panel-primary">
+		<div class="page-content">
 			<form class="form-horizontal" method='POST'>{% csrf_token %}
-				<a href="{% url 'agregar_contactoUrgencia' %}">Agregar Contacto</a>
+			<ul class="nav navbar-right">
+			 	<span class="glyphicon glyphicon-plus"></span> </span><a href="{% url 'agregar_contactoUrgencia' %}">Agregar contacto</a>
+			 </ul>
 				{% for c in contactos %}
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Nombre: </label>

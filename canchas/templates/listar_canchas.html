@@ -3,18 +3,14 @@
 {% block contenido %}
 
 	<caption><h1>Canchas</h1></caption>
-
-	<div class="panel-body panel-primary">
-
-		 <form class="form-horizontal" method='POST'>
+	<div class=" panel-heading">
+		<form class="form-horizontal" method='POST'>
 		 	<ul class="nav navbar-right">
 			 	<span class="glyphicon glyphicon-plus"></span> </span><a id="agregar" href="{% url 'crear-cancha' %}"> Alta cancha</a></li>
 			</ul>
 		</form>
 	 </div>
-	<table class="table table-hover table-striped">
-		
-		
+	<table class="table table-hover table-striped">	
 		{% for c in canchas %}
 			<tbody>				
 				<tr>

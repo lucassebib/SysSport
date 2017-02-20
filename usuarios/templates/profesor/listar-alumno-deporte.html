@@ -1,21 +1,26 @@
 {% extends "baseProfesor.html" %}
 
 {% block contenido %}
-	<input type="button" value="Atras" onclick="history.back(-1)" />
-	<h1>Lista de Alumnos de <u>{{nombre}}</u></br></h1>
-	</br>Seleccione alumno para ver informacion:
+	<input type="button" value="Volver" onclick="history.back(-1)" />
 	
-	<table style="width:100%">
-		<tr>
-		    <th>Nombre y Apellido</th>
-		    <th>Tipo de Usuario</th> 
-		</tr>
-
-		{% for a in alumnos %}
+<caption><h1>Lista de alumnos de <b>{{nombre}}</b></h1></caption>
+	<div class=" panel-heading">
+		<h4>Seleccione alumno para ver informacion:</h4>
+	</div>
+	<table class="table table-hover table-striped">	
+		<thead>
+			<tr>
+				<th>Nombre y Apellido </th>
+				<th> Tipo de Usuario</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for a in alumnos %}
 			<tr>
 				<th><a href="{% url 'info-alumno' a.id %}">{{a.obtenerNombreCompleto}}</a></th>
 		    	<th>{{a.tipo_usuario}}</th> 	
 		    </tr>    				  		
-		{% endfor %}
+			{% endfor %}
+		</tbody>
 	</table>
 {% endblock %}
