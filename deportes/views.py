@@ -117,6 +117,14 @@ def inscribir_deporte(request, pk):
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
+def deporte_detalle(request, pk):
+    template = "deporte_detalle.html"
+
+    ctx = {
+        'deporte': Deporte.objects.get(id=pk)
+    }
+
+    return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 
 
