@@ -11,7 +11,7 @@ from django.template import Context
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-from forms import FormularioComentario
+from forms import FormularioComentario, FormularioNovedades
 
 @login_required	
 def vista_index_alumnos(request):
@@ -36,9 +36,13 @@ def novedades_alumnos(request):
 	}
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
 
+<<<<<<< HEAD
 #Novedades de Profesores 
 
 #@login_required	
+=======
+##################################CRUD NOVEDADES########################################	
+>>>>>>> a0a8ec728a1ad77b399264079a2ef2ea9632b327
 class ListarNovedades(ListView):
     model = Novedades
     context_object_name = 'novedades'
@@ -51,9 +55,14 @@ class DetallesNovedades(DetailView):
     model = Novedades
     
 class CrearNovedades(CreateView):	 
-	model = Novedades	
-	context_object_name = 'novedades'  
-	fields = ['titulo', 'contenido', 'imagen','visibilidad', 'categoria']
+	template_name = 'novedades/novedades_form.html'
+	context_object_name = 'novedades'  	
+	form_class = FormularioNovedades
+
+	def get_form_kwargs(self):
+	        kwargs = super(CrearNovedades, self ).get_form_kwargs()
+	        kwargs['user'] = self.request.user
+	        return kwargs
 
 	def form_valid(self, form):
 		a = form.save(commit = False)
@@ -68,7 +77,7 @@ class EliminarNovedades(DeleteView):
     model = Novedades
     context_object_name = 'novedades'
     success_url = reverse_lazy('listar-novedades')
-
+###############################################################################################
 	
 def ver_novedades_visibilidadTodos(request):
 	template = "novedades_visibilidad_todos.html"

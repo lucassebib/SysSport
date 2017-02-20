@@ -8,12 +8,11 @@
         </div>
 		<div class="page-content">
 			<form action='' method='POST'>
-			{% for field in form %}
-			 	<div >    		
 				{% csrf_token %}
-				<p>{{field.label}}</p>
-				<p>{{field}} </p>	
-
+			{% for field in form %}
+			 	<div>    		
+					<p>{{field.label}}</p>
+					{{field}}	
 				</div>
 			{% endfor %}
 				<input type='submit' value='Confirmar'>

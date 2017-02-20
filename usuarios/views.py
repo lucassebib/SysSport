@@ -1,7 +1,7 @@
 from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
-from forms import FormularioAutenticacion, FormularioDireccion, FormularioContactoDeUrgencia
+from forms import FormularioAutenticacion, FormularioDireccion, FormularioContactoDeUrgencia, FormularioCargarImagen
 from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado 
 from deportes.models import Deporte
 from django.template import Context
@@ -75,6 +75,7 @@ def vista_inicial_admin(request):
 @login_required
 def modificarPerfilAlumno(request):
 	template = "alumno/modificar_perfil_alumno.html"
+	form = FormularioCargarImagen()
 
 	try:
 		alumno = Alumno.objects.get(id=request.user.id)
@@ -91,9 +92,12 @@ def modificarPerfilAlumno(request):
 		ctx1 = {
 			'institucion': alumno.institucion,
 			'alumno': alumno,
-		} 		
+		} 
 
+	if request.method == "POST":
+		form = FormularioCargarImagen(request.POST or None, )
 	ctx = {
+			'form': form,
 			'usuario':request.user.username,
 			'nombre': request.user.first_name,
 			'apellido': request.user.last_name,
