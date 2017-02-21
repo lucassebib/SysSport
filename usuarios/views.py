@@ -1,7 +1,7 @@
 from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
-from forms import FormularioAutenticacion, FormularioDireccion, FormularioContactoDeUrgencia, FormularioCargarImagen
+from forms import *
 from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccion, ContactoDeUrgencia 
 from deportes.models import Deporte
 from django.template import Context
@@ -115,49 +115,9 @@ def modificarPerfilAlumno(request):
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 @login_required
-def modificarPerfilProfesor(request):
-	template = "profesor/modificar_perfil_profesor.html"
-	#form = FormularioCargarImagen()
-
-	profesor = Profesor.objects.get(id=request.user.id) 
-	
-	#if request.method == "POST":
-		#form = FormularioCargarImagen(request.POST or None, )
-
-	ctx = {
-			'legajo': profesor.legajo,
-			'profesor': profesor,
-			#'form': form,
-			'usuario':request.user.username,
-			'nombre': request.user.first_name,
-			'apellido': request.user.last_name,
-			'dni': profesor.dni,
-			'sexo': profesor.ver_sexo,
-			'fecha_nacimiento': profesor.fecha_nacimiento,
-			'telefono': profesor.telefono,
-			'direccion': profesor.direccion,	
-			}
-
-	return render_to_response(template, ctx, context_instance=RequestContext(request))
-
-
-@login_required
 def cambiar_contrasenia(request):
 	template = "confirm_cambiopass.html"
 	return render_to_response(template, context_instance=RequestContext(request))
-
-#@login_required
-#def cambiar_telefono(request):
-#	template = "cambiar_telefono.html"
-#	return render_to_response(template, context_instance=RequestContext(request))
-
-#@login_required
-#def cambiar_direccion(request):
-#	template = "cambiar_direccion.html"
-#	ctx = {
-#		'form': FormularioDireccion
-#	}
-#	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 @login_required
 def agregar_contactoUrgencia(request):
@@ -232,7 +192,9 @@ def ver_contacto_urgencia(request):
 
 def ver_datos_medicos(request):
 	template = "alumno/ver_datos_medicos.html"
-	ctx = {}
+	ctx = {
+		
+	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 ###########################PARA PROFESOR###########################################
@@ -281,3 +243,28 @@ def ver_informacion_alumno(request, pk):
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
+@login_required
+def modificarPerfilProfesor(request):
+	template = "profesor/modificar_perfil_profesor.html"
+	#form = FormularioCargarImagen()
+
+	profesor = Profesor.objects.get(id=request.user.id) 
+	
+	#if request.method == "POST":
+		#form = FormularioCargarImagen(request.POST or None, )
+
+	ctx = {
+			'legajo': profesor.legajo,
+			'profesor': profesor,
+			#'form': form,
+			'usuario':request.user.username,
+			'nombre': request.user.first_name,
+			'apellido': request.user.last_name,
+			'dni': profesor.dni,
+			'sexo': profesor.ver_sexo,
+			'fecha_nacimiento': profesor.fecha_nacimiento,
+			'telefono': profesor.telefono,
+			'direccion': profesor.direccion,	
+			}
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))

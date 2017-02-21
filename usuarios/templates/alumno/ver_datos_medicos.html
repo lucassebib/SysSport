@@ -5,8 +5,55 @@
 			<h1><i>Datos médicos de </i><b>{{request.user}}</b> </h1>
 		</div>
 		<div class="page-content">
-			Descargar Ficha Medica para completar
-			</br>subir ficha medica
-			</br>ver datos medicos
+			<p>A continuacion tiene un espacio para subir su ficha medica.</p>
+			<p>
+				Por favor descarguen la siguiente ficha medica y completenla junto a a su medico de confianza:
+				<u><a href="">download</a></u>
+			</p>
+			
+			</br></br>
+			<form method="POST" enctype="multipart/form-data">
+				<p>Suba aqui su ficha medica</p><input name="" type="file" />
+			</form>
+			
+			</br></br>
+			<h1 align="center">INFORMACION MEDICA:</h1>
+			</br>Grupo Sanguineo: 
+			<select name="">    
+		       <option value="" selected="selected">A+</option>
+		       <option value="">A-</option>
+		       <option value="">0+</option>
+   		       <option value="">No tengo sangre</option>
+   			</select>
+
+   			</br></br>
+   			</br>Alergias:
+   			<textarea></textarea>
+
+   			</br></br>
+			</br>Toma medicamentos: 
+			<select name="">    
+		       <option value="" selected="selected">SI</option>
+		       <option value="">NO</option>
+   			</select>
+
+   			</br></br>
+   			</br>Tuvo operaciones: 
+			<select name="">    
+		       <option value="" selected="selected">SI</option>
+		       <option value="">NO</option>
+   			</select>
+
+			</br></br>
+   			</br>Tiene obra social: 
+   			<select name="">    
+		       <option value="" selected="selected">SI</option>
+		       <option value="">NO</option>
+   			</select>
+
+   		
+   			</br></br>
+   			<button>Guardar</button>
+
 		</div>
 {% endblock %}
