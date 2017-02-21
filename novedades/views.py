@@ -23,6 +23,89 @@ def vista_index_profesores(request):
 	template = "inicial_profesores.html"	
 	return render_to_response(template, context_instance=RequestContext(request))
 
+################################## NOVEDADES PARA TODOS ########################################	
+	
+def ver_novedades_visibilidadTodos(request):
+	template = "novedades_visibilidad_todos.html"
+	id_usuario = request.user.id
+	try:
+		g = Alumno.objects.get(id=id_usuario)
+		extiende = 'baseAlumno.html'
+	except Exception as e:
+		try:
+			g = Profesor.objects.get(id=id_usuario)
+			extiende = 'baseProfesor.html'
+		except Exception as e:
+			try:
+				g = UsuarioInvitado.objects.get(id=id_usuario)
+				extiende = 'baseAlumno.html'
+			except Exception as e:
+				try:
+					extiende = 'usuario_noLogueado.html'
+				except Exception as e:
+					if request.user.is_staff:
+						extiende = 'baseAdmin.html'
+
+	ctx = {
+		'posts': Novedades.objects.filter(visibilidad__in=[1]).order_by('-fecha_publicacion'), 
+		'extiende': extiende,
+	}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def ver_novedades(request, pk):
+	template = "ver_novedad.html"
+	form = FormularioComentario()
+	id_usuario = request.user.id
+	try:
+		g = Alumno.objects.get(id=id_usuario)
+		extiende = 'baseAlumno.html'
+	except Exception as e:
+		try:
+			g = Profesor.objects.get(id=id_usuario)
+			extiende = 'baseProfesor.html'
+		except Exception as e:
+			try:
+				g = UsuarioInvitado.objects.get(id=id_usuario)
+				extiende = 'baseAlumno.html'
+			except Exception as e:
+				try:
+					extiende = 'usuario_noLogueado.html'
+				except Exception as e:
+					if request.user.is_staff:
+						extiende = 'baseAdmin.html'
+
+	if request.method == "POST":
+		form = FormularioComentario(request.POST)
+		if form.is_valid():
+			texto = form.cleaned_data['texto']
+			autor = Persona.objects.get(id=request.user.id)
+			comentario = Comentario(texto=texto, autor=autor)
+			comentario.save()
+			novedad = Novedades.objects.get(id=pk)
+			novedad.lista_comentarios.add(comentario)
+			novedad.save()
+			form = FormularioComentario()
+			return HttpResponseRedirect('')
+	 
+	ctx = {
+		'novedad': Novedades.objects.get(id=pk),
+		'formulario':form,
+		'comentarios':Novedades.objects.get(id=pk).lista_comentarios.all(),
+		'extiende': extiende,
+	}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+################################## NOVEDADES DE PROFESORES #############################################
+def novedades_profesores(request):
+	template = "novedades_profesores.html"
+
+	ctx = {
+		'posts': Novedades.objects.filter(autor=request.user.id),
+
+	}
+
+	return render_to_response(template, ctx , context_instance=RequestContext(request))
+
+
 
 ################################## NOVEDADES DE ALUMNOS #############################################
 @login_required	
@@ -50,34 +133,6 @@ def ver_novedad_filtrado(request, pk):
 	}
 
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
-
-
-
-#################################### NOVEDADES DE ALUMNOS#################################################
-
-def ver_novedades(request, pk):
-	template = "ver_novedad.html"
-	form = FormularioComentario()
-	if request.method == "POST":
-		form = FormularioComentario(request.POST)
-		if form.is_valid():
-			texto = form.cleaned_data['texto']
-			autor = Persona.objects.get(id=request.user.id)
-			comentario = Comentario(texto=texto, autor=autor)
-			comentario.save()
-			novedad = Novedades.objects.get(id=pk)
-			novedad.lista_comentarios.add(comentario)
-			novedad.save()
-			form = FormularioComentario()
-			return HttpResponseRedirect('')
-	 
-	#url_fotoPerfil = (settings.BASE_DIR + settings.MEDIA_ROOT).replace('\\','/') + Alumno.objects.get(id=pk).foto_perfil.name
-	ctx = {
-		'novedad': Novedades.objects.get(id=pk),
-		'formulario':form,
-		'comentarios':Novedades.objects.get(id=pk).lista_comentarios.all(),
-	}
-	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 ##################################CRUD NOVEDADES########################################	
 
@@ -116,32 +171,8 @@ class EliminarNovedades(DeleteView):
     context_object_name = 'novedades'
     success_url = reverse_lazy('listar-novedades')
 ###############################################################################################
-	
-def ver_novedades_visibilidadTodos(request):
-	template = "novedades_visibilidad_todos.html"
-	id_usuario = request.user.id
-	try:
-		g = Alumno.objects.get(id=id_usuario)
-		extiende = 'baseAlumno.html'
-	except Exception as e:
-		try:
-			g = Profesor.objects.get(id=id_usuario)
-			extiende = 'baseProfesor.html'
-		except Exception as e:
-			try:
-				g = UsuarioInvitado.objects.get(id=id_usuario)
-				extiende = 'baseAlumno.html'
-			except Exception as e:
-				try:
-					extiende = 'usuario_noLogueado.html'
-				except Exception as e:
-					if request.user.is_staff:
-						extiende = 'baseAdmin.html'
-	ctx = {
-		'posts': Novedades.objects.filter(visibilidad__in=[1]).order_by('-fecha_publicacion'), 
-		'extiende': extiende,
-	}
-	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+
 
 
 

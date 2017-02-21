@@ -23,3 +23,10 @@ urlpatterns = patterns('',
 
     url(r'^novedades_todos$', ver_novedades_visibilidadTodos, name='ver_novedades_visibilidadTodos'),   
 )
+
+#Para profesores
+urlpatterns += patterns('',
+    url(r'^novedades_profesor$', novedades_profesores, name='novedades_profesores'),
+)
+
+    

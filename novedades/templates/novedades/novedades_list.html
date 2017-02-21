@@ -24,13 +24,16 @@
 						</td>
 						<!-- <td><a href="">Comentar</a></td> -->
 						<td class="td_responder"><a href="{% url 'actualizar-novedad' novedad.id %}"> Editar</a></td>
+						<td class="td_responder"><a href="{% url 'eliminar-novedad' novedad.id %}"> Eliminar</a></td>
 
 					</tr>
 				</table>
 			</div>
+			<!--
 			<div class="texto_mensaje">
 				<p>{{novedad.contenido|safe}}</p>
 			</div>
+			-->
 		</div>	
 		{% endfor %}
 	</div>
