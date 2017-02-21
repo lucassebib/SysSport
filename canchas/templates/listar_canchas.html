@@ -1,24 +1,27 @@
 {% extends "baseAdmin.html" %}
 
 {% block contenido %}
-
-	<caption><h1>Canchas</h1></caption>
-	<div class=" panel-heading">
-		<form class="form-horizontal" method='POST'>
-		 	<ul class="nav navbar-right">
-			 	<span class="glyphicon glyphicon-plus"></span> </span><a id="agregar" href="{% url 'crear-cancha' %}"> Alta cancha</a></li>
-			</ul>
-		</form>
+	<div class="page-header">
+		<h1><i>Canchas</i></h1>
+	</div>
+	<div class="page-content">
+		<div class=" panel-heading">
+			<form class="form-horizontal" method='POST'>
+		 		<ul class="nav navbar-right">
+			 		<span class="glyphicon glyphicon-plus"></span> </span><a id="agregar" href="{% url 'crear-cancha' %}"> Alta cancha</a></li>
+				</ul>
+			</form>
+		</div>
+		<table class="table table-hover table-striped">	
+			{% for c in canchas %}
+				<tbody>				
+					<tr>
+						<td>{{c.nombre}}</td>
+						<td>{{c.descripcion}}</td>
+						<td><a href="{% url 'cancha-actualizar' c.id %}">Modificar</a>&nbsp; &nbsp;<a href="{% url 'eliminar-canchas' c.id %}">Eliminar</a></td>
+					</tr>								
+				</tbody>
+			{% endfor %}
+		</table>	
 	 </div>
-	<table class="table table-hover table-striped">	
-		{% for c in canchas %}
-			<tbody>				
-				<tr>
-					<td>{{c.nombre}}</td>
-					<td>{{c.descripcion}}</td>
-					<td><a href="{% url 'cancha-actualizar' c.id %}">Modificar</a>&nbsp; &nbsp;<a href="{% url 'eliminar-canchas' c.id %}">Eliminar</a></td>
-				</tr>								
-			</tbody>
-		{% endfor %}
-	</table>	
 {% endblock %}

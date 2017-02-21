@@ -40,6 +40,7 @@ urlpatterns += patterns('',
 	url(r'^ver-deportes$', ver_deportes_profesor, name='ver-deportes'),
 	url(r'^ver-alumnos/deporte/(?P<pk>[0-9]+)$', listar_alumnos_deporte, name='ver-alumnos'),
 	url(r'^ver-alumnos/deporte/alumno/(?P<pk>[0-9]+)$', ver_informacion_alumno, name='info-alumno'),
+	url(r'^modificar_perfil_profesor$', modificarPerfilProfesor, name='modificar_perfil_profesor'),
 
 )
 

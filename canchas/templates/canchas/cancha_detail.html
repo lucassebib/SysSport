@@ -1,7 +1,10 @@
 {% extends "baseAdmin.html" %}
 {% block contenido %}
-		<table class="table table-striped">
-			<caption><h1>Canchas</h1></caption>
+	<div class="page-header">
+		<h1><i>Canchas</i></h1>
+	</div>	
+	<div class="page-content">
+		<table class="table table-striped">	
 			<thead>
 				<tr class="success">
 					<th>Nombre</th>
@@ -22,8 +25,11 @@
 			
 		</table>
 		<a href="{% url 'listar-canchas' %}">Ver Todas</a>
+	</div>		
 		
-		</div>
+		
+		
+	
 
 	
 {% endblock %}
