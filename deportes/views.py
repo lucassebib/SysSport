@@ -55,6 +55,7 @@ def ver_deportes_personas(request):
             try:
                 g = UsuarioInvitado.objects.get(id=id_usuario)
                 extiende = 'baseAlumno.html'
+                darse_de_baja = False   
             except Exception as e:
                 try:
                     extiende = 'inicio.html'
@@ -83,9 +84,32 @@ def listar_deportes(request):
 @login_required
 def inscripcion_deportes(request):
     template = "inscripcion_deportes.html"
+    id_usuario = request.user.id
+    darse_de_baja = True
+    try:
+        g = Alumno.objects.get(id=id_usuario)
+        darse_de_baja = True
+    except Exception as e:
+        try:
+            g = Profesor.objects.get(id=id_usuario)
+            darse_de_baja = False
+        except Exception as e:
+            try:
+                g = UsuarioInvitado.objects.get(id=id_usuario)
+                darse_de_baja = False   
+            except Exception as e:
+                try:
+                    extiende = 'inicio.html'
+                    darse_de_baja = True
+                except Exception as e:
+                    if request.user.is_staff:
+                        extiende = 'baseAdmin.html'
+                        darse_de_baja = True
+
     ctx = {
         'deportes': Deporte.objects.all(), 
         'deportes_alumno': Persona.objects.get(id=request.user.id).lista_deporte.all(),
+        'darse_de_baja': darse_de_baja,
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
