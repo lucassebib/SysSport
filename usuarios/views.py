@@ -117,19 +117,17 @@ def modificarPerfilAlumno(request):
 @login_required
 def modificarPerfilProfesor(request):
 	template = "profesor/modificar_perfil_profesor.html"
-	form = FormularioCargarImagen()
+	#form = FormularioCargarImagen()
 
-	profesor = Profesor.objects.get(id=request.user.id)
-	tipo_usuario = "profesor"
-	ctx1 = {
+	profesor = Profesor.objects.get(id=request.user.id) 
+	
+	#if request.method == "POST":
+		#form = FormularioCargarImagen(request.POST or None, )
+
+	ctx = {
 			'legajo': profesor.legajo,
 			'profesor': profesor,
-		} 	 
-	
-	if request.method == "POST":
-		form = FormularioCargarImagen(request.POST or None, )
-	ctx = {
-			'form': form,
+			#'form': form,
 			'usuario':request.user.username,
 			'nombre': request.user.first_name,
 			'apellido': request.user.last_name,
@@ -137,11 +135,8 @@ def modificarPerfilProfesor(request):
 			'sexo': profesor.ver_sexo,
 			'fecha_nacimiento': profesor.fecha_nacimiento,
 			'telefono': profesor.telefono,
-			'direccion': profesor.direccion,
-				
+			'direccion': profesor.direccion,	
 			}
-
-	ctx.update(ctx1)
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
