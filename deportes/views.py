@@ -35,7 +35,7 @@ class ActualizarDeportes(UpdateView):
 class EliminarDeportes(DeleteView):
     model = Deporte
     context_object_name = 'deportes'
-    success_url = reverse_lazy('listar-deportes')
+    success_url = reverse_lazy('lista_deportes')
 
 ##########################################################################################
 def ver_deportes_personas(request):

@@ -82,8 +82,12 @@ ul.navbar-rigth{
 	background-color: #0B0B61;
 }
 .panel-body{
-	background-color: #A9E2F3;
-	border: 1px solid #1995dc;
+	background-color: #909090;
+	border: 1px solid transparent;
+}
+.panel-body.login{
+	background-color: #A9D0F5;
+	border: 1px solid #909090;
 }
 .panel-footer{
 	background-color: #1995dc;

@@ -3,7 +3,7 @@
 	<div class="panel-heading">
 		 <h3 class="panel-title">Iniciar Sesion</h3>
 	</div>
-	<div class="panel-body">
+	<div class="panel-body login">
 		
 			<form id="login-form" action="{% url 'url_login' %}" class="navbar-form" role="form" method="POST" accept-charset="utf-8">
 			{% csrf_token %} 
@@ -17,7 +17,7 @@
 				    </label>
 				</div>
 				<div class="col-lg-offset-1 col-lg-10">   
-				    <button type="submit" class=" btn btn-default" value="Login">Entrar</button>
+				    <button type="submit" class=" btn btn-default" value="Login">Ingresar</button>
 				</div>
 		
 			<label>{{mensaje}}</label>

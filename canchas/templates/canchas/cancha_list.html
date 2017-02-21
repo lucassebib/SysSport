@@ -1,25 +1,28 @@
 {% extends "baseAdmin.html" %}
 
 {% block contenido %}
+	<div class="page-header">
+		<h1><i>Canchas</i></h1>
+	</div>
+	<div class="page-content">
+		<div class="panel-body panel-primary">
 
-	<caption><h1>Canchas</h1></caption>
+			 <form class="form-horizontal" method='POST'>
+				<a href="{% url 'crear-cancha' %}"> Alta cancha </a>
+			 </form>
 
-	<div class="panel-body panel-primary">
+		 </div>
 
-		 <form class="form-horizontal" method='POST'>
-			<a href="{% url 'crear-cancha' %}"> Alta cancha </a>
-		 </form>
+		<table class="table table-hover table-striped">
+			{% for cancha in object_list %}
+				<tbody>
+					<tr>
+						<td><a href="{{cancha.get_absolute_url}}">{{cancha.nombre}}</a> </td>
+					</tr>
+				</tbody>
+			{% endfor %}
+		</table>	
+	</div>	
 
-	 </div>
-
-	<table class="table table-hover table-striped">
-		{% for cancha in object_list %}
-			<tbody>
-				<tr>
-					<td><a href="{{cancha.get_absolute_url}}">{{cancha.nombre}}</a> </td>
-				</tr>
-			</tbody>
-		{% endfor %}
-	</table>
 
 {% endblock %}
