@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     url(r'^novedades/eliminar/(?P<pk>[0-9]+)/$', EliminarNovedades.as_view(), name='eliminar-novedad'), 
 
     url(r'^novedades/ver/(?P<pk>[0-9]+)/$', ver_novedades , name='ver_novedades'),
+    url(r'^novedades_alumnos/filtrar/(?P<pk>[0-9]+)/$', ver_novedad_filtrado , name='ver_novedad_filtrado'),
 
     url(r'^novedades_todos$', ver_novedades_visibilidadTodos, name='ver_novedades_visibilidadTodos'),   
 )

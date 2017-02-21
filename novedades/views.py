@@ -24,21 +24,60 @@ def vista_index_profesores(request):
 	return render_to_response(template, context_instance=RequestContext(request))
 
 
-##################### Novedades de usuarios#############################################
-#Novedades de alumnos
+################################## NOVEDADES DE ALUMNOS #############################################
 @login_required	
 def novedades_alumnos(request):
 	template = "novedades_alumnos.html"	
-	alumno = Persona.objects.get(id=request.user.id)	
+	alumno = Persona.objects.get(id=request.user.id)
+	deportes = alumno.obtener_deportes()	
 	posts = Novedades.objects.filter(visibilidad__in=[1,2]) | Novedades.objects.filter(visibilidad__in=[3], categoria__in=alumno.obtener_deportes())
 	ctx = {
 		"posts": posts.order_by('-fecha_publicacion'),
+		"deportes": deportes,
 	}
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
 
-#Novedades de Profesores 
+@login_required
+def ver_novedad_filtrado(request, pk):
+	template = "ver_novedad_filtrado.html"	
+	alumno = Persona.objects.get(id=request.user.id)
+	posts = Novedades.objects.filter(categoria__in=pk)
+	deportes = alumno.obtener_deportes()	
 
-#@login_required	
+	ctx = {
+		"posts": posts.order_by('-fecha_publicacion'),
+		"deportes": deportes,
+	}
+
+	return render_to_response(template, ctx , context_instance=RequestContext(request))
+
+
+
+#################################### NOVEDADES DE ALUMNOS#################################################
+
+def ver_novedades(request, pk):
+	template = "ver_novedad.html"
+	form = FormularioComentario()
+	if request.method == "POST":
+		form = FormularioComentario(request.POST)
+		if form.is_valid():
+			texto = form.cleaned_data['texto']
+			autor = Persona.objects.get(id=request.user.id)
+			comentario = Comentario(texto=texto, autor=autor)
+			comentario.save()
+			novedad = Novedades.objects.get(id=pk)
+			novedad.lista_comentarios.add(comentario)
+			novedad.save()
+			form = FormularioComentario()
+			return HttpResponseRedirect('')
+	 
+	#url_fotoPerfil = (settings.BASE_DIR + settings.MEDIA_ROOT).replace('\\','/') + Alumno.objects.get(id=pk).foto_perfil.name
+	ctx = {
+		'novedad': Novedades.objects.get(id=pk),
+		'formulario':form,
+		'comentarios':Novedades.objects.get(id=pk).lista_comentarios.all(),
+	}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 ##################################CRUD NOVEDADES########################################	
 
@@ -104,29 +143,7 @@ def ver_novedades_visibilidadTodos(request):
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
-def ver_novedades(request, pk):
-	template = "ver_novedad.html"
-	form = FormularioComentario()
-	if request.method == "POST":
-		form = FormularioComentario(request.POST)
-		if form.is_valid():
-			texto = form.cleaned_data['texto']
-			autor = Persona.objects.get(id=request.user.id)
-			comentario = Comentario(texto=texto, autor=autor)
-			comentario.save()
-			novedad = Novedades.objects.get(id=pk)
-			novedad.lista_comentarios.add(comentario)
-			novedad.save()
-			form = FormularioComentario()
-			return HttpResponseRedirect('')
-	 
-	#url_fotoPerfil = (settings.BASE_DIR + settings.MEDIA_ROOT).replace('\\','/') + Alumno.objects.get(id=pk).foto_perfil.name
-	ctx = {
-		'novedad': Novedades.objects.get(id=pk),
-		'formulario':form,
-		'comentarios':Novedades.objects.get(id=pk).lista_comentarios.all(),
-	}
-	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
 
 
 
