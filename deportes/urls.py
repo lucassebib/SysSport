@@ -16,4 +16,7 @@ urlpatterns = patterns('',
     url(r'^inscripcion_deportes$',inscripcion_deportes, name='inscribir_deportes'),
     url(r'^baja_deporte/(?P<pk>[0-9]+)$',baja_deporte, name='desinscribir_deporte'),
     url(r'^inscribir_deporte/(?P<pk>[0-9]+)$',inscribir_deporte, name='inscripcion_deporte'),
+
+    url(r'^deportes/detalle/(?P<pk>[0-9]+)$',deporte_detalle, name='deporte_detalle'),
+
 )

@@ -1,0 +1,13 @@
+{% extends "usuario_noLogueado.html" %}
+
+{% block contenido %}
+	<div class="page-header">
+		<h1><b><i>Deportes </i></b></h1>
+		
+	</div>
+	<div class="page-content">
+		Nombre:{{deporte.nombre}}
+		Descripcion: {{descripcion.descripcion}}
+		<input type="button" value="Atras" onclick="history.back(-1)" />
+	</div>
+{% endblock %}
