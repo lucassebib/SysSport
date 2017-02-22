@@ -12,7 +12,6 @@
 
 .container-fluid.cabecera{
 	width: 970px;
-	height: 260px;
 	padding-top: 5px;
 	margin: 0 ;
 	padding-left: 0;
@@ -37,40 +36,60 @@ a, li,h1, h2, h3, h4, p {
 ul.navbar-rigth{
 	list-style-type: none;
 }
+/* For width smaller than 970px: */
 .jumbotron{
-	background-color: #00BFFF;
 	background-image: url("../img/banner_deportes.png");
-	color: #fff;
+	background-repeat:no-repeat;
+	background-size: contain;
+    color: #fff;
 	padding-top: 0px;
-	height: 250px;
+	height: 170px;
+	
+	
 }
+/* For width 970px and larger: */
+@media only screen and (min-width: 666px) {
+    .jumbotron { 
+        background-image: url('../img/banner_deportes.png'); 
+        background-repeat:no-repeat;
+        background-size: 100% 100%;
+        padding-top: 0px;
+        height: 266px;
+
+    }
+
+}
+
 #logoSAU-Sysport{
 	margin: 0;
 	padding: 0;
 }
-@media (max-width: 991px) and (min-width: 300px){
+
+
+@media (max-width: 666px) and (min-width: 300px){
 	#mural-cabecera{
 		display: none; 
 	}
 	  .header { width:333px; }
 	  .main { width: 433px; }
 	  .footer { width:333px; }
-	   /* no mostraremos ninguna sidebar */
-	  #sidebar-wrapper { display:none; }
-	  #sidebar-wrapper2 { display:none; }
+	  
+	  /* no mostraremos ninguna sidebar */
+ 
 }
 
 .navbar-collapse.collapse{
 	padding: 0;
 }
 .nav.nav-pills.nav-stacked{
-	background-color: #2fa4e7 ;
+	background-color: #2fa4e7;
 }
 .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus{
 	color: #fff ;
 }
 .a:hover, .a:focus{
 	text-decoration: underline;
+	color: #2fa4e7;
 }
 
 .panel-title{
@@ -79,7 +98,7 @@ ul.navbar-rigth{
 }
 
 .visible-lg.panel-heading{
-	background-color: #0B0B61;
+	background-color: #585858;
 }
 .panel-body{
 	background-color: #909090;
@@ -109,7 +128,7 @@ ul.navbar-rigth{
 
 #login{
 	text-align: center;
-	width: 288px; 
+	width: 290px; 
 	margin-left: 10px;
 }
 
@@ -139,6 +158,9 @@ ul.navbar-rigth{
 	border: 1px solid #DBE1EB;
 	padding-left: 7px;
     padding-right: 7px;
+}
+.tab-content{
+	margin-top: 10px;
 }
 
 /*FIN BODY*/

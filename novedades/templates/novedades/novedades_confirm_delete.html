@@ -3,15 +3,16 @@
 
 {% block contenido %}
 	<div class="panel-heading" align="center">
-		<p>¿Está seguro que desea eliminar esta novedad {{novedades.titulo}}?</p>
+		<p>¿Está seguro que desea eliminar esta novedad <b>"{{novedades.titulo}}"?</b></p>
 	</div>
 	<div class="panel-body" align="center" >
 		<form action='' method='POST'>
 			{% csrf_token %}
-			<input type='submit' value='Si'>
+			<input type='submit' value='Confirmar'>
+			<input type="button" value="Cancelar" onclick="history.back(-1)" />
 		</form>
 	</div>
-	<a href="{{novedades.get_absolute_url}}">Volver</a>
+	
 {% endblock %}
 
 

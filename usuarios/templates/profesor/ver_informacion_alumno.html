@@ -1,40 +1,77 @@
 {% extends "baseProfesor.html" %}
 
 {% block contenido %}
+<div class="panel-info">
 	<input type="button" value="Atras" onclick="history.back(-1)" />
-	{% if alumnoUTN %}
-		<img src="{{ alumno.foto_perfil.url }}" height=10% width=10%>
-		</br>DATOS PERSONALES </br>
-		Nombre: {{alumno.first_name}} </br>
-		Apellido: {{alumno.last_name}} </br>
-		DNI: {{alumno.dni}} </br>
-		Fecha de Nacimiento: {{alumno.fecha_nacimiento}} </br>
-		Telefono: {{alumno.telefono}} </br>
-		Direccion: {{alumno.direccion}} </br>{{ alumno.foto_perfil.url }}
+	<div class="page-header">
+		<h1><i>{{alumno.get_full_name}} </i></h1>
+	</div>
+	<div class="page-content col-12 col-sm-12 col-lg-12">
 
-		</br>CONTACTOS DE URGENCIA </br>
-		{% for c in contactos %}
-			Nombre: {{c.nombre}}</br>
-			Apellido: {{c.apellido}}</br>
-			Parentezco: {{c.parentezco}}</br>
-			Direccion: {{c.direccion}}</br>
-			Telefono: {{c.telefono}}</br>
+		<ul class="nav nav-tabs" role="tablist">
 
-		{% endfor %}
-		</br>INFORMACION ACADEMICA </br>
-		Legajo: {{alumno.legajo}}</br>
-		Carrera: {{alumno.carrera}}</br>
-		Condicion:</br>
-		Periodo Inicial <input type="date" name="fecha">
-		Periodo Final <input type="date" name="fecha">
-		Cantidad de Materias: <input type="Text">
-		<input type="submit"></br>
-		</br>INFORMACION DEPORTIVA </br>
-			{% if alumno.ficha_medica %}
-				Ficha Medica: <a href="{{ alumno.ficha_medica.url }}">Descargar</a>
-			{% endif %}
+			<li><a class="active" href="#datos_personales" data-toggle="tab" >Datos Personales</a></li>
+			<li><a href="#contactos_urgencia" data-toggle="tab" >Contactos de Urgencia</a></li>
+			<li><a href="#info_academica" data-toggle="tab" >Informacion Academica</a></li>
+			<li><a href="#info_deportiva" data-toggle="tab">Informacion Deportiva</a></li>
+		</ul>
+		<div class="tab-content">
+			{% if alumnoUTN %}
+				
+				<div role="tabpanel" class="tab-pane fade in active" id="datos_personales">
+					<div class="col-md-3">
+						<img src="{{ alumno.foto_perfil.url }}" class="img-responsive img-circle" >
+					</div>
+					<div class="form-group col-md-9">
+					
+						Nombre: {{alumno.first_name}} </br>
+						Apellido: {{alumno.last_name}} </br>
+						DNI: {{alumno.dni}} </br>
+						Fecha de Nacimiento: {{alumno.fecha_nacimiento}} </br>
+						Telefono: {{alumno.telefono}} </br>
+						Direccion: {{alumno.direccion}} </br>{{ alumno.foto_perfil.url }}
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane fade" id="contactos_urgencia">
+					<div class="form-group">
+					{% for c in contactos %}
+						Nombre: {{c.nombre}}</br>
+						Apellido: {{c.apellido}}</br>
+						Parentezco: {{c.parentezco}}</br>
+						Direccion: {{c.direccion}}</br>
+						Telefono: {{c.telefono}}</br>
+
+					{% endfor %}
+					</div>
+				</div>
+				
+				<div role="tabpanel" class="tab-pane fade" id="info_academica">
+					<div class="form-group">
+						Legajo: {{alumno.legajo}}</br>
+						Carrera: {{alumno.carrera}}</br>
+						Condicion:</br>
+						Periodo Inicial <input type="date" name="fecha">
+						Periodo Final <input type="date" name="fecha">
+						Cantidad de Materias: <input type="Text">
+						<input type="submit">
+					</div>
+				</div>
+				
+				<div role="tabpanel" class="tab-pane fade" id="info_deportiva">
+					<div class="form-group">
+					{% if alumno.ficha_medica %}
+						Ficha Medica: <a href="{{ alumno.ficha_medica.url }}">Descargar</a>
+					{% endif %}
+					</div>
+				</div>
+					
+				
+			{% endif %}	
+		</div>
 		
-	{% endif %}
+	</div>
+
+</div>
 {% endblock %}
 
 
