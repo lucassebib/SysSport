@@ -4,56 +4,65 @@
 		<div class="page-header">
 			<h1><i>Datos médicos de </i><b>{{request.user}}</b> </h1>
 		</div>
-		<div class="page-content">
+		<div class="page-content col-12 col-sm-12 col-lg-12">
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="nav-item"><a class="nav-link active" href="#ficha_medica" data-toggle="tab" >Ficha Médica</a></li>
+				<li class="nav-item"><a class="nav-link" href="#informacion_medica" data-toggle="tab" >Información Médica</a></li>
+			</ul>
+		<div class="tab-content">
+		<div role="tabpanel" class="tab-pane fade in active" id="ficha_medica">
 			<p>A continuacion tiene un espacio para subir su ficha medica.</p>
 			<p>
 				Por favor descarguen la siguiente ficha medica y completenla junto a a su medico de confianza:
 				<u><a href="">download</a></u>
 			</p>
-			
-			</br></br>
 			<form method="POST" enctype="multipart/form-data">
 				<p>Suba aqui su ficha medica</p><input name="" type="file" />
 			</form>
-			
-			</br></br>
-			<h1 align="center">INFORMACION MEDICA:</h1>
-			</br>Grupo Sanguineo: 
-			<select name="">    
-		       <option value="" selected="selected">A+</option>
-		       <option value="">A-</option>
-		       <option value="">0+</option>
-   		       <option value="">No tengo sangre</option>
-   			</select>
-
-   			</br></br>
-   			</br>Alergias:
-   			<textarea></textarea>
-
-   			</br></br>
-			</br>Toma medicamentos: 
-			<select name="">    
-		       <option value="" selected="selected">SI</option>
-		       <option value="">NO</option>
-   			</select>
-
-   			</br></br>
-   			</br>Tuvo operaciones: 
-			<select name="">    
-		       <option value="" selected="selected">SI</option>
-		       <option value="">NO</option>
-   			</select>
-
-			</br></br>
-   			</br>Tiene obra social: 
-   			<select name="">    
-		       <option value="" selected="selected">SI</option>
-		       <option value="">NO</option>
-   			</select>
-
-   		
-   			</br></br>
-   			<button>Guardar</button>
-
 		</div>
+		<div role="tabpanel" class="tab-pane fade" id="informacion_medica" >	
+			<form action="" method="get" accept-charset="utf-8">
+				<div class="form-group">
+					Grupo Sanguineo: 
+					<select name="">    
+				       <option value="" selected="selected">A+</option>
+				       <option value="">A-</option>
+				       <option value="">0+</option>
+		   		       <option value="">No tengo sangre</option>
+		   			</select>
+				</div>
+				
+
+	   			<div class="form-group">
+	   				Alergias:
+	   				<textarea></textarea>
+	   			</div>
+	   			
+
+	   			<div class="form-group">
+					Toma medicamentos: 
+					<select name="">    
+				       <option value="" selected="selected">SI</option>
+				       <option value="">NO</option>
+		   			</select>
+		   		</div>
+
+	   			<div class="form-group">
+		   			Tuvo operaciones: 
+					<select name="">    
+				       <option value="" selected="selected">SI</option>
+				       <option value="">NO</option>
+		   			</select>
+	   			</div>
+	   			<div class="form-group">
+	   				Tiene obra social: 
+		   			<select name="">    
+				       <option value="" selected="selected">SI</option>
+				       <option value="">NO</option>
+		   			</select>
+	   			</div>
+			</form>	
+   			<input type="submit" value="Aceptar">
+   		</div>
+	</div>
 {% endblock %}

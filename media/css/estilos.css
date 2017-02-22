@@ -159,6 +159,9 @@ ul.navbar-rigth{
 	padding-left: 7px;
     padding-right: 7px;
 }
+.nav.nav-tab{
+	background-color: #fff;
+}
 .tab-content{
 	margin-top: 10px;
 }
