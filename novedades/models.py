@@ -7,8 +7,13 @@ from usuarios.models import Persona
 from django.core.urlresolvers import reverse
 
 class Comentario(models.Model):
-		texto = models.TextField( verbose_name ='comentario')
-		autor = models.ForeignKey(Persona)
+	texto = models.TextField( verbose_name ='comentario')
+	autor = models.ForeignKey(Persona)
+
+	def obtener_url_imagen(self):
+		id_autor = self.autor.id
+		url_foto = Persona.objects.get(id=id_autor).foto_perfil.url
+		return url_foto
 
 class Novedades(models.Model):
 	pueden_ver = ((1,"Todos"),(2,"Todos los Usuarios Registrados"), (3, "Solo los Usuarios del Deporte"))
@@ -28,18 +33,19 @@ class Novedades(models.Model):
 	def obtener_categorias(self):
 		return "\n -".join([d.nombre for d in self.categoria.all()])
 
-
 	def obtener_textoComentarios(self):
 		return "\n -".join([t.texto for t in self.lista_comentarios.all()])
-
 	
 	def obtener_autoresComentario(self):
 		return "\n -".join([d.autor for d in self.lista_comentarios.all()])
 
-
 	def get_absolute_url(self):
 		return reverse('listar-novedades')
-		#return reverse('detalle-novedad',kwargs={'pk': self.pk})
+
+	def obtener_url_imagen(self):
+		id_autor = self.autor.id
+		url_foto = Persona.objects.get(id=id_autor).foto_perfil.url
+		return url_foto
 
 ##################AGREGAMOS CLASES AL PANEL DE ADMINISTRACION##################################
 
