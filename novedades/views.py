@@ -116,13 +116,12 @@ def novedades_alumnos(request):
 	deportes = alumno.obtener_deportes()	
 	
 	init_posts = Novedades.objects.filter(visibilidad__in=[1,2]) | Novedades.objects.filter(visibilidad__in=[3], categoria__in=alumno.obtener_deportes())
-	
+	init_posts.order_by('-fecha_publicacion')
 	pag = Paginate(request, init_posts, 4)
 	ctx = {
 		"posts": pag['queryset'],
-		#"posts": posts.order_by('-fecha_publicacion'),
 		"deportes": deportes,
-		'totPost': init_posts,
+		#'totPost': init_posts,
      	'paginator': pag,
 	}
 	return render_to_response(template, ctx , context_instance=RequestContext(request))

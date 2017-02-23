@@ -10,6 +10,7 @@ from django.views.generic.edit import UpdateView
 from django.conf import settings
 from django.db.models import Q
 from itertools import chain
+from novedades.paginacion import Paginate
 
 
 def vista_pagina_inicio(request):
@@ -184,9 +185,12 @@ def ver_contacto_urgencia(request):
 	except Exception as e:
 		contactos = UsuarioInvitado.objects.get(id=request.user.id).contactos_de_urgencia.all()
 
+	pag = Paginate(request, contactos, 1)
 
 	ctx = {
-		'contactos': contactos,
+		'contactos': pag['queryset'],
+     	'paginator': pag,
+
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
