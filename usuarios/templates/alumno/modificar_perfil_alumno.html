@@ -14,7 +14,7 @@
 				<img src="{{alumno.foto_perfil.url}}" class="img-responsive img-circle" >
 				<form enctype="multipart/form-data" action="" method="POST">{% csrf_token %}
         			{{ form.as_p }}
-        			<input type="submit" value="Cambiar" />
+        			<input type="submit" value="Cambiar" />{{mensaje}}
     			</form>
 			</div>
 			<div class="col-md-9">

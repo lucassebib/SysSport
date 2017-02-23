@@ -77,14 +77,19 @@ def vista_inicial_admin(request):
 def modificarPerfilAlumno(request):
 	template = "alumno/modificar_perfil_alumno.html"
 	form = FormularioCargarImagen()
+	mensaje=''
 
 	if request.method == 'POST':
 		form = FormularioCargarImagen(request.POST, request.FILES)
 		if form.is_valid():
-			p = Persona.objects.get(id=request.user.id)
-			p.foto_perfil = form.cleaned_data['foto_perfil']
-			p.save()
-			return HttpResponseRedirect('')
+			if request.FILES:
+				p = Persona.objects.get(id=request.user.id)
+				p.foto_perfil.delete(False)
+				p.foto_perfil = form.cleaned_data['foto_perfil']
+				p.save()
+				return HttpResponseRedirect('')
+			else:
+				mensaje='no ha seleccionado ninguna imagen'
 
 	try:
 		alumno = Alumno.objects.get(id=request.user.id)
@@ -107,6 +112,7 @@ def modificarPerfilAlumno(request):
 		form = FormularioCargarImagen(request.POST or None, )
 	ctx = {
 			'form': form,
+			'mensaje': mensaje,
 			'usuario':request.user.username,
 			'nombre': request.user.first_name,
 			'apellido': request.user.last_name,
