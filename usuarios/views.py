@@ -78,6 +78,14 @@ def modificarPerfilAlumno(request):
 	template = "alumno/modificar_perfil_alumno.html"
 	form = FormularioCargarImagen()
 
+	if request.method == 'POST':
+		form = FormularioCargarImagen(request.POST, request.FILES)
+		if form.is_valid():
+			p = Persona.objects.get(id=request.user.id)
+			p.foto_perfil = form.cleaned_data['foto_perfil']
+			p.save()
+			return HttpResponseRedirect('')
+
 	try:
 		alumno = Alumno.objects.get(id=request.user.id)
 		tipo_usuario = "alumno"

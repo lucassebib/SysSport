@@ -6,10 +6,16 @@
 		<h1><i>Mi perfil </i></h1>
 	</div>
 	<div class="page-content">
+		<!--
 		<form class="form-horizontal" method='POST'>
+		-->
 		{% csrf_token %}
 			<div class="col-md-3">
 				<img src="{{alumno.foto_perfil.url}}" class="img-responsive img-circle" >
+				<form enctype="multipart/form-data" action="" method="POST">{% csrf_token %}
+        			{{ form.as_p }}
+        			<input type="submit" value="Cambiar" />
+    			</form>
 			</div>
 			<div class="col-md-9">
 				<div class="form-group">
@@ -58,7 +64,9 @@
 					<label class=" control-label">{{direccion}}</label>
 				</div>
 			</div>
+		<!--
 		</form>
+		-->
 	</div>
 </div>
 	
