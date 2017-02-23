@@ -95,18 +95,18 @@ def ver_novedades(request, pk):
 		'extiende': extiende,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
 ################################## NOVEDADES DE PROFESORES #############################################
 def novedades_profesores(request):
 	template = "novedades_profesores.html"
-
+	posts = Novedades.objects.filter(autor=request.user.id)
+	posts.order_by('-fecha_publicacion')
+	pag = Paginate(request, posts, 4)
 	ctx = {
-		'posts': Novedades.objects.filter(autor=request.user.id),
-
+		'posts': pag['queryset'],
+     	'paginator': pag,
 	}
-
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
-
-
 
 ################################## NOVEDADES DE ALUMNOS #############################################
 @login_required	
@@ -115,9 +115,9 @@ def novedades_alumnos(request):
 	alumno = Persona.objects.get(id=request.user.id)
 	deportes = alumno.obtener_deportes()	
 	
-	init_posts = Novedades.objects.filter(visibilidad__in=[1,2]) | Novedades.objects.filter(visibilidad__in=[3], categoria__in=alumno.obtener_deportes())
-	init_posts.order_by('-fecha_publicacion')
-	pag = Paginate(request, init_posts, 4)
+	posts = Novedades.objects.filter(visibilidad__in=[1,2]) | Novedades.objects.filter(visibilidad__in=[3], categoria__in=alumno.obtener_deportes())
+	posts.order_by('-fecha_publicacion')
+	pag = Paginate(request, posts, 4)
 	ctx = {
 		"posts": pag['queryset'],
 		"deportes": deportes,
@@ -176,6 +176,7 @@ class EliminarNovedades(DeleteView):
     model = Novedades
     context_object_name = 'novedades'
     success_url = reverse_lazy('listar-novedades')
+
 ###############################################################################################
 
 

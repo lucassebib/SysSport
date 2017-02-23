@@ -26,10 +26,20 @@
 				</div>
 				<div class="texto">
 				    <p3>{{post.texto|safe}}</p3>
-				</div>
-				
-
+				</div>			
 			</div>
 		{% endfor %}
+	</div>
+
+	<div class="">
+    	{% if paginator.has_prev %}
+			<a href="?page={{ paginator.prev_page }}"><</a>
+			{% else %}
+		{% endif %}
+		Página {{paginator.page}} de {{paginator.pages}}
+		{% if paginator.has_next %}
+			<a href="?page={{ paginator.next_page }}">></a>
+		{% else %}
+		{% endif %}
 	</div>
 {% endblock %}
