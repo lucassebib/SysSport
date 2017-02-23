@@ -108,8 +108,6 @@ def modificarPerfilAlumno(request):
 			'alumno': alumno,
 		} 
 
-	if request.method == "POST":
-		form = FormularioCargarImagen(request.POST or None, )
 	ctx = {
 			'form': form,
 			'mensaje': mensaje,
@@ -264,17 +262,27 @@ def ver_informacion_alumno(request, pk):
 @login_required
 def modificarPerfilProfesor(request):
 	template = "profesor/modificar_perfil_profesor.html"
-	#form = FormularioCargarImagen()
-
+	form = FormularioCargarImagen()
+	mensaje=''
 	profesor = Profesor.objects.get(id=request.user.id) 
-	
-	#if request.method == "POST":
-		#form = FormularioCargarImagen(request.POST or None, )
+
+	if request.method == 'POST':
+		form = FormularioCargarImagen(request.POST, request.FILES)
+		if form.is_valid():
+			if request.FILES:
+				p = Persona.objects.get(id=request.user.id)
+				p.foto_perfil.delete(False)
+				p.foto_perfil = form.cleaned_data['foto_perfil']
+				p.save()
+				return HttpResponseRedirect('')
+			else:
+				mensaje='no ha seleccionado ninguna imagen'
 
 	ctx = {
+			'form': form,
+			'mensaje': mensaje,
 			'legajo': profesor.legajo,
 			'profesor': profesor,
-			#'form': form,
 			'usuario':request.user.username,
 			'nombre': request.user.first_name,
 			'apellido': request.user.last_name,
