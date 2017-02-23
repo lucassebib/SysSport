@@ -12,6 +12,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from forms import FormularioComentario, FormularioNovedades
+from paginacion import Paginate
 
 @login_required	
 def vista_index_alumnos(request):
@@ -113,10 +114,16 @@ def novedades_alumnos(request):
 	template = "novedades_alumnos.html"	
 	alumno = Persona.objects.get(id=request.user.id)
 	deportes = alumno.obtener_deportes()	
-	posts = Novedades.objects.filter(visibilidad__in=[1,2]) | Novedades.objects.filter(visibilidad__in=[3], categoria__in=alumno.obtener_deportes())
+	
+	init_posts = Novedades.objects.filter(visibilidad__in=[1,2]) | Novedades.objects.filter(visibilidad__in=[3], categoria__in=alumno.obtener_deportes())
+	
+	pag = Paginate(request, init_posts, 4)
 	ctx = {
-		"posts": posts.order_by('-fecha_publicacion'),
+		"posts": pag['queryset'],
+		#"posts": posts.order_by('-fecha_publicacion'),
 		"deportes": deportes,
+		'totPost': init_posts,
+     	'paginator': pag,
 	}
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
 
