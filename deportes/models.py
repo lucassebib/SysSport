@@ -17,10 +17,13 @@ class Deporte(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('listar-deportes')
+	
+	def ver_aptopara(self):
+		return self.get_apto_para_display()
 
 ##################AGREGAMOS CLASES AL PANEL DE ADMINISTRACION##################################
 
 class DeporteAdmin(admin.ModelAdmin):
-	list_display = ('nombre', 'descripcion')
+	list_display = ('nombre', 'descripcion', 'apto_para')
 
 admin.site.register(Deporte,DeporteAdmin)

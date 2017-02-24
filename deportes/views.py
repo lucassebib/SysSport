@@ -131,12 +131,19 @@ def baja_deporte(request, pk):
 @login_required
 def inscribir_deporte(request, pk):
     template = "inscribir_deporte.html"
+    mensaje = ""
 
     if request.method == "POST":
-        Persona.objects.get(id=request.user.id).lista_deporte.add(Deporte.objects.get(id=pk))
-        return HttpResponseRedirect('/ver-lista-deportes')   
+        d = Deporte.objects.get(id=pk)
+        p = Persona.objects.get(id=request.user.id)
+        if d.apto_para == p.sexo or d.apto_para == 3: 
+            p.lista_deporte.add(d)
+            return HttpResponseRedirect('/ver-lista-deportes')
+        else:
+            mensaje = "ESTE DEPORTE ES APTO PARA: " + d.ver_aptopara()    
 
     ctx = {
+        'mensaje': mensaje,
         'deporte': Deporte.objects.get(id=pk).nombre,
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))
