@@ -217,6 +217,16 @@ def ver_datos_medicos(request):
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 ###########################PARA PROFESOR###########################################
+def subir_fichaMedicaStandar(request):
+	template = "profesor/subir_fichaMedicaStandar.html"
+
+	ctx = {
+
+	}
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+
 @login_required
 def ver_deportes_profesor(request):
 	profesor = Profesor.objects.get(id=request.user.id)	 
