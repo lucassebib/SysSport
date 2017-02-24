@@ -48,7 +48,7 @@
 				<div role="tabpanel" class="tab-pane fade" id="info_academica">
 					<div class="form-group">
 						Legajo: {{alumno.legajo}}</br>
-						Carrera: {{alumno.carrera}}</br>
+						Carrera: {{alumno.ver_nombre_carrera}}</br>
 						Condicion:</br>
 						Periodo Inicial <input type="date" name="fecha">
 						Periodo Final <input type="date" name="fecha">
@@ -63,14 +63,12 @@
 						Ficha Medica: <a href="{{ alumno.ficha_medica.url }}">Descargar</a>
 					{% endif %}
 					</div>
-				</div>
-					
-				
+				</div>				
 			{% endif %}	
 		</div>
 		
 	</div>
-	<input type="button" value="Volver" onclick="history.back(-1)" />
+
 </div>
 {% endblock %}
 
