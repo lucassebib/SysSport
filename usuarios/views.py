@@ -266,7 +266,7 @@ def ver_informacion_alumno(request, pk):
 
 	ctx = {
 		'alumno': alumno,
-		'contactos': Alumno.objects.get(id=pk).contactos_de_urgencia.all(),
+		'contactos': alumno.contactos_de_urgencia.all(),
 		'alumnoUTN': tipo_usuario=='alumno',
 		'alumnoInvitado': tipo_usuario=='invitado',
 	}
