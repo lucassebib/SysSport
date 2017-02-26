@@ -67,6 +67,53 @@ def vista_inicial_admin(request):
 	template = "admin/inicial_admin.html"
 	return render_to_response(template, context_instance=RequestContext(request))
 
+@login_required
+def ver_informacion_perfil_persona(request, pk):
+	template = "ver_informacion_perfil_persona.html"
+	id_usuario = request.user.id
+	tipo_usuario = "" 
+	
+	try:
+		g = Alumno.objects.get(id=id_usuario)
+		extiende = 'baseAlumno.html'
+		tipo_usuario = 'alumno'
+		ctx1 = {
+			'carrera': g.ver_nombre_carrera,
+		}
+	except Exception as e:
+		try:
+			g = Profesor.objects.get(id=id_usuario)
+			extiende = 'baseProfesor.html'
+		except Exception as e:
+			try:
+				g = UsuarioInvitado.objects.get(id=id_usuario)
+				extiende = 'baseAlumno.html'
+				tipo_usuario = "invitado"
+				
+				ctx1 = {
+					'institucion': g.institucion,
+				} 	 
+
+			except Exception as e:
+				try:
+					extiende = 'usuario_noLogueado.html'
+				except Exception as e:
+					if request.user.is_staff:
+						extiende = 'baseAdmin.html'
+
+
+	ctx = {
+			'extiende': extiende,
+			'persona': Persona.objects.get(id=pk),
+			'is_invitado': "invitado"==tipo_usuario,
+			'is_alumno': "alumno"==tipo_usuario,
+
+			}
+	ctx.update(ctx1)
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+
 ###########################PARA ALUMNOS###########################################
 #@login_required	
 #def vista_index_noLogueado(request):

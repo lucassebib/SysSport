@@ -1,0 +1,56 @@
+{% extends extiende %}
+
+{% block contenido %}
+
+<div class="panel-info">
+	<div class="page-header">
+		<h1><i>PERFIL DE {{persona.username}} </i></h1>
+	</div>
+	<div class="page-content">
+			<div class="col-md-3">
+				<img src="{{persona.foto_perfil.url}}" class="img-responsive img-circle" >
+			</div>
+
+			<div class="col-md-9">
+				<div class="form-group">
+					<label class=" control-label">Nombre:  </label>
+					<label class=" control-label"> {{persona.first_name}} </label>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Apellido:  </label>
+					<label class=" control-label"> {{persona.last_name}} </label>
+				</div>
+				<div class="form-group">
+					<label class=" control-label">Sexo:  </label>
+					<label class=" control-label">{{persona.ver_sexo}}</label>
+				</div>
+				<div class="form-group">
+					{% if is_invitado %}
+						<label class=" control-label">Institucion:  </label>
+						<label class=" control-label">{{institucion}}</label>
+					{% endif %}
+				</div>
+				{% if is_alumno %}
+					<div class="form-group">
+						<label class=" control-label">Carrera:  </label>
+						<label class=" control-label">{{carrera}}</label>
+					</div>
+				{% endif %}
+				<div class="form-group">
+					<label class="control-label">Fecha de Nacimiento:  </label>
+					<label class="control-label">{{persona.fecha_nacimiento}}</label>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Direccion de Correo:  </label>
+					<label class=" control-label">{% if persona.email %}{{persona.email}}{% else %}-{% endif %}</label>
+				</div>
+				<div class="form-group">
+					<label class=" control-label">Dirección:  </label>
+					<label class=" control-label">{{persona.direccion}}</label>
+				</div>
+			</div>
+	</div>
+</div>
+
+
+{% endblock %}

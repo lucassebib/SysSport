@@ -99,7 +99,7 @@ def ver_novedades(request, pk):
 ################################## NOVEDADES DE PROFESORES #############################################
 def novedades_profesores(request):
 	template = "novedades_profesores.html"
-	posts = Novedades.objects.filter(autor=request.user.id)
+	posts = Novedades.objects.filter(autor=request.user.id) | Novedades.objects.filter(visibilidad__in=[1,2])
 	posts.order_by('-fecha_publicacion')
 	pag = Paginate(request, posts, 4)
 	ctx = {
@@ -148,7 +148,7 @@ class ListarNovedades(ListView):
 
     def get_queryset(self):
         queryset = super(ListarNovedades, self).get_queryset()
-        return queryset.filter(autor=self.request.user.id)
+        return queryset.filter(autor=self.request.user.id).order_by('-fecha_publicacion')
 
 class DetallesNovedades(DetailView):
     model = Novedades

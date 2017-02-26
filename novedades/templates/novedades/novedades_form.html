@@ -1,27 +1,21 @@
 {% extends "baseProfesor.html" %}
 
 {% block contenido %}
-	
 	<div class="panel-info">
 		<div class="page-header">
             <h2><i>Novedad</i> </h2>
         </div>
 		<div class="page-content">
-			<form action='' method='POST'>
-				{% csrf_token %}
-			{% for field in form %}
-			 	<div>    		
-					<p>{{field.label}}</p>
-					{{field}}	
-				</div>
-			{% endfor %}
+			<form action='' method='POST')">{% csrf_token %}
+				{% for field in form %}
+			 		<p>{{field.label}}</p>
+					{{field}}										
+				{% endfor %}
 				<input type='submit' value='Confirmar'>
 				<input type="button" value="Cancelar" onclick="history.back(-1)" />
-
 			</form>
 		</div>
-	</div>
-	
+	</div>	
 {% endblock %}
 
 

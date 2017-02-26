@@ -14,16 +14,19 @@ class Comentario(models.Model):
 		id_autor = self.autor.id
 		url_foto = Persona.objects.get(id=id_autor).foto_perfil.url
 		return url_foto
+		
+	def obtener_idAutor(self):
+		return self.autor.id
 
 class Novedades(models.Model):
-	pueden_ver = ((1,"Todos"),(2,"Todos los Usuarios Registrados"), (3, "Solo los Usuarios del Deporte"))
+	pueden_ver = ((1,"Todas las personas"),(2,"Todos los Usuarios Registrados"), (3, "Solo los Usuarios del Deporte"))
 
 	titulo = models.CharField(max_length=100)
 	contenido = tinymce_models.HTMLField()
 	fecha_publicacion = models.DateTimeField(auto_now_add=True)
 	autor = models.ForeignKey(Profesor)   
 	imagen = models.ImageField(upload_to='fotos_posts', blank=True, null=True)
-	visibilidad = models.IntegerField(choices=pueden_ver, default=3)
+	visibilidad = models.IntegerField(choices=pueden_ver, default=2)
 	categoria = models.ManyToManyField(Deporte)
 	lista_comentarios = models.ManyToManyField(Comentario, blank=True, null=True)
 
@@ -46,6 +49,9 @@ class Novedades(models.Model):
 		id_autor = self.autor.id
 		url_foto = Persona.objects.get(id=id_autor).foto_perfil.url
 		return url_foto
+
+	def obtener_idAutor(self):
+		return self.autor.id
 
 ##################AGREGAMOS CLASES AL PANEL DE ADMINISTRACION##################################
 

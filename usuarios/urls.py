@@ -10,10 +10,15 @@ urlpatterns = patterns('',
 
 	url(r'^registrarse$', vista_registrarse),
 	url(r'^inicial-admin$', vista_inicial_admin, name= 'inicial_admin'),
-	
-	url(r'^cambiar-pass$', cambiar_contrasenia),
+	url(r'^perfil/user/(?P<pk>[0-9]+)$',ver_informacion_perfil_persona, name='ver_informacion_perfil_persona'),
+
 #	url(r'^cambiar-telefono$', cambiar_telefono),
 #	url(r'^cambiar-direccion$', cambiar_direccion),
+)
+
+#URLs RESET PASSWORD
+urlpatterns += patterns('',
+	url(r'^cambiar-pass$', cambiar_contrasenia),
 	url(r'^password_reset$', password_reset, 
 		{ 'template_name' : 'registracion/password_reset_form.html' , 
 		'email_template_name' : 'registracion/password_reset_email.html'},
