@@ -18,7 +18,7 @@ class FormularioNovedades(forms.ModelForm):
 	#contenido = tinymce_models.HTMLField()
 
 	class Meta:
-#		model = Novedades
+		model = Novedades
 		fields = ['titulo', 'contenido', 'imagen','visibilidad', 'categoria']
 		widgets = {
            'categoria': forms.CheckboxSelectMultiple,

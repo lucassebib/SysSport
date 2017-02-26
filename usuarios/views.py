@@ -72,7 +72,7 @@ def ver_informacion_perfil_persona(request, pk):
 	template = "ver_informacion_perfil_persona.html"
 	id_usuario = request.user.id
 	tipo_usuario = "" 
-	
+	ctx1 = {}
 	try:
 		g = Alumno.objects.get(id=id_usuario)
 		extiende = 'baseAlumno.html'

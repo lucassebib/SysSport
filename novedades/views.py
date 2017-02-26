@@ -60,7 +60,7 @@ def ver_novedades(request, pk):
 	novedad = Novedades.objects.get(id=pk)
 	#edicion = False
 	puede_editar_comentarios = False
-
+	mensaje = ''
 	try:
 		g = Alumno.objects.get(id=id_usuario)
 		extiende = 'baseAlumno.html'
@@ -68,7 +68,8 @@ def ver_novedades(request, pk):
 		try:
 			g = Profesor.objects.get(id=id_usuario)
 			extiende = 'baseProfesor.html'
-			puede_editar_comentarios = True
+			if novedad.autor.id == id_usuario:
+				puede_editar_comentarios = True
 		except Exception as e:
 			try:
 				g = UsuarioInvitado.objects.get(id=id_usuario)
@@ -114,7 +115,7 @@ def ver_novedades(request, pk):
 def novedades_profesores(request):
 	template = "novedades_profesores.html"
 	posts = Novedades.objects.filter(autor=request.user.id) | Novedades.objects.filter(visibilidad__in=[1,2])
-	posts.order_by('-fecha_publicacion')
+	posts.order_by('fecha_publicacion')
 	pag = Paginate(request, posts, 4)
 	ctx = {
 		'posts': pag['queryset'],

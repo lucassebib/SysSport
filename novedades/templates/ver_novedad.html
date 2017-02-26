@@ -35,7 +35,7 @@
 							{% if c.obtener_idAutor = user.id or puede_editar_comentarios %}
 								<form method="POST">{% csrf_token %}
 									<td><button type="submit" name="boton_eliminar" value="{{c.id}}">Eliminar</button></td>
-									<td><button type="submit" name="boton_editar" value="{{c.id}}">Editar</button> </td>
+									<!--<td><button type="submit" name="boton_editar" value="{{c.id}}">Editar</button> </td> -->
 								</form>
 							{% endif %}
 													
