@@ -31,18 +31,22 @@
 							<td class="td_perfil" ><a href="{% url 'ver_informacion_perfil_persona' c.obtener_idAutor %}"><img src="{{c.obtener_url_imagen}}" width="40px" height="50px" border="0"></a></td>
 							<td class="td_autor"><a href="{% url 'ver_informacion_perfil_persona' c.obtener_idAutor %}">{{ c.autor }}</a></td>
 							<td class="comentario">{{ c.texto }}</td>
-							<td><a href="#">Eliminar</a> </td>
-							<td><a href="#">Editar</a> </td>
+							
+							{% if c.obtener_idAutor = user.id or puede_editar_comentarios %}
+								<form method="POST">{% csrf_token %}
+									<td><button type="submit" name="boton_eliminar" value="{{c.id}}">Eliminar</button></td>
+									<td><button type="submit" name="boton_editar" value="{{c.id}}">Editar</button> </td>
+								</form>
+							{% endif %}
 													
 						</tr>
 					</table>
 				</div>
 			{% endfor %}
 			<div class="comentario">
-				<form class="form-horizontal" role="form" action='' method='POST'>
-					{% csrf_token %}
+				<form class="form-horizontal" role="form" action='' method='POST'>{% csrf_token %}
 					{{ formulario.as_p }}
-					<button type="submit" class="btn btn-primary">Agregar</button>
+					<button type="submit" class="btn btn-primary" name="boton_agregar">Agregar</button>
 				</form>
 			</div>
 		</div>

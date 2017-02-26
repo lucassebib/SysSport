@@ -57,6 +57,10 @@ def ver_novedades(request, pk):
 	template = "ver_novedad.html"
 	form = FormularioComentario()
 	id_usuario = request.user.id
+	novedad = Novedades.objects.get(id=pk)
+	#edicion = False
+	puede_editar_comentarios = False
+
 	try:
 		g = Alumno.objects.get(id=id_usuario)
 		extiende = 'baseAlumno.html'
@@ -64,6 +68,7 @@ def ver_novedades(request, pk):
 		try:
 			g = Profesor.objects.get(id=id_usuario)
 			extiende = 'baseProfesor.html'
+			puede_editar_comentarios = True
 		except Exception as e:
 			try:
 				g = UsuarioInvitado.objects.get(id=id_usuario)
@@ -75,24 +80,33 @@ def ver_novedades(request, pk):
 					if request.user.is_staff:
 						extiende = 'baseAdmin.html'
 
-	if request.method == "POST":
+	if request.method == "POST" and 'boton_agregar' in request.POST:
 		form = FormularioComentario(request.POST)
 		if form.is_valid():
 			texto = form.cleaned_data['texto']
 			autor = Persona.objects.get(id=request.user.id)
 			comentario = Comentario(texto=texto, autor=autor)
 			comentario.save()
-			novedad = Novedades.objects.get(id=pk)
 			novedad.lista_comentarios.add(comentario)
 			novedad.save()
 			form = FormularioComentario()
 			return HttpResponseRedirect('')
+
+	if request.method == "POST" and 'boton_eliminar' in request.POST:
+		novedad.lista_comentarios.remove(request.POST.get('boton_eliminar'))
+
+	#mensaje = ''
+	#if request.method == "POST" and 'boton_editar' in request.POST:
+		#mensaje='apretaste boton editar'
+		#edicion = True
 	 
 	ctx = {
-		'novedad': Novedades.objects.get(id=pk),
+		'novedad': novedad,
 		'formulario':form,
-		'comentarios':Novedades.objects.get(id=pk).lista_comentarios.all(),
+		'comentarios':novedad.lista_comentarios.all().order_by('-id'),
 		'extiende': extiende,
+		'puede_editar_comentarios': puede_editar_comentarios,
+		#'mensaje': mensaje
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
