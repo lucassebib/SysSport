@@ -47,6 +47,9 @@ class Persona(Usuario):
 	def obtener_deportes(self):
 		return self.lista_deporte.all()
 
+	def ver_lista_deporte(self):
+		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
+
 class Profesor(Persona):
 	legajo =  models.IntegerField(blank=True, null=True)
 

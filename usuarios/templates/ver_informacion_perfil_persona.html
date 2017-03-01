@@ -30,6 +30,14 @@
 						<label class=" control-label">{{institucion}}</label>
 					{% endif %}
 				</div>
+
+				{% if is_alumno %}
+					<div class="form-group">
+						<label class=" control-label">Profesor de:  </label>
+						<label class=" control-label">{{persona.ver_lista_deporte}}</label>
+					</div>
+				{% endif %}
+
 				{% if is_alumno %}
 					<div class="form-group">
 						<label class=" control-label">Carrera:  </label>

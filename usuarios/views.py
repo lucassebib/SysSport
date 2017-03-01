@@ -84,6 +84,7 @@ def ver_informacion_perfil_persona(request, pk):
 		try:
 			g = Profesor.objects.get(id=id_usuario)
 			extiende = 'baseProfesor.html'
+			tipo_usuario = 'profesor'
 		except Exception as e:
 			try:
 				g = UsuarioInvitado.objects.get(id=id_usuario)
@@ -107,6 +108,8 @@ def ver_informacion_perfil_persona(request, pk):
 			'persona': Persona.objects.get(id=pk),
 			'is_invitado': "invitado"==tipo_usuario,
 			'is_alumno': "alumno"==tipo_usuario,
+			'is_profesor': "profesor"==tipo_usuario,
+
 
 			}
 	ctx.update(ctx1)
