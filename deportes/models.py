@@ -32,7 +32,7 @@ class Deporte(models.Model):
 		return self.nombre
 
 	def get_absolute_url(self):
-		return reverse('listar-deportes')
+		return reverse('lista_deportes')
 	
 	def ver_aptopara(self):
 		return self.get_apto_para_display()

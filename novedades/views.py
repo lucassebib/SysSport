@@ -24,7 +24,62 @@ def vista_index_profesores(request):
 	template = "inicial_profesores.html"	
 	return render_to_response(template, context_instance=RequestContext(request))
 
-################################## NOVEDADES PARA TODOS ########################################	
+##################################CRUD NOVEDADES########################################	
+
+class ListarNovedades(ListView):
+    model = Novedades
+    context_object_name = 'novedades'
+
+    def get_queryset(self):
+        queryset = super(ListarNovedades, self).get_queryset()
+        return queryset.filter(autor=self.request.user.id).order_by('-fecha_publicacion')
+
+class DetallesNovedades(DetailView):
+    model = Novedades
+    
+class CrearNovedades(CreateView):	 
+	template_name = 'novedades/novedades_form.html'
+	context_object_name = 'novedades'  	
+	form_class = FormularioNovedades
+
+	def get_form_kwargs(self):
+	        kwargs = super(CrearNovedades, self ).get_form_kwargs()
+	        kwargs['user'] = self.request.user
+	        return kwargs
+
+	def form_valid(self, form):
+		a = form.save(commit = False)
+		a.autor = Profesor.objects.get(id = self.request.user.id)
+		return super(CrearNovedades, self).form_valid(form)
+
+class ActualizarNovedades(UpdateView):
+    model = Novedades
+    fields = ['titulo', 'contenido', 'imagen','visibilidad', 'categoria']
+
+    #def get_form(self, *args, **kwargs):
+    #	return FormularioNovedades()
+    
+class EliminarNovedades(DeleteView):
+    model = Novedades
+    context_object_name = 'novedades'
+    success_url = reverse_lazy('listar-novedades')
+
+########################################################################################################
+
+################################## NOVEDADES PARA ADMINISTRADOR ########################################
+def ver_novedades_admin(request):
+	template = "admin/ver_novedades_admin.html"
+
+	ctx = {
+		'novedades': Novedades.objects.all()
+	}
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+
+########################################################################################################
+
+###################################### NOVEDADES PARA TODOS ############################################	
 	
 def ver_novedades_visibilidadTodos(request):
 	template = "novedades_visibilidad_todos.html"
@@ -155,47 +210,6 @@ def ver_novedad_filtrado(request, pk):
 
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
 
-##################################CRUD NOVEDADES########################################	
-
-class ListarNovedades(ListView):
-    model = Novedades
-    context_object_name = 'novedades'
-
-    def get_queryset(self):
-        queryset = super(ListarNovedades, self).get_queryset()
-        return queryset.filter(autor=self.request.user.id).order_by('-fecha_publicacion')
-
-class DetallesNovedades(DetailView):
-    model = Novedades
-    
-class CrearNovedades(CreateView):	 
-	template_name = 'novedades/novedades_form.html'
-	context_object_name = 'novedades'  	
-	form_class = FormularioNovedades
-
-	def get_form_kwargs(self):
-	        kwargs = super(CrearNovedades, self ).get_form_kwargs()
-	        kwargs['user'] = self.request.user
-	        return kwargs
-
-	def form_valid(self, form):
-		a = form.save(commit = False)
-		a.autor = Profesor.objects.get(id = self.request.user.id)
-		return super(CrearNovedades, self).form_valid(form)
-
-class ActualizarNovedades(UpdateView):
-    model = Novedades
-    fields = ['titulo', 'contenido', 'imagen','visibilidad', 'categoria']
-
-    #def get_form(self, *args, **kwargs):
-    #	return FormularioNovedades()
-    
-class EliminarNovedades(DeleteView):
-    model = Novedades
-    context_object_name = 'novedades'
-    success_url = reverse_lazy('listar-novedades')
-
-###############################################################################################
 
 
 
