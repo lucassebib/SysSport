@@ -12,10 +12,12 @@
 			</ul>
 		<div class="tab-content">
 
+	<!-- ################ PANEL FICHA MEDICA ####################################-->
 		<div role="tabpanel" class="tab-pane fade in active" id="ficha_medica">
 			<p>A continuacion tiene un espacio para subir su ficha medica.</p>
 			<p>Usted esta inscripto en los siguientes deportes:</p>
 			
+
 			<table class="table table-hover table-striped">
 				<thead>
 					<tr>
@@ -25,34 +27,37 @@
 					</tr>
 				</thead>
 			
-				{% for d in deportes %}
-					<tbody>
-						<tr>
-							<td>{{d.nombre}} </td>
-							<td>{{d.ficha_medica.descripcion}}</td>
-							<td><a href="{{d.ficha_medica.ficha_medica.url}}">link</a></td>
-						</tr>
-					</tbody>
-				{% endfor %}
-
+				{% if deportes %}
+					{% for d in deportes %}
+						<tbody>
+							<tr>
+								<td>{{d.nombre}} </td>
+								<td>{{d.ficha_medica.descripcion}}</td>
+								<td><a href="{{d.ficha_medica.ficha_medica.url}}">link</a></td>
+							</tr>
+						</tbody>
+					{% endfor %}	
+				{% endif %} 				
 			</table>
 
+			{% if deportes %}
 
-			<form method="POST" enctype="multipart/form-data">{% csrf_token %}
-				<h1>Actualmente:</h1>
-					{% if alumno.ficha_medica %}
-						<a href="{{alumno.ficha_medica.url}}">descargar</a>
-					{% else %}
-						No ha subido todavia su ficha medica
-					{% endif %} 
+				<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+					<h1>Actualmente:</h1>
+						{% if alumno.ficha_medica %}
+							<a href="{{alumno.ficha_medica.url}}">descargar</a>
+						{% else %}
+							<h3>No ha subido todavia su ficha medica</h3>
+						{% endif %} 
 
-				<p>Suba o modifique aqui su ficha medica</p>
-				{{form.as_p}}
-				<input type='submit' value='Guardar'>{{mensaje}}
-			</form>
-			
-
+					<p>Suba o modifique aqui su ficha medica</p>
+					{{form.as_p}}
+					<input type='submit' value='Guardar'>{{mensaje}}
+				</form>
+			{% endif %} 
 		</div>
+
+	<!-- ################ PANEL INFORMACION MEDICA ####################################-->
 
 		<div role="tabpanel" class="tab-pane fade" id="informacion_medica" >	
 			<form action="" method="get" accept-charset="utf-8">
