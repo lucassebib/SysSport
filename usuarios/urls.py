@@ -47,7 +47,6 @@ urlpatterns += patterns('',
 	url(r'^ver-alumnos/deporte/alumno/(?P<pk>[0-9]+)$', ver_informacion_alumno, name='info-alumno'),
 	url(r'^modificar_perfil_profesor$', modificarPerfilProfesor, name='modificar_perfil_profesor'),
 	url(r'^modificar_perfil_profesor$', modificarPerfilProfesor, name='modificar_perfil_profesor'),
-	url(r'^subir_ficha$', subir_fichaMedicaStandar, name='subir_ficha'),
 )
 
 #URLs ALUMNOS

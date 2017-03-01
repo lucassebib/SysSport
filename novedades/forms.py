@@ -2,7 +2,6 @@ from django import forms
 from models import Comentario, Novedades
 from usuarios.models import Persona, Profesor
 from deportes.models import Deporte
-#from tinymce import models as tinymce_models
 
 class FormularioComentario(forms.ModelForm):
 	def form_valid(self, form):
@@ -15,8 +14,6 @@ class FormularioComentario(forms.ModelForm):
 		fields = ['texto']
 
 class FormularioNovedades(forms.ModelForm):
-	#contenido = tinymce_models.HTMLField()
-
 	class Meta:
 		model = Novedades
 		fields = ['titulo', 'contenido', 'imagen','visibilidad', 'categoria']

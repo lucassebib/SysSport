@@ -186,6 +186,9 @@ class CrearNovedades(CreateView):
 class ActualizarNovedades(UpdateView):
     model = Novedades
     fields = ['titulo', 'contenido', 'imagen','visibilidad', 'categoria']
+
+    #def get_form(self, *args, **kwargs):
+    #	return FormularioNovedades()
     
 class EliminarNovedades(DeleteView):
     model = Novedades

@@ -53,9 +53,6 @@ class Profesor(Persona):
 	class Meta:
 		verbose_name_plural = "Profesores"
 
-	#def __unicode__(self):
-	#	return '%s %s' % (self.nombre, self.apellido)
-
 	def tipo_usuario(self, cadena):
 		return cadena == 'profesor'
 

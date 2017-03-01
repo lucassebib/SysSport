@@ -29,7 +29,15 @@
 						DNI: {{alumno.dni}} </br>
 						Fecha de Nacimiento: {{alumno.fecha_nacimiento}} </br>
 						Telefono: {{alumno.telefono}} </br>
-						Direccion: {{alumno.direccion}} </br>
+						{% if alumno.direccion %}
+							Direccion: {{alumno.direccion}} </br>
+						{% else %}
+							Direccion: -</br>
+						{% endif %}
+
+						{% if alumnoInvitado %}
+							Institucion: {{alumno.institucion}}
+						{% endif %}
 					</div>
 				</div>
 				<div role="tabpanel" class="tab-pane fade" id="contactos_urgencia">

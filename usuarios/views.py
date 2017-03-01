@@ -258,22 +258,35 @@ def ver_contacto_urgencia(request):
 
 def ver_datos_medicos(request):
 	template = "alumno/ver_datos_medicos.html"
+	id_alumno = request.user.id
+	form = FormularioCargarArchivo()
+	mensaje=''
+
+	try:
+		alumno = Alumno.objects.get(id=id_alumno)
+	except Exception as e:
+		alumno = UsuarioInvitado.objects.get(id=id_alumno)
+
+	if request.method == 'POST':
+	        form = FormularioCargarArchivo(request.POST, request.FILES)
+	        if form.is_valid():
+	            if request.FILES:
+	            	alumno.ficha_medica = form.cleaned_data['ficha_medica']
+	            	alumno.save()
+                    return HttpResponseRedirect('')
+                else:
+                	mensaje = 'no ha subido ningun archivo'
+
+
 	ctx = {
-		
+		'deportes': alumno.lista_deporte.all(),
+		'form': form,
+		'mensaje': mensaje,
+		'alumno': alumno,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 ###########################PARA PROFESOR###########################################
-def subir_fichaMedicaStandar(request):
-	template = "profesor/subir_fichaMedicaStandar.html"
-
-	ctx = {
-
-	}
-
-	return render_to_response(template, ctx, context_instance=RequestContext(request))
-
-
 @login_required
 def ver_deportes_profesor(request):
 	profesor = Profesor.objects.get(id=request.user.id)	 
