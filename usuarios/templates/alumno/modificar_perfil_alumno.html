@@ -20,6 +20,8 @@
 
 			{% if is_invitado %}
 				<a href="{% url 'editar_perfil_alumno' %}">Editar Informacion de Perfil</a>
+			{% else %}
+				<a href="{% url 'editar_error' %}">Editar Informacion de Perfil</a>
 			{% endif %}
 
 			<div class="col-md-9">

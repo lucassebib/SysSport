@@ -24,14 +24,18 @@
 					<label class=" control-label">Sexo:  </label>
 					<label class=" control-label">{{persona.ver_sexo}}</label>
 				</div>
-				<div class="form-group">
-					{% if is_invitado %}
+
+				{% if is_invitado %}
+					<div class="form-group">	
 						<label class=" control-label">Institucion:  </label>
 						<label class=" control-label">{{institucion}}</label>
-					{% endif %}
-				</div>
-
-				{% if is_alumno %}
+					</div>
+					<div class="form-group">	
+						<label class=" control-label">Deportes Inscriptos:  </label>
+						<label class=" control-label">{{persona.ver_lista_deporte}}</label>				
+					</div>
+				{% endif %}
+				{% if is_profesor %}
 					<div class="form-group">
 						<label class=" control-label">Profesor de:  </label>
 						<label class=" control-label">{{persona.ver_lista_deporte}}</label>
@@ -43,7 +47,12 @@
 						<label class=" control-label">Carrera:  </label>
 						<label class=" control-label">{{carrera}}</label>
 					</div>
+					<div class="form-group">
+						<label class=" control-label">Deportes Inscriptos:  </label>
+						<label class=" control-label">{{persona.ver_lista_deporte}}</label>
+					</div>
 				{% endif %}
+
 				<div class="form-group">
 					<label class="control-label">Fecha de Nacimiento:  </label>
 					<label class="control-label">{{persona.fecha_nacimiento}}</label>

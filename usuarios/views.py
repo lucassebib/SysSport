@@ -72,29 +72,40 @@ def ver_informacion_perfil_persona(request, pk):
 	template = "ver_informacion_perfil_persona.html"
 	id_usuario = request.user.id
 	tipo_usuario = "" 
-	ctx1 = {}
+	
+	persona_visitada = Persona.objects.get(id=pk)
+	
+	extiende = ''
+	
 	try:
 		g = Alumno.objects.get(id=id_usuario)
 		extiende = 'baseAlumno.html'
-		tipo_usuario = 'alumno'
-		ctx1 = {
-			'carrera': g.ver_nombre_carrera,
-		}
 	except Exception as e:
 		try:
 			g = Profesor.objects.get(id=id_usuario)
 			extiende = 'baseProfesor.html'
-			tipo_usuario = 'profesor'
+		except Exception as e:
+			g = UsuarioInvitado.objects.get(id=id_usuario)
+			extiende = 'baseAlumno.html'
+
+	ctx1 = {}	
+	try:
+		g_visitado = Alumno.objects.get(id=pk)
+		tipo_usuario_visitado = 'alumno'
+		ctx1 = {
+			'carrera': g_visitado.ver_nombre_carrera,
+		}
+	except Exception as e:
+		try:
+			g_visitado = Profesor.objects.get(id=pk)
+			tipo_usuario_visitado = 'profesor'
 		except Exception as e:
 			try:
-				g = UsuarioInvitado.objects.get(id=id_usuario)
-				extiende = 'baseAlumno.html'
-				tipo_usuario = "invitado"
-				
+				g_visitado = UsuarioInvitado.objects.get(id=pk)
+				tipo_usuario_visitado = "invitado"				
 				ctx1 = {
-					'institucion': g.institucion,
-				} 	 
-
+					'institucion': g_visitado.institucion,
+				} 	
 			except Exception as e:
 				try:
 					extiende = 'usuario_noLogueado.html'
@@ -105,10 +116,10 @@ def ver_informacion_perfil_persona(request, pk):
 
 	ctx = {
 			'extiende': extiende,
-			'persona': Persona.objects.get(id=pk),
-			'is_invitado': "invitado"==tipo_usuario,
-			'is_alumno': "alumno"==tipo_usuario,
-			'is_profesor': "profesor"==tipo_usuario,
+			'persona': persona_visitada,
+			'is_invitado': "invitado"==tipo_usuario_visitado,
+			'is_alumno': "alumno"==tipo_usuario_visitado,
+			'is_profesor': "profesor"==tipo_usuario_visitado,
 
 
 			}
@@ -116,6 +127,28 @@ def ver_informacion_perfil_persona(request, pk):
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
+@login_required
+def editar_error(request):
+	template = "editar_error.html"
+	extiende = ''
+	id_usuario = request.user.id
+	
+	try:
+		g = Alumno.objects.get(id=id_usuario)
+		extiende = 'baseAlumno.html'
+	except Exception as e:
+		try:
+			g = Profesor.objects.get(id=id_usuario)
+			extiende = 'baseProfesor.html'
+		except Exception as e:
+			g = UsuarioInvitado.objects.get(id=id_usuario)
+			extiende = 'baseAlumno.html'
+
+	ctx = {
+		'extiende': extiende,
+			}
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 ##########################################PARA ALUMNOS######################################################
 #@login_required	
