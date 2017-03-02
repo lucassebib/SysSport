@@ -273,10 +273,87 @@ def eliminar_contactoUrgencia(request, pk):
 
 	if request.method == "POST":
 		alumno.contactos_de_urgencia.remove(pk)
+		alumno.save()
+		contacto.delete()
 		return HttpResponseRedirect('/alumno/contacto_urgencia')
 
 	ctx = {
 		'nombre_contacto' : contacto.obtenerNombreCompleto,
+	}
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def editar_contactoUrgencia(request, pk):
+	template = "alumno/editar_contactoUrgencia.html"
+	alumno = ''
+	contacto = ContactoDeUrgencia.objects.get(id=pk)
+	direccion = Direccion.objects.get(id=contacto.direccion.id)
+
+	form_contacto = FormularioContactoDeUrgencia()
+	form_contacto.initial = {
+		'nombre': contacto.nombre,
+		'apellido': contacto.apellido,
+		'parentezco': contacto.parentezco,
+		'telefono': contacto.telefono,
+		}
+	
+	form_direccion = FormularioDireccion()
+	form_direccion.initial = {
+		'calle': direccion.calle,
+		'altura': direccion.altura,
+		'piso': direccion.piso,
+		'nro_departamento': direccion.nro_departamento,
+		'provincia': direccion.provincia,
+		'localidad': direccion.localidad,
+	}
+
+	if request.method == "POST":
+		form_contacto = FormularioContactoDeUrgencia(request.POST)
+		if form_contacto.is_valid():
+			nombre = form_contacto.cleaned_data['nombre']
+			apellido = form_contacto.cleaned_data['apellido']
+			parentezco = form_contacto.cleaned_data['parentezco']
+			telefono = form_contacto.cleaned_data['telefono']
+
+			form_direccion = FormularioDireccion(request.POST)
+
+			calle = request.POST.get('calle')
+			altura = request.POST.get('altura')
+
+			if altura == '':
+				altura = 0
+
+			piso = request.POST.get('piso')
+			if piso == '':
+				piso = 0
+
+			nro_departamento = request.POST.get('nro_departamento')
+			if nro_departamento == '':
+				nro_departamento = 0
+
+			provincia = request.POST.get('provincia')
+			localidad = request.POST.get('localidad')
+
+			direccion.calle =calle 
+			direccion.altura=altura
+			direccion.piso=piso
+			direccion.nro_departamento=nro_departamento
+			direccion.provincia=provincia
+			direccion.localidad=localidad
+			direccion.save()
+			
+			contacto.nombre=nombre
+			contacto.apellido=apellido
+			contacto.parentezco=parentezco
+			contacto.telefono=telefono
+			contacto.direccion=direccion
+			contacto.save()
+			return HttpResponseRedirect('/alumno/contacto_urgencia')
+
+	ctx = {
+		'nombre_contacto' : contacto.obtenerNombreCompleto,
+		'form_contacto': form_contacto,
+		'form_direccion': form_direccion,
 	}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))

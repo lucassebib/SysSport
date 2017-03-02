@@ -56,5 +56,6 @@ urlpatterns += patterns('',
 	url(r'^alumno/datos_medicos$', ver_datos_medicos, name='ver_datos_medicos'),
 	url(r'^alumno/nuevo_contacto$', agregar_contactoUrgencia, name='agregar_contactoUrgencia'),
 	url(r'^alumno/eliminar_contacto/(?P<pk>[0-9]+)$', eliminar_contactoUrgencia, name='eliminar_contactoUrgencia'),
+	url(r'^alumno/editar_contacto/(?P<pk>[0-9]+)$', editar_contactoUrgencia, name='editar_contactoUrgencia'),
 
 )
