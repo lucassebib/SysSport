@@ -25,6 +25,9 @@ class ContactoDeUrgencia(models.Model):
 	direccion = models.ForeignKey(Direccion, blank=True, null=True)
 	telefono = models.IntegerField(blank=True, null=True)
 
+	def obtenerNombreCompleto(self):
+		return '%s %s' % (self.nombre, self.apellido)
+
 class Persona(Usuario):
 	lista_sexos = ((1,"Masculino"),(2,"Femenino"))
 

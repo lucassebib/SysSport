@@ -4,12 +4,17 @@
 		<div class="page-header">
 			<h1><i>Contactos de Urgencia de </i><b>{{request.user}}</b> </h1>
 		</div>
+
 		<div class="page-content">
 			<form class="form-horizontal" method='POST'>{% csrf_token %}
-			<ul class="nav navbar-right">
-			 	<span class="glyphicon glyphicon-plus"></span> </span><a href="{% url 'agregar_contactoUrgencia' %}">Agregar contacto</a>
-			 </ul>
+				<ul class="nav navbar-right">
+				 	<span class="glyphicon glyphicon-plus"></span> </span><a href="{% url 'agregar_contactoUrgencia' %}">Agregar contacto</a>
+				</ul>
+
 				{% for c in contactos %}
+					<a href="{% url 'eliminar_contactoUrgencia' c.id %}">Eliminar contacto</a>
+					<a href="">Editar contacto</a>
+
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Nombre: </label>
 						<label class="col-sm-2 control-label">{{c.nombre}}</label>
@@ -32,10 +37,11 @@
 					</div>
 					</div>
 				{% endfor %}
-			</form>
-		</div>
+			 </form>
 
-		<div class="">
+		</div>
+		
+		<div>
 	    	{% if paginator.has_prev %}
 				<a href="?page={{ paginator.prev_page }}"><</a>
 				{% else %}
@@ -46,5 +52,6 @@
 			{% else %}
 			{% endif %}
 		</div>	
+		
 	</div>	
 {% endblock %}

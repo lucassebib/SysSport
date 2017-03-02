@@ -117,7 +117,7 @@ def ver_informacion_perfil_persona(request, pk):
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 
-###########################PARA ALUMNOS###########################################
+##########################################PARA ALUMNOS######################################################
 #@login_required	
 #def vista_index_noLogueado(request):
 #	template = "usuario_noLogueado.html"	
@@ -185,6 +185,7 @@ def cambiar_contrasenia(request):
 	template = "confirm_cambiopass.html"
 	return render_to_response(template, context_instance=RequestContext(request))
 
+#-------#ABM CONTACTOS DE URGENCIA #---------#
 @login_required
 def agregar_contactoUrgencia(request):
 	template = "alumno/agregar_contacto_urgencia.html"
@@ -255,10 +256,32 @@ def ver_contacto_urgencia(request):
 	ctx = {
 		'contactos': pag['queryset'],
      	'paginator': pag,
+     	#'contactos': contactos,
 
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
+def eliminar_contactoUrgencia(request, pk):
+	template = "alumno/eliminar_contactoUrgencia.html"
+	alumno = ''
+	contacto = ContactoDeUrgencia.objects.get(id=pk)
+
+	try:
+		alumno = Alumno.objects.get(id=request.user.id)
+	except Exception as e:
+		alumno = UsuarioInvitado.objects.get(id=request.user.id)
+
+	if request.method == "POST":
+		alumno.contactos_de_urgencia.remove(pk)
+		return HttpResponseRedirect('/alumno/contacto_urgencia')
+
+	ctx = {
+		'nombre_contacto' : contacto.obtenerNombreCompleto,
+	}
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+#-----------------------------------------------#
 def ver_datos_medicos(request):
 	template = "alumno/ver_datos_medicos.html"
 	id_alumno = request.user.id

@@ -39,8 +39,8 @@ class Novedades(models.Model):
 	def obtener_textoComentarios(self):
 		return "\n -".join([t.texto for t in self.lista_comentarios.all()])
 	
-	def obtener_autoresComentario(self):
-		return "\n -".join([d.autor for d in self.lista_comentarios.all()])
+	#def obtener_autoresComentario(self):
+	#	return "\n -".join([d.autor for d in self.lista_comentarios.all()])
 
 	def get_absolute_url(self):
 		return reverse('listar-novedades')

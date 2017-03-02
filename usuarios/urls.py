@@ -51,9 +51,10 @@ urlpatterns += patterns('',
 
 #URLs ALUMNOS
 urlpatterns += patterns('',
-	url(r'^modificar_perfil_alumno$', modificarPerfilAlumno, name='modificar_perfil_alumno'),
-	url(r'^contacto_urgencia$', ver_contacto_urgencia, name='ver_contacto_urgencia'),
-	url(r'^datos_medicos$', ver_datos_medicos, name='ver_datos_medicos'),
-	url(r'^nuevo_contacto$', agregar_contactoUrgencia, name='agregar_contactoUrgencia'),
+	url(r'^alumno/modificar_perfil_alumno$', modificarPerfilAlumno, name='modificar_perfil_alumno'),
+	url(r'^alumno/contacto_urgencia$', ver_contacto_urgencia, name='ver_contacto_urgencia'),
+	url(r'^alumno/datos_medicos$', ver_datos_medicos, name='ver_datos_medicos'),
+	url(r'^alumno/nuevo_contacto$', agregar_contactoUrgencia, name='agregar_contactoUrgencia'),
+	url(r'^alumno/eliminar_contacto/(?P<pk>[0-9]+)$', eliminar_contactoUrgencia, name='eliminar_contactoUrgencia'),
 
 )

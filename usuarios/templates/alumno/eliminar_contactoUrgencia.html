@@ -1,0 +1,10 @@
+{% extends "baseAlumno.html" %}
+{% block contenido %}
+	<h1>Esta seguro que quiere eliminar al siguiente Contacto: </br><u>{{nombre_contacto}}</u> de su lista de Contactos de Urgencia?</h1>
+	
+	<form action='' method='POST'>
+		{% csrf_token %}
+		<input type='submit' value='Confirmar'>
+	</form>
+	<input type="button" value="Cancelar" onclick="history.back(-1)" />
+{% endblock %}
