@@ -163,6 +163,7 @@ def modificarPerfilAlumno(request):
 
 	ctx = {
 			'form': form,
+			'email': alumno.email,
 			'mensaje': mensaje,
 			'usuario':request.user.username,
 			'nombre': request.user.first_name,
@@ -184,6 +185,101 @@ def modificarPerfilAlumno(request):
 def cambiar_contrasenia(request):
 	template = "confirm_cambiopass.html"
 	return render_to_response(template, context_instance=RequestContext(request))
+
+def editar_perfil_alumno(request):
+	#ESTA FUNCION ES SOLO PARA UN INVITADO, SOLAMENTE ESTE USUARIO PODRA CAMBIAR SU INFORMACION DE PERFIL
+	template = "alumno/editar_perfil_alumno.html"
+	invitado = UsuarioInvitado.objects.get(id=request.user.id)
+	mensaje = 'inicio'
+
+	form_principal = FormularioEdicionPerfilInvitado()
+	form_principal.initial = {
+		'first_name': invitado.first_name,
+		'last_name': invitado.last_name,
+		'email': invitado.email,
+		'dni': invitado.dni,
+		'fecha_nacimiento': invitado.fecha_nacimiento,
+		'telefono': invitado.telefono,
+	}
+
+	form_direccion = FormularioDireccion()
+	direccion = Direccion()
+	tiene_direccion = False
+	if invitado.direccion:
+		tiene_direccion = True
+		mensaje = 'tiene direccion'
+		direccion = Direccion.objects.get(id=invitado.direccion.id)
+		form_direccion.initial = {
+			'calle': direccion.calle,
+			'altura': direccion.altura,
+			'piso': direccion.piso,
+			'nro_departamento': direccion.nro_departamento,
+			'provincia': direccion.provincia,
+			'localidad': direccion.localidad,
+		}
+	else:
+		mensaje = 'no tiene direccion'
+
+	if request.method == "POST":
+		mensaje = 'entro al if POST'
+		form_principal = FormularioEdicionPerfilInvitado(request.POST)
+		if form_principal.is_valid():
+			mensaje = 'entro al POST ES VALIDO'
+			nombre = form_principal.cleaned_data['first_name']
+			apellido = form_principal.cleaned_data['last_name']
+			email = form_principal.cleaned_data['email']
+			dni = form_principal.cleaned_data['dni']
+			fecha_nacimiento = form_principal.cleaned_data['fecha_nacimiento']
+			telefono = form_principal.cleaned_data['telefono']
+
+			form_direccion = FormularioDireccion(request.POST)
+			calle = request.POST.get('calle')
+			altura = request.POST.get('altura')
+			if altura == '':
+				altura = 0
+
+			piso = request.POST.get('piso')
+			if piso == '':
+				piso = 0
+
+			nro_departamento = request.POST.get('nro_departamento')
+			if nro_departamento == '':
+				nro_departamento = 0
+
+			provincia = request.POST.get('provincia')
+			localidad = request.POST.get('localidad')
+
+			if not tiene_direccion:
+				mensaje = 'aca tendria que crear una direccion'
+				direccion = Direccion(calle=calle, altura=altura, piso=piso, nro_departamento=nro_departamento, provincia=provincia, localidad=localidad)
+				direccion.save()
+				invitado.direccion = direccion
+			else:
+				direccion.calle=calle 
+				direccion.altura=altura
+				direccion.piso=piso
+				direccion.nro_departamento=nro_departamento
+				direccion.provincia=provincia
+				direccion.localidad=localidad
+				direccion.save()
+			
+			invitado.first_name = nombre
+			invitado.last_name = apellido
+			invitado.email=email
+			invitado.dni= dni
+			invitado.fecha_nacimiento= fecha_nacimiento
+			invitado.telefono = telefono
+			
+			invitado.save()	
+
+			return HttpResponseRedirect('/alumno/modificar_perfil_alumno')
+
+	ctx = {
+		'mensaje': mensaje,
+		'form_principal': form_principal,
+		'form_direccion': form_direccion,
+	}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 #-------#ABM CONTACTOS DE URGENCIA #---------#
 @login_required

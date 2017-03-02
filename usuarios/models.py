@@ -128,7 +128,7 @@ admin.site.register(Alumno,AlumnoAdmin)
 
 class UsuarioInvitadoAdmin(admin.ModelAdmin):
 	list_display = ('institucion', 'deportes_inscripto')
-	fields = ('username', 'password', 'first_name', 'last_name', 'dni', 'sexo','institucion' , 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
+	fields = ('username', 'password', 'first_name', 'last_name', 'dni', 'email', 'sexo','institucion' , 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
 
 admin.site.register(UsuarioInvitado,UsuarioInvitadoAdmin)
 

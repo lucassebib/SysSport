@@ -58,4 +58,7 @@ urlpatterns += patterns('',
 	url(r'^alumno/eliminar_contacto/(?P<pk>[0-9]+)$', eliminar_contactoUrgencia, name='eliminar_contactoUrgencia'),
 	url(r'^alumno/editar_contacto/(?P<pk>[0-9]+)$', editar_contactoUrgencia, name='editar_contactoUrgencia'),
 
+	#SOLO PARA INVITADO
+	url(r'^alumno/editar_perfil/$', editar_perfil_alumno, name='editar_perfil_alumno'),
+
 )
