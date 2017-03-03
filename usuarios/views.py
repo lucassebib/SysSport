@@ -2,7 +2,7 @@ from django.shortcuts import render, render_to_response, RequestContext, get_obj
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
 from forms import *
-from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccion, ContactoDeUrgencia 
+from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccion, ContactoDeUrgencia, DatosMedicos 
 from deportes.models import Deporte
 from django.template import Context
 from django.http import HttpResponse, Http404, HttpResponseRedirect
@@ -219,6 +219,7 @@ def cambiar_contrasenia(request):
 	template = "confirm_cambiopass.html"
 	return render_to_response(template, context_instance=RequestContext(request))
 
+@login_required
 def editar_perfil_alumno(request):
 	#ESTA FUNCION ES SOLO PARA UN INVITADO, SOLAMENTE ESTE USUARIO PODRA CAMBIAR SU INFORMACION DE PERFIL
 	template = "alumno/editar_perfil_alumno.html"
@@ -491,7 +492,10 @@ def editar_contactoUrgencia(request, pk):
 def ver_datos_medicos(request):
 	template = "alumno/ver_datos_medicos.html"
 	id_alumno = request.user.id
+
 	form = FormularioCargarArchivo()
+	form_datosMedicos = FormularioDatosMedicos()
+
 	mensaje=''
 
 	try:
@@ -499,7 +503,29 @@ def ver_datos_medicos(request):
 	except Exception as e:
 		alumno = UsuarioInvitado.objects.get(id=id_alumno)
 
-	if request.method == 'POST':
+	if alumno.datos_medicos:
+		mensaje = 'alumno tiene dm'
+		dm = DatosMedicos.objects.get(id=alumno.datos_medicos.id)
+		form_datosMedicos.initial = {
+			'grupo_sanguineo':dm.grupo_sanguineo,
+			'alergias':dm.alergias,
+			'toma_medicamentos':dm.toma_medicamentos,
+			'medicamentos_cuales':dm.medicamentos_cuales,
+			'tuvo_operaciones':dm.tuvo_operaciones,
+			'operaciones_cuales':dm.operaciones_cuales,
+			'tiene_osocial':dm.tiene_osocial,
+			'osocial_cual':dm.osocial_cual,
+		}
+	else:
+		mensaje = 'creando dm para alumno'
+		dm = DatosMedicos()
+		dm.save()
+		alumno.datos_medicos = dm
+		alumno.save()
+
+	
+
+	if request.method == 'POST' and 'boton_guardar_form' in request.POST:
 	        form = FormularioCargarArchivo(request.POST, request.FILES)
 	        if form.is_valid():
 	            if request.FILES:
@@ -508,14 +534,46 @@ def ver_datos_medicos(request):
                     return HttpResponseRedirect('')
                 else:
                 	mensaje = 'no ha subido ningun archivo'
+	
+		
+	if request.method == 'POST' and 'boton_guardar_form_dm' in request.POST:
+		mensaje = 'entro al request post de boton '
+		form_datosMedicos = FormularioDatosMedicos(request.POST)
+		if form_datosMedicos.is_valid():
+			mensaje = 'entro al form is valid'
+			grupo_sanguineo = form_datosMedicos.cleaned_data['grupo_sanguineo'] 
+			alergias = form_datosMedicos.cleaned_data['alergias']
+			toma_medicamentos = form_datosMedicos.cleaned_data['toma_medicamentos']
+			medicamentos_cuales = form_datosMedicos.cleaned_data['medicamentos_cuales']
+			tuvo_operaciones = form_datosMedicos.cleaned_data['tuvo_operaciones']
+			operaciones_cuales = form_datosMedicos.cleaned_data['operaciones_cuales']
+			tiene_osocial = form_datosMedicos.cleaned_data['tiene_osocial']
+			osocial_cual = form_datosMedicos.cleaned_data['osocial_cual']
 
+			dm.grupo_sanguineo = grupo_sanguineo
+			dm.alergias = alergias
+			dm.toma_medicamentos = toma_medicamentos
+			dm.medicamentos_cuales = medicamentos_cuales
+			dm.tuvo_operaciones = tuvo_operaciones
+			dm.operaciones_cuales = operaciones_cuales
+			dm.tiene_osocial = tiene_osocial
+			dm.osocial_cual = osocial_cual
+
+			dm.save()
+
+			alumno.datos_medicos = dm
+			mensaje = 'modificado'
+			alumno.save()
+			return HttpResponseRedirect('')
 
 	ctx = {
 		'deportes': alumno.lista_deporte.all(),
 		'form': form,
 		'mensaje': mensaje,
 		'alumno': alumno,
+		'form_dm': form_datosMedicos,
 	}
+
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 ###########################PARA PROFESOR###########################################
@@ -540,6 +598,7 @@ def listar_alumnos_deporte(request, pk):
 	
 	return render_to_response(template,ctx, context_instance=RequestContext(request))
 
+@login_required
 def ver_usuarios(request):
 	template='admin/ver_usuarios.html'
 	ctx = {
@@ -547,6 +606,7 @@ def ver_usuarios(request):
 	}
 	return render_to_response(template,ctx, context_instance=RequestContext(request))
 
+@login_required
 def ver_informacion_alumno(request, pk):
 	template = "profesor/ver_informacion_alumno.html"
 	try:

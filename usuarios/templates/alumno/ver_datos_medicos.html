@@ -52,7 +52,7 @@
 
 					<p>Suba o modifique aqui su ficha medica</p>
 					{{form.as_p}}
-					<input type='submit' value='Guardar'>{{mensaje}}
+					<input type='submit' value='Guardar' name="boton_guardar_form">
 				</form>
 			{% endif %} 
 		</div>
@@ -60,46 +60,11 @@
 	<!-- ################ PANEL INFORMACION MEDICA ####################################-->
 
 		<div role="tabpanel" class="tab-pane fade" id="informacion_medica" >	
-			<form action="" method="get" accept-charset="utf-8">
-				<div class="form-group">
-					Grupo Sanguineo: 
-					<select name="">    
-				       <option value="" selected="selected">A+</option>
-				       <option value="">A-</option>
-				       <option value="">0+</option>
-		   		       <option value="">No tengo sangre</option>
-		   			</select>
-				</div>
-					
-	   			<div class="form-group">
-	   				Alergias:
-	   				<textarea></textarea>
-	   			</div>
-
-	   			<div class="form-group">
-					Toma medicamentos: 
-					<select name="">    
-				       <option value="" selected="selected">SI</option>
-				       <option value="">NO</option>
-		   			</select>
-		   		</div>
-
-	   			<div class="form-group">
-		   			Tuvo operaciones: 
-					<select name="">    
-				       <option value="" selected="selected">SI</option>
-				       <option value="">NO</option>
-		   			</select>
-	   			</div>
-	   			<div class="form-group">
-	   				Tiene obra social: 
-		   			<select name="">    
-				       <option value="" selected="selected">SI</option>
-				       <option value="">NO</option>
-		   			</select>
-	   			</div>
+			<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+				{{form_dm.as_ul}}
+				<input type="submit" value="Guardar" name="boton_guardar_form_dm">
 			</form>	
-   			<input type="submit" value="Aceptar">
+   			
    		</div>
 	</div>
 {% endblock %}

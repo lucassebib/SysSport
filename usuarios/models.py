@@ -4,6 +4,19 @@ from deportes.models import Deporte
 from django.contrib import admin
 from .validators import valid_extension
 
+class DatosMedicos(models.Model):
+	lista_gsanguineo = ((1, "0-"), (2, "0+"), (3, "A-"), (4, "A+"), (5, "B-"), (6, "B+"), (7, "AB-"), (8, "AB+"))
+	lista_sn = ((1, "NO"), (2, "SI"), (3, "NS/NC"))
+	
+	grupo_sanguineo = models.IntegerField(choices=lista_gsanguineo, default=3)
+	alergias = models.TextField(default = 'sin alergias')
+	toma_medicamentos = models.IntegerField(choices=lista_sn, default=3)
+	medicamentos_cuales = models.TextField(default= 'sin medicacion')
+	tuvo_operaciones = models.IntegerField(choices=lista_sn, default=3)
+	operaciones_cuales = models.TextField(default= 'sin operaciones')
+	tiene_osocial = models.IntegerField(choices=lista_sn, default=3)
+	osocial_cual = models.TextField(default= 'sin obra social')
+
 class Direccion(models.Model):
 	calle = models.CharField(max_length=100, blank=True, null=True)
 	altura = models.IntegerField(blank=True, null=True)
@@ -33,7 +46,7 @@ class Persona(Usuario):
 
 	#Hereda de Usuario> 'username', 'password', 'first_name', 'last_name', 'groups', 'user_permissions', 
 	#'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined'
-	dni = models.IntegerField(blank=True, null=True)
+	dni = models.BigIntegerField(blank=True, null=True)
 	fecha_nacimiento = models.DateField(blank=True, null=True)
 	telefono = models.IntegerField(blank=True, null=True)
 	foto_perfil = models.ImageField(upload_to='usuarios/fotos_de_perfil/', default="usuarios/fotos_de_perfil/None/default_profile.jpg")
@@ -75,6 +88,7 @@ class Alumno(Persona):
 	ficha_medica = models.FileField(upload_to='usuarios/fichas_medicas/', blank=True, validators=[valid_extension])
 	carrera = models.IntegerField(choices=carreras_disponibles, default=1)
 	contactos_de_urgencia = models.ManyToManyField(ContactoDeUrgencia, verbose_name='Contacto de Urgencia', blank=True, null=True)
+	datos_medicos = models.ForeignKey(DatosMedicos, blank=True, null=True)
 
 	class Meta:
 		verbose_name_plural = "Alumnos"
@@ -95,6 +109,7 @@ class UsuarioInvitado(Persona):
 	institucion = models.CharField(max_length=100)
 	ficha_medica = models.FileField(upload_to='usuarios/fichas_medicas/', blank=True)
 	contactos_de_urgencia = models.ManyToManyField(ContactoDeUrgencia, verbose_name='Contacto de Urgencia', blank=True, null=True)
+	datos_medicos = models.ForeignKey(DatosMedicos, blank=True, null=True)
 
 	class Meta:
 		verbose_name_plural = "Usuarios Invitados"

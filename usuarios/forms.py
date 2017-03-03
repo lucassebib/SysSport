@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ClearableFileInput
-from models import Alumno, Direccion, ContactoDeUrgencia, Persona, UsuarioInvitado
+from models import Alumno, Direccion, ContactoDeUrgencia, Persona, UsuarioInvitado, DatosMedicos
 from django.db import models
 
 class FormularioAutenticacion(forms.Form):	
@@ -32,7 +32,9 @@ class FormularioEdicionPerfilInvitado(forms.ModelForm):
 		'last_login', 'date_joined', 'foto_perfil', 'lista_deporte', 'sexo', 'direccion', 'institucion', 
 		'ficha_medica', 'contactos_de_urgencia']
 
-	
+class FormularioDatosMedicos(forms.ModelForm):
+	class Meta:
+		model = DatosMedicos 
 
 
 
