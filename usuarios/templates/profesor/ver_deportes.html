@@ -4,21 +4,16 @@
 		<h1><i>Deportes:</i></h1>
 	</div>
 	<div class="page-content">
+		<ul class="nav nav-pills">
 		<!--Deportes de {{user.first_name}}-->
-		{% for d in deportes %}
-		
-			<ul class="nav navbar-default navbar-nav"	>
+			{% for d in deportes %}
 				<li><a href="{% url 'ver-alumnos' d.id %}">{{d.nombre}}</a></li>
-			</ul>		
-			
-		{% endfor %}
+			{% endfor %}
 		<!--Otros deportes-->
-		{% for d in otrosDeportes %}
-		<ul class="nav navbar-default navbar-nav"	>
+			{% for d in otrosDeportes %}
 				<li><a href="{% url 'ver-alumnos' d.id %}">{{d.nombre}}</a></li>
-			</ul>		
-				
-		{% endfor %}
+			{% endfor %}
+		</ul>
 	</div>
 	
 {% endblock %}
