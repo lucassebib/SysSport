@@ -50,7 +50,7 @@ class Migration(migrations.Migration):
                 ('dni', models.IntegerField(null=True, blank=True)),
                 ('fecha_nacimiento', models.DateField(null=True, blank=True)),
                 ('telefono', models.IntegerField(null=True, blank=True)),
-                ('foto_perfil', models.ImageField(default=b'default_profile.jpg', null=True, upload_to=b'fotos_de_perfil/', blank=True)),
+                ('foto_perfil', models.ImageField(default=b'usuarios/fotos_de_perfil/None/default_profile.jpg', upload_to=b'usuarios/fotos_de_perfil/')),
                 ('sexo', models.IntegerField(default=1, choices=[(1, b'Masculino'), (2, b'Femenino')])),
             ],
             options={
@@ -65,7 +65,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('persona_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='usuarios.Persona')),
                 ('legajo', models.IntegerField(null=True, blank=True)),
-                ('ficha_medica', models.FileField(blank=True, upload_to=b'fichas_medicas/', validators=[usuarios.validators.valid_extension])),
+                ('ficha_medica', models.FileField(blank=True, upload_to=b'usuarios/fichas_medicas/', validators=[usuarios.validators.valid_extension])),
                 ('carrera', models.IntegerField(default=1, choices=[(1, b'ISI'), (2, b'IQ'), (3, b'IEM'), (4, b'LAR'), (5, b'TSP')])),
             ],
             options={
@@ -89,7 +89,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('persona_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='usuarios.Persona')),
                 ('institucion', models.CharField(max_length=100)),
-                ('ficha_medica', models.FileField(upload_to=b'fichas_medicas/', blank=True)),
+                ('ficha_medica', models.FileField(upload_to=b'usuarios/fichas_medicas/', blank=True)),
                 ('contactos_de_urgencia', models.ManyToManyField(to='usuarios.ContactoDeUrgencia', null=True, verbose_name=b'Contacto de Urgencia', blank=True)),
             ],
             options={
