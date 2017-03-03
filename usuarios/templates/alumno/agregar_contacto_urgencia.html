@@ -3,30 +3,24 @@
 	<div class="well ">
 		<div class="panel-heading panel-primary">
 			<h2><i>Nuevo contactos de Urgencia</b> </h2>
-			<form role="form" method="POST" accept-charset="utf-8">
-
-			{% for field in form_principal %}
-			 	<div >    		
-				{% csrf_token %}
-				{% if field.label = 'Direccion' %}
-					Direccion:
-					{% for field2 in form_direccion %}
-						<p>{{field2.label}}</p>
-						<p>{{field2}} </p>
-					{% endfor %}
-					{% else %}
-						<p>{{field.label}}</p>
-						<p>{{field}} </p>
-				{% endif %}	
-
-				</div>
-			{% endfor %}
-							
+			<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+				{% for field in form_principal %}
+				 	<div >    		
+						{% if field.label = 'Direccion' %}
+							Direccion:
+							{% for field2 in form_direccion %}
+								<p>{{field2.label}}</p>
+								<p>{{field2}} </p>
+							{% endfor %}
+							{% else %}
+								<p>{{field.label}}</p>
+								<p>{{field}} </p>
+						{% endif %}	
+					</div>
+				{% endfor %}			
 				<input type='submit' value='Agregar'>
 			</form>
-
 			<input type="button" value="Cancelar" onclick="history.back(-1)" />
-			
 		</div>
 	</div>	
 {% endblock %}

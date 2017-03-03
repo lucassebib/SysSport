@@ -1,6 +1,7 @@
 
 {% extends "baseAlumno.html" %}
 {% block contenido %}
+<<<<<<< HEAD
 		<div class="page-header">
 			<h1><i>Novedades</i></h1>
 
@@ -18,7 +19,7 @@
 					<div class="titular-comentario contenido-comentario esquinas">
 						<table class="tabla_comentario">
 							<tr>
-								<td class="td_perfil"><img src="../media/img/perfil.jpg" width="40px" height="50px" border="0">
+								<td class="td_perfil"><a href="{% url 'ver_informacion_perfil_persona' post.obtener_idAutor %}"><img src="{{post.obtener_url_imagen}}" width="40px" height="50px" border="0"></a>
 								</td>
 								<td class="td_titulo"><a class="nav-link" href="{% url 'ver_novedades' post.id %}"><b><h2 class="titulo_novedad">{{post.titulo}}</h2></b></a>
 								<p>{{post.fecha_publicacion}}</p>
@@ -36,9 +37,20 @@
 					    <p3>{{post.texto|safe}}</p3>
 					</div>
 					
-
 				</div>
-			{% endfor %}
-		</div>
+		{% endfor %}
+	</div>
+
+	<div class="">
+    	{% if paginator.has_prev %}
+			<a href="?page={{ paginator.prev_page }}"><</a>
+			{% else %}
+		{% endif %}
+		Página {{paginator.page}} de {{paginator.pages}}
+		{% if paginator.has_next %}
+			<a href="?page={{ paginator.next_page }}">></a>
+		{% else %}
+		{% endif %}
+	</div>
 
 {% endblock %}

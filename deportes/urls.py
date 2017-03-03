@@ -20,3 +20,9 @@ urlpatterns = patterns('',
     url(r'^deportes/detalle/(?P<pk>[0-9]+)$',deporte_detalle, name='deporte_detalle'),
 
 )
+
+#URLs PROFESOR
+urlpatterns += patterns('',
+    url(r'^ficha_medica/deportes$', listar_parafichaMedica, name='listar_parafichaMedica'),
+    url(r'^ficha_medica/editar_ficha/(?P<pk>[0-9]+)$', subir_fichaMedicaStandar, name='subir_ficha'),
+)

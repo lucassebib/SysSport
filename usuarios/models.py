@@ -25,6 +25,9 @@ class ContactoDeUrgencia(models.Model):
 	direccion = models.ForeignKey(Direccion, blank=True, null=True)
 	telefono = models.IntegerField(blank=True, null=True)
 
+	def obtenerNombreCompleto(self):
+		return '%s %s' % (self.nombre, self.apellido)
+
 class Persona(Usuario):
 	lista_sexos = ((1,"Masculino"),(2,"Femenino"))
 
@@ -47,14 +50,14 @@ class Persona(Usuario):
 	def obtener_deportes(self):
 		return self.lista_deporte.all()
 
+	def ver_lista_deporte(self):
+		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
+
 class Profesor(Persona):
 	legajo =  models.IntegerField(blank=True, null=True)
 
 	class Meta:
 		verbose_name_plural = "Profesores"
-
-	#def __unicode__(self):
-	#	return '%s %s' % (self.nombre, self.apellido)
 
 	def tipo_usuario(self, cadena):
 		return cadena == 'profesor'
@@ -125,7 +128,7 @@ admin.site.register(Alumno,AlumnoAdmin)
 
 class UsuarioInvitadoAdmin(admin.ModelAdmin):
 	list_display = ('institucion', 'deportes_inscripto')
-	fields = ('username', 'password', 'first_name', 'last_name', 'dni', 'sexo','institucion' , 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
+	fields = ('username', 'password', 'first_name', 'last_name', 'dni', 'email', 'sexo','institucion' , 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
 
 admin.site.register(UsuarioInvitado,UsuarioInvitadoAdmin)
 

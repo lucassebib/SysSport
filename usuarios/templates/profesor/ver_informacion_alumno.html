@@ -1,8 +1,7 @@
 {% extends "baseProfesor.html" %}
 
 {% block contenido %}
-<div class="panel-info">
-	
+<div class="panel-info">	
 	<div class="page-header">
 		<h1><i>{{alumno.get_full_name}} </i></h1>
 	</div>
@@ -12,50 +11,64 @@
 
 			<li><a class="active" href="#datos_personales" data-toggle="tab" >Datos Personales</a></li>
 			<li><a href="#contactos_urgencia" data-toggle="tab" >Contactos de Urgencia</a></li>
-			<li><a href="#info_academica" data-toggle="tab" >Informacion Academica</a></li>
+			{% if alumnoUTN %}
+				<li><a href="#info_academica" data-toggle="tab" >Informacion Academica</a></li>
+			{% endif %}	
 			<li><a href="#info_medica" data-toggle="tab">Informacion Medica</a></li>
 		</ul>
 		<div class="tab-content">
-			{% if alumnoUTN %}
 				
 				<div role="tabpanel" class="tab-pane fade in active" id="datos_personales">
 					<div class="col-md-3">
 						<img src="{{ alumno.foto_perfil.url }}" class="img-responsive img-circle" >
 					</div>
-					<div class="form-group col-md-9">
-					
+					<div class="form-group col-md-9">					
 						Nombre: {{alumno.first_name}} </br>
 						Apellido: {{alumno.last_name}} </br>
 						DNI: {{alumno.dni}} </br>
 						Fecha de Nacimiento: {{alumno.fecha_nacimiento}} </br>
 						Telefono: {{alumno.telefono}} </br>
-						Direccion: {{alumno.direccion}} </br>{{ alumno.foto_perfil.url }}
+						{% if alumno.direccion %}
+							Direccion: {{alumno.direccion}} </br>
+						{% else %}
+							Direccion: -</br>
+						{% endif %}
+
+						{% if alumnoInvitado %}
+							Institucion: {{alumno.institucion}}
+						{% endif %}
 					</div>
 				</div>
 				<div role="tabpanel" class="tab-pane fade" id="contactos_urgencia">
 					<div class="form-group">
-					{% for c in contactos %}
-						Nombre: {{c.nombre}}</br>
-						Apellido: {{c.apellido}}</br>
-						Parentezco: {{c.parentezco}}</br>
-						Direccion: {{c.direccion}}</br>
-						Telefono: {{c.telefono}}</br>
+					{% if contactos %}
+						{% for c in contactos %}
+							Nombre: {{c.nombre}}</br>
+							Apellido: {{c.apellido}}</br>
+							Parentezco: {{c.parentezco}}</br>
+							Direccion: {{c.direccion}}</br>
+							Telefono: {{c.telefono}}</br>
 
-					{% endfor %}
+						{% endfor %}
+					{% else %}
+						Sin contactos de urgencia
+					{% endif %}
 					</div>
 				</div>
 				
-				<div role="tabpanel" class="tab-pane fade" id="info_academica">
-					<div class="form-group">
-						Legajo: {{alumno.legajo}}</br>
-						Carrera: {{alumno.carrera}}</br>
-						Condicion:</br>
-						Periodo Inicial <input type="date" name="fecha">
-						Periodo Final <input type="date" name="fecha">
-						Cantidad de Materias: <input type="Text">
-						<input type="submit">
+				{% if alumnoUTN %}
+					<div role="tabpanel" class="tab-pane fade" id="info_academica">
+						<div class="form-group">
+							Legajo: {{alumno.legajo}}</br>
+							Carrera: {{alumno.ver_nombre_carrera}}</br>
+							Condicion:</br>
+							Periodo Inicial <input type="date" name="fecha">
+							Periodo Final <input type="date" name="fecha">
+							Cantidad de Materias: <input type="Text">
+							<input type="submit">
+						</div>
 					</div>
-				</div>
+				{% endif %}	
 				
 				<div role="tabpanel" class="tab-pane fade" id="info_medica">
 					<div class="form-group">
@@ -63,14 +76,11 @@
 						Ficha Medica: <a href="{{ alumno.ficha_medica.url }}">Descargar</a>
 					{% endif %}
 					</div>
-				</div>
-					
-				
-			{% endif %}	
+				</div>				
 		</div>
 		
 	</div>
-	<input type="button" value="Volver" onclick="history.back(-1)" />
+<input type="button" value="Volver" onclick="history.back(-1)" />
 </div>
 {% endblock %}
 

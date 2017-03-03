@@ -4,22 +4,61 @@
 		<div class="page-header">
 			<h1><i>Datos médicos de </i><b>{{request.user}}</b> </h1>
 		</div>
+
 		<div class="page-content col-12 col-sm-12 col-lg-12">
 			<ul class="nav nav-tabs" role="tablist">
 				<li class="nav-item"><a class="nav-link active" href="#ficha_medica" data-toggle="tab" >Ficha Médica</a></li>
 				<li class="nav-item"><a class="nav-link" href="#informacion_medica" data-toggle="tab" >Información Médica</a></li>
 			</ul>
 		<div class="tab-content">
+
+	<!-- ################ PANEL FICHA MEDICA ####################################-->
 		<div role="tabpanel" class="tab-pane fade in active" id="ficha_medica">
 			<p>A continuacion tiene un espacio para subir su ficha medica.</p>
-			<p>
-				Por favor descarguen la siguiente ficha medica y completenla junto a a su medico de confianza:
-				<u><a href="">download</a></u>
-			</p>
-			<form method="POST" enctype="multipart/form-data">
-				<p>Suba aqui su ficha medica</p><input name="" type="file" />
-			</form>
+			<p>Usted esta inscripto en los siguientes deportes:</p>
+			
+
+			<table class="table table-hover table-striped">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Nota Profesor</th>
+						<th>Archivo</th>
+					</tr>
+				</thead>
+			
+				{% if deportes %}
+					{% for d in deportes %}
+						<tbody>
+							<tr>
+								<td>{{d.nombre}} </td>
+								<td>{{d.ficha_medica.descripcion}}</td>
+								<td><a href="{{d.ficha_medica.ficha_medica.url}}">link</a></td>
+							</tr>
+						</tbody>
+					{% endfor %}	
+				{% endif %} 				
+			</table>
+
+			{% if deportes %}
+
+				<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+					<h1>Actualmente:</h1>
+						{% if alumno.ficha_medica %}
+							<a href="{{alumno.ficha_medica.url}}">descargar</a>
+						{% else %}
+							<h3>No ha subido todavia su ficha medica</h3>
+						{% endif %} 
+
+					<p>Suba o modifique aqui su ficha medica</p>
+					{{form.as_p}}
+					<input type='submit' value='Guardar'>{{mensaje}}
+				</form>
+			{% endif %} 
 		</div>
+
+	<!-- ################ PANEL INFORMACION MEDICA ####################################-->
+
 		<div role="tabpanel" class="tab-pane fade" id="informacion_medica" >	
 			<form action="" method="get" accept-charset="utf-8">
 				<div class="form-group">
@@ -31,13 +70,11 @@
 		   		       <option value="">No tengo sangre</option>
 		   			</select>
 				</div>
-				
-
+					
 	   			<div class="form-group">
 	   				Alergias:
 	   				<textarea></textarea>
 	   			</div>
-	   			
 
 	   			<div class="form-group">
 					Toma medicamentos: 

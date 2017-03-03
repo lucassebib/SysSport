@@ -6,11 +6,17 @@
 		<h1><i>Mi Perfil</i></h1>
 	</div>
 	<div class="page-content">
-		<form class="form-horizontal" method='POST'>
 		{% csrf_token %}
 			<div class="col-md-3">
 				<img src="{{profesor.foto_perfil.url}}" class="img-responsive img-circle" >
+				<form enctype="multipart/form-data" action="" method="POST">{% csrf_token %}
+        			{{ form.as_p }}
+        			<input type="submit" value="Cambiar" />{{mensaje}}
+    			</form>
 			</div>
+
+			<a href="{% url 'editar_error' %}">Editar Informacion de Perfil</a>
+			
 			<div class="col-md-9">
 				<div class="form-group">
 					<label class=" control-label">Nombre:  </label>
@@ -45,7 +51,6 @@
 					<label class=" control-label">{{direccion}}</label>
 				</div>
 			</div>
-		</form>
 	</div>
 </div>
 	

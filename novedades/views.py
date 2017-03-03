@@ -12,6 +12,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from forms import FormularioComentario, FormularioNovedades
+from paginacion import Paginate
 
 @login_required	
 def vista_index_alumnos(request):
@@ -23,7 +24,62 @@ def vista_index_profesores(request):
 	template = "inicial_profesores.html"	
 	return render_to_response(template, context_instance=RequestContext(request))
 
-################################## NOVEDADES PARA TODOS ########################################	
+##################################CRUD NOVEDADES########################################	
+
+class ListarNovedades(ListView):
+    model = Novedades
+    context_object_name = 'novedades'
+
+    def get_queryset(self):
+        queryset = super(ListarNovedades, self).get_queryset()
+        return queryset.filter(autor=self.request.user.id).order_by('-fecha_publicacion')
+
+class DetallesNovedades(DetailView):
+    model = Novedades
+    
+class CrearNovedades(CreateView):	 
+	template_name = 'novedades/novedades_form.html'
+	context_object_name = 'novedades'  	
+	form_class = FormularioNovedades
+
+	def get_form_kwargs(self):
+	        kwargs = super(CrearNovedades, self ).get_form_kwargs()
+	        kwargs['user'] = self.request.user
+	        return kwargs
+
+	def form_valid(self, form):
+		a = form.save(commit = False)
+		a.autor = Profesor.objects.get(id = self.request.user.id)
+		return super(CrearNovedades, self).form_valid(form)
+
+class ActualizarNovedades(UpdateView):
+    model = Novedades
+    fields = ['titulo', 'contenido', 'imagen','visibilidad', 'categoria']
+
+    #def get_form(self, *args, **kwargs):
+    #	return FormularioNovedades()
+    
+class EliminarNovedades(DeleteView):
+    model = Novedades
+    context_object_name = 'novedades'
+    success_url = reverse_lazy('listar-novedades')
+
+########################################################################################################
+
+################################## NOVEDADES PARA ADMINISTRADOR ########################################
+def ver_novedades_admin(request):
+	template = "admin/ver_novedades_admin.html"
+
+	ctx = {
+		'novedades': Novedades.objects.all()
+	}
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+
+########################################################################################################
+
+###################################### NOVEDADES PARA TODOS ############################################	
 	
 def ver_novedades_visibilidadTodos(request):
 	template = "novedades_visibilidad_todos.html"
@@ -56,6 +112,10 @@ def ver_novedades(request, pk):
 	template = "ver_novedad.html"
 	form = FormularioComentario()
 	id_usuario = request.user.id
+	novedad = Novedades.objects.get(id=pk)
+	#edicion = False
+	puede_editar_comentarios = False
+	mensaje = ''
 	try:
 		g = Alumno.objects.get(id=id_usuario)
 		extiende = 'baseAlumno.html'
@@ -63,6 +123,8 @@ def ver_novedades(request, pk):
 		try:
 			g = Profesor.objects.get(id=id_usuario)
 			extiende = 'baseProfesor.html'
+			if novedad.autor.id == id_usuario:
+				puede_editar_comentarios = True
 		except Exception as e:
 			try:
 				g = UsuarioInvitado.objects.get(id=id_usuario)
@@ -74,38 +136,47 @@ def ver_novedades(request, pk):
 					if request.user.is_staff:
 						extiende = 'baseAdmin.html'
 
-	if request.method == "POST":
+	if request.method == "POST" and 'boton_agregar' in request.POST:
 		form = FormularioComentario(request.POST)
 		if form.is_valid():
 			texto = form.cleaned_data['texto']
 			autor = Persona.objects.get(id=request.user.id)
 			comentario = Comentario(texto=texto, autor=autor)
 			comentario.save()
-			novedad = Novedades.objects.get(id=pk)
 			novedad.lista_comentarios.add(comentario)
 			novedad.save()
 			form = FormularioComentario()
 			return HttpResponseRedirect('')
+
+	if request.method == "POST" and 'boton_eliminar' in request.POST:
+		novedad.lista_comentarios.remove(request.POST.get('boton_eliminar'))
+
+	#mensaje = ''
+	#if request.method == "POST" and 'boton_editar' in request.POST:
+		#mensaje='apretaste boton editar'
+		#edicion = True
 	 
 	ctx = {
-		'novedad': Novedades.objects.get(id=pk),
+		'novedad': novedad,
 		'formulario':form,
-		'comentarios':Novedades.objects.get(id=pk).lista_comentarios.all(),
+		'comentarios':novedad.lista_comentarios.all().order_by('-id'),
 		'extiende': extiende,
+		'puede_editar_comentarios': puede_editar_comentarios,
+		#'mensaje': mensaje
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
 ################################## NOVEDADES DE PROFESORES #############################################
 def novedades_profesores(request):
 	template = "novedades_profesores.html"
-
+	posts = Novedades.objects.filter(autor=request.user.id) | Novedades.objects.filter(visibilidad__in=[1,2])
+	posts.order_by('fecha_publicacion')
+	pag = Paginate(request, posts, 4)
 	ctx = {
-		'posts': Novedades.objects.filter(autor=request.user.id),
-
+		'posts': pag['queryset'],
+     	'paginator': pag,
 	}
-
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
-
-
 
 ################################## NOVEDADES DE ALUMNOS #############################################
 @login_required	
@@ -113,10 +184,15 @@ def novedades_alumnos(request):
 	template = "novedades_alumnos.html"	
 	alumno = Persona.objects.get(id=request.user.id)
 	deportes = alumno.obtener_deportes()	
+	
 	posts = Novedades.objects.filter(visibilidad__in=[1,2]) | Novedades.objects.filter(visibilidad__in=[3], categoria__in=alumno.obtener_deportes())
+	posts.order_by('-fecha_publicacion')
+	pag = Paginate(request, posts, 4)
 	ctx = {
-		"posts": posts.order_by('-fecha_publicacion'),
+		"posts": pag['queryset'],
 		"deportes": deportes,
+		#'totPost': init_posts,
+     	'paginator': pag,
 	}
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
 
@@ -134,43 +210,6 @@ def ver_novedad_filtrado(request, pk):
 
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
 
-##################################CRUD NOVEDADES########################################	
-
-class ListarNovedades(ListView):
-    model = Novedades
-    context_object_name = 'novedades'
-
-    def get_queryset(self):
-        queryset = super(ListarNovedades, self).get_queryset()
-        return queryset.filter(autor=self.request.user.id)
-
-class DetallesNovedades(DetailView):
-    model = Novedades
-    
-class CrearNovedades(CreateView):	 
-	template_name = 'novedades/novedades_form.html'
-	context_object_name = 'novedades'  	
-	form_class = FormularioNovedades
-
-	def get_form_kwargs(self):
-	        kwargs = super(CrearNovedades, self ).get_form_kwargs()
-	        kwargs['user'] = self.request.user
-	        return kwargs
-
-	def form_valid(self, form):
-		a = form.save(commit = False)
-		a.autor = Profesor.objects.get(id = self.request.user.id)
-		return super(CrearNovedades, self).form_valid(form)
-
-class ActualizarNovedades(UpdateView):
-    model = Novedades
-    fields = ['titulo', 'contenido', 'imagen','visibilidad', 'categoria']
-    
-class EliminarNovedades(DeleteView):
-    model = Novedades
-    context_object_name = 'novedades'
-    success_url = reverse_lazy('listar-novedades')
-###############################################################################################
 
 
 

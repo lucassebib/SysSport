@@ -10,10 +10,16 @@ urlpatterns = patterns('',
 
 	url(r'^registrarse$', vista_registrarse),
 	url(r'^inicial-admin$', vista_inicial_admin, name= 'inicial_admin'),
-	
-	url(r'^cambiar-pass$', cambiar_contrasenia),
+	url(r'^perfil/user/(?P<pk>[0-9]+)$',ver_informacion_perfil_persona, name='ver_informacion_perfil_persona'),
+	url(r'^editar_perfil$', editar_error, name= 'editar_error'),
+
 #	url(r'^cambiar-telefono$', cambiar_telefono),
 #	url(r'^cambiar-direccion$', cambiar_direccion),
+)
+
+#URLs RESET PASSWORD
+urlpatterns += patterns('',
+	url(r'^cambiar-pass$', cambiar_contrasenia),
 	url(r'^password_reset$', password_reset, 
 		{ 'template_name' : 'registracion/password_reset_form.html' , 
 		'email_template_name' : 'registracion/password_reset_email.html'},
@@ -41,14 +47,19 @@ urlpatterns += patterns('',
 	url(r'^ver-alumnos/deporte/(?P<pk>[0-9]+)$', listar_alumnos_deporte, name='ver-alumnos'),
 	url(r'^ver-alumnos/deporte/alumno/(?P<pk>[0-9]+)$', ver_informacion_alumno, name='info-alumno'),
 	url(r'^modificar_perfil_profesor$', modificarPerfilProfesor, name='modificar_perfil_profesor'),
-
+	url(r'^modificar_perfil_profesor$', modificarPerfilProfesor, name='modificar_perfil_profesor'),
 )
 
 #URLs ALUMNOS
 urlpatterns += patterns('',
-	url(r'^modificar_perfil_alumno$', modificarPerfilAlumno, name='modificar_perfil_alumno'),
-	url(r'^contacto_urgencia$', ver_contacto_urgencia, name='ver_contacto_urgencia'),
-	url(r'^datos_medicos$', ver_datos_medicos, name='ver_datos_medicos'),
-	url(r'^nuevo_contacto$', agregar_contactoUrgencia, name='agregar_contactoUrgencia'),
+	url(r'^alumno/modificar_perfil_alumno$', modificarPerfilAlumno, name='modificar_perfil_alumno'),
+	url(r'^alumno/contacto_urgencia$', ver_contacto_urgencia, name='ver_contacto_urgencia'),
+	url(r'^alumno/datos_medicos$', ver_datos_medicos, name='ver_datos_medicos'),
+	url(r'^alumno/nuevo_contacto$', agregar_contactoUrgencia, name='agregar_contactoUrgencia'),
+	url(r'^alumno/eliminar_contacto/(?P<pk>[0-9]+)$', eliminar_contactoUrgencia, name='eliminar_contactoUrgencia'),
+	url(r'^alumno/editar_contacto/(?P<pk>[0-9]+)$', editar_contactoUrgencia, name='editar_contactoUrgencia'),
+
+	#SOLO PARA INVITADO
+	url(r'^alumno/editar_perfil/$', editar_perfil_alumno, name='editar_perfil_alumno'),
 
 )

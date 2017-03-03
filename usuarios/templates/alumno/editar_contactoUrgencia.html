@@ -1,0 +1,31 @@
+{% extends "baseAlumno.html" %}
+{% block contenido %}
+	<div class="panel-info">
+		<div class="page-header">
+			<h1><i>Editar </i><b>{{nombre_contacto}}</b> </h1>
+		</div>
+
+		<div class="page-content">
+			<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+				{% for field in form_contacto %}
+				 	<div >    		
+						{% if field.label = 'Direccion' %}
+							Direccion:
+							{% for field2 in form_direccion %}
+								<p>{{field2.label}}</p>
+								<p>{{field2}} </p>
+							{% endfor %}
+							{% else %}
+								<p>{{field.label}}</p>
+								<p>{{field}} </p>
+						{% endif %}	
+					</div>
+				{% endfor %}
+				<input type='submit' value='Guardar'>
+			</form>
+			<input type="button" value="Cancelar" onclick="history.back(-1)" />
+		</div>
+
+	</div>	
+
+{% endblock %}

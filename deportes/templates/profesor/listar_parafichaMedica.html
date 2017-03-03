@@ -1,0 +1,29 @@
+{% extends "baseProfesor.html" %}
+
+{% block contenido %}
+	<div class="page-header">
+		<h1><i>Mis Deportes</i></h1>
+	</div>
+
+	<div class="page-content">
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Genero</th>
+				</tr>
+			</thead>
+		<p>Seleccione el deporte para visualizar panel de edicion para Ficha Medica:</p>
+		{% for d in deportes %}
+			<tbody>
+				<tr>
+					<td><a href="{% url 'subir_ficha' d.id %}">{{d.nombre}}</a></td>
+					<td>{{d.ver_aptopara}}</td>
+				</tr>
+			</tbody>
+		{% endfor %}
+
+		</table>
+	</div>
+
+{% endblock %}
