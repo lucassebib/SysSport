@@ -156,7 +156,7 @@ def ver_novedades(request, pk):
 			novedad.save()
 			form = FormularioComentario()
 
-			if not autor.id == novedad.autor:
+			if not autor.id == novedad.autor.id:
 				n = Notificacion()
 				n.id_autor_comentario = autor.id
 				n.autor_comentario = autor.obtenerNombreCompleto()
@@ -165,8 +165,10 @@ def ver_novedades(request, pk):
 				n.save()
 			return HttpResponseRedirect('')
 
-	if request.method == "POST" and 'boton_eliminar' in request.POST:
-		novedad.lista_comentarios.remove(request.POST.get('boton_eliminar'))
+	if request.method == "POST" and 'boton_eliminarNotificacion' in request.POST:
+		notificacion = Notificacion.objects.get(id='boton_eliminarNotificacion')
+		notificacion.delete()
+	
 
 	#mensaje = ''
 	#if request.method == "POST" and 'boton_editar' in request.POST:

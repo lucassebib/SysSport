@@ -585,6 +585,12 @@ def ver_notificaciones_profesor(request):
 	template = "profesor/ver_notificaciones_profesor.html"
 	id_profesor = request.user.id
 	l_notificaciones = Notificacion.objects.filter(notificar_a = id_profesor)
+
+	if request.method == "POST" and 'boton_eliminarNotificacion' in request.POST:
+		id_notificacion = request.POST.get('boton_eliminarNotificacion')
+		notificacion = Notificacion.objects.get(id=id_notificacion)
+		notificacion.delete()
+
 	ctx = {
 		'lista_notificaciones': l_notificaciones, 
 	}
@@ -596,6 +602,7 @@ def ver_notificaciones_profesor(request):
 def ver_deportes_profesor(request):
 	profesor = Profesor.objects.get(id=request.user.id)	 
 	template = "profesor/ver_deportes.html"
+
 	ctx = {
 		'deportes': profesor.lista_deporte.all(),
 		'otrosDeportes': Deporte.objects.filter(~Q(id__in=profesor.lista_deporte.all())) 
