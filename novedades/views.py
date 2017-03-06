@@ -165,12 +165,12 @@ def ver_novedades(request, pk):
 				n.save()
 			return HttpResponseRedirect('')
 
-	if request.method == "POST" and 'boton_eliminarNotificacion' in request.POST:
-		notificacion = Notificacion.objects.get(id='boton_eliminarNotificacion')
-		notificacion.delete()
-	
+	if request.method == "POST" and 'boton_eliminar' in request.POST:
+		mensaje = 'tendria que eliminar'
+		novedad.lista_comentarios.remove(request.POST.get('boton_eliminar'))
+		novedad.save()
 
-	#mensaje = ''
+	mensaje = 'todavia naranja'
 	#if request.method == "POST" and 'boton_editar' in request.POST:
 		#mensaje='apretaste boton editar'
 		#edicion = True
@@ -181,7 +181,7 @@ def ver_novedades(request, pk):
 		'comentarios':novedad.lista_comentarios.all().order_by('-id'),
 		'extiende': extiende,
 		'puede_editar_comentarios': puede_editar_comentarios,
-		#'mensaje': mensaje
+		'mensaje': mensaje
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
