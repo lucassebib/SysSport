@@ -28,6 +28,11 @@ class FormularioNovedades(forms.ModelForm):
         	self.fields["categoria"].queryset = Deporte.objects.filter(id__in=deportes)
 
 
+class FormularioNovedadesAdmin(forms.ModelForm):
+	class Meta:
+		model = Novedades
+
+
 
  
 

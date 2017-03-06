@@ -8,7 +8,7 @@
 	<div class="page-content">
 		<form class="form-horizontal" method='POST'>{% csrf_token %}
 			<ul class="nav navbar-right">
-			 	<span class="glyphicon glyphicon-plus"></span> </span><a href="">Nueva Novedad</a>
+			 	<span class="glyphicon glyphicon-plus"></span> </span><a href="{% url 'crear_novedad_admin' %}">Nueva Novedad</a>
 			 </ul>
 		 </form>
 

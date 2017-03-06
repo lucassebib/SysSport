@@ -11,7 +11,7 @@ from django.template import Context
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-from forms import FormularioComentario, FormularioNovedades
+from forms import FormularioComentario, FormularioNovedades, FormularioNovedadesAdmin
 from paginacion import Paginate
 
 @login_required	
@@ -55,10 +55,7 @@ class CrearNovedades(CreateView):
 class ActualizarNovedades(UpdateView):
     model = Novedades
     fields = ['titulo', 'contenido', 'imagen','visibilidad', 'categoria']
-
-    #def get_form(self, *args, **kwargs):
-    #	return FormularioNovedades()
-    
+  
 class EliminarNovedades(DeleteView):
     model = Novedades
     context_object_name = 'novedades'
@@ -72,6 +69,18 @@ def ver_novedades_admin(request):
 
 	ctx = {
 		'novedades': Novedades.objects.all()
+	}
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def crear_novedad_admin(request):
+	template = "admin/crear_novedad_admin.html"
+	form = FormularioNovedadesAdmin()
+	mensaje = request.user
+
+	ctx = {
+		'form': form,
+		'mensaje': mensaje,
 	}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))

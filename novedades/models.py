@@ -5,6 +5,7 @@ from usuarios.models import Profesor
 from deportes.models import Deporte
 from usuarios.models import Persona
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 
 class Comentario(models.Model):
 	texto = models.TextField( verbose_name ='comentario')
@@ -24,7 +25,7 @@ class Novedades(models.Model):
 	titulo = models.CharField(max_length=100)
 	contenido = tinymce_models.HTMLField()
 	fecha_publicacion = models.DateTimeField(auto_now_add=True)
-	autor = models.ForeignKey(Profesor)   
+	autor = models.ForeignKey(Profesor, blank=True, null=True)   
 	imagen = models.ImageField(upload_to='fotos_posts', blank=True, null=True)
 	visibilidad = models.IntegerField(choices=pueden_ver, default=2)
 	categoria = models.ManyToManyField(Deporte)
