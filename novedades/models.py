@@ -54,6 +54,13 @@ class Novedades(models.Model):
 	def obtener_idAutor(self):
 		return self.autor.id
 
+class Notificacion(models.Model):
+	id_autor_comentario = models.IntegerField()
+	autor_comentario = models.CharField(max_length=50)
+	notificar_a = models.ForeignKey(Profesor)
+	novedad = models.ForeignKey(Novedades)
+
+
 ##################AGREGAMOS CLASES AL PANEL DE ADMINISTRACION##################################
 
 class NovedadesAdmin(admin.ModelAdmin):

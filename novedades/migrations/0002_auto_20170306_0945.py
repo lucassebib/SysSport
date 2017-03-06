@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='novedades',
             name='autor',
-            field=models.ForeignKey(to='usuarios.Profesor'),
+            field=models.ForeignKey(blank=True, to='usuarios.Profesor', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -29,6 +29,18 @@ class Migration(migrations.Migration):
             model_name='novedades',
             name='lista_comentarios',
             field=models.ManyToManyField(to='novedades.Comentario', null=True, blank=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='notificacion',
+            name='notificar_a',
+            field=models.ForeignKey(to='usuarios.Profesor'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='notificacion',
+            name='novedad',
+            field=models.ForeignKey(to='novedades.Novedades'),
             preserve_default=True,
         ),
         migrations.AddField(

@@ -28,6 +28,23 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
+            name='DatosMedicos',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('grupo_sanguineo', models.IntegerField(default=3, choices=[(1, b'0-'), (2, b'0+'), (3, b'A-'), (4, b'A+'), (5, b'B-'), (6, b'B+'), (7, b'AB-'), (8, b'AB+')])),
+                ('alergias', models.TextField(default=b'sin alergias')),
+                ('toma_medicamentos', models.IntegerField(default=3, choices=[(1, b'NO'), (2, b'SI'), (3, b'NS/NC')])),
+                ('medicamentos_cuales', models.TextField(default=b'sin medicacion')),
+                ('tuvo_operaciones', models.IntegerField(default=3, choices=[(1, b'NO'), (2, b'SI'), (3, b'NS/NC')])),
+                ('operaciones_cuales', models.TextField(default=b'sin operaciones')),
+                ('tiene_osocial', models.IntegerField(default=3, choices=[(1, b'NO'), (2, b'SI'), (3, b'NS/NC')])),
+                ('osocial_cual', models.TextField(default=b'sin obra social')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Direccion',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -47,7 +64,7 @@ class Migration(migrations.Migration):
             name='Persona',
             fields=[
                 ('user_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
-                ('dni', models.IntegerField(null=True, blank=True)),
+                ('dni', models.BigIntegerField(null=True, blank=True)),
                 ('fecha_nacimiento', models.DateField(null=True, blank=True)),
                 ('telefono', models.IntegerField(null=True, blank=True)),
                 ('foto_perfil', models.ImageField(default=b'usuarios/fotos_de_perfil/None/default_profile.jpg', upload_to=b'usuarios/fotos_de_perfil/')),
@@ -91,6 +108,7 @@ class Migration(migrations.Migration):
                 ('institucion', models.CharField(max_length=100)),
                 ('ficha_medica', models.FileField(upload_to=b'usuarios/fichas_medicas/', blank=True)),
                 ('contactos_de_urgencia', models.ManyToManyField(to='usuarios.ContactoDeUrgencia', null=True, verbose_name=b'Contacto de Urgencia', blank=True)),
+                ('datos_medicos', models.ForeignKey(blank=True, to='usuarios.DatosMedicos', null=True)),
             ],
             options={
                 'verbose_name_plural': 'Usuarios Invitados',
@@ -119,6 +137,12 @@ class Migration(migrations.Migration):
             model_name='alumno',
             name='contactos_de_urgencia',
             field=models.ManyToManyField(to='usuarios.ContactoDeUrgencia', null=True, verbose_name=b'Contacto de Urgencia', blank=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='alumno',
+            name='datos_medicos',
+            field=models.ForeignKey(blank=True, to='usuarios.DatosMedicos', null=True),
             preserve_default=True,
         ),
     ]

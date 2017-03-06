@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
 from django.template import Context
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from novedades.models import Novedades, Comentario
+from novedades.models import Novedades, Comentario, Notificacion
 from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona
 from deportes.models import Deporte
 from django.db.models import Q
@@ -155,6 +155,14 @@ def ver_novedades(request, pk):
 			novedad.lista_comentarios.add(comentario)
 			novedad.save()
 			form = FormularioComentario()
+
+			if not autor.id == novedad.autor:
+				n = Notificacion()
+				n.id_autor_comentario = autor.id
+				n.autor_comentario = autor.obtenerNombreCompleto()
+				n.notificar_a = novedad.autor
+				n.novedad = novedad
+				n.save()
 			return HttpResponseRedirect('')
 
 	if request.method == "POST" and 'boton_eliminar' in request.POST:

@@ -10,7 +10,7 @@
 				<div class="titular-comentario contenido-comentario esquinas">
 					<table class="tabla_comentario">
 						<tr>
-							<td class="td_perfil"><a href="{% url 'ver_informacion_perfil_persona' post.obtener_idAutor %}"><img src="{{post.obtener_url_imagen}}" width="40px" height="50px" border="0"></a>
+							<td class="td_perfil"><a href="{% url 'ver_informacion_perfil_persona' post.obtener_idAutor %}"><img class="img_perfil" src="{{post.obtener_url_imagen}}" ></a>
 							</td>
 							<td class="td_titulo"><b><h2 class="titulo_novedad">{{post.titulo}}</h2></b>
 							<p>{{post.fecha_publicacion}}</p>
@@ -32,14 +32,17 @@
 	</div>
 
 	<div class="">
-    	{% if paginator.has_prev %}
-			<a href="?page={{ paginator.prev_page }}"><</a>
-			{% else %}
-		{% endif %}
-		Página {{paginator.page}} de {{paginator.pages}}
-		{% if paginator.has_next %}
-			<a href="?page={{ paginator.next_page }}">></a>
-		{% else %}
-		{% endif %}
+    	<ul class="pagination">
+			{% for post in posts %}
+				
+				{% if paginator.has_prev %}
+					<li><a href="?page={{ paginator.prev_page }}">{{paginator.prev_page}}</a></li>
+				{% endif %}
+				<li><a href="">{{paginator.page}}</a></li>	
+				{% if paginator.has_next %}
+					<li><a href="?page={{ paginator.next_page }}">{{paginator.next_page}}</a></li>
+				{% endif %}
+			{% endfor %}
+		</ul>
 	</div>
 {% endblock %}

@@ -1,0 +1,25 @@
+{% extends "baseProfesor.html" %}
+
+{% block contenido %}
+
+<div class="panel-info">
+
+	<div class="page-header">
+
+		<h1><i>Notificaciones</i></h1>
+
+	</div>
+
+	<div class="page-content">
+		{% if lista_notificaciones %}
+			{% for n in lista_notificaciones %}
+				<li><a href="{% url 'ver_informacion_perfil_persona' n.id_autor_comentario%}">{{n.autor_comentario}}</a> ha hecho un comentario sobre su <a href="{% url 'ver_novedades' n.novedad.id %}">publicacion</a>.</li>
+			{% endfor %}
+		{% else %}
+			<h4>Por el momento no existen notificaciones</h4>
+		{% endif %}
+	</div>
+
+</div>
+
+{% endblock %}
