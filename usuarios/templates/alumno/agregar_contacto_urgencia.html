@@ -17,10 +17,12 @@
 								<p>{{field}} </p>
 						{% endif %}	
 					</div>
-				{% endfor %}			
+				{% endfor %}		
+				
 				<input type='submit' value='Agregar'>
+				<input type="button" value="Cancelar" onclick="history.back(-1)" />
 			</form>
-			<input type="button" value="Cancelar" onclick="history.back(-1)" />
+			
 		</div>
 	</div>	
 {% endblock %}

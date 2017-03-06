@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('contenido', tinymce.models.HTMLField()),
                 ('fecha_publicacion', models.DateTimeField(auto_now_add=True)),
                 ('imagen', models.ImageField(null=True, upload_to=b'fotos_posts', blank=True)),
-                ('visibilidad', models.IntegerField(default=3, choices=[(1, b'Todos'), (2, b'Todos los Usuarios Registrados'), (3, b'Solo los Usuarios del Deporte')])),
+                ('visibilidad', models.IntegerField(default=2, choices=[(1, b'Todas las personas'), (2, b'Todos los Usuarios Registrados'), (3, b'Solo los Usuarios del Deporte')])),
             ],
             options={
                 'verbose_name_plural': 'Novedades',

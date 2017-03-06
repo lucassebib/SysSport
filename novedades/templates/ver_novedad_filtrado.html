@@ -3,22 +3,22 @@
 {% block contenido %}
 		<div class="page-header">
 			<h1><i>Novedades</i></h1>
-				<ul class="nav nav-pills">
-					<li><a class="nav-link" href="{% url 'novedades_alumnos' %}">Ver Todos</a></li>
-					{% for d in deportes%}
-
-					<li><a class="nav-link" href="{% url 'ver_novedad_filtrado' d.id %}">Solo {{d.nombre}}</a></li>
-					{% endfor %}
-				</ul>	
+				
 		</div>	
 		<div class="page-content">
-								
+			<ul class="nav nav-tabs">
+					<li class="nav-item "><a class="nav-link" href="{% url 'novedades_alumnos' %}">Ver Todos</a></li>
+					{% for d in deportes%}
+
+					<li class="nav-item active"><a class="nav-link" href="{% url 'ver_novedad_filtrado' d.id %}"> {{d.nombre}}</a></li>
+					{% endfor %}
+			</ul>					
 			{% for post in posts %}
 				<div class="fondo_mensaje esquinas">
 					<div class="titular-comentario contenido-comentario esquinas">
 						<table class="tabla_comentario">
 							<tr>
-								<td class="td_perfil"><img src="{{post.obtener_url_imagen}}" width="40px" height="50px" border="0">
+								<td class="td_perfil"><img class="img_perfil" src="{{post.obtener_url_imagen}}">
 								</td>
 								<td class="td_titulo"><b><h2 class="titulo_novedad">{{post.titulo}}</h2></b>
 								<p>{{post.fecha_publicacion}}</p>

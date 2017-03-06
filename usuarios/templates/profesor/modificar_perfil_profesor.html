@@ -7,17 +7,17 @@
 	</div>
 	<div class="page-content">
 		{% csrf_token %}
-			<div class="col-md-3">
-				<img src="{{profesor.foto_perfil.url}}" class="img-responsive img-circle" >
+			<div class="col-md-4">
+				<img src="{{profesor.foto_perfil.url}}" class="img-circle perfil" >
 				<form enctype="multipart/form-data" action="" method="POST">{% csrf_token %}
         			{{ form.as_p }}
-        			<input type="submit" value="Cambiar" />{{mensaje}}
-    			</form>
+        			<button type="submit">Cambiar</button>
+        			<label>{{mensaje}}</label>
 			</div>
 
-			<a href="{% url 'editar_error' %}">Editar Informacion de Perfil</a>
+			<a href="{% url 'editar_error' %}">Editar Perfil</a>
 			
-			<div class="col-md-9">
+			<div class="col-md-5">
 				<div class="form-group">
 					<label class=" control-label">Nombre:  </label>
 					<label class=" control-label"> {{nombre}} </label>

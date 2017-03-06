@@ -48,7 +48,23 @@ a, li,h1, h2, h3, h4, p {
 	
 	
 }
-
+.img-circle.perfil{
+	width: 260px;
+	height: 260px;
+}
+.nav-tabs>li>a, .pagination>li>a, .pagination>li>a:hover, .nav-tabs>li>a:hover{
+	border-color: #ffffff;
+	background-color: #eeeeee;
+	color: #000000;
+}
+.pagination>li:active>a:hover, .nav-tabs>li:active>a:hover{
+	border-color: #ffffff;
+	background-color: #ffffff;
+	color: #000000;
+}
+.nav-tabs{
+	border-bottom:1px solid #ffffff; 
+}
 
 #logoSAU-Sysport{
 	margin: 0;

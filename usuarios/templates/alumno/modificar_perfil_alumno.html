@@ -10,21 +10,22 @@
 		<form class="form-horizontal" method='POST'>
 		-->
 		{% csrf_token %}
-			<div class="col-md-3">
-				<img src="{{alumno.foto_perfil.url}}" class="img-responsive img-circle" >
+			<div class="col-md-4 ">
+				<img src="{{alumno.foto_perfil.url}}" class=" img-circle perfil" >
 				<form enctype="multipart/form-data" action="" method="POST">{% csrf_token %}
         			{{ form.as_p }}
-        			<input type="submit" value="Cambiar" />{{mensaje}}
+        			<button type="submit">Cambiar</button>
+        			<label>{{mensaje}}</label>
     			</form>
 			</div>
 
 			{% if is_invitado %}
-				<a href="{% url 'editar_perfil_alumno' %}">Editar Informacion de Perfil</a>
+				<a href="{% url 'editar_perfil_alumno' %}">Editar Perfil</a>
 			{% else %}
-				<a href="{% url 'editar_error' %}">Editar Informacion de Perfil</a>
+				<a href="{% url 'editar_error' %}">Editar Perfil</a>
 			{% endif %}
 
-			<div class="col-md-9">
+			<div class="col-md-5">
 				<div class="form-group">
 					<label class=" control-label">Nombre:  </label>
 					<label class=" control-label"> {{nombre}} </label>

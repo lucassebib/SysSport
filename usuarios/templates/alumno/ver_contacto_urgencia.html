@@ -42,16 +42,19 @@
 		</div>
 		
 		<div>
-	    	{% if paginator.has_prev %}
-				<a href="?page={{ paginator.prev_page }}"><</a>
-				{% else %}
-			{% endif %}
-			Página {{paginator.page}} de {{paginator.pages}}
-			{% if paginator.has_next %}
-				<a href="?page={{ paginator.next_page }}">></a>
-			{% else %}
-			{% endif %}
-		</div>	
+		<ul class="pagination">
+			{% for contacto in contactos %}
+				
+				{% if paginator.has_prev %}
+					<li><a href="?page={{ paginator.prev_page }}">{{paginator.prev_page}}</a></li>
+				{% endif %}
+				<li><a href="">{{paginator.page}}</a></li>	
+				{% if paginator.has_next %}
+					<li><a href="?page={{ paginator.next_page }}">{{paginator.next_page}}</a></li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>	
 		
 	</div>	
 {% endblock %}

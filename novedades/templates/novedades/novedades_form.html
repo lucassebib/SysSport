@@ -6,7 +6,7 @@
             <h2><i>Novedad</i> </h2>
         </div>
 		<div class="page-content">
-			<form action='' method='POST')">{% csrf_token %}
+			<form action='' method='POST'>{% csrf_token %}
 				{% for field in form %}
 			 		<p>{{field.label}}</p>
 					{{field}}										
