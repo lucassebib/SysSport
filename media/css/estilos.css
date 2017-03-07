@@ -1,3 +1,9 @@
+#global{
+	width: 100%;
+	margin: 0;
+	padding: 0;
+
+}
 /*HEADER*/
 .navbar{
 	margin-bottom: 0;
@@ -16,21 +22,33 @@
 	margin: 0 ;
 	padding-left: 0;
 }
-.sidebar-nav{
+.sidebar-nav.menu, .region-principal{
 	margin: 10px;
 }
+
 #hola_usuario{
 	margin: 15px;
 }
 /*FIN HEADER*/
 /*BODY*/
-body{
+html, body{
 	font-family: 'Tahoma';
 	background-color: #D8D8D8;
+	margin: 0;
+	padding: 0;
+	
 }
 
 a, li,h1, h2, h3, h4, p {
 	color: #424242;
+}
+.region-izquierda{
+	float: left;
+	min-width: 340px;
+}
+.region-principal{
+	float: left;
+	min-width: 340px;
 }
 
 .navbar-right{
@@ -41,12 +59,11 @@ a, li,h1, h2, h3, h4, p {
 .jumbotron{
 	background-image: url("../img/banner_deportes.png");
 	background-repeat:no-repeat;
-	background-size: contain;
-    color: #fff;
-	padding-top: 0px;
-	height: 170px;
-	
-	
+	background-size: 100% 100%;
+	color: #fff;
+	padding: 0px;
+	height: 100px;
+	min-width: 290px;
 }
 .img-circle.perfil{
 	width: 260px;
@@ -90,11 +107,11 @@ a, li,h1, h2, h3, h4, p {
 	text-align: left;
 }
 
-.visible-lg.panel-heading{
-	background-color: #585858;
+.panel-heading{
+	background-color: #484848;
 }
 .panel-body{
-	background-color: #909090;
+	background-color: #000000;
 	border: 1px solid transparent;
 }
 .panel-body.login{
@@ -365,29 +382,109 @@ a, li,h1, h2, h3, h4, p {
 }
 /*FIN FOOTER*/
 
-@media screen and (min-width: 769px) {
+/*Para 960*/
+@media only screen and (min-width: 821px) {
     .jumbotron { 
         background-image: url('../img/banner_deportes.png'); 
         background-repeat:no-repeat;
         background-size: 100% 100%;
-        padding-top: 0px;
-        height: 266px;
+        padding: 0px;
+        height: 250px;
 
     }
-    .sidebar-nav{
-    	width: 290px;
+    .region-principal{
+    	width: 700px;
+    	
     }
-}
-
-@media screen and (min-device-width: 481px) and (max-device-width: 768px) { 
-    .header { width:333px; }
-	.main { width: 433px; }
-	.footer { width:333px; }
-	.region-izquierda{
+    .sidebar-nav.menu{
 		width: 290px;
+
 	}
+	
+   
+}
+/*Para 800*/
+@media only screen and (max-width: 820px) and (min-width: 621px){ 
+	
+	.jumbotron{
+		background-image: url("../img/banner_deportes.png");
+		background-repeat:no-repeat;
+		background-size: 100% 100%;
+		color: #fff;
+		padding: 0px;
+		height: 170px;
+		
+	}
+	 .region-principal{
+    	width: 600px;
+    	
+    }
+	.navbar-header.menu, .navbar-default.menu{
+    	width: 290px;
+    	background-color: #484848;
+    }
+ }
+/*Para 600*/
+@media only screen and (max-width: 620px) and (min-width: 501px) {
+	
+	.jumbotron{
+	background-image: url("../img/banner_deportes.png");
+	background-repeat:no-repeat;
+	background-size: 100% 100%;
+	color: #fff;
+	padding: 0px;
+	height: 140px;
+	
+}
+	.region-principal{
+    	width: 500px;
+    	
+    }
+ 	.navbar-header.menu, .navbar-default.menu{
+    	width: 290px;
+    	background-color: #484848;
+    }
+   
+}
+/*Para 480*/
+@media only screen and (max-width: 500px) and (min-width: 341px) {
+ 	html, body, p{
+ 		font-size: 12px;
+ 	}
+ 	.jumbotron{
+		background-image: url("../img/banner_deportes.png");
+		background-repeat:no-repeat;
+		background-size: 100% 100%;
+		color: #fff;
+		padding: 0px;
+		height: 120px;
+		
+	}
+ 	.navbar-header.menu, .navbar-default.menu{
+ 		width: 290px;
+ 		background-color: #484848;
+
+ 	}	  
+
 }
 
-@media only screen and (max-device-width: 480px) {
-    /* STYLES HERE */
+@media only screen and (max-width: 340px) and (min-width: 5px){
+ 	html, body{
+ 		font-size: 12px;
+ 	}
+ 	.jumbotron{
+		background-image: url("../img/banner_deportes.png");
+		background-repeat:no-repeat;
+		background-size: 100% 100%;
+		color: #fff;
+		padding: 0px;
+		height: 120px;
+		
+	}
+ 	.navbar-header.menu, .navbar-default.menu{
+ 		width: 290px;
+ 		background-color: #484848;
+
+ 	}	  
+
 }

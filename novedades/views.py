@@ -190,7 +190,7 @@ def novedades_profesores(request):
 	template = "novedades_profesores.html"
 	posts = Novedades.objects.filter(autor=request.user.id) | Novedades.objects.filter(visibilidad__in=[1,2])
 	posts.order_by('fecha_publicacion')
-	pag = Paginate(request, posts, 4)
+	pag = Paginate(request, posts, 1)
 	ctx = {
 		'posts': pag['queryset'],
      	'paginator': pag,

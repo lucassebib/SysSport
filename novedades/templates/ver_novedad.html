@@ -4,7 +4,7 @@
 	<div class="page-header">
 		<div class="fondo_mensaje esquinas">
 			<div class="titular-comentario contenido-comentario esquinas">
-				<table cellpadding="0" cellspacing="2">
+				<table >
 					<tr>
 						<td class="td_perfil" ><a href="{% url 'ver_informacion_perfil_persona' novedad.obtener_idAutor %}"><img class="img_perfil" src="{{novedad.obtener_url_imagen}}" ></a></td>
 						<td class="td_titulo"><b><h2 class="titulo_novedad">{{novedad.titulo}} {{mensaje}}</h2></b>
@@ -28,7 +28,7 @@
 				<div class="texto_mensaje">
 					<table class="tabla-comentario">
 						<tr>
-							<td class="td_perfil" ><a href="{% url 'ver_informacion_perfil_persona' c.obtener_idAutor %}"><img class="img_perfil" src="{{c.obtener_url_imagen}}" ></a></td>
+							<td class="td_perfil"><a href="{% url 'ver_informacion_perfil_persona' c.obtener_idAutor %}"><img class="img_perfil" src="{{c.obtener_url_imagen}}" ></a></td>
 						
 							<td><h4>{{ c.autor }}</h4>
 							<hr>

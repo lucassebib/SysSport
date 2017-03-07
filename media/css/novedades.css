@@ -1,4 +1,8 @@
 
+td{
+    margin: 0;
+    padding: 0;
+}
 .td_perfil{
     width: 80px;
     height: 80px;
@@ -9,7 +13,7 @@
 .img_perfil{
     width: 70px;
     height: 70px;
-    margin: 5px;
+    margin: 0px;
 }
 .td_responder{
     width: 100px;
@@ -18,6 +22,9 @@
 .td_titulo{
     padding-left: 10px;
     width: 450px;
+    height: auto;
+    margin: 0;
+    padding-top: 0;
 }
 .td_autor{
     width: 100px;
