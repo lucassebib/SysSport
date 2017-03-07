@@ -400,7 +400,10 @@ a, li,h1, h2, h3, h4, p {
 		width: 290px;
 
 	}
-	
+	.navbar-header.menu, .navbar-default.menu{
+    	width: 290px;
+    	background-color: #484848;
+    }
    
 }
 /*Para 800*/
