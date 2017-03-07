@@ -1,25 +1,33 @@
 {% extends "baseAlumno.html" %}
 {% block contenido %}
 	<div class="well ">
-		<div class="panel-heading panel-primary">
+		<div class="panel-primary">
 			<h2><i>Nuevo contactos de Urgencia</b> </h2>
 			<h4><u>Informacion Importante:</u> Son datos obligatorios de un Contacto de Urgencia el nombre y apellido, parentezco de la persona y un numero de telefono valido. Muchas Gracias!</h4>
 			<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
-				{% for field in form_principal %}
-				 	<div >    		
+				<div class="panel" > 
+					{% for field in form_principal %}
+				 	   		
 						{% if field.label = 'Direccion' %}
-							Direccion:
-							{% for field2 in form_direccion %}
-								<p>{{field2.label}}</p>
-								<p>{{field2}} </p>
-							{% endfor %}
-							{% else %}
-								<p>{{field.label}}</p>
-								<p>{{field}} </p>
+							<div class=" panel-default">
+								<div class="panel-heading">
+									<h4>Direccion:</h4>
+								</div>
+								<div class="panel">
+									{% for field2 in form_direccion %}
+										<p>{{field2.label}}</p>
+										<p>{{field2}} </p>
+									{% endfor %}
+								</div>
+								
+							</div>
+						{% else %}
+							<p>{{field.label}}</p>
+							<p>{{field}} </p>	
+					
 						{% endif %}	
-					</div>
-				{% endfor %}		
-				
+					{% endfor %}		
+				</div>
 				<input type='submit' value='Agregar'>
 				<input type="button" value="Cancelar" onclick="history.back(-1)" />
 			</form>

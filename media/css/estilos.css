@@ -65,6 +65,16 @@ a, li,h1, h2, h3, h4, p {
 	height: 100px;
 	min-width: 290px;
 }
+.img-perfil{
+	float: left;
+	margin: 10px;
+}
+
+.perfil-datos{
+	float: left;
+	margin: 10px;
+}
+
 .img-circle.perfil{
 	width: 260px;
 	height: 260px;
@@ -109,6 +119,7 @@ a, li,h1, h2, h3, h4, p {
 
 .panel-heading{
 	background-color: #484848;
+	border-color: #484848;
 }
 .panel-body{
 	background-color: #000000;
