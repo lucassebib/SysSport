@@ -15,6 +15,13 @@ class FormularioContactoDeUrgencia(forms.ModelForm):
 	class Meta:
 		model = ContactoDeUrgencia
 
+	def __init__(self, *args, **kwargs):
+    		super(FormularioContactoDeUrgencia, self).__init__(*args, **kwargs)
+    		self.fields['nombre'].required = True
+    		self.fields['apellido'].required = True 
+    		self.fields['parentezco'].required = True 
+    		self.fields['telefono'].required = True  
+
 class FormularioCargarImagen(forms.ModelForm):
 	class Meta:
 		model = Persona

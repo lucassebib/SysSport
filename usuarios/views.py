@@ -369,7 +369,7 @@ def agregar_contactoUrgencia(request):
 			alumno.contactos_de_urgencia.add(contacto)
 			alumno.save()
 			
-			return HttpResponseRedirect('/contacto_urgencia')
+			return HttpResponseRedirect('/alumno/contacto_urgencia')
 
 	ctx = {
 		'form_principal': form_principal,
