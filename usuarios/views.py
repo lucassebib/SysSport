@@ -11,10 +11,12 @@ from itertools import chain
 
 from forms import *
 
-from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccion, ContactoDeUrgencia, DatosMedicos 
 from deportes.models import Deporte
 from novedades.models import Notificacion
 from novedades.paginacion import Paginate
+from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccion, ContactoDeUrgencia, DatosMedicos, carreras_disponibles 
+
+
 
 def vista_pagina_inicio(request):
 	form1 = FormularioAutenticacion()
@@ -367,7 +369,7 @@ def agregar_contactoUrgencia(request):
 			alumno.contactos_de_urgencia.add(contacto)
 			alumno.save()
 			
-			return HttpResponseRedirect('/contacto_urgencia')
+			return HttpResponseRedirect('/alumno/contacto_urgencia')
 
 	ctx = {
 		'form_principal': form_principal,
@@ -612,9 +614,60 @@ def ver_deportes_profesor(request):
 @login_required
 def listar_alumnos_deporte(request, pk):
 	template = "profesor/listar-alumno-deporte.html"
+	mensaje=''
+	
 	alumnos = chain(Alumno.objects.filter(lista_deporte__in=pk ), UsuarioInvitado.objects.filter(lista_deporte__in=pk ))  
+	consulta = alumnos
+
+	if request.method == 'POST' and 'btn_buscar' in request.POST:
+		if request.POST.get('q', '')=='':
+			mensaje = 'No ha introducido ningun termino en la busqueda'
+			consulta=''
+		else:
+			if not request.POST.get('opcion'):
+				mensaje = 'No ha introducido ningun parametro de busqueda'
+				consulta=''
+			else:
+				if request.POST.get('opcion') == 'legajo':
+					legajo = request.POST.get('q')
+					if legajo.isdigit():
+						consulta = Alumno.objects.filter(lista_deporte__in=pk, legajo=request.POST.get('q'))
+						if not consulta:
+							mensaje = 'No se han encontrado coincidencias'
+					else:
+						consulta=''
+						mensaje='Ingrese un legajo numerico valido'
+				else:
+					#Inicio Busqueda por apellido
+					if request.POST.get('opcion') == 'apellido' and 'btn_buscar' in request.POST:
+						apellido = request.POST.get('q')
+						if apellido.isalpha():
+							consulta = Alumno.objects.filter(last_name__contains=apellido, lista_deporte__in=pk)
+							if not consulta:
+								mensaje = 'No se han encontrado coincidencias'
+						else:
+							consulta = ''
+							mensaje = 'Usted ha ingresado un apellido invalido'
+					#Fin busqueda por apellido
+					else:
+						#Inicio Busqueda por carrera
+						if request.POST.get('opcion') == 'carrera' and 'btn_buscar' in request.POST:
+							carrera = request.POST.get('q')
+							carrera = carrera.upper()
+							#((1,"ISI"),(2,"IQ"), (3, "IEM"), (4, "LAR"), (5, "TSP"), (6, "OTRO"))
+							opcion_carrera = ''
+							for c in carreras_disponibles:
+								if carrera == c[1]:
+									opcion_carrera = c[0]
+							if opcion_carrera:
+								consulta = Alumno.objects.filter(carrera=opcion_carrera, lista_deporte__in=pk)
+							else:
+								consulta = ''
+								mensaje = 'No se han encontrado coincidencias.</br> Recordar que las busquedas por carrera se realizan mediante las iniciales. </br>ISI para Ingenieria en Sistema de Informacion. </br>IEM para Ingenieria Electromecanica. </br>IQ para Ingenieria Quimica. </br>TSP para Tecnico Superior en Programacion. </br>LAR para Licenciatura en Administracion Rural'
+						
 	ctx = {
-		'alumnos': alumnos,
+		'mensaje': mensaje,
+		'alumnos': consulta,
 		'nombre': Deporte.objects.get(id=pk).nombre,
 	}
 	

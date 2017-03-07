@@ -1,9 +1,24 @@
 {% extends "baseProfesor.html" %}
 
 {% block contenido %}
+	<caption>
+		<h1>Lista de alumnos de <b>{{nombre}}</b></h1>
+	</caption>
+
+	<div>
+		<form method="POST">{% csrf_token %}
+			<label for="q">Busqueda: </label>
+    		<input type="text" name="q" value="{{query|escape }}">
+    		<input type="submit" name="btn_buscar" value="Buscar">
+    		
+    		<input type="radio" name="opcion" value="legajo">Legajo
+  			<input type="radio" name="opcion" value="carrera">Carrera
+  			<input type="radio" name="opcion" value="apellido">Apellido 
+		</form>
+		
+	</div>	
 	
-	
-<caption><h1>Lista de alumnos de <b>{{nombre}}</b></h1></caption>	<div class=" panel-heading">
+	<div class=" panel-heading">
 		<h4>Seleccione alumno para ver informacion:</h4>
 	</div>
 	<table class="table table-hover">	
@@ -11,16 +26,34 @@
 			<tr>
 				<th>Nombre y Apellido </th>
 				<th> Tipo de Usuario</th>
+				<th> Carrera</th>
+				<th> Legajo</th>
 			</tr>
 		</thead>
+		
 		<tbody>
-			{% for a in alumnos %}
-			<tr>
-				<th><a href="{% url 'info-alumno' a.id %}">{{a.obtenerNombreCompleto}}</a></th>
-		    	<th>{{a.tipo_usuario}}</th> 	
-		    </tr>    				  		
-			{% endfor %}
+			{% if alumnos %}
+				{% for a in alumnos %}
+					<tr>
+						<th><a href="{% url 'info-alumno' a.id %}">{{a.obtenerNombreCompleto}}</a></th>
+				    	<th>{{a.tipo_usuario}}</th>
+				    	{% if a.tipo_usuario == 'alumno' %}
+				    		<th>{{a.ver_nombre_carrera}}</th>
+				    		<th>{{a.legajo}}</th>
+				    	{% else %}
+				    		<th>-</th>
+				    		<th>-</th>
+				    	{% endif %} 	
+				    </tr>    				  		
+				{% endfor %}
+			{% else %}
+				<tr>
+					<th><h4>{{mensaje|safe}}</h4>
+				</tr>
+			{% endif %}	
 		</tbody>
+			
+		
 	</table>
 	<input type="button" value="Volver" onclick="history.back(-1)" />
 {% endblock %}

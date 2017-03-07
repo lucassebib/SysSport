@@ -17,23 +17,23 @@
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Nombre: </label>
-						<label class="col-sm-2 control-label">{{c.nombre}}</label>
+						<label class="col-sm-2 control-label">{{c.nombre|default_if_none:"--"}}</label>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Apellido: </label>
-						<label class="col-sm-2 control-label">{{c.apellido}}</label>
+						<label class="col-sm-2 control-label">{{c.apellido|default_if_none:"--"}}</label>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Parenctezco: </label>
-						<label class="col-sm-2 control-label"> {{c.parentezco}}</label>
+						<label class="col-sm-2 control-label"> {{c.parentezco|default_if_none:"--"}}</label>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Direccion: </label>
-						<label class="col-sm-2 control-label">{{c.direccion}}</label>
+						<label class="col-sm-2 control-label">{{c.direccion|default_if_none:"--"}}</label>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Telefono:  </label>
-						<label class="col-sm-2 control-label">{{c.telefono}}</label>
+						<label class="col-sm-2 control-label">{{c.telefono|default_if_none:"--"}}</label>
 					</div>
 					</div>
 				{% endfor %}
