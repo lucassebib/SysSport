@@ -81,9 +81,9 @@ class Profesor(Persona):
 	def profesor_de(self):
 		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
 
-class Alumno(Persona):
-	carreras_disponibles = ((1,"ISI"),(2,"IQ"), (3, "IEM"), (4, "LAR"), (5, "TSP"))
+carreras_disponibles = ((1,"ISI"),(2,"IQ"), (3, "IEM"), (4, "LAR"), (5, "TSP"), (6, "OTRO"))
 
+class Alumno(Persona):
 	legajo =  models.IntegerField(blank=True, null=True)
 	ficha_medica = models.FileField(upload_to='usuarios/fichas_medicas/', blank=True, validators=[valid_extension])
 	carrera = models.IntegerField(choices=carreras_disponibles, default=1)
