@@ -29,6 +29,7 @@ INSTALLED_APPS = (
     'usuarios',
     'deportes',
     'canchas',
+    'entrenamiento',
     'tinymce'
 )
 

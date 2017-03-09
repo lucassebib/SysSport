@@ -10,33 +10,40 @@
 				<ul class="nav navbar-right">
 				 	<span class="glyphicon glyphicon-plus"></span> </span><a href="{% url 'agregar_contactoUrgencia' %}">Agregar contacto</a>
 				</ul>
+				<div class="form-group">
+					<h4>Hola {{request.user.first_name}}!!...</h4> 
+					<h4>Un contacto de Urgencia es una persona cercana a Usted a la que podremos localizar en caso de efectuarse alguna emergencia durante la realizacion de eventos deportivos o entrenamientos. Es por esto que resultaria de vital importancia que nos suministres este tipo de informacion</h4>
+				</div>
+				{% if contactos %}
+					{% for c in contactos %}
+						<a href="{% url 'eliminar_contactoUrgencia' c.id %}">Eliminar contacto</a>
+						<a href="{% url 'editar_contactoUrgencia' c.id %}">Editar contacto</a>
 
-				{% for c in contactos %}
-					<a href="{% url 'eliminar_contactoUrgencia' c.id %}">Eliminar contacto</a>
-					<a href="{% url 'editar_contactoUrgencia' c.id %}">Editar contacto</a>
-
-					<div class="form-group">
-						<label class="col-sm-2 control-label">Nombre: </label>
-						<label class="col-sm-2 control-label">{{c.nombre|default_if_none:"--"}}</label>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-2 control-label">Apellido: </label>
-						<label class="col-sm-2 control-label">{{c.apellido|default_if_none:"--"}}</label>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-2 control-label">Parenctezco: </label>
-						<label class="col-sm-2 control-label"> {{c.parentezco|default_if_none:"--"}}</label>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-2 control-label">Direccion: </label>
-						<label class="col-sm-2 control-label">{{c.direccion|default_if_none:"--"}}</label>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-2 control-label">Telefono:  </label>
-						<label class="col-sm-2 control-label">{{c.telefono|default_if_none:"--"}}</label>
-					</div>
-					</div>
-				{% endfor %}
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Nombre: </label>
+							<label class="col-sm-2 control-label">{{c.nombre|default_if_none:"--"}}</label>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Apellido: </label>
+							<label class="col-sm-2 control-label">{{c.apellido|default_if_none:"--"}}</label>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Parenctezco: </label>
+							<label class="col-sm-2 control-label"> {{c.parentezco|default_if_none:"--"}}</label>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Direccion: </label>
+							<label class="col-sm-2 control-label">{{c.direccion|default_if_none:"--"}}</label>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Telefono:  </label>
+							<label class="col-sm-2 control-label">{{c.telefono|default_if_none:"--"}}</label>
+						</div>
+						</div>
+					{% endfor %}
+				{% else %}
+					<i>Usted todavia no ha agregado ningun Contacto de Urgencia!...</i>
+				{% endif %}
 			 </form>
 
 		</div>
