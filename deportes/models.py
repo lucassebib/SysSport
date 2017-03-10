@@ -1,7 +1,10 @@
 from django.db import models
 from django.contrib import admin
 from django.core.urlresolvers import reverse
-from usuarios.validators import valid_extension	
+
+from usuarios.validators import valid_extension
+from entrenamiento.models import Entrenamiento	
+
 import os 
 
 def generar_rutaID(instance, filename):
@@ -24,6 +27,7 @@ class Deporte(models.Model):
 	descripcion = models.TextField()
 	apto_para = models.IntegerField(choices=generos_aptos, default=3)
 	ficha_medica = models.ForeignKey(FichaMedica, null=True, blank=True)
+	entrenamientos = models.ManyToManyField(Entrenamiento, verbose_name='Entrenamientos', blank=True, null=True)
 
 	class Meta:
 		verbose_name_plural = "Deportes"

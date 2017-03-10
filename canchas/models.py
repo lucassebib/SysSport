@@ -1,13 +1,14 @@
-from django.db import models
 from django.contrib import admin
+from django.db import models
+from django.core.urlresolvers import reverse
+
 from deportes.models import Deporte
 from usuarios.models import Direccion
-from django.core.urlresolvers import reverse
+
 
 class Cancha(models.Model):
 	nombre = models.CharField(max_length=100)
 	descripcion = models.TextField()	
-	deportes_aptos = models.ManyToManyField(Deporte)
 	direccion = models.ForeignKey(Direccion, blank=True, null=True)
 
 	def __unicode__(self):
