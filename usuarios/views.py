@@ -393,7 +393,7 @@ def ver_contacto_urgencia(request):
      	'paginator': pag,
      	#'contactos': contactos,
 
-	}
+}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 def eliminar_contactoUrgencia(request, pk):

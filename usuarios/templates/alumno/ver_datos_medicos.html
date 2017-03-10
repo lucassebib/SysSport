@@ -5,7 +5,7 @@
 			<h1><i>Datos médicos de </i><b>{{request.user}}</b> </h1>
 		</div>
 
-		<div class="page-content col-12 col-sm-12 col-lg-12">
+		<div class="page-content">
 			<ul class="nav nav-tabs" role="tablist">
 				<li class="nav-item active"><a class="nav-link" href="#ficha_medica" data-toggle="tab" >Ficha Médica</a></li>
 				<li class="nav-item"><a class="nav-link" href="#informacion_medica" data-toggle="tab" >Información Médica</a></li>
@@ -48,14 +48,14 @@
 				<form method="POST" enctype="multipart/form-data">{% csrf_token %}
 					<h1>Actualmente:</h1>
 						{% if alumno.ficha_medica %}
-							<a href="{{alumno.ficha_medica.url}}">descargar</a>
+							<a id="ficha_medica" href="{{alumno.ficha_medica.url}}">Descargar Ficha Médica</a>
 						{% else %}
 							<h3>No ha subido todavia su ficha medica</h3>
 						{% endif %} 
 
 					<p>Suba o modifique aqui su ficha medica</p>
 					{{form.as_p}}
-					<input type='submit' value='Guardar' name="boton_guardar_form">
+					<button type='submit' class="btn btn-default" value='Guardar' name="boton_guardar_form">Guardar</button>
 				</form>
 			{% endif %} 
 		</div>
@@ -63,9 +63,14 @@
 	<!-- ################ PANEL INFORMACION MEDICA ####################################-->
 
 		<div role="tabpanel" class="tab-pane fade" id="informacion_medica" >	
-			<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
-				{{form_dm.as_ul}}
-				<input type="submit" value="Guardar" name="boton_guardar_form_dm">
+			<form class="form-horizontal" role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+			<div class="panel" > 
+					<div class=" panel-default">
+						{% for field in form_dm %}
+							<p><i>{{field.label}}:</i></p>
+							<p>{{field}}</p>
+						{% endfor %}
+				<button class="btn btn-default" type="submit" value="Guardar" name="boton_guardar_form_dm">Guardar</button>
 			</form>	
    			
    		</div>

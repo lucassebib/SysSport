@@ -81,12 +81,13 @@ a, li,h1, h2, h3, h4, p {
 }
 .nav-tabs>li>a, .pagination>li>a, .pagination>li>a:hover, .nav-tabs>li>a:hover{
 	border-color: #ffffff;
-	background-color: #eeeeee;
+	background-color: #ddd;
 	color: #000000;
 }
+
 .pagination>li:active>a:hover, .nav-tabs>li:active>a:hover{
 	border-color: #ffffff;
-	background-color: #ffffff;
+	background-color: #fff;
 	color: #000000;
 }
 .nav-tabs{
@@ -113,7 +114,6 @@ a, li,h1, h2, h3, h4, p {
 .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus{
 	background-color: transparent;
 	color: #ddd;
-	fo
 }
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus,.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus{
 	background-color: #088A08;
@@ -123,7 +123,7 @@ a, li,h1, h2, h3, h4, p {
 
 .nav>li>a:hover, .nav>li>a:focus{
 	background-color: #82BC00;
-	border-color: #fff;
+	
 
 }
 
@@ -165,12 +165,16 @@ a:hover, a:focus{
 }
 /*FIN LOGIN*/
 
+
 .page-header {
 	margin: 0;
 	padding: 0;
 	color: #eee;
 }
-
+#ficha_medica{
+	color: #444;
+	
+}
 
 #syssport{
 	font-size: 210%;
@@ -222,7 +226,7 @@ a:hover, a:focus{
 /*FIN BODY*/
 /*FOOTER*/
 #utn-footer{
-	font-family: fantasy;
+	font-family: 'fantasy';
 	color: #fff;
 }
 
