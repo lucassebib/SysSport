@@ -10,30 +10,35 @@
 /* Style the list */
 .price {
     list-style-type: none;
-    border: 4px solid #eee;
+    border: 2px solid #088A08;
+    border-radius: 5px;
     margin: 0;
     padding: 0;
 }
 
 /* Add shadows on hover */
 .price:hover {
-    box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+    box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2);
 }
 
 /* Pricing header */
 .price .header {
-    color: #464646;
+    color: #fff;
     font-size: 25px;
     height: 80px;
 }
 
 /* List items */
 .price li {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid transparent;
     padding: 20px;
     text-align: center;
-
+    background-color: #088A08;
 }
+.price a{
+    text-decoration: none;
+}
+ 
 
 /* Grey list item */
 .price .grey {
@@ -44,7 +49,7 @@
 
 /* The "Sign Up" button */
 .button {
-    background-color: #;
+    background-color: #eee;
     border: none;
     color: white;
     padding: 10px 25px;

@@ -7,18 +7,21 @@
 
 	</div>
 	<div class="page-content">
-	{% include "slider-deportes/slider-deportes.html" %}
+		<div class="navbar ">
+			{% for d in deportes %}
+				<div class="columns">
+					<ul class="price">
+						<a class="nav-link" href="#"><li class=" header">{{d.nombre}}</li></a>
+						<!--<li class="grey"><h4>{{d.descripcion}}</h4></li>
+						<li><a href="#">Ver mas</a></li>
+						<li class="grey"><a href="#" class="button">Inscribirse</a></li> -->
 
-		{% for d in deportes %}
-			<div class="columns">
-				<ul class="price">
-
-					<li class="header">{{d.nombre}}</li>
-					<li class="grey"><h4>{{d.descripcion}}</h4></li>
-					<!--<li class="grey"><a href="#" class="button">Inscribirse</a></li> -->
-
-				</ul>
-			</div>
-		{% endfor %}
+					</ul>
+				</div>
+			{% endfor %}
+		</div>
+		<div class="carousel">
+			{% include "slider-deportes/slider-deportes.html" %}
+		</div>
 	</div>
 {% endblock %}
