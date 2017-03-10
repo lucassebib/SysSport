@@ -14,10 +14,11 @@
         			<button type="submit">Cambiar</button>
         			<label>{{mensaje}}</label>
 			</div>
-			<div class="navbar-right">
-				<a href="{% url 'editar_error' %}">Editar Perfil</a>
-			</div>
-			<div class="datos-perfil">
+			<ul class="nav navbar-nav navbar-right nav-pills">
+				<li><a href="{% url 'editar_error' %}"><span class="glyphicon glyphicon-edit"></span> </span>Editar Perfil</a></li>
+
+			</ul>
+			<div class="perfil-datos">
 				<div class="form-group">
 					<label class=" control-label">Nombre:  </label>
 					<label class=" control-label"> {{nombre}} </label>
