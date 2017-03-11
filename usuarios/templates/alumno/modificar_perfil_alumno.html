@@ -14,12 +14,12 @@
 				<img src="{{alumno.foto_perfil.url}}" class=" img-circle perfil" >
 				<form enctype="multipart/form-data" action="" method="POST">{% csrf_token %}
         			{{ form.as_p }}
-        			<button type="submit">Cambiar</button>
+        			<button class="btn btn-default" type="submit">Cambiar</button>
         			<label>{{mensaje}}</label>
     			</form>
 			</div>
 
-			<ul class="nav navbar-nav navbar-right nav-pills">
+			<ul class="nav navbar-right nav-pills">
 				{% if is_invitado %}
 				 	<li><a href="{% url 'editar_perfil_alumno' %}"><span class="glyphicon glyphicon-edit"></span> </span>Editar Perfil</a></li>
 				{% else %}

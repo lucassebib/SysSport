@@ -7,7 +7,7 @@
 
     {% block menu %}
     <!--Menu de perfil -->  
-      <div class=" sidebar-nav menu">
+      <div class=" sidebar-nav navbar-default menu">
           <div class="navbar navbar-default menu" role="navigation">
             <div class="navbar-header menu">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navegacion-alum">
@@ -17,14 +17,14 @@
                     <span class="icon-bar"></span>
                 </button>
                 <span class="navbar-header menu">
-                    <div class="visible-xs panel-heading" align="center">
+                    <div class="panel-heading visible-xs " align="center">
                          <h3 class="panel-title">Mi perfil</h3>
                     </div>
                 </span>
             </div>
             <div class="navbar-collapse collapse" id="navegacion-alum">
                 <div class="visible-lg visible-md visible-sm panel-heading" align="center">
-                         <h3 class="panel-title">Mi perfil</h3>
+                         <h3 class="panel-title ">Mi perfil</h3>
                 </div>
                 <ul class="nav nav-pills nav-stacked" >
                     <li class="{% if 'modificar_perfil_alumno' == request.resolver_match.view_name %}active{% endif %}">

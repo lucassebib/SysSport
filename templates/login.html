@@ -8,8 +8,8 @@
 			<form id="login-form" action="{% url 'url_login' %}" class="navbar-form" role="form" method="POST" accept-charset="utf-8">
 			{% csrf_token %} 
 			<div class="form-group">
-				{{form1.username}}
-				{{form1.password}}
+				<p>{{form1.username}}</p>
+				<p>{{form1.password}}</p>
 			</div>
 			<div class="form-group col-lg-10">
 				    <label>
@@ -17,7 +17,7 @@
 				    </label>
 				</div>
 				<div class="col-lg-offset-1 col-lg-10">   
-				    <button type="submit" class=" btn btn-default" value="Login">Ingresar</button>
+				    <button type="submit" class=" btn btn-primary" value="Login">Ingresar</button>
 				</div>
 		
 			<label>{{mensaje}}</label>

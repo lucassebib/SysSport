@@ -5,13 +5,12 @@
 		<h1><i>Deportes</i></h1>
 	</div>
 	<div class="page-content">
-		<div class=" panel-heading">
 			 <form class="form-horizontal" method='POST'>
-				<ul class="nav navbar-right">
-			 		<span class="glyphicon glyphicon-plus"></span> </span> <a href="{% url 'crear-deporte' %}"> Agregar Deporte </a>
+				<ul class="nav navbar-nav nav-pills navbar-right">
+			 		<li> <a href="{% url 'crear-deporte' %}"> <span class="glyphicon glyphicon-plus"></span> </span>Agregar Deporte </a></li>
 				</ul>
 		 	</form>
-	 	</div>
+	 	
 		<table class="table table-hover table-striped">
 		
 		{% for d in deportes %}

@@ -5,13 +5,12 @@
 		<h1><i>Canchas</i></h1>
 	</div>
 	<div class="page-content">
-		<div class=" panel-heading">
 			<form class="form-horizontal" method='POST'>
-		 		<ul class="nav navbar-right">
-			 		<span class="glyphicon glyphicon-plus"></span> </span><a id="agregar" href="{% url 'crear-cancha' %}"> Alta cancha</a></li>
+		 		<ul class="nav navbar-nav nav-pills navbar-right">
+			 		<li><a id="agregar" href="{% url 'crear-cancha' %}"><span class="glyphicon glyphicon-plus"></span> </span> Alta cancha</a></li>
 				</ul>
 			</form>
-		</div>
+		
 		<table class="table table-hover table-striped">	
 			{% for c in canchas %}
 				<tbody>				

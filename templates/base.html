@@ -39,10 +39,10 @@
                   			<ul class="nav navbar-nav navbar-right">
                   				{% if user.is_authenticated %}
                             <li><p class="panel-title visible-lg visible-md visible-sm " align="center" id="hola_usuario">Hola, <b>{{ user.username }} </b></p></li>
-                            <li><a href="{% url 'url_logout'%}" class="navbar-link"><span>Salir</span></a></li> 
+                            <li><a href="{% url 'url_logout'%}" >Salir</a></li> 
 	                    		{% else %}
-                              <li><a href="registrarse" class="navbar-link" ><span></span> Registrarse</a></li>
-                              <li><a href="{% url 'url_logout'%}#login" class="navbar-link"><span></span> Ingresar</a></li>
+                              <li><a href="registrarse" >Registrarse</a></li>
+                              <li><a href="{% url 'url_logout'%}#login" class="navbar-link">Ingresar</a></li>
                           {% endif %}
                   			</ul>
                   		</div>

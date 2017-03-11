@@ -5,13 +5,12 @@
 		<h1><i>Usuarios</i></h1>
 	</div>
 	<div class="page-content">
-		<div class=" panel-heading">
-		 <form class="form-horizontal" method='POST'>
-			 <ul class="nav navbar-right">
-			 	<span class="glyphicon glyphicon-plus"></span> </span> <a id="agregar" href=""> Agregar Usuario </a>
+		<form class="form-horizontal" method='POST'>
+			 <ul class="nav navbar-nav navbar-right navbar-pills">
+			 	<li><a href=""><span class="glyphicon glyphicon-plus"></span> </span> Agregar Usuario </a></li>
 			 </ul>
 		 </form>
-	 </div>
+	
 		<table class="table table-hover table-striped">
 			{% for u in usuarios %}
 				<tbody>				
