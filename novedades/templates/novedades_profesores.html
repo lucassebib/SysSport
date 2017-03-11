@@ -29,17 +29,16 @@
 		{% endfor %}
 	</div>
 
-	<div class="">
+	<div>
     	<ul class="pagination">
-			{% for post in posts %}
-				{% if paginator.has_prev %}
-					<li><a href="?page={{ paginator.prev_page }}">{{paginator.prev_page}}</a></li>
-				{% endif %}
+			{% if paginator.has_prev %}
+					<li><a href="?page={{ paginator.prev_page }}"> &laquo; </a></li>
+			{% endif %}
 				<li><a href="">{{paginator.page}}</a></li>	
-				{% if paginator.has_next %}
-					<li><a href="?page={{ paginator.next_page }}">{{paginator.next_page}}</a></li>
-				{% endif %}
-			{% endfor %}
+			{% if paginator.has_next %}
+					<li><a href="?page={{ paginator.next_page }}">&raquo; </a></li>
+			{% endif %}
+			
 		</ul>
 	</div>
 {% endblock %}

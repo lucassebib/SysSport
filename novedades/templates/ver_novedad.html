@@ -12,7 +12,7 @@
 					</tr>
 				</table>
 			</div>
-			<div class="texto_mensaje">
+			<div class="text-justify texto_mensaje">
 				<p2>{{novedad.contenido|safe}}</p2>
 			</div>
 			<div class="texto_mensaje">
@@ -31,12 +31,13 @@
 							<td class="td_perfil"><a href="{% url 'ver_informacion_perfil_persona' c.obtener_idAutor %}"><img class="img_perfil" src="{{c.obtener_url_imagen}}" ></a></td>
 						
 							<td><h4>{{ c.autor }}</h4>
-							<hr>
-
-							{{ c.texto }}</td>
+								<div class="text-justify">
+										{{ c.texto }}
+								</div>
+							</td>
 							<tr>{% if c.obtener_idAutor = user.id or puede_editar_comentarios %}
 								<form method="POST">{% csrf_token %}
-									<td><button type="submit" name="boton_eliminar" value="{{c.id}}">Eliminar</button></td>
+									<td><button type="submit" class="btn btn-default" name="boton_eliminar" value="{{c.id}}">Eliminar</button></td>
 									<!--<td><button type="submit" name="boton_editar" value="{{c.id}}">Editar</button> </td> -->
 								</form>
 							{% endif %}</tr>
@@ -49,7 +50,7 @@
 			<div class="comentario">
 				<form class="form-horizontal" role="form" action='' method='POST'>{% csrf_token %}
 					{{ formulario.as_p }}
-					<button type="submit" class="btn btn-primary" name="boton_agregar">Agregar</button>
+					<button type="submit" class="btn btn-default" name="boton_agregar">Agregar</button>
 				</form>
 			</div>
 		</div>

@@ -12,14 +12,17 @@
 
 	<div class="page-content">
 		{% if lista_notificaciones %}
-			{% for n in lista_notificaciones %}
-				<li><a href="{% url 'ver_informacion_perfil_persona' n.id_autor_comentario%}">{{n.autor_comentario}}</a> ha hecho un comentario sobre su <a href="{% url 'ver_novedades' n.novedad.id %}">publicacion</a>.</li>
+			
+			<ul class="navbar nav-tabs-justified">
+				{% for n in lista_notificaciones %}
+					<a href="{% url 'ver_informacion_perfil_persona' n.id_autor_comentario%}">{{n.autor_comentario}}</a> ha hecho un comentario sobre su <a href="{% url 'ver_novedades' n.novedad.id %}">publicacion</a>
 
-				<form method="POST">{% csrf_token %}
-					<td><button type="submit" name="boton_eliminarNotificacion" value="{{n.id}}">Eliminar</button></td>
-				</form>
+					<form method="POST">{% csrf_token %}
+						<button class="btn btn-default" type="submit" name="boton_eliminarNotificacion" value="{{n.id}}">Eliminar</button>
+					</form>
 
-			{% endfor %}
+				{% endfor %}
+			</ul>
 		{% else %}
 			<h4>Por el momento no existen notificaciones</h4>
 		{% endif %}

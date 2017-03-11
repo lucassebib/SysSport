@@ -5,16 +5,25 @@
 		<h1><b><i>Deportes</i></b></h1>
 	</div>
 	<div class="page-content">
+
 	<h2>Animate a participar en alguno de estos deportes!!...</h2>
-	{% include "slider-deportes/slider-deportes.html" %}
-		{% for d in deportes %}
-			<div class="columns">
-				<ul class="price">
-					<li class="header">{{d.nombre}}</li>
-					<li class="grey"><h4>{{d.descripcion}}</h4></li>
-					<li class="grey"><a href="{% url 'deporte_detalle' d.id %}" class="button">Ver mas info(+)...</a></li>
-				</ul>
-			</div>
-		{% endfor %}
+		<div class="carousel">
+			{% include "slider-deportes/slider-deportes.html" %}
+		</div>
+		<div class="navbar ">
+			{% for d in deportes %}
+				<div class="columns">
+					<ul class="price">
+						<a class="nav-link" href="{% url 'deporte_detalle' d.id %}"><li class=" header">{{d.nombre}}</li></a>
+						<!--<li class="grey"><h4>{{d.descripcion}}</h4></li>
+						<li><a href="#">Ver mas</a></li>
+						<li class="grey"><a href="#" class="button">Inscribirse</a></li> -->
+
+					</ul>
+				</div>
+			{% endfor %}
+		</div>
+		
+
 	</div>
 {% endblock %}

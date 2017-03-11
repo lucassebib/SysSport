@@ -7,7 +7,7 @@ td{
     width: 80px;
     height: 80px;
     background-color: #A4A4A4;
-    padding: 0;
+    padding: 5px;
     margin: 0;
 }
 .img_perfil{
@@ -51,6 +51,9 @@ table.tr_comentario{
     color: #1995dc;
     margin-top: 5px;
 }
+.titulo_novedad>a:active, .titulo_novedad>a:focus, .titulo_novedad>a:hover {
+    color: #555;
+}
 
 .esquinas {
     border-radius: 7px 7px 7px 7px;
@@ -84,8 +87,8 @@ table.tr_comentario{
     background-color: #E6E6E6;
     border: 1px solid #e1e1e1;
     border-radius: 5px;
+    color: #000;
     
-
 }
 
 .comentario{
@@ -116,3 +119,6 @@ textarea#id_texto{
    
 }
 
+#mis_novedades{
+    float: left;
+}

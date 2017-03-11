@@ -19,14 +19,15 @@
     			</form>
 			</div>
 
-			<div class="navbar-right">
+			<ul class="nav navbar-nav navbar-right nav-pills">
 				{% if is_invitado %}
-					<a href="{% url 'editar_perfil_alumno' %}">Editar Perfil</a>
+				 	<li><a href="{% url 'editar_perfil_alumno' %}"><span class="glyphicon glyphicon-edit"></span> </span>Editar Perfil</a></li>
 				{% else %}
-					<a href="{% url 'editar_error' %}">Editar Perfil</a>
+					<li><a href="{% url 'editar_error' %}"><span class="glyphicon glyphicon-edit"></span> </span>Editar Perfil</a></li>
+					
 				{% endif %}
-			</div>
-			<div class="datos-perfil">
+			</ul>
+			<div class="perfil-datos">
 				<div class="form-group">
 					<label class=" control-label">Nombre:  </label>
 					<label class=" control-label"> {{nombre}} </label>
