@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login as loguear, logout
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
 from django.template import Context
@@ -9,6 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from models import Deporte, FichaMedica
 from entrenamiento.forms import FormularioCrearEntrenamiento
+from entrenamiento.models import Entrenamiento
 from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona
 
 from forms import * 
@@ -253,17 +254,71 @@ def listar_parafichaMedica(request):
 def editar_info_deporte(request, pk):
     template = "profesor/editar_info_deporte.html"
     deporte = Deporte.objects.get(id=pk)
+    mensaje = 'naraja'
 
     formulario_deporte = FormularioEditarDeporteProfesor()
-    formulario_entrenamiento = FormularioCrearEntrenamiento()
+    formulario_deporte.initial = {
+        'descripcion' : deporte.descripcion
+    }
+
+    if request.method == 'POST' and 'boton_guardar' in request.POST:
+        mensaje = 'post'
+        formulario_deporte = FormularioEditarDeporteProfesor(request.POST, request.FILES)
+        if formulario_deporte.is_valid():
+            mensaje = 'form is valid'
+            if request.FILES:
+                mensaje = 'quiere cambiar foto'
+                if not deporte.foto == "usuarios/deportes/fotos_deportes/none/deporte_default.png":
+                    deporte.foto.delete(False)
+
+                deporte.foto = formulario_deporte.cleaned_data['foto']
+            else:
+                mensaje = ''
+
+                
+            deporte.descripcion = formulario_deporte.cleaned_data['descripcion']
+            deporte.save()
+            
+            return HttpResponseRedirect('/ver-lista-deportes')
 
     ctx = {
         'deporte': deporte,
         'form_deporte': formulario_deporte,
-        'form_entrenamiento': formulario_entrenamiento,
+        'entrenamientos': deporte.entrenamientos.all(),
+        'mensaje' : mensaje,
     }
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def editar_entrenamiento_deporte(request, pk):
+
+    template = "profesor/editar_entrenamiento_deporte.html"
+    mensaje = ''
+    formulario_entrenamiento = FormularioCrearEntrenamiento()
+    deporte = Deporte.objects.get(id=pk)
+
+    if request.method == 'POST' and 'boton_guardar' in request.POST:
+        formulario_entrenamiento = FormularioCrearEntrenamiento(request.POST)
+        if formulario_entrenamiento.is_valid():
+            e = Entrenamiento()
+            e.dia = formulario_entrenamiento.cleaned_data['dia']
+            e.horario_inicio = formulario_entrenamiento.cleaned_data['horario_inicio']
+            e.horario_fin = formulario_entrenamiento.cleaned_data['horario_fin']
+            e.save()
+            deporte.entrenamientos.add(e)
+            deporte.save()
+            mensaje = 'se guardo'
+
+            url = reverse('editar_info_deporte', kwargs={'pk': pk})
+            return HttpResponseRedirect(url)
+    
+    ctx = {
+        'form_entrenamiento': formulario_entrenamiento,
+        'mensaje': mensaje,
+    }
+
+    return render_to_response(template, ctx, context_instance=RequestContext(request))
+
 
 
 

@@ -14,6 +14,16 @@ class Entrenamiento(models.Model):
 	dia = models.IntegerField(choices=lista_dias, default=1)
 	horario_inicio = models.IntegerField(choices=lista_horarios, verbose_name='Hora de Inicio', default=1) 
 	horario_fin = models.IntegerField(choices=lista_horarios, verbose_name='Hora de Finalizacion', default=2)
+
+	def ver_dia(self):
+		return self.get_dia_display()
+
+	def ver_horario_inicio(self):
+		return self.get_horario_inicio_display()
+
+	def ver_horario_fin(self):
+		return self.get_horario_fin_display()
+		
 		
 
 

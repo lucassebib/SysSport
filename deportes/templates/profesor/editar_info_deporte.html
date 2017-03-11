@@ -2,23 +2,48 @@
 
 {% block contenido %}
 	<div class="page-header">
-		<h1><i>Editar Informacion de: {{deporte}}</i></h1>
+		<h1><i>Editar Informacion de: {{deporte}} </i></h1>
 	</div>
 
 	<div class="page-content">
-		<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+		<form role="form" method="POST" accept-charset="utf-8" enctype="multipart/form-data">{% csrf_token %}
+			<ul class=" nav navbar-var navbar-right nav-pills">
+		 		<li><a href="{% url 'editar_entrenamiento_deporte' deporte.id %}"><span class="glyphicon glyphicon-plus"></span> </span>Agregar Fecha de Entrenamiento</a></li>
+		 	</ul>
+
+		 	<h3>A continuacion podra editar informacion para el deporte seleccionado.</h3>
+		 	</br></br>
+		 	Nombre del Deporte: 
+		 	<input type="text" value="{{deporte.nombre}}" readonly>
+		 	</br></br>
+		 	Generos aptos:
+		 	<input type="text" value="{{deporte.ver_aptopara}}" readonly>
+		 	</br></br>
+
 			{% for field in form_deporte %}
+				{% if field.label == 'Foto' %}
+					Foto de Portada Actual: </br>
+					<img src="{{deporte.foto.url}}" class=" img-circle perfil" >
+					</br><i>Si desea cambiar la foto de portada actual, por favor seleccione una nueva aqui:</i>
+				{% endif %}
+				
 				<p>{{field.label}}</p>
 				<p>{{field}} </p>			
 			{% endfor %}
-			Entrenamiento:
-				{% for field2 in form_entrenamiento %}
-					<p>{{field2.label}}</p>
-					<p>{{field2}} </p>
-				{% endfor %}
-
-			<img src="{{deporte.foto.url}}" class=" img-circle perfil" >
-			<input type='submit' value='Guardar'>
+			
+			Fechas de Entrenamiento:
+			{% if entrenamientos %}
+				{% for e in entrenamientos %}
+					<p><li>{{e.ver_dia}}</li></p>
+					<p>{{e.ver_horario_inicio}}</p>
+					<p>{{e.ver_horario_fin}}</p>
+				{% endfor %}		
+			{% else %}
+				<i>Usted todavia no ha ingresado un horario de entrenamiento para este deporte. Por Favor dirijase a la seccion Agregar Fecha de Entrenamiento.</i>
+			{% endif %}
+		
+			<input type='submit' name="boton_guardar" value='Guardar'>
+			<input type="button" value="Cancelar" onclick="history.back(-1)" />
 		</form>
 	</div>
 {% endblock %}
