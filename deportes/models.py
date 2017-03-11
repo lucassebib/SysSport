@@ -25,6 +25,7 @@ class Deporte(models.Model):
 
 	nombre = models.CharField(max_length=100)
 	descripcion = models.TextField()
+	foto = models.ImageField(upload_to='usuarios/deportes/fotos_deportes/', default="usuarios/deportes/fotos_deportes/none/deporte_default.png")
 	apto_para = models.IntegerField(choices=generos_aptos, default=3)
 	ficha_medica = models.ForeignKey(FichaMedica, null=True, blank=True)
 	entrenamientos = models.ManyToManyField(Entrenamiento, verbose_name='Entrenamientos', blank=True, null=True)

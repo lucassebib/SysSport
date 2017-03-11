@@ -1,48 +1,95 @@
-from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
-from models import Deporte, FichaMedica
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
+from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse_lazy
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
 from django.template import Context
-from usuarios.models import Alumno, Profesor, UsuarioInvitado
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.core.urlresolvers import reverse_lazy
-from usuarios.models import Persona
-from django.http import HttpResponseRedirect
-from forms import FormularioSubirFichaMedica
 
+from models import Deporte, FichaMedica
+from entrenamiento.forms import FormularioCrearEntrenamiento
+from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona
 
+from forms import * 
 
-############################### CRUD DEPORTES ##############################################
-def lista_deportes(request):
-    template = "lista_deportes.html"
-    
+############################## DEPORTES PARA INTERNAUTAS ########################################
+
+def deporte_detalle(request, pk):
+    template = "deporte_detalle.html"
+    deporte = Deporte.objects.get(id=pk)
+    e = deporte.entrenamientos 
+
     ctx = {
-        'deportes': Deporte.objects.all(), 
+        'deporte': deporte,
     }
-   
+
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
-class DetallesDeportes(DetailView):
-    model = Deporte
-    context_object_name = 'deportes'
+############################### CRUD DEPORTES ##############################################
+#def lista_deportes(request):
+    #template = "lista_deportes.html"
+    
+    #ctx = {
+   #     'deportes': Deporte.objects.all(), 
+  #  }
+   
+ #   return render_to_response(template, ctx, context_instance=RequestContext(request))
 
-class CrearDeportes(CreateView):
-    model = Deporte
+#class DetallesDeportes(DetailView):
+ #   model = Deporte
+#    context_object_name = 'deportes'
 
-class ActualizarDeportes(UpdateView):
-    model = Deporte
+def crear_deporte(request):
+    template = "deportes/deporte_form.html"
+    form_deporte = FormularioCrearDeporte()
+    form_entrenamiento = FormularioCrearEntrenamiento()
 
-class EliminarDeportes(DeleteView):
-    model = Deporte
-    context_object_name = 'deportes'
-    success_url = reverse_lazy('lista_deportes')
+    if request.method == 'POST':
+        form_deporte = FormularioCrearDeporte(request.POST, request.FILES)
+        #if form.is_valid():
+         #   if request.FILES:
+          #      if deporte.ficha_medica:
+           #         f = FichaMedica.objects.get(id=deporte.ficha_medica.id)
+            #        f.ficha_medica.delete(False)
+             #       f.ficha_medica = form.cleaned_data['ficha_medica']
+              #      f.descripcion = form.cleaned_data['descripcion']
+               #     f.save()
+                #    deporte.ficha_medica = f
+             #       deporte.save()
+             #       return HttpResponseRedirect('')
+             #   else:
+           #         nueva_ficha = FichaMedica()
+            #        nueva_ficha.ficha_medica = form.cleaned_data['ficha_medica']
+             #       nueva_ficha.descripcion = form.cleaned_data['descripcion']
+              #      nueva_ficha.save()
+               #     deporte.ficha_medica = nueva_ficha
+                #    deporte.save()
+                #    return HttpResponseRedirect('')
+
+    ctx = {
+        'form_deporte': form_deporte,
+        'form_entrenamiento': form_entrenamiento,
+    }
+
+    return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+
+#class ActualizarDeportes(UpdateView):
+#    model = Deporte
+
+#class EliminarDeportes(DeleteView):
+ #   model = Deporte
+  #  context_object_name = 'deportes'
+   # success_url = reverse_lazy('lista_deportes')
 
 ###################################### PARA TODOS ####################################################
 def ver_deportes_personas(request):
     template = "ver_deportes_personas.html" 
     id_usuario = request.user.id
     darse_de_baja = True
+    editar_info = False
+    mensaje = ''
 
     try:
         g = Alumno.objects.get(id=id_usuario)
@@ -52,6 +99,7 @@ def ver_deportes_personas(request):
             g = Profesor.objects.get(id=id_usuario)
             extiende = 'baseProfesor.html'
             darse_de_baja = False
+            editar_info = True
         except Exception as e:
             try:
                 g = UsuarioInvitado.objects.get(id=id_usuario)
@@ -68,6 +116,8 @@ def ver_deportes_personas(request):
         'extiende': extiende,
         'usuario': request.user.username,
         'darse_de_baja': darse_de_baja,
+        'editar_info': editar_info,
+        'mensaje': mensaje,
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
@@ -81,15 +131,6 @@ def listar_deportes(request):
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
-
-def deporte_detalle(request, pk):
-    template = "deporte_detalle.html"
-
-    ctx = {
-        'deporte': Deporte.objects.get(id=pk)
-    }
-
-    return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 ######################################## PARA ALUMNOS ##################################################
 @login_required
@@ -191,12 +232,6 @@ def subir_fichaMedicaStandar(request, pk):
                     deporte.save()
                     return HttpResponseRedirect('')
 
-            else:
-                return HttpResponseRedirect('/modificar_perfil_profesor')
-        else:
-            return HttpResponseRedirect('/novedades')
-
-
     ctx = {
         'mensaje': mensaje,
         'form': form,
@@ -211,6 +246,21 @@ def listar_parafichaMedica(request):
     deportes = Profesor.objects.get(id=request.user.id).lista_deporte.all()
     ctx = {
         'deportes': Deporte.objects.filter(id__in=deportes)     
+    }
+
+    return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def editar_info_deporte(request, pk):
+    template = "profesor/editar_info_deporte.html"
+    deporte = Deporte.objects.get(id=pk)
+
+    formulario_deporte = FormularioEditarDeporteProfesor()
+    formulario_entrenamiento = FormularioCrearEntrenamiento()
+
+    ctx = {
+        'deporte': deporte,
+        'form_deporte': formulario_deporte,
+        'form_entrenamiento': formulario_entrenamiento,
     }
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))
