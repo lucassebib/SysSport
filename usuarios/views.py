@@ -224,6 +224,27 @@ def cambiar_contrasenia(request):
 	template = "confirm_cambiopass.html"
 	return render_to_response(template, context_instance=RequestContext(request))
 
+def ver_tipo_usuario(request):
+	template = "registracion/comprobar_usuario.html"
+	
+	if request.method=='POST':
+		correo = request.POST.get('correo')
+		dato = UsuarioInvitado.objects.filter(email= correo)
+		if dato:
+			return HttpResponseRedirect('/password_reset')
+		else:
+			return HttpResponseRedirect('/error')
+
+
+	ctx = { 
+		
+	}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def error_noInvitado(request):
+	template = "registracion/error_usuario_NoInvitado.html"
+	return render_to_response(template, context_instance=RequestContext(request))
+
 @login_required
 def editar_perfil_alumno(request):
 	#ESTA FUNCION ES SOLO PARA UN INVITADO, SOLAMENTE ESTE USUARIO PODRA CAMBIAR SU INFORMACION DE PERFIL
@@ -736,3 +757,5 @@ def modificarPerfilProfesor(request):
 			}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+
