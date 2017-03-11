@@ -2,16 +2,19 @@
 
 {% block contenido %}
 	<div class="page-header">
-
 		<h1><b><i>Deportes</i></b></h1>
-
 	</div>
 	<div class="page-content">
+
+	<h2>Animate a participar en alguno de estos deportes!!...</h2>
+		<div class="carousel">
+			{% include "slider-deportes/slider-deportes.html" %}
+		</div>
 		<div class="navbar ">
 			{% for d in deportes %}
 				<div class="columns">
 					<ul class="price">
-						<a class="nav-link" href="#"><li class=" header">{{d.nombre}}</li></a>
+						<a class="nav-link" href="{% url 'deporte_detalle' d.id %}"><li class=" header">{{d.nombre}}</li></a>
 						<!--<li class="grey"><h4>{{d.descripcion}}</h4></li>
 						<li><a href="#">Ver mas</a></li>
 						<li class="grey"><a href="#" class="button">Inscribirse</a></li> -->
@@ -20,8 +23,7 @@
 				</div>
 			{% endfor %}
 		</div>
-		<div class="carousel">
-			{% include "slider-deportes/slider-deportes.html" %}
-		</div>
+		
+
 	</div>
 {% endblock %}
