@@ -2,12 +2,15 @@
 
 {% block contenido %}
 	<div class="page-header">
-		<h1><b><i>Deportes </i></b></h1>
+		<h1><b><i>{{deporte.nombre}} </i></b></h1>
 		
 	</div>
 	<div class="page-content">
-		Nombre:{{deporte.nombre}}
-		Descripcion: {{descripcion.descripcion}}
+		
+		Descripcion: {{deporte.descripcion}}
+		Generos aptos para el deporte: {{deporte.ver_aptopara}}
+		
+		<img src="{{deporte.foto.url}}" class=" img-circle perfil" >
 		<input type="button" value="Atras" onclick="history.back(-1)" />
 	</div>
 {% endblock %}

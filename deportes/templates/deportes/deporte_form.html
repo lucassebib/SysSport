@@ -1,26 +1,32 @@
 {% extends "baseAdmin.html" %}
 {% block contenido %}
-	<div class="panel-info">
-		<div class="page-header">
-            <h2><i>Deporte {{deporte.nombre}}</i> </h2>
-        </div>
-		<div class="page-content">
-			<form class="form-horizontal" role="form" action='' method="POST">
-			{% for field in form %}
-			 	<div >    		
-				{% csrf_token %}
-				<p>{{field.label}}</p>
-				<p>{{field}} </p>	
-
+	<div class="well ">
+		<div class="panel-primary">
+			<h2><i>Nuevo Deporte</b> </h2>
+			<h4><u>Informacion Importante:</u> Son datos obligatorios de un Contacto de Urgencia el nombre y apellido, parentezco de la persona y un numero de telefono valido. Muchas Gracias!</h4>
+			
+			<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+				<div class="panel" > 
+					<div class=" panel-default">
+						<div class="panel-heading">
+							<h4>Informacion del Deporte:</h4>
+						</div>
+						<div class="panel">
+							{% for field in form_deporte %}	   		
+								{% if not field.label = 'Entrenamientos' %}
+									<p>{{field.label}}</p>
+									<p>{{field}} </p>
+								{% endif %}	
+							{% endfor %}									
+						</div>		
+					</div>								
 				</div>
-			{% endfor %}
-				<input type='submit' value='Confirmar'>
+				<input type='submit' value='Agregar'>
 				<input type="button" value="Cancelar" onclick="history.back(-1)" />
 			</form>
 			
 		</div>
 	</div>
-	
 {% endblock %}
 
 

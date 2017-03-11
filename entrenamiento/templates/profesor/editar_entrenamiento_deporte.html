@@ -1,0 +1,22 @@
+{% extends "baseProfesor.html" %}
+
+{% block contenido %}
+
+	<div class="page-header">
+		<h1><i>Agregar Nuevo entrenamiento: {{mensaje}}</i></h1>
+	</div>
+
+	<div class="page-content">
+		<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+			{% for field2 in form_entrenamiento %}
+				<p>{{field2.label}}</p>
+				<p>{{field2}} </p>
+			{% endfor %}
+			<input type='submit' name='boton_guardar' value='Guardar'>
+			<input type="button" value="Cancelar" onclick="history.back(-1)" />
+		</form>
+		
+	</div>
+	
+
+{% endblock %}

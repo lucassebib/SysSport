@@ -20,6 +20,9 @@ urlpatterns = patterns('',
 #URLs RESET PASSWORD
 urlpatterns += patterns('',
 	url(r'^cambiar-pass$', cambiar_contrasenia),
+	url(r'^comprobar_usuario$',ver_tipo_usuario, name= 'ver_tipo_usuario'),
+	url(r'^error$', error_noInvitado, name = 'error_noInvitado'),
+
 	url(r'^password_reset$', password_reset, 
 		{ 'template_name' : 'registracion/password_reset_form.html' , 
 		'email_template_name' : 'registracion/password_reset_email.html'},
