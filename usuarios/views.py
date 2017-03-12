@@ -705,6 +705,7 @@ def ver_usuarios(request):
 @login_required
 def ver_informacion_alumno(request, pk):
 	template = "profesor/ver_informacion_alumno.html"
+
 	try:
 		alumno = Alumno.objects.get(id=pk)
 		tipo_usuario = 'alumno'
@@ -712,11 +713,14 @@ def ver_informacion_alumno(request, pk):
 		alumno = UsuarioInvitado.objects.get(id=pk)
 		tipo_usuario = 'invitado'
 
+	#datos_medicos = DatosMedicos.objects.get(id=alumno.datos_medicos.id)
+	
 	ctx = {
 		'alumno': alumno,
 		'contactos': alumno.contactos_de_urgencia.all(),
 		'alumnoUTN': tipo_usuario=='alumno',
 		'alumnoInvitado': tipo_usuario=='invitado',
+		#'dm': datos_medicos,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
