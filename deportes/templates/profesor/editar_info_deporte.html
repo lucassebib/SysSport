@@ -34,6 +34,8 @@
 			Fechas de Entrenamiento:
 			{% if entrenamientos %}
 				{% for e in entrenamientos %}
+					<input type='submit' name="boton_eliminar" value='Eliminar'>
+					<input type='hidden' name="boton_eliminar_id" value='{{e.id}}'>
 					<p><li>{{e.ver_dia}}</li></p>
 					<p>{{e.ver_horario_inicio}}</p>
 					<p>{{e.ver_horario_fin}}</p>

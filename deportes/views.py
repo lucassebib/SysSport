@@ -277,9 +277,17 @@ def editar_info_deporte(request, pk):
 
                 
             deporte.descripcion = formulario_deporte.cleaned_data['descripcion']
-            deporte.save()
-            
+            deporte.save() 
             return HttpResponseRedirect('/ver-lista-deportes')
+    else:
+        if request.method == 'POST' and 'boton_eliminar' in request.POST:
+            id_eliminar = request.POST.get('boton_eliminar_id')
+            deporte.entrenamientos.remove(id_eliminar)
+            deporte.save()
+            e = Entrenamiento.objects.get(id=id_eliminar)
+            e.delete()
+
+
 
     ctx = {
         'deporte': deporte,
