@@ -19,10 +19,13 @@ from forms import *
 def deporte_detalle(request, pk):
     template = "deporte_detalle.html"
     deporte = Deporte.objects.get(id=pk)
-    e = deporte.entrenamientos 
+    e = deporte.entrenamientos.all()
+    profesor = Profesor.objects.get(lista_deporte__in=pk) 
 
     ctx = {
         'deporte': deporte,
+        'entrenamientos': e,
+        'profesor': profesor,
     }
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))
