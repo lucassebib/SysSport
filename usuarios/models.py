@@ -48,7 +48,7 @@ class ContactoDeUrgencia(models.Model):
 	apellido = models.CharField(max_length=100, blank=True, null=True)
 	parentezco = models.CharField(max_length=100, blank=True, null=True)
 	direccion = models.ForeignKey(Direccion, blank=True, null=True)
-	telefono = models.IntegerField(blank=True, null=True)
+	telefono = models.CharField(max_length=15, blank=True, null=True)
 
 	def obtenerNombreCompleto(self):
 		return '%s %s' % (self.nombre, self.apellido)
@@ -60,7 +60,7 @@ class Persona(Usuario):
 	#'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined'
 	dni = models.BigIntegerField(blank=True, null=True)
 	fecha_nacimiento = models.DateField(blank=True, null=True)
-	telefono = models.IntegerField(blank=True, null=True)
+	telefono = models.CharField(max_length=15, blank=True, null=True)
 	foto_perfil = models.ImageField(upload_to='usuarios/fotos_de_perfil/', default="usuarios/fotos_de_perfil/None/default_profile.jpg")
 	lista_deporte = models.ManyToManyField(Deporte, verbose_name='Deportes Inscripto')
 	direccion = models.ForeignKey(Direccion, blank=True, null=True)
