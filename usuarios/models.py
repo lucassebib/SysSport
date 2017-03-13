@@ -1,7 +1,10 @@
-from django.db import models
-from django.contrib.auth.models import User as Usuario
-from deportes.models import Deporte
+import os
+
 from django.contrib import admin
+from django.contrib.auth.models import User as Usuario
+from django.db import models
+
+from deportes.models import Deporte
 from .validators import valid_extension
 
 class DatosMedicos(models.Model):
@@ -116,6 +119,9 @@ class Alumno(Persona):
 
 	def ver_nombre_carrera(self):
 		return self.get_carrera_display()
+
+	def nombre_archivo(self):
+		return os.path.basename(self.ficha_medica.name)
 		
 class UsuarioInvitado(Persona): 
 	institucion = models.CharField(max_length=100)
@@ -138,6 +144,9 @@ class UsuarioInvitado(Persona):
 
 	def tipo_usuario(self):
 		return 'invitado'
+
+	def nombre_archivo(self):
+		return os.path.basename(self.ficha_medica.name)
 
 ##################AGREGAMOS CLASES AL PANEL DE ADMINISTRACION##################################
 
