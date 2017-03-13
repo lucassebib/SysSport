@@ -19,10 +19,13 @@ from forms import *
 def deporte_detalle(request, pk):
     template = "deporte_detalle.html"
     deporte = Deporte.objects.get(id=pk)
-    e = deporte.entrenamientos 
+    e = deporte.entrenamientos.all()
+    profesor = Profesor.objects.get(lista_deporte__in=pk) 
 
     ctx = {
         'deporte': deporte,
+        'entrenamientos': e,
+        'profesor': profesor,
     }
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))
@@ -277,9 +280,17 @@ def editar_info_deporte(request, pk):
 
                 
             deporte.descripcion = formulario_deporte.cleaned_data['descripcion']
-            deporte.save()
-            
+            deporte.save() 
             return HttpResponseRedirect('/ver-lista-deportes')
+    else:
+        if request.method == 'POST' and 'boton_eliminar' in request.POST:
+            id_eliminar = request.POST.get('boton_eliminar_id')
+            deporte.entrenamientos.remove(id_eliminar)
+            deporte.save()
+            e = Entrenamiento.objects.get(id=id_eliminar)
+            e.delete()
+
+
 
     ctx = {
         'deporte': deporte,

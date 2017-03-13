@@ -17,6 +17,18 @@ class DatosMedicos(models.Model):
 	tiene_osocial = models.IntegerField(choices=lista_sn, default=3)
 	osocial_cual = models.TextField(default= 'sin obra social')
 
+	def ver_grupo_sanguineo(self):
+		return self.get_grupo_sanguineo_display()
+
+	def ver_toma_medicamentos(self):
+		return self.get_toma_medicamentos_display()
+
+	def ver_tuvo_operaciones(self):
+		return self.get_tuvo_operaciones_display()
+
+	def ver_tiene_osocial(self):
+		return self.get_tiene_osocial_display()
+
 class Direccion(models.Model):
 	calle = models.CharField(max_length=100, blank=True, null=True)
 	altura = models.IntegerField(blank=True, null=True)

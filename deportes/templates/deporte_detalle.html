@@ -6,11 +6,35 @@
 		
 	</div>
 	<div class="page-content">
-		
+		<!-- 
+			ESTA SERIA LA FOTO DE PORTADA DEL DEPORTE. 
+			LA IDEA JUSTAMENTE ES QUE SE VEA COMO FOTO DE PORTADA TIPO FACEBOOK ASI COMO TE MOSTRE EN LA IMAGEN 
+		-->
+		<img src="{{deporte.foto.url}}" class=" img-circle perfil" >
+
+		<!-- 
+			ACA ESTA LA INFO DEL DEPORTE
+		-->
 		Descripcion: {{deporte.descripcion}}
 		Generos aptos para el deporte: {{deporte.ver_aptopara}}
-		
-		<img src="{{deporte.foto.url}}" class=" img-circle perfil" >
+		Horarios de entrenamientos:
+		{% if entrenamientos %}
+			{% for e in entrenamientos %}
+				{{e.dia}}
+				{{e.horario_inicio}}
+				{{e.horario_fin}}
+			{% endfor %}
+		{% else %}
+			<h4>Todavia no se han cargado los horarios de entrenamiento.</h4>
+		{% endif %}
+
+		<!-- 
+			INFORMACION DEL PROFESOR
+		-->
+		Profe: {{profesor.obtenerNombreCompleto}}
+		{{profesor.email}}
+		<img src="{{profesor.foto_perfil.url}}" class=" img-circle perfil" >
+	
 		<input type="button" value="Atras" onclick="history.back(-1)" />
 	</div>
 {% endblock %}
