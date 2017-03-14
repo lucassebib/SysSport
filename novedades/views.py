@@ -76,6 +76,16 @@ def ver_novedades_admin(request):
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
+def editar_novedades_admin(request, pk):
+
+	template = "admin/editar_novedad_admin.html"
+
+	ctx = {
+
+	}
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
 def crear_novedad_admin(request):
 	template = "admin/crear_novedad_admin.html"
 	form = FormularioNovedadesAdmin()
@@ -201,9 +211,7 @@ def ver_novedades(request, pk):
 		novedad.save()
 		comentario = Comentario.objects.get(id=id_comentario_eliminar)
 		comentario.delete()
-		
 
-	
 	#if request.method == "POST" and 'boton_editar' in request.POST:
 		#mensaje='apretaste boton editar'
 		#edicion = True

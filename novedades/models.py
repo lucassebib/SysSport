@@ -38,8 +38,8 @@ class Novedades(models.Model):
 	def obtener_categorias(self):
 		return "\n -".join([d.nombre for d in self.categoria.all()])
 
-	def obtener_textoComentarios(self):
-		return "\n -".join([t.texto for t in self.lista_comentarios.all()])
+	#def obtener_textoComentarios(self):
+	#	return "\n -".join([t.texto for t in self.lista_comentarios.all()])
 	
 	#def obtener_autoresComentario(self):
 	#	return "\n -".join([d.autor for d in self.lista_comentarios.all()])
@@ -61,7 +61,7 @@ class Novedades(models.Model):
 class Notificacion(models.Model):
 	id_autor_comentario = models.IntegerField()
 	autor_comentario = models.CharField(max_length=50)
-	notificar_a = models.ForeignKey(Profesor)
+	notificar_a = models.ForeignKey(User)
 	novedad = models.ForeignKey(Novedades)
 
 
