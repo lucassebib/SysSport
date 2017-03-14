@@ -6,7 +6,6 @@ td{
 .td_perfil{
     width: 80px;
     height: 80px;
-    background-color: #A4A4A4;
     padding: 5px;
     margin: 0;
 }
@@ -84,6 +83,7 @@ table.tr_comentario{
 	padding-bottom: 10px;
     margin-left: 3px;
     margin-right: 3px;
+    margin-bottom: 10px;
     background-color: #E6E6E6;
     border: 1px solid #e1e1e1;
     border-radius: 5px;
