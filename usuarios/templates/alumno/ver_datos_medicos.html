@@ -35,8 +35,13 @@
 						<tbody>
 							<tr>
 								<td>{{d.nombre}} </td>
-								<td>{{d.ficha_medica.descripcion}}</td>
-								<td><a href="{{d.ficha_medica.ficha_medica.url}}">link</a></td>
+								{% if d.ficha_medica %}
+									<td>{{d.ficha_medica.descripcion}}</td>
+									<td><a href="{{d.ficha_medica.ficha_medica.url}}">link</a></td>
+								{% else %}
+									<td>El profesor de {{d.nombre}} no ha subido aun una ficha medica.</td>
+									<td>-</td>
+								{% endif %}
 							</tr>
 						</tbody>
 					{% endfor %}	
@@ -46,14 +51,18 @@
 			{% if deportes %}
 
 				<form method="POST" enctype="multipart/form-data">{% csrf_token %}
-					<h1>Actualmente:</h1>
+					<h1><u>Actualmente:</u></h1>
 						{% if alumno.ficha_medica %}
-							<a id="ficha_medica" href="{{alumno.ficha_medica.url}}">Descargar Ficha Médica</a>
+							Usted ha subido la siguiente ficha medica (haga click en el nombre para descargar): 
+							</br><a id="ficha_medica" href="{{alumno.ficha_medica.url}}">{{alumno.nombre_archivo}}</a>
 						{% else %}
 							<h3>No ha subido todavia su ficha medica</h3>
 						{% endif %} 
-
-					<p>Suba o modifique aqui su ficha medica</p>
+					<hr style="border-color:blue;">
+					<hr style="border-color:blue;">
+					<hr style="border-color:blue;">
+					<p>Para subir o modificar su ficha medica, seleccione la opcion 'Seleccionar archivo' y posteriormente haga click en Guardar...</p>
+					<p>Por favor, utilice el siguiente formato para el nombre de su archivo: DEPORTE_APELLIDO-NOMBRE_DNI</p>
 					{{form.as_p}}
 					<button type='submit' class="btn btn-default" value='Guardar' name="boton_guardar_form">Guardar</button>
 				</form>
@@ -65,11 +74,14 @@
 		<div role="tabpanel" class="tab-pane fade" id="informacion_medica" >	
 			<form class="form-horizontal" role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
 			<div class="panel" > 
+				<h5>A continuacion, nos gustaria que nos suministres los siguientes datos.</h5> 
+				<h5>Al finalizar, seleccione la opcion Guardar. Podra dirigirse a esta seccion cada vez que quiera realizar alguna modificacion.</h5> 
 					<div class=" well">
 						{% for field in form_dm %}
 							<p><i>{{field.label}}:</i></p>
 							<p>{{field}}</p>
 						{% endfor %}
+
 				<button class="btn btn-default" type="submit" value="Guardar" name="boton_guardar_form_dm">Guardar</button>
 			</form>	
    			
