@@ -2,12 +2,54 @@
 
 {% block contenido %}
 
+	<script type="text/javascript">
+
+		function showContent() {
+	        element = document.getElementById("div_escondido"); 
+	        seleccion = document.getElementById("visibilidad");
+	        valor = seleccion.options[seleccion.selectedIndex].value;
+	        if (valor == '3') {
+	            element.style.display='block';
+	        }
+	        else {
+	            element.style.display='none';
+	        }
+    	}
+	</script>
+
 	<div class="page-header">
 		<h1><i>Crear Novedad </i>{{mensaje}}</h1>
 	</div>
 
 	<div class="page-content">
-		{{form.as_p}}
+
+		<form action='' method='POST'>{% csrf_token %}
+			<br>Titulo:
+			<br>{{form.titulo}}
+			<br>Contenido:
+			<br>{{form.contenido}}
+			<br>Imagen:
+			<br>{{form.imagen}}
+			
+			<br>Visibilidad:
+			<select name="visibilidad" id="visibilidad" onchange="javascript:showContent()">
+				{% for valor, opcion in form.visibilidad.field.choices %}
+			   		<option value="{{valor}}">
+			   			{{opcion}}
+			   		</option> 
+				{% endfor %}
+			</select>	
+
+			<div id="div_escondido" style="display: none;">
+				<br>Categoria:
+				<br>{{form.categoria}}
+			</div>
+			
+			</br><input type='submit' name='boton_confirmar' value='Confirmar'>
+			<input type="button" value="Cancelar" onclick="history.back(-1)" />
+		</form>
+
+		
 	</div>	
 
 {% endblock %}

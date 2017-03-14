@@ -17,6 +17,7 @@
 				<tr>
 					<th>Titulo</th>
 					<th>Autor</th>
+					<th>Visible para</th>
 					<th>Fecha Publicacion</th>
 				</tr>
 			</thead>
@@ -25,8 +26,15 @@
 				<tbody>
 					<tr>
 						<td><a href="">{{n.titulo}}</a> </td>
-						<td><a href="">{{n.autor.obtenerNombreCompleto}}</a> </td>
-						<td><a href="">{{n.fecha_publicacion}}</a> </td>
+						<td>
+							{% if n.autor.is_superuser %}
+								{{n.autor.username}} 
+							{%else%}
+								{{n.autor.get_full_name}}
+							{% endif %}
+						</td>
+						<td>{{n.ver_visibilidad}}</td>
+						<td>{{n.fecha_publicacion}} </td>
 					</tr>
 				</tbody>
 			{% endfor %}

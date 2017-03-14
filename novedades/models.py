@@ -25,10 +25,11 @@ class Novedades(models.Model):
 	titulo = models.CharField(max_length=100)
 	contenido = tinymce_models.HTMLField()
 	fecha_publicacion = models.DateTimeField(auto_now_add=True)
-	autor = models.ForeignKey(Profesor, blank=True, null=True)   
+	#autor = models.ForeignKey(Profesor, blank=True, null=True)
+	autor = models.ForeignKey(User, blank=True, null=True)   
 	imagen = models.ImageField(upload_to='fotos_posts', blank=True, null=True)
 	visibilidad = models.IntegerField(choices=pueden_ver, default=2)
-	categoria = models.ManyToManyField(Deporte)
+	categoria = models.ManyToManyField(Deporte, blank=True, null=True)
 	lista_comentarios = models.ManyToManyField(Comentario, blank=True, null=True)
 
 	class Meta:
@@ -54,6 +55,9 @@ class Novedades(models.Model):
 	def obtener_idAutor(self):
 		return self.autor.id
 
+	def ver_visibilidad(self):
+		return self.get_visibilidad_display()
+
 class Notificacion(models.Model):
 	id_autor_comentario = models.IntegerField()
 	autor_comentario = models.CharField(max_length=50)
@@ -63,10 +67,10 @@ class Notificacion(models.Model):
 
 ##################AGREGAMOS CLASES AL PANEL DE ADMINISTRACION##################################
 
-class NovedadesAdmin(admin.ModelAdmin):
-	list_display = ('titulo', 'fecha_publicacion' ,'visibilidad','autor', 'obtener_categorias')	
+#class NovedadesAdmin(admin.ModelAdmin):
+#	list_display = ('titulo', 'fecha_publicacion' ,'visibilidad','autor', 'obtener_categorias')	
 
-admin.site.register(Novedades,NovedadesAdmin)
+#admin.site.register(Novedades,NovedadesAdmin)
 
 
 
