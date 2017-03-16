@@ -6,12 +6,17 @@
 	</div>
 	<div class="page-content">
 		<form class="form-horizontal" method='POST'>
-			 <ul class="nav navbar-nav navbar-right navbar-pills">
+			 <ul class="nav navbar-nav nav-pills navbar-right">
 			 	<li><a href=""><span class="glyphicon glyphicon-plus"></span> </span> Agregar Usuario </a></li>
 			 </ul>
 		 </form>
 	
-		<table class="table table-hover table-striped">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+				</tr>
+			</thead>
 			{% for u in usuarios %}
 				<tbody>				
 					<tr>

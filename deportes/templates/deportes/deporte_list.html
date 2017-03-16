@@ -1,20 +1,21 @@
 {% extends "baseAdmin.html" %}
 
 {% block contenido %}
-	<table class="table table-hover table-striped">
-		<caption><h1>Deportes</h1></caption>
-		
-		{% for deporte in object_list %}
-		<tbody>
-			<tr>
-				<td> <a href="{{deporte.get_absolute_url}}">{{deporte.nombre}}</a> </td>
-	
-			</tr>
-		</tbody>
-		{% endfor %}
-	</table>
+	<div class="page-header">
+		<h1><i>Deportes</i></h1>
+	</div>
+	<div class="page-content">
+		<table class="table table-striped">
+			{% for deporte in object_list %}
+			<tbody>
+				<tr>
+					<td> <a href="{{deporte.get_absolute_url}}">{{deporte.nombre}}</a> </td>
+				</tr>
+			</tbody>
+			{% endfor %}
+		</table>
 		<a href="{% url 'crear-deporte' %}">Agregar deporte</a>
-
+	</div>
 {% endblock %}
 
 

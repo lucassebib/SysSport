@@ -8,11 +8,13 @@
 		<div class="page-content">
 			<form action='' method='POST'>{% csrf_token %}
 				{% for field in form %}
+			 		<div>
 			 		<p>{{field.label}}</p>
-					{{field}}										
+					{{field}}	
+					</div>									
 				{% endfor %}
-				<input type='submit' value='Confirmar'>
-				<input type="button" value="Cancelar" onclick="history.back(-1)" />
+				<button class="btn btn-default" type='submit' value='Confirmar'>Confirmar</button>
+			    <button class="btn btn-default" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
 			</form>
 		</div>
 	</div>	

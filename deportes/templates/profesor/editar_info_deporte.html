@@ -10,27 +10,22 @@
 			<ul class=" nav navbar-var navbar-right nav-pills">
 		 		<li><a href="{% url 'editar_entrenamiento_deporte' deporte.id %}"><span class="glyphicon glyphicon-plus"></span> </span>Agregar Fecha de Entrenamiento</a></li>
 		 	</ul>
-
-		 	<h3>A continuacion podra editar informacion para el deporte seleccionado.</h3>
-		 	</br></br>
-		 	Nombre del Deporte: 
-		 	<input type="text" value="{{deporte.nombre}}" readonly>
-		 	</br></br>
-		 	Generos aptos:
-		 	<input type="text" value="{{deporte.ver_aptopara}}" readonly>
-		 	</br></br>
-
+		 	<h4>A continuacion podra editar informacion para el deporte seleccionado.</h4>
+		 	<div class="form-inline">
+		 		Nombre del Deporte <input type="text" value="{{deporte.nombre}}" readonly>
+		 		Generos aptos <input type="text" value="{{deporte.ver_aptopara}}" readonly>
+		 	</div>
 			{% for field in form_deporte %}
 				{% if field.label == 'Foto' %}
 					Foto de Portada Actual: </br>
-					<img src="{{deporte.foto.url}}" class=" img-circle perfil" >
+					<img src="{{deporte.foto.url}}" class="img-deporte" >
 					</br><i>Si desea cambiar la foto de portada actual, por favor seleccione una nueva aqui:</i>
 				{% endif %}
 				
 				<p>{{field.label}}</p>
 				<p>{{field}} </p>			
 			{% endfor %}
-			
+			<div>
 			Fechas de Entrenamiento:
 			{% if entrenamientos %}
 				{% for e in entrenamientos %}
@@ -43,9 +38,9 @@
 			{% else %}
 				<i>Usted todavia no ha ingresado un horario de entrenamiento para este deporte. Por Favor dirijase a la seccion Agregar Fecha de Entrenamiento.</i>
 			{% endif %}
-		
-			<input type='submit' name="boton_guardar" value='Guardar'>
-			<input type="button" value="Cancelar" onclick="history.back(-1)" />
+			</div>
+			<button class="btn btn-default" type='submit' name="boton_guardar" value='Guardar'>Guardar</button>
+			<button class="btn btn-default" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
 		</form>
 	</div>
 {% endblock %}

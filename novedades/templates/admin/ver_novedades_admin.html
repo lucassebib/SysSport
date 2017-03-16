@@ -12,7 +12,7 @@
 			 </ul>
 		 </form>
 
-		<table class="table table-hover table-striped">
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>Titulo</th>
@@ -24,9 +24,9 @@
 			{% for n in novedades %}
 				<tbody>
 					<tr>
-						<td><a href="">{{n.titulo}}</a> </td>
-						<td><a href="">{{n.autor.obtenerNombreCompleto}}</a> </td>
-						<td><a href="">{{n.fecha_publicacion}}</a> </td>
+						<td><a href="{url 'ver_novedades'}">{{n.titulo}}</a> </td>
+						<td>{{n.autor.obtenerNombreCompleto}} </td>
+						<td>{{n.fecha_publicacion}}</td>
 					</tr>
 				</tbody>
 			{% endfor %}

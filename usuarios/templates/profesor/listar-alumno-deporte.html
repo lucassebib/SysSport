@@ -9,11 +9,12 @@
 		<form method="POST">{% csrf_token %}
 			<label for="q">Busqueda: </label>
     		<input type="text" name="q" value="{{query|escape }}">
-    		<input type="submit" name="btn_buscar" value="Buscar">
-    		
-    		<input type="radio" name="opcion" value="legajo">Legajo
-  			<input type="radio" name="opcion" value="carrera">Carrera
-  			<input type="radio" name="opcion" value="apellido">Apellido 
+    		<button class="btn btn-default" type="submit" name="btn_buscar" value="Buscar">Buscar</button>
+    		<div class="radio">
+	    		<label class="radio-inline"><input type="radio" name="opcion" value="legajo">Legajo</label>
+	  			<label class="radio-inline"><input type="radio" name="opcion" value="carrera">Carrera</label>
+	  			<label class="radio-inline"><input type="radio" name="opcion" value="apellido">Apellido</label> 
+  			</div>
 		</form>
 		
 	</div>	
@@ -21,7 +22,7 @@
 	<div class=" panel-heading">
 		<h4>Seleccione alumno para ver informacion:</h4>
 	</div>
-	<table class="table table-hover">	
+	<table class="table table-striped">	
 		<thead>
 			<tr>
 				<th>Nombre y Apellido </th>
@@ -55,5 +56,5 @@
 			
 		
 	</table>
-	<input type="button" value="Volver" onclick="history.back(-1)" />
+	<button class="btn btn-default"  type="button" value="Volver" onclick="history.back(-1)" />Volver</button>
 {% endblock %}

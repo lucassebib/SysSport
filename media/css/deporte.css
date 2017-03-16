@@ -2,7 +2,7 @@
 /* Create three columns of equal width */
 .columns {
     float: left;
-    width: 33.3%;
+    width:auto;
     padding: 8px;
     
 }
@@ -59,10 +59,38 @@
 }
 
 /* Change the width of the three columns to 100% 
-(to stack horizontally on small screens) */
-@media only screen and (max-width: 600px) {
+(to stack horizontally on small screens) @media only screen and (max-width: 600px) {
     .columns {
         width: 100%;
 
     }
+}*/
+
+
+.portada-deporte{
+    height: 240px;
+    width: 50%;
+    float: left;
+    padding: 20px;
+  
+}
+.img-deporte{
+    height: 200px;
+    border-radius: 7px;
+}
+.info-profesor{
+    width: 100%;
+    padding: 20px;
+}
+.info-deporte{
+    width: 100%;
+    padding: 20px;
+ }
+.img-circle.perfil-profesor{
+    width: 100px;
+    height: 100px;
+}
+.footer{
+    margin-top: 30px;
+    margin-left: 0;
 }

@@ -17,9 +17,8 @@ class FormularioNovedades(forms.ModelForm):
 	class Meta:
 		model = Novedades
 		fields = ['titulo', 'contenido', 'imagen','visibilidad', 'categoria']
-		widgets = {
-           'categoria': forms.CheckboxSelectMultiple,
-        }
+		categoria= forms.MultipleChoiceField( widget=forms.CheckboxSelectMultiple())
+        
 
 	def __init__(self, user, *args, **kwargs):
 		super(FormularioNovedades, self).__init__(*args, **kwargs)
