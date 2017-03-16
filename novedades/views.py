@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login as loguear, logout
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.db.models import Q
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
@@ -69,6 +69,14 @@ class EliminarNovedades(DeleteView):
 ################################## NOVEDADES PARA ADMINISTRADOR ########################################
 def ver_novedades_admin(request):
 	template = "admin/ver_novedades_admin.html"
+	url = ''
+	if request.method == 'POST' and 'boton_visualizar' in request.POST:
+ 		id_novedad = request.POST.get('boton_visualizar_id')
+ 		url = reverse('visualizar_novedad_admin', kwargs={'pk': id_novedad})
+ 		#string(url)
+        #return HttpResponseRedirect(url)
+ 	#else:
+ 		#mensaje = 'no'
 
 	ctx = {
 		'novedades': Novedades.objects.all()
@@ -79,9 +87,27 @@ def ver_novedades_admin(request):
 def editar_novedades_admin(request, pk):
 
 	template = "admin/editar_novedad_admin.html"
+	novedad = Novedades.objects.get(id=pk)
+	mensaje = 'ss'
+
+	form = FormularioNovedadesAdmin()
+	form.initial = {
+		'titulo' : novedad.titulo, 
+		'contenido' : novedad.contenido,
+		'fecha_publicacion' : novedad.fecha_publicacion,
+		#'autor' : novedad.autor,
+		'imagen' : novedad.imagen,
+		'visibilidad' : novedad.visibilidad,
+		'categoria' : novedad.categoria,
+	}
+
+ 	
+
+
 
 	ctx = {
-
+		'form': form,
+		'mensaje': mensaje,
 	}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))

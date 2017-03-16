@@ -19,7 +19,6 @@ class FormularioNovedades(forms.ModelForm):
 		fields = ['titulo', 'contenido', 'imagen','visibilidad', 'categoria']
 		contenido =forms.CharField(widget=forms.Textarea(attrs={'cols': '80', 'rows':'20'}))
 		categoria= forms.MultipleChoiceField( widget=forms.CheckboxSelectMultiple())
-        
 
 	def __init__(self, user, *args, **kwargs):
 		super(FormularioNovedades, self).__init__(*args, **kwargs)
