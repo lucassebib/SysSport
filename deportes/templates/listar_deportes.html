@@ -1,4 +1,9 @@
 {% extends "usuario_noLogueado.html" %}
+{% block menu %}
+	{% if user.is_staff %}
+		{% include "menuAdmin.html" %}
+	{% endif %}
+{% endblock %}
 
 {% block contenido %}
 	<div class="page-header">

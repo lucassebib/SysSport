@@ -24,14 +24,14 @@
 	<div class="page-content">
 
 		<form action='' method='POST'>{% csrf_token %}
-			<br>Titulo:
-			<br>{{form.titulo}}
-			<br>Contenido:
-			<br>{{form.contenido}}
-			<br>Imagen:
-			<br>{{form.imagen}}
+			<label  class="form-group">Titulo:</label>
+			{{form.titulo}}<br>
+			<label class="form-group">Contenido:</label><br>
+			{{form.contenido}}<br>
+			<label class="form-group">Imagen:</label>
+			{{form.imagen}}<br>
 			
-			<br>Visibilidad:
+			<label class="form-group">Visibilidad:</label>
 			<select name="visibilidad" id="visibilidad" onchange="javascript:showContent()">
 				{% for valor, opcion in form.visibilidad.field.choices %}
 			   		<option value="{{valor}}">
@@ -41,12 +41,12 @@
 			</select>	
 
 			<div id="div_escondido" style="display: none;">
-				<br>Categoria:
-				<br>{{form.categoria}}
+				<label class="form-group">Categoria:</label>
+				{{form.categoria}}<br>
 			</div>
 			
-			</br><input type='submit' name='boton_confirmar' value='Confirmar'>
-			<input type="button" value="Cancelar" onclick="history.back(-1)" />
+			</br><button class="btn btn-default" type='submit' name='boton_confirmar' value='Confirmar'>Confirmar</button>
+			<button class="btn btn-default" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
 		</form>
 
 		

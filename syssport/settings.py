@@ -31,6 +31,7 @@ INSTALLED_APPS = (
     'canchas',
     'entrenamiento',
     'tinymce'
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -42,6 +43,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
 
 TINYMCE_DEFAULT_CONFIG = {
     'plugins': "table,spellchecker,paste,searchreplace",

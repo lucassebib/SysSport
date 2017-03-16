@@ -1,6 +1,7 @@
 from django.conf.urls import *
 from django.contrib import admin
 from django.conf import settings
+from django.conf.urls.static import static
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -21,3 +22,4 @@ urlpatterns = patterns('',
    
     
 )
+
