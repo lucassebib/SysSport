@@ -1,16 +1,17 @@
-from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
-from django.template import Context
-from django.http import HttpResponse, Http404, HttpResponseRedirect
-from novedades.models import Novedades, Comentario, Notificacion
-from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona
-from deportes.models import Deporte
+from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse_lazy
 from django.db.models import Q
+from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
 from django.template import Context
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.core.urlresolvers import reverse_lazy
+
+from deportes.models import Deporte
+from novedades.models import Novedades, Comentario, Notificacion
+from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona
+
 from forms import FormularioComentario, FormularioNovedades, FormularioNovedadesAdmin
 from paginacion import Paginate
 
@@ -48,9 +49,10 @@ class CrearNovedades(CreateView):
 	        kwargs['user'] = self.request.user
 	        return kwargs
 
-	def form_valid(self, form):
+	def form_valid(self, form):	
 		a = form.save(commit = False)
-		a.autor = Profesor.objects.get(id = self.request.user.id)
+		#a.autor = Profesor.objects.get(id = self.request.user.id)
+		a.autor = self.request.user
 		return super(CrearNovedades, self).form_valid(form)
 
 class ActualizarNovedades(UpdateView):
@@ -74,10 +76,45 @@ def ver_novedades_admin(request):
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
+def editar_novedades_admin(request, pk):
+
+	template = "admin/editar_novedad_admin.html"
+
+	ctx = {
+
+	}
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
 def crear_novedad_admin(request):
 	template = "admin/crear_novedad_admin.html"
 	form = FormularioNovedadesAdmin()
 	mensaje = request.user
+
+	if request.method == "POST" and 'boton_confirmar' in request.POST:
+		form = FormularioNovedadesAdmin(request.POST)
+		if form.is_valid():
+			titulo = form.cleaned_data['titulo']
+			contenido = form.cleaned_data['contenido']
+			autor = request.user
+			imagen = form.cleaned_data['imagen']
+			visibilidad = form.cleaned_data['visibilidad']
+			categoria = form.cleaned_data['categoria']
+
+			n = Novedades()
+			n.titulo = titulo
+			n.contenido = contenido
+			n.autor = autor
+			n.imagen = imagen
+			n.visibilidad = visibilidad
+			n.save()
+			
+			if categoria:
+				for c in categoria:
+					n.categoria.add(c.id)
+
+			n.save()			
+			return HttpResponseRedirect('/admin/novedades')
 
 	ctx = {
 		'form': form,
@@ -126,6 +163,7 @@ def ver_novedades(request, pk):
 	#edicion = False
 	puede_editar_comentarios = False
 	mensaje = ''
+	
 	try:
 		g = Alumno.objects.get(id=id_usuario)
 		extiende = 'baseAlumno.html'
@@ -155,9 +193,9 @@ def ver_novedades(request, pk):
 			comentario.save()
 			novedad.lista_comentarios.add(comentario)
 			novedad.save()
-			form = FormularioComentario()
+			#form = FormularioComentario() 
 
-			if not autor.id == novedad.autor.id:
+			if not autor.id == novedad.autor.id and not novedad.autor.is_staff:
 				n = Notificacion()
 				n.id_autor_comentario = autor.id
 				n.autor_comentario = autor.obtenerNombreCompleto()
@@ -165,13 +203,15 @@ def ver_novedades(request, pk):
 				n.novedad = novedad
 				n.save()
 			return HttpResponseRedirect('')
-
+	
 	if request.method == "POST" and 'boton_eliminar' in request.POST:
 		mensaje = 'tendria que eliminar'
-		novedad.lista_comentarios.remove(request.POST.get('boton_eliminar'))
+		id_comentario_eliminar = request.POST.get('boton_eliminar')
+		novedad.lista_comentarios.remove(id_comentario_eliminar)
 		novedad.save()
+		comentario = Comentario.objects.get(id=id_comentario_eliminar)
+		comentario.delete()
 
-	mensaje = 'todavia naranja'
 	#if request.method == "POST" and 'boton_editar' in request.POST:
 		#mensaje='apretaste boton editar'
 		#edicion = True

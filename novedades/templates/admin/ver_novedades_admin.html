@@ -17,6 +17,8 @@
 				<tr>
 					<th>Titulo</th>
 					<th>Autor</th>
+					<th>Deporte</th>
+					<th>Visible para</th>
 					<th>Fecha Publicacion</th>
 				</tr>
 			</thead>
@@ -24,9 +26,24 @@
 			{% for n in novedades %}
 				<tbody>
 					<tr>
-						<td><a href="{url 'ver_novedades'}">{{n.titulo}}</a> </td>
-						<td>{{n.autor.obtenerNombreCompleto}} </td>
-						<td>{{n.fecha_publicacion}}</td>
+
+						<td><a href="{% url 'editar_novedad_admin' n.id %}">{{n.titulo}}</a> </td>
+						<td>
+							{% if n.autor.is_superuser %}
+								{{n.autor.username}} 
+							{%else%}
+								{{n.autor.get_full_name}}
+							{% endif %}
+						</td>
+						<td>
+							{% if n.categoria.all %}
+								{{n.obtener_categorias}}
+							{% else %}
+								--
+							{% endif %}
+						</td>
+						<td>{{n.ver_visibilidad}}</td>
+						<td>{{n.fecha_publicacion}} </td>
 					</tr>
 				</tbody>
 			{% endfor %}

@@ -30,6 +30,15 @@ class FormularioNovedades(forms.ModelForm):
 class FormularioNovedadesAdmin(forms.ModelForm):
 	class Meta:
 		model = Novedades
+		exclude = ['lista_comentarios', 'autor']
+		widgets = {
+           'categoria': forms.CheckboxSelectMultiple,
+        }
+
+	#def form_valid(self, form):
+	#	a = form.save(commit = False)
+	#	a.autor = self.request.user
+	#	return super(FormularioNovedadesAdmin, self).form_valid(form)
 
 
 

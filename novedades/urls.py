@@ -24,10 +24,10 @@ urlpatterns += patterns('',
 )
 
 #Para ADMIN
-
 urlpatterns += patterns('',
     url(r'^admin/novedades$', ver_novedades_admin, name='ver_novedades_admin'),
     url(r'^admin/novedades/crear$', crear_novedad_admin, name='crear_novedad_admin'),
+    url(r'^admin/novedades/editar/(?P<pk>[0-9]+)$', editar_novedades_admin, name='editar_novedad_admin'),
 )
 
 
