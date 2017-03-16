@@ -1,17 +1,17 @@
 {% extends "baseAdmin.html" %}
 {% block contenido %}
-	<div class="panel-default">
+	
 		<div class="panel-heading" align="center">
-			<p>¿Está seguro que desea eliminar la cancha {{canchas.nombre}}?</p>
+			<h4>¿Está seguro que desea eliminar la cancha <u>{{canchas.nombre}}</u>?</h4>
 		</div>
-		<div class="panel-body panel" align="center" >
+		<div class="panel-body" align="center" >
 			<form action='' method='POST'>
 				{% csrf_token %}
-				<input type='submit' value='Confirmar'>
-				<input type="button" value="Volver" onclick="history.back(-1)" />
+				<button class="btn btn-default" type='submit' value='Confirmar'>Confirmar</button>
+				<button class="btn btn-default" type="button" value="Volver" onclick="history.back(-1)" />Cancelar</button>
 			</form>
 		</div>
-	</div>
+
 		
 		
 {% endblock %}

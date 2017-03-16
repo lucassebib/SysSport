@@ -1,13 +1,14 @@
 {% extends "baseAlumno.html" %}
 {% block contenido %}
-	
-	<div class="page-content">
+	<div class="panel-heading" align="center">
 		<h4>Esta seguro que quiere darse de baja de: </br><u>{{deporte}}</u></h4>
+	</div>
+	<div class="panel-body" align="center" >
 		<form action='' method='POST'>
 		{% csrf_token %}
 		<button class="btn btn-default" type='submit' value='Confirmar'>Confirmar</button>
 		<button class="btn btn-default" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
-	</form>
+		</form>
 	
 	</div>
 {% endblock %}

@@ -24,7 +24,7 @@
 			</form>
 		</div>
 
-		<table class="table table-hover table-striped">
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>Titulo</th>
@@ -38,6 +38,7 @@
 			{% for n in novedades %}
 				<tbody>
 					<tr>
+
 						<td><a href="{% url 'editar_novedad_admin' n.id %}">{{n.titulo}}</a> </td>
 						<td>
 							{% if n.autor.is_superuser %}

@@ -5,15 +5,15 @@
 		<h1><b><i>Deportes</i></b></h1>
 	</div>
 	<div class="page-content">
-	<h2>Animate a participar en alguno de estos deportes!!...</h2>
+	<h3>Animate a participar en alguno de estos deportes!!...</h3>
 		<div class="carousel">
 			{% include "slider-deportes/slider-deportes.html" %}
 		</div>
-		<div class="navbar ">
+		<div class="navbar">
 			{% for d in deportes %}
 				<div class="columns">
 					<ul class="price">
-						<a class="nav-link" href="{% url 'deporte_detalle' d.id %}"><li class=" header">{{d.nombre}}</li></a>
+						<a href="{% url 'deporte_detalle' d.id %}"><li class=" header">{{d.nombre}}</li></a>
 					</ul>
 				</div>
 			{% endfor %}
