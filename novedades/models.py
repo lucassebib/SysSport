@@ -67,10 +67,10 @@ class Notificacion(models.Model):
 
 ##################AGREGAMOS CLASES AL PANEL DE ADMINISTRACION##################################
 
-#class NovedadesAdmin(admin.ModelAdmin):
-#	list_display = ('titulo', 'fecha_publicacion' ,'visibilidad','autor', 'obtener_categorias')	
+class NovedadesAdmin(admin.ModelAdmin):
+	list_display = ('titulo', 'fecha_publicacion' ,'visibilidad','autor', 'obtener_categorias')	
 
-#admin.site.register(Novedades,NovedadesAdmin)
+admin.site.register(Novedades,NovedadesAdmin)
 
 
 
