@@ -69,17 +69,10 @@ class EliminarNovedades(DeleteView):
 ################################## NOVEDADES PARA ADMINISTRADOR ########################################
 def ver_novedades_admin(request):
 	template = "admin/ver_novedades_admin.html"
-	url = ''
-	if request.method == 'POST' and 'boton_visualizar' in request.POST:
- 		id_novedad = request.POST.get('boton_visualizar_id')
- 		url = reverse('visualizar_novedad_admin', kwargs={'pk': id_novedad})
- 		#string(url)
-        #return HttpResponseRedirect(url)
- 	#else:
- 		#mensaje = 'no'
-
+	
 	ctx = {
-		'novedades': Novedades.objects.all()
+		'novedades': Novedades.objects.all(),
+		#'mensaje': mensaje,
 	}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
@@ -100,10 +93,6 @@ def editar_novedades_admin(request, pk):
 		'visibilidad' : novedad.visibilidad,
 		'categoria' : novedad.categoria,
 	}
-
- 	
-
-
 
 	ctx = {
 		'form': form,
@@ -149,7 +138,53 @@ def crear_novedad_admin(request):
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
+def ver_novedad_admin(request, pk):
+	template = "admin/ver_novedad_admin.html"
+	form = FormularioComentario()
+	id_usuario = request.user.id
+	novedad = Novedades.objects.get(id=pk)
+	#edicion = False
+	puede_editar_comentarios = True
+	mensaje = ''
+	extiende = 'baseAdmin.html'
 
+	if request.method == "POST" and 'boton_agregar' in request.POST:
+		form = FormularioComentario(request.POST)
+		if form.is_valid():
+			texto = form.cleaned_data['texto']
+			autor = Persona.objects.get(id=request.user.id)
+			comentario = Comentario(texto=texto, autor=autor)
+			comentario.save()
+			novedad.lista_comentarios.add(comentario)
+			novedad.save()
+			#form = FormularioComentario() 
+
+			if not autor.id == novedad.autor.id and not novedad.autor.is_staff:
+				n = Notificacion()
+				n.id_autor_comentario = autor.id
+				n.autor_comentario = autor.obtenerNombreCompleto()
+				n.notificar_a = novedad.autor
+				n.novedad = novedad
+				n.save()
+			return HttpResponseRedirect('')
+	
+	if request.method == "POST" and 'boton_eliminar' in request.POST:
+		mensaje = 'tendria que eliminar'
+		id_comentario_eliminar = request.POST.get('boton_eliminar')
+		novedad.lista_comentarios.remove(id_comentario_eliminar)
+		novedad.save()
+		comentario = Comentario.objects.get(id=id_comentario_eliminar)
+		comentario.delete()
+	 
+	ctx = {
+		'novedad': novedad,
+		'formulario':form,
+		'comentarios':novedad.lista_comentarios.all().order_by('-id'),
+		'extiende': extiende,
+		'puede_editar_comentarios': puede_editar_comentarios,
+		'mensaje': mensaje
+	}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
 ########################################################################################################
 
 ###################################### NOVEDADES PARA TODOS ############################################	
@@ -204,11 +239,8 @@ def ver_novedades(request, pk):
 				g = UsuarioInvitado.objects.get(id=id_usuario)
 				extiende = 'baseAlumno.html'
 			except Exception as e:
-				try:
-					extiende = 'usuario_noLogueado.html'
-				except Exception as e:
-					if request.user.is_staff:
-						extiende = 'baseAdmin.html'
+				if request.user.is_staff:
+					extiende = 'baseAdmin.html'
 
 	if request.method == "POST" and 'boton_agregar' in request.POST:
 		form = FormularioComentario(request.POST)

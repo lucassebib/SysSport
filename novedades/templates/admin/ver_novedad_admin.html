@@ -1,0 +1,64 @@
+{% extends extiende %}
+
+{% block contenido %}
+	<div class="page-header">
+		<div class="fondo_mensaje esquinas">
+			<div class="titular-comentario contenido-comentario esquinas">
+				<table >
+					<tr>
+						<td class="td_perfil" ><a href="{% url 'ver_informacion_perfil_persona' novedad.obtener_idAutor %}"><img class="img_perfil" src="{{novedad.obtener_url_imagen}}" ></a></td>
+						<td class="td_titulo"><b><h2 class="titulo_novedad">{{novedad.titulo}}</h2></b>
+						<p>{{novedad.fecha_publicacion}}</p></td> 
+					</tr>
+				</table>
+			</div>
+			<div class="text-justify texto_mensaje">
+				<p2>{{novedad.contenido|safe}}</p2>
+			
+				<!--<p2>{{post.contenido|safe}}</p2> -->
+				<p><strong><b>Deporte: </b></strong>{{novedad.obtener_categorias}}</p>
+			</div>
+
+		</div>
+	</div>
+	<div class="page-content page-comentarios">
+		<div class="fondo_mensaje esquinas">
+			{% for c in comentarios %}	
+				<div class="titular-comenatrio contenido-comentario esquinas">
+					<table>
+						<tr>
+							<td class="td_perfil"><a href="{% url 'ver_informacion_perfil_persona' c.obtener_idAutor %}"><img class="img_perfil" src="{{c.obtener_url_imagen}}" ></a></td>
+							<td class="td_titulo">
+								<h4>{{ c.autor }}</h4>
+								<p2>{{c.fecha_publicacion}}</p2>
+							</td>
+						</tr>
+							
+						</div>
+						</tr>
+					</table>
+				</div>
+				<div class="texto_mensaje">
+					<p2>{{ c.texto }}</p2>
+					<div class="navbar-btn">
+						{% if c.obtener_idAutor = user.id or puede_editar_comentarios %}
+							<form method="POST">{% csrf_token %}
+								<button type="submit" class="btn btn-default" name="boton_eliminar" value="{{c.id}}">Eliminar</button>
+								<!--<td><button type="submit" name="boton_editar" value="{{c.id}}">Editar</button> </td> -->
+							</form>
+						{% endif %}
+					</div>
+				</div>
+			{% endfor %}
+			<div class="comentario">
+				<form class="form-horizontal" role="form" action='' method='POST'>{% csrf_token %}
+					{{ formulario.as_p }}
+					<button type="submit" class="btn btn-default" name="boton_agregar">Agregar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}
+		
