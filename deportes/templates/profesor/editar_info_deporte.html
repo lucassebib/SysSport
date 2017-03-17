@@ -6,37 +6,47 @@
 	</div>
 
 	<div class="page-content">
+		<h4>A continuacion podra editar informacion para el deporte seleccionado.</h4>
 		<form role="form" method="POST" accept-charset="utf-8" enctype="multipart/form-data">{% csrf_token %}
 			<ul class=" nav navbar-var navbar-right nav-pills">
 		 		<li><a href="{% url 'editar_entrenamiento_deporte' deporte.id %}"><span class="glyphicon glyphicon-plus"></span> </span>Agregar Fecha de Entrenamiento</a></li>
 		 	</ul>
-		 	<h4>A continuacion podra editar informacion para el deporte seleccionado.</h4>
-		 	<div class="form-inline">
-		 		Nombre del Deporte <input type="text" value="{{deporte.nombre}}" readonly>
-		 		Generos aptos <input type="text" value="{{deporte.ver_aptopara}}" readonly>
-		 	</div>
+		 	
+		 
+	 		<div class="form-group">
+	 			<label>Nombre del Deporte: </label>
+	 			<input type="text" value="{{deporte.nombre}}" readonly>
+	 		</div>
+	 		<div class="form-group">
+	 			<label>Generos aptos: </label>
+	 			<input type="text" value="{{deporte.ver_aptopara}}" readonly>
+	 		</div>
+		 		
+		 	
 			{% for field in form_deporte %}
 				{% if field.label == 'Foto' %}
-					Foto de Portada Actual: </br>
-					<img src="{{deporte.foto.url}}" class="img-deporte" >
-					</br><i>Si desea cambiar la foto de portada actual, por favor seleccione una nueva aqui:</i>
+					<div class="form-group">
+						<label>Foto de Portada Actual: </label></br>
+						<img src="{{deporte.foto.url}}" class="img-deporte" >
+						<p><i>Si desea cambiar la foto de portada actual, por favor seleccione una nueva aqui:</i></p>
+						</div>
 				{% endif %}
 				
-				<p>{{field.label}}</p>
+				<label>{{field.label}}</label>
 				<p>{{field}} </p>			
 			{% endfor %}
 			<div>
-			Fechas de Entrenamiento:
+			<label>Fechas de Entrenamiento: </label>
 			{% if entrenamientos %}
 				{% for e in entrenamientos %}
-					<input type='submit' name="boton_eliminar" value='Eliminar'>
-					<input type='hidden' name="boton_eliminar_id" value='{{e.id}}'>
-					<p><li>{{e.ver_dia}}</li></p>
-					<p>{{e.ver_horario_inicio}}</p>
-					<p>{{e.ver_horario_fin}}</p>
+					<div class="form-group">
+						<p>{{e.ver_dia}} de {{e.ver_horario_inicio}} a {{e.ver_horario_fin}}
+						<input class="btn btn-default " type='submit' name="boton_eliminar" value='X'>
+						<input class="btn btn-default" type='hidden' name="boton_eliminar_id" value='{{e.id}}'></p>
+					</div>
 				{% endfor %}		
 			{% else %}
-				<i>Usted todavia no ha ingresado un horario de entrenamiento para este deporte. Por Favor dirijase a la seccion Agregar Fecha de Entrenamiento.</i>
+				<p><i>Usted todavia no ha ingresado un horario de entrenamiento para este deporte. Por Favor dirijase a la seccion Agregar Fecha de Entrenamiento.</i></p>
 			{% endif %}
 			</div>
 			<button class="btn btn-default" type='submit' name="boton_guardar" value='Guardar'>Guardar</button>

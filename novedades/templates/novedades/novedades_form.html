@@ -28,31 +28,37 @@
 					{{field}}	
 					</div>									
 				{% endfor %}  -->
-
-				<br>Titulo:
-				<br>{{form.titulo}}
-				<br>Contenido:
-				<br>{{form.contenido}}
-				<br>Imagen:
-				<br>{{form.imagen}}
-				
-				<br>Visibilidad:
-				<select name="visibilidad" id="visibilidad" onchange="javascript:showContent()">
-					{% for valor, opcion in form.visibilidad.field.choices %}
-				   		<option value="{{valor}}">
-				   			{{opcion}}
-				   		</option> 
-					{% endfor %}
-				</select>	
-
-				<div id="div_escondido" style="display: none;">
-					<br>Categoria:
-					<br>{{form.categoria}}
+				<div class="form-group">
+					<label>Titulo: </label>
+					{{form.titulo}}
+				</div>
+				<div class="form-group">
+					<label>Contenido: </label>
+					{{form.contenido}}
+				</div>
+				<div class="form-group">
+					<label>Imagen: </label>
+					{{form.imagen}}
+				</div>
+				<div class="form-group">
+					<label>Visibilidad: </label>
+					<select name="visibilidad" id="visibilidad" onchange="javascript:showContent()">
+						{% for valor, opcion in form.visibilidad.field.choices %}
+					   		<option value="{{valor}}">
+					   			{{opcion}}
+					   		</option> 
+						{% endfor %}
+					</select>	
+				</div>
+				<div class="form-group" id="div_escondido" style="display: none;">
+					<label>Categoria:</label>
+					{{form.categoria}}
 				</div>
 
-
-				<br><button class="btn btn-default" type='submit' value='Confirmar'>Confirmar</button>
-			    <button class="btn btn-default" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
+				<div class="form-group">
+					<button class="btn btn-default" type='submit' value='Confirmar'>Confirmar</button>
+			    	<button class="btn btn-default" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
+			    </div>
 			</form>
 		</div>
 	</div>	

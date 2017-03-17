@@ -9,11 +9,11 @@
 	<div class="page-content">
 		<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
 			{% for field2 in form_entrenamiento %}
-				<p>{{field2.label}}</p>
+				<label>{{field2.label}}</label>
 				<p>{{field2}} </p>
 			{% endfor %}
-			<input type='submit' name='boton_guardar' value='Guardar'>
-			<input type="button" value="Cancelar" onclick="history.back(-1)" />
+			<input class="btn btn-default" type='submit' name='boton_guardar' value='Guardar'>
+			<input class="btn btn-default" type="button" value="Cancelar" onclick="history.back(-1)" />
 		</form>
 		
 	</div>

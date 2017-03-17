@@ -8,8 +8,10 @@ class FormularioCrearDeporte(forms.ModelForm):
 class FormularioSubirFichaMedica(forms.ModelForm):
 	class Meta:
 		model = FichaMedica
+		
 
 class FormularioEditarDeporteProfesor(forms.ModelForm):
 	class Meta:
 	        model = Deporte
-	        fields = ["descripcion" ,"foto"]
+	        fields = ["foto"]
+	        descripcion = forms.CharField(widget=forms.Textarea(attrs={'cols': '80', 'rows':'20'}))

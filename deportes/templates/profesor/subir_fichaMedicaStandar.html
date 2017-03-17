@@ -2,47 +2,57 @@
 
 {% block contenido %}
 	<div class="panel-info">
-		<input type="button" value="Volver" onclick="history.back(-1)" />
 		<div class="page-header">
 			<h1><i>Ficha Medica para: </i><b>{{deporte.nombre}}</b></h1>
 		</div>
-
 		<div class="page-content col-12 col-sm-12 col-lg-12">
 			<ul class="nav nav-tabs" role="tablist">
-				<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#ver_ficha_medica">Ver Ficha Medica</a></li>
+				<li class="nav-item active"><a class="nav-link active" data-toggle="tab" href="#ver_ficha_medica">Ver Ficha Medica</a></li>
 				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#editar_ficha_medica">Cargar Ficha Medica</a></li>
 			</ul>
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane fade in active" id="ver_ficha_medica">
+					{% if ficha %}
+						<div class="col-md-9">
+							<div class="form-group">
+								<label class=" control-label">Nombre del Archivo:  </label>
+								<link class=" control-label"> <a href="{{ficha.ficha_medica.url}}">{{ficha.obtenerNombreArchivo}}</a></link>
+								<p>Haga clic en el nombre del archivo para descargar Ficha Medica</p>
+							</div>
+							<div class="form-group">
+								<label class=" control-label">Nota:  </label>
+								<label class=" control-label"> {{ficha.descripcion}} </label>
+							</div>	
+						</div>	 
+					{% else %}
+							<p>No se ha cargado Ficha Medica</p>
+					{% endif %}
+					<div class="form-group">
+						<button class="btn btn-default" type="button" value="Volver" onclick="history.back(-1)" />Volver</button>
+					</div>
+				</div>
 
-		<div class="tab-content">
-
-			<div role="tabpanel" class="tab-pane fade in active" id="ver_ficha_medica">
-				{% if ficha %}
-					<div class="col-md-9">
+				<div role="tabpanel" class="tab-pane fade" id="editar_ficha_medica">
+					<form method="POST" enctype="multipart/form-data">{% csrf_token %}
 						<div class="form-group">
-							<label class=" control-label">Nombre del Archivo:  </label>
-							<link class=" control-label"> <a href="{{ficha.ficha_medica.url}}">{{ficha.obtenerNombreArchivo}}</a> </link>
-							<p>Haga clic en el nombre del archivo para descargar Ficha Medica</p>
+							<label>Ficha médica: </label>
+							{{form.ficha_medica}}
 						</div>
-
 						<div class="form-group">
-							<label class=" control-label">Nota:  </label>
-							<label class=" control-label"> {{ficha.descripcion}} </label>
-						</div>	
-					</div>	 
-				{% else %}
-						No se ha cargado Ficha Medica		
-				{% endif %}
+							<label> Descripción: </label><br>
+							{{form.descripcion}}
+						</div>
+						<div class="form-group">
+							<p>{{mensaje}}</p>
+							<button class="btn btn-default" type='submit' value='Guardar'>Guardar</button>
+							<button class="btn btn-default" type="button" value="Volver" onclick="history.back(-1)" />Volver</button>
+						</div>
+					</form>		
+				</div>
+			
 			</div>
-
-			<div role="tabpanel" class="tab-pane fade" id="editar_ficha_medica">
-				<form method="POST" enctype="multipart/form-data">{% csrf_token %}
-					{{form.as_p}}{{mensaje}}
-					<input type='submit' value='Guardar'>
-				</form>		
-			</div>
-		
+			
 		</div>
-</div>
-
-
+		
+	</div>
 {% endblock %}
