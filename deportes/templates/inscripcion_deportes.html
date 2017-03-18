@@ -1,40 +1,38 @@
 {% extends "baseAlumno.html" %}
 {% block contenido %}
-<div class="page-header">
+<div class="panel-info">
+<div class="page-header panel-default">
 		<h1><i>Deportes</i></h1>
 	</div>
 	<div class="page-content">
 	<table class=" table table-striped">
-		
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Descripción</th>
-			</tr>
-		</thead>		
-		{% for d in deportes %}
-			<tbody>
+			<thead>
 				<tr>
-					<td>{{d.nombre}} </td>
-					<td>{{d.descripcion}}</td>
-					<td>				
-							{% if d in deportes_alumno %}
-								{% if darse_de_baja %}
-									<a type="text" href="{% url 'desinscribir_deporte' d.id %}">Darse de Baja</a>
-								{% endif %}
-								{% else %}
-									{% if darse_de_baja %}
-									<a type="text" href="{% url 'inscripcion_deporte' d.id %}">Inscribirme</a>
-									{% endif %}
-							{% endif %}
-						
-
-						
-
-					</td>
+					<th>Nombre</th>
+					<th>Descripción</th>
 				</tr>
-			</tbody>
-		{% endfor %}
+			</thead>		
+			{% for d in deportes %}
+				<tbody>
+					<tr>
+						<td>{{d.nombre}} </td>
+						<td>{{d.descripcion}}</td>
+						<td>				
+								{% if d in deportes_alumno %}
+									{% if darse_de_baja %}
+										<a type="text" href="{% url 'desinscribir_deporte' d.id %}">Darse de Baja</a>
+									{% endif %}
+									{% else %}
+										{% if darse_de_baja %}
+										<a type="text" href="{% url 'inscripcion_deporte' d.id %}">Inscribirme</a>
+										{% endif %}
+								{% endif %}
+						</td>
+					</tr>
+				</tbody>
+			{% endfor %}
 
-	</table>
+		</table>
+	</div>
+	</div>
 {% endblock %}

@@ -6,12 +6,13 @@
 {% endblock %}
 
 {% block contenido %}
-	<div class="page-header">
+<div class="panel-info">
+	<div class="page-header panel-default">
 		<h1><b><i>Deportes</i></b></h1>
 	</div>
 	<div class="page-content">
-	<h3>Animate a participar en alguno de estos deportes!!...</h3>
-		<div class="carousel">
+		<h4><i>Animate a participar en alguno de estos deportes!!...</i></h4>
+		<div class="carousel-inner">
 			{% include "slider-deportes/slider-deportes.html" %}
 		</div>
 		<div class="navbar">
@@ -23,7 +24,6 @@
 				</div>
 			{% endfor %}
 		</div>
-		
-
 	</div>
+</div>
 {% endblock %}

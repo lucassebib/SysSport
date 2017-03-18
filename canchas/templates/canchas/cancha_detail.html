@@ -1,5 +1,6 @@
 {% extends "baseAdmin.html" %}
 {% block contenido %}
+<div class="panel-info">
 	<div class="page-header">
 		<h1><i>Canchas</i></h1>
 	</div>	
@@ -20,13 +21,13 @@
 					<td>{{canchas.direccion}}</td>
 					<td><a href="{% url 'cancha-actualizar' canchas.id %}">Modificar</a></td>
 					<td><a href="{% url 'eliminar-canchas' canchas.id %}">Eliminar</a></td>
-				
+				</tr>
 			</tbody>
 			
 		</table>
 		<a href="{% url 'listar-canchas' %}">Ver Todas</a>
 	</div>		
-		
+</div>		
 		
 		
 	

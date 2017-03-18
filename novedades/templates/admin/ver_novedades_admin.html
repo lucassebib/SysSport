@@ -1,14 +1,15 @@
 {% extends "baseAdmin.html" %}
 
 {% block contenido %}
-	<div class="page-header">
+<div class="panel-info">
+	<div class="page-header panel-default">
 		<h1><i>Novedades {{mensaje}}</i></h1>
 	</div>
 
 	<div class="page-content">
 		<form class="form-horizontal">{% csrf_token %}
-			<ul class="nav navbar-nav nav-pills navbar-right">
-			 	<li><a href="{% url 'crear_novedad_admin' %}"><span class="glyphicon glyphicon-plus"></span> </span>Nueva Novedad</a>
+			<ul class="nav nav-pills navbar-right">
+			 	<li><a href="{% url 'crear_novedad_admin' %}"><span class="glyphicon glyphicon-plus"></span> </span>Nueva Novedad</a></li>
 			 </ul>
 		 </form>
 
@@ -17,7 +18,7 @@
 			<form method="POST">{% csrf_token %}
 				<label for="q">Busqueda: </label>
 	    		<input type="text" name="q" value="{{query|escape }}">
-	    		<input type="submit" name="btn_buscar" value="Buscar">
+	    		<input class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar">
 	    		
 	    		<input type="radio" name="opcion" value="fecha">Fecha
 	  			<input type="radio" name="opcion" value="autor">Autor
@@ -59,14 +60,14 @@
 						<td>{{n.ver_visibilidad}}</td>
 						<td>{{n.fecha_publicacion}} </td>
 						<td>
-							<button><a href="{% url 'visualizar_novedad_admin' n.id %}">Visualizar</a></button>
+							<button class="btn"><a href="{% url 'visualizar_novedad_admin' n.id %}">Visualizar</a></button>
 						</td>
 					</tr>
 				</tbody>
 			{% endfor %}
 		</table>
 	</div>	
-
+</div>
 
 	
 

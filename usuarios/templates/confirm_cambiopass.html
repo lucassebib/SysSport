@@ -8,6 +8,7 @@
 	{% include "baseAlumno.html" %}
 {%endblock %}
 {% block contenido %}
+	<div class="panel-info">
 	<div class="panel-heading" align="center">
 		<p>¿Está seguro que desea cambiar su contraseña <b>{{user.username}}</b>?</p>
 	</div>
@@ -18,8 +19,8 @@
 			<input type='submit' value='Si'>
 		</form>
 	</div>
-	<a href="modificar_perfil_alumno">Volver</a>
-	
+<a href="modificar_perfil_alumno">Volver</a>
+	</div>
 {% endblock %}
 
 

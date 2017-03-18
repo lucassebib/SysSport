@@ -4,7 +4,7 @@
 
 <div class="panel-info">
 
-	<div class="page-header">
+	<div class="page-header panel-default">
 
 		<h1><i>Notificaciones</i></h1>
 
@@ -13,13 +13,13 @@
 	<div class="page-content">
 		{% if lista_notificaciones %}
 			
-			<table class="table table-striped">
+			<table class="table table-info table-hover">
 				{% for n in lista_notificaciones %}
 					<tr>
-						<td><a href="{% url 'ver_informacion_perfil_persona' n.id_autor_comentario%}">{{n.autor_comentario}}</a> ha hecho un comentario sobre su <a href="{% url 'ver_novedades' n.novedad.id %}">publicacion</a></td>
+						<td class="text-justify"><a href="{% url 'ver_informacion_perfil_persona' n.id_autor_comentario%}">{{n.autor_comentario}}</a> ha hecho un comentario sobre su <a href="{% url 'ver_novedades' n.novedad.id %}">publicacion</a></td>
 
 						<td><form method="POST">{% csrf_token %}
-							<button class="btn btn-default" type="submit" name="boton_eliminarNotificacion" value="{{n.id}}">Eliminar</button>
+							<button class="btn-default glyphicon glyphicon-remove" type="submit" name="boton_eliminarNotificacion" value="{{n.id}}"></button>
 						</form></td>
 					</tr>
 				{% endfor %}

@@ -1,6 +1,6 @@
 {% extends "baseAdmin.html" %}
 {% block contenido %}
-	
+	<div class="panel-info">
 		<div class="panel-heading" align="center">
 			<h4>¿Está seguro que desea eliminar la cancha <u>{{canchas.nombre}}</u>?</h4>
 		</div>
@@ -11,7 +11,7 @@
 				<button class="btn btn-default" type="button" value="Volver" onclick="history.back(-1)" />Cancelar</button>
 			</form>
 		</div>
-
+	</div>
 		
 		
 {% endblock %}

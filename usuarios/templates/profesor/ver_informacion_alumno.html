@@ -2,7 +2,7 @@
 
 {% block contenido %}
 <div class="panel-info">	
-	<div class="page-header">
+	<div class="page-header panel-default">
 		<h1><i>{{alumno.get_full_name}} </i></h1>
 	</div>
 	<div class="page-content col-12 col-sm-12 col-lg-12">
@@ -92,7 +92,7 @@
 		</div>
 		
 	</div>
-<input type="button" value="Volver" onclick="history.back(-1)" />
+<input class="btn btn-primary" type="button" value="Volver" onclick="history.back(-1)" />
 </div>
 {% endblock %}
 

@@ -1,8 +1,8 @@
 {% extends "usuario_noLogueado.html" %}
 
 {% block contenido %}
-
-	<div class="page-header">
+<div class="panel-info">
+	<div class="page-header panel-default">
 		<h1><i>{{deporte.nombre}} </i></h1>
 		
 	</div>
@@ -11,24 +11,25 @@
 			ESTA SERIA LA FOTO DE PORTADA DEL DEPORTE. 
 			LA IDEA JUSTAMENTE ES QUE SE VEA COMO FOTO DE PORTADA TIPO FACEBOOK ASI COMO TE MOSTRE EN LA IMAGEN 
 		-->
-		<div class="portada-deporte">
-			<img src="{{deporte.foto.url}}" class="img-responsive img-deporte" >
+		<div class=" panel-default panel-heading">
+			<div class="portada-deporte">
+				<img src="{{deporte.foto.url}}" class="img-responsive img-deporte" >
+			</div>
+			<!-- 
+				INFORMACION DEL PROFESOR
+			-->
+			<div class="info-profesor">
+				<div class="form-group">
+					<img src="{{profesor.foto_perfil.url}}" class=" img-circle perfil-profesor">
+				</div>
+				<div class="form-group">
+					<label class="control-label">Profe:</label> {{profesor.obtenerNombreCompleto}}
+				</div>
+				<div class="form-group">
+					<label class="control-label">{{profesor.email}}</label>
+				</div>
+			</div>
 		</div>
-		<!-- 
-			INFORMACION DEL PROFESOR
-		-->
-		<div class="info-profesor">
-			<div class="form-group">
-				<img src="{{profesor.foto_perfil.url}}" class=" img-circle perfil-profesor">
-			</div>
-			<div class="form-group">
-				<label class="control-label">Profe:</label> {{profesor.obtenerNombreCompleto}}
-			</div>
-			<div class="form-group">
-				<label class="control-label">{{profesor.email}}</label>
-			</div>
-		</div>
-		
 		<!-- 
 			ACA ESTA LA INFO DEL DEPORTE
 		-->
@@ -54,9 +55,9 @@
 		</div>
 
 		<div class="footer">
-			<button class="btn btn-default" type="button" value="Atras" onclick="history.back(-1)" />Volver</button>	
+			<button class="btn btn-primary" type="button" value="Atras" onclick="history.back(-1)" />Volver</button>	
 		</div>
 		
 	</div>
-	
+</div>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends "baseAdmin.html" %}
 
 {% block contenido %}
-
+<div class="panel-info">
 	<div class="page-header">
 		<h1><i>Novedad</i>{{mensaje}}</h1>
 	</div>
@@ -13,13 +13,13 @@
 				<p>{{field.label}}</p>
 			{% endfor %}
 
-			<button class="btn btn-default" type='submit' value='Guardar'>Guardar</button>
+			<button class="btn btn-primary" type='submit' value='Guardar'>Guardar</button>
 
-			<button class="btn btn-default" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
+			<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
 
 		</form>
 
 
 	</div>	
-
+</div>
 {% endblock %}
