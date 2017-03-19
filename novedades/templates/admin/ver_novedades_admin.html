@@ -1,7 +1,6 @@
 {% extends "baseAdmin.html" %}
 
 {% block contenido %}
-<<<<<<< HEAD
 	
 	<script type="text/javascript">
 
@@ -27,13 +26,10 @@
 	</script>
 
 
-	<div class="page-header">
-		<h1><i>Novedades</i></h1>
-=======
+
 <div class="panel-info">
 	<div class="page-header panel-default">
 		<h1><i>Novedades {{mensaje}}</i></h1>
->>>>>>> 791de8f747fccbe5178ec2f3212916f553bb16dc
 	</div>
 
 	<div class="page-content">
@@ -47,13 +43,9 @@
 	 	<div>
 			<form method="POST">{% csrf_token %}
 				<label for="q">Busqueda: </label>
-<<<<<<< HEAD
-	    		<input type="text" id="buscar" name="q" value="{{query|escape }}">
-	    		<input type="submit" name="btn_buscar" value="Buscar">
-=======
+
 	    		<input type="text" name="q" value="{{query|escape }}">
 	    		<input class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar">
->>>>>>> 791de8f747fccbe5178ec2f3212916f553bb16dc
 	    		
 	    		<input type="radio" id="check_autor" name="opcion" value="autor" onchange="javascript:showContent()">Autor
 	  			<input type="radio" name="opcion" value="titulo" onchange="javascript:showContent()">Titulo
@@ -89,78 +81,46 @@
 					<th>Visible para</th>
 					<th>Fecha Publicacion</th>
 				</tr>
-			</thead>
-<<<<<<< HEAD
-			
-				
-					<tbody>
-						{% if novedades %}
-							{% for n in novedades %}
-								<tr>
-									<td><a href="{% url 'editar_novedad_admin' n.id %}">{{n.titulo}}</a> </td>
-									<td>
-										{% if n.autor.is_superuser %}
-											{{n.autor.username}} 
-										{%else%}
-											{{n.autor.get_full_name}}
-										{% endif %}
-									</td>
-									<td>
-										{% if n.categoria.all %}
-											{{n.obtener_categorias}}
-										{% else %}
-											--
-										{% endif %}
-									</td>
-									<td>{{n.ver_visibilidad}}</td>
-									<td>{{n.fecha_publicacion}} </td>
-									<td>
-										<button><a href="{% url 'visualizar_novedad_admin' n.id %}">Visualizar</a></button>
-										<button><a href="{% url 'eliminar_novedad_admin' n.id %}">Eliminar</a></button>
-									</td>
-								</tr>
-							{% endfor %}
-						{% else %}
-							<tr>
-								<th><h4>{{mensaje|safe}}</h4>
-								<th>-</th>
-								<th>-</th>
-								<th>-</th>
-								<th>-</th>
-								<button class="btn btn-default" type="button" value="Volver" onclick="history.back(-1)" />Cancelar</button>
-							</tr>
-						{% endif %}							
-					</tbody>											
-=======
-
-			{% for n in novedades %}
-				<tbody>
+			</thead>				
+			<tbody>
+				{% if novedades %}
+					{% for n in novedades %}
+						<tr>
+							<td><a href="{% url 'editar_novedad_admin' n.id %}">{{n.titulo}}</a> </td>
+							<td>
+								{% if n.autor.is_superuser %}
+									{{n.autor.username}} 
+								{%else%}
+									{{n.autor.get_full_name}}
+								{% endif %}
+							</td>
+							<td>
+								{% if n.categoria.all %}
+									{{n.obtener_categorias}}
+								{% else %}
+									--
+								{% endif %}
+							</td>
+							<td>{{n.ver_visibilidad}}</td>
+							<td>{{n.fecha_publicacion}} </td>
+							<td>
+								<button class="btn"><a href="{% url 'visualizar_novedad_admin' n.id %}">Visualizar</a></button>
+								<button><a href="{% url 'eliminar_novedad_admin' n.id %}">Eliminar</a></button>
+							</td>
+						</tr>
+					{% endfor %}
+				{% else %}
 					<tr>
-
-						<td><a href="{% url 'editar_novedad_admin' n.id %}">{{n.titulo}}</a> </td>
-						<td>
-							{% if n.autor.is_superuser %}
-								{{n.autor.username}} 
-							{%else%}
-								{{n.autor.get_full_name}}
-							{% endif %}
-						</td>
-						<td>
-							{% if n.categoria.all %}
-								{{n.obtener_categorias}}
-							{% else %}
-								--
-							{% endif %}
-						</td>
-						<td>{{n.ver_visibilidad}}</td>
-						<td>{{n.fecha_publicacion}} </td>
-						<td>
-							<button class="btn"><a href="{% url 'visualizar_novedad_admin' n.id %}">Visualizar</a></button>
-						</td>
+						<th><h4>{{mensaje|safe}}</h4>
+						<th>-</th>
+						<th>-</th>
+						<th>-</th>
+						<th>-</th>
+						<button class="btn btn-default" type="button" value="Volver" onclick="history.back(-1)" />Cancelar</button>
 					</tr>
-				</tbody>
-			{% endfor %}
->>>>>>> 791de8f747fccbe5178ec2f3212916f553bb16dc
+				{% endif %}							
+			</tbody>											
+
 		</table>
 	</div>	
 </div>
