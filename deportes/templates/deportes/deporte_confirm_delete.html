@@ -3,12 +3,12 @@
 
 	<div class="panel-default">
 		<div class="panel-heading" align="center">
-			<p>¿Está seguro que desea eliminar el deporte {{deportes.nombre}}?</p>
+			<p>¿Está seguro que desea eliminar el deporte <b>{{deportes.nombre}}</b>?</p>
 		</div>
 		<div class="panel-body panel" align="center" >
 			<form action='' method='POST'>
 				{% csrf_token %}
-				<input type='submit' value='Confirmar'>
+				<input type='submit' value='Confirmar' name = 'bEliminar'>
 				<input type="button" value="Cancelar" onclick="history.back(-1)" />
 			</form>
 		</div>	

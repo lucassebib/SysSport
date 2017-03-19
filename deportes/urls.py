@@ -27,3 +27,12 @@ urlpatterns += patterns('',
     url(r'^profesor/deporte/editar_informacion/(?P<pk>[0-9]+)$', editar_info_deporte, name='editar_info_deporte'),
     url(r'^profesor/deporte/editar_informacion/(?P<pk>[0-9]+)/agregar_entrenamiento/$', editar_entrenamiento_deporte, name='editar_entrenamiento_deporte'),
 )
+
+#URL ADMIN
+urlpatterns+= patterns('',
+    url(r'^administrador/nuevo_deporte$', crear_deporte, name='crear-deporte'),
+    url(r'^administrador/deportes$', detalleDeporte, name = 'listar-deporte'),
+    url(r'^administrador/eliminar_deporte/(?P<pk>[0-9]+)$', eliminar_deporte, name ='eliminar_deporte'),
+    url(r'^administrador/modificar_deportes/(?P<pk>[0-9]+)$', modificar_deporte, name = 'modificar_deporte'),
+
+)

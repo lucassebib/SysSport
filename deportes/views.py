@@ -44,48 +44,89 @@ def deporte_detalle(request, pk):
  #   model = Deporte
 #    context_object_name = 'deportes'
 
+# Crear deporte admin
+
 def crear_deporte(request):
     template = "deportes/deporte_form.html"
     form_deporte = FormularioCrearDeporte()
-    form_entrenamiento = FormularioCrearEntrenamiento()
+    #form_entrenamiento = FormularioCrearEntrenamiento()
+   
 
-    if request.method == 'POST':
+    if request.method == 'POST' and 'bAceptar' in request.POST:
         form_deporte = FormularioCrearDeporte(request.POST, request.FILES)
-        #if form.is_valid():
-         #   if request.FILES:
-          #      if deporte.ficha_medica:
-           #         f = FichaMedica.objects.get(id=deporte.ficha_medica.id)
-            #        f.ficha_medica.delete(False)
-             #       f.ficha_medica = form.cleaned_data['ficha_medica']
-              #      f.descripcion = form.cleaned_data['descripcion']
-               #     f.save()
-                #    deporte.ficha_medica = f
-             #       deporte.save()
-             #       return HttpResponseRedirect('')
-             #   else:
-           #         nueva_ficha = FichaMedica()
-            #        nueva_ficha.ficha_medica = form.cleaned_data['ficha_medica']
-             #       nueva_ficha.descripcion = form.cleaned_data['descripcion']
-              #      nueva_ficha.save()
-               #     deporte.ficha_medica = nueva_ficha
-                #    deporte.save()
-                #    return HttpResponseRedirect('')
+        if form_deporte.is_valid():
+          nombre = form_deporte.cleaned_data['nombre']
+          genero = form_deporte.cleaned_data['apto_para']
+          descripcion = form_deporte.cleaned_data['descripcion']
+                  
+          d = Deporte()
+          d.nombre = nombre
+          d.apto_para = genero
+          d.descripcion = descripcion
+          d.save()
+          return HttpResponseRedirect(reverse('listar-deporte'))
 
     ctx = {
         'form_deporte': form_deporte,
-        'form_entrenamiento': form_entrenamiento,
+       # 'form_entrenamiento': form_entrenamiento,
+    }
+
+    return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def detalleDeporte(request):
+    template = "deportes/deporte_list.html"
+    
+    ctx = {
+        'deportes': Deporte.objects.all(),
     }
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 
-#class ActualizarDeportes(UpdateView):
-#    model = Deporte
 
-#class EliminarDeportes(DeleteView):
- #   model = Deporte
-  #  context_object_name = 'deportes'
-   # success_url = reverse_lazy('lista_deportes')
+def modificar_deporte(request, pk):
+    template = "deportes/deporte_modificar.html"
+    d = Deporte.objects.get(id=pk)
+    form_deporte = FormularioCrearDeporte()
+
+    form_deporte.initial = {
+        'nombre': d.nombre,
+        'descripcion': d.descripcion,
+        'genero': d.apto_para,
+        
+    }
+    
+    if request.method == 'POST'and 'bModificar' in request.POST:
+        form_deporte = FormularioCrearDeporte(request.POST, request.FILES)
+        if form_deporte.is_valid():
+            nuevo_nombre = form_deporte.cleaned_data['nombre']
+            nuevo_genero = form_deporte.cleaned_data['apto_para']
+            nueva_descripcion = form_deporte.cleaned_data['descripcion']
+
+            
+            d.nombre = nuevo_nombre
+            d.apto_para = nuevo_genero
+            d.descripcion = nueva_descripcion
+            d.save()
+            return HttpResponseRedirect(reverse('listar-deporte'))
+    ctx = {
+        'form_deporte': form_deporte,
+    }
+
+    return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def eliminar_deporte(request, pk):
+    template = "deportes/deporte_confirm_delete.html"
+    d = Deporte.objects.get(id= pk)
+    if request.method == 'POST' and 'bEliminar' in request.POST:
+        d.delete()
+        return HttpResponseRedirect(reverse('listar-deporte'))
+
+    ctx = {
+        'deportes' : d,
+    }
+    return render_to_response(template, ctx, context_instance=RequestContext(request))
+
 
 ###################################### PARA TODOS ####################################################
 def ver_deportes_personas(request):
@@ -330,8 +371,16 @@ def editar_entrenamiento_deporte(request, pk):
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
+##################### ADMIN ABM  deportes ##########################################
 
-
+def admin_baja_deporte(request):
+    templete= "AdministracionDeportes/admin_baja_deporte.html"
+    
+    ctx = {
+        
+        
+    }
+    return render_to_response(templete, ctx, context_instance=RequestContext(request))
 
 
         
