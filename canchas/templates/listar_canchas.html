@@ -1,12 +1,13 @@
 {% extends "baseAdmin.html" %}
 
 {% block contenido %}
-	<div class="page-header">
+<div class="panel-info">
+	<div class="page-header panel-default">
 		<h1><i>Canchas</i></h1>
 	</div>
 	<div class="page-content">
 			<form class="form-horizontal" method='POST'>
-		 		<ul class="nav navbar-nav nav-pills navbar-right">
+		 		<ul class="nav nav-pills navbar-right">
 			 		<li><a id="agregar" href="{% url 'crear-cancha' %}"><span class="glyphicon glyphicon-plus"></span> </span> Alta cancha</a></li>
 				</ul>
 			</form>
@@ -29,4 +30,5 @@
 			{% endfor %}
 		</table>	
 	 </div>
+</div>
 {% endblock %}

@@ -1,5 +1,6 @@
 {% extends "baseAdmin.html" %}
 {% block contenido %}
+	<div class="panel-info">
 		<table class="table table-striped">
 			<caption><h1>Deporte</h1></caption>
 			<thead>
@@ -17,7 +18,7 @@
 			</tbody>
 		</table>
 		<a href="{% url 'listar-deporte' %}">Ver Todas</a>
-		</div>
+	</div>
 	
 {% endblock %}
 

@@ -1,16 +1,17 @@
 {% extends "baseAlumno.html" %}
 {% block contenido %}
+<div class="panel-default">
 	<div class="panel-heading" align="center">
-		<h4>Esta seguro que quiere eliminar al siguiente Contacto: <u>{{nombre_contacto}}</u> de su lista de Contactos de Urgencia?</h4>
+		<p>Esta seguro que quiere eliminar al siguiente Contacto: <u>{{nombre_contacto}}</u> de su lista de Contactos de Urgencia?</p>
 	</div>
 	<div class="panel-body" align="center" >
 		<form action='' method='POST'>
 			{% csrf_token %}
-			<button class="btn btn-default" type='submit' value='Confirmar'>Confirmar</button>
-			<button class="btn btn-default" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
+			<button class="btn btn-primary" type='submit' value='Confirmar'>Confirmar</button>
+			<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
 		</form>
 	</div>
-	
+</div>
 {% endblock %}
 
 

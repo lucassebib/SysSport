@@ -1,9 +1,17 @@
 {% extends "baseAlumno.html" %}
 {% block contenido %}
-	<h1>Esta a punto de inscribirse a: </br><u>{{deporte}}</u></h1>
-	<form action='' method='POST'>
-		{% csrf_token %}
-		<input type='submit' value='Confirmar'>
-	</form>
-	<input type="button" value="Cancelar" onclick="history.back(-1)" />{{mensaje}}
+<div class="panel-default">
+		<div class="panel-heading" align="center">
+			<p>Esta a punto de inscribirse a:<u>{{deporte}}</u></p>
+		</div>
+		<div class="panel-body" align="center" >
+
+		<form action='' method='POST'>
+			{% csrf_token %}
+			<input class="btn btn-default" type='submit' value='Confirmar'>
+			<input class="btn btn-default" type="button" value="Cancelar" onclick="history.back(-1)" />
+		</form>
+			{{mensaje}}
+		</div>
+	</div>
 {% endblock %}

@@ -1,12 +1,13 @@
 {% extends "baseProfesor.html" %}
 
 {% block contenido %}
-	<div class="page-header">
+	<div class="panel-info">
+	<div class="page-header panel-default">
 		<h1><i>Editar Informacion de: {{deporte}} </i></h1>
 	</div>
 
 	<div class="page-content">
-		<h4>A continuacion podra editar informacion para el deporte seleccionado.</h4>
+		<p><i>A continuación podra editar informacion para el deporte seleccionado.</i></p>
 		<form role="form" method="POST" accept-charset="utf-8" enctype="multipart/form-data">{% csrf_token %}
 			<ul class=" nav navbar-var navbar-right nav-pills">
 		 		<li><a href="{% url 'editar_entrenamiento_deporte' deporte.id %}"><span class="glyphicon glyphicon-plus"></span> </span>Agregar Fecha de Entrenamiento</a></li>
@@ -49,8 +50,9 @@
 				<p><i>Usted todavia no ha ingresado un horario de entrenamiento para este deporte. Por Favor dirijase a la seccion Agregar Fecha de Entrenamiento.</i></p>
 			{% endif %}
 			</div>
-			<button class="btn btn-default" type='submit' name="boton_guardar" value='Guardar'>Guardar</button>
-			<button class="btn btn-default" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
+			<button class="btn btn-primary" type='submit' name="boton_guardar" value='Guardar'>Guardar</button>
+			<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
 		</form>
 	</div>
+</div>
 {% endblock %}

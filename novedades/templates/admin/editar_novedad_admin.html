@@ -1,25 +1,23 @@
 {% extends "baseAdmin.html" %}
 
 {% block contenido %}
-
+<div class="panel-info">
 	<div class="page-header">
 		<h1><i>Novedad</i>{{mensaje}}</h1>
 	</div>
 
 	<div class="page-content">
 		<form role="form" method="POST" accept-charset="utf-8" enctype="multipart/form-data">{% csrf_token %}
-
 			{% for field in form %}
 				<p>{{field.label}}</p>
 				{{field}}
 			{% endfor %}
 
-			<button class="btn btn-default" type='submit' name='boton_guardar' value='Guardar'>Guardar</button>
-			<button class="btn btn-default" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
-
+			<button class="btn btn-primary" type='submit' value='Guardar'>Guardar</button>
+			<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
 		</form>
 
 
 	</div>	
-
+</div>
 {% endblock %}

@@ -2,7 +2,7 @@
 
 {% block contenido %}
 	<div class="panel-info">
-		<div class="page-header">
+		<div class="page-header panel-default">
 			<h1><i>Ficha Medica para: </i><b>{{deporte.nombre}}</b></h1>
 		</div>
 		<div class="page-content col-12 col-sm-12 col-lg-12">
@@ -12,24 +12,26 @@
 			</ul>
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane fade in active" id="ver_ficha_medica">
+					<div class="col-md-9">
 					{% if ficha %}
-						<div class="col-md-9">
+						
 							<div class="form-group">
 								<label class=" control-label">Nombre del Archivo:  </label>
-								<link class=" control-label"> <a href="{{ficha.ficha_medica.url}}">{{ficha.obtenerNombreArchivo}}</a></link>
+								<link class=" control-label"><a href="{{ficha.ficha_medica.url}}">{{ficha.obtenerNombreArchivo}}</a></link>
 								<p>Haga clic en el nombre del archivo para descargar Ficha Medica</p>
 							</div>
 							<div class="form-group">
 								<label class=" control-label">Nota:  </label>
 								<label class=" control-label"> {{ficha.descripcion}} </label>
 							</div>	
-						</div>	 
+						 
 					{% else %}
 							<p>No se ha cargado Ficha Medica</p>
 					{% endif %}
 					<div class="form-group">
-						<button class="btn btn-default" type="button" value="Volver" onclick="history.back(-1)" />Volver</button>
+						<button class="btn btn-primary" type="button" value="Volver" onclick="history.back(-1)" />Volver</button>
 					</div>
+					</div>	
 				</div>
 
 				<div role="tabpanel" class="tab-pane fade" id="editar_ficha_medica">
@@ -43,9 +45,9 @@
 							{{form.descripcion}}
 						</div>
 						<div class="form-group">
-							<p>{{mensaje}}</p>
-							<button class="btn btn-default" type='submit' value='Guardar'>Guardar</button>
-							<button class="btn btn-default" type="button" value="Volver" onclick="history.back(-1)" />Volver</button>
+							
+							<button class="btn btn-primary" type='submit' value='Guardar'>Guardar</button>
+							<button class="btn btn-primary" type="button" value="Volver" onclick="history.back(-1)" />Volver</button>
 						</div>
 					</form>		
 				</div>

@@ -1,19 +1,21 @@
 {% extends "baseProfesor.html" %}
 {% block contenido %}
-	<div class="page-header">
-		<h1><i>Deportes:</i></h1>
-	</div>
-	<div class="page-content">
-		<ul class="nav nav-tabs">
-		<!--Deportes de {{user.first_name}}-->
-			{% for d in deportes %}
-				<li class="nav-item"><a href="{% url 'ver-alumnos' d.id %}">{{d.nombre}}</a></li>
-			{% endfor %}
-		<!--Otros deportes-->
-			{% for d in otrosDeportes %}
-				<li class="nav-item"><a href="{% url 'ver-alumnos' d.id %}">{{d.nombre}}</a></li>
-			{% endfor %}
-		</ul>
+	<div class="panel-info">
+		<div class="page-header panel-default">
+			<h1><i>Deportes:</i></h1>
+		</div>
+		<div class="page-content">
+			<ul class="nav nav-tabs">
+			<!--Deportes de {{user.first_name}}-->
+				{% for d in deportes %}
+					<li class="nav-item"><a href="{% url 'ver-alumnos' d.id %}">{{d.nombre}}</a></li>
+				{% endfor %}
+			<!--Otros deportes-->
+				{% for d in otrosDeportes %}
+					<li class="nav-item"><a href="{% url 'ver-alumnos' d.id %}">{{d.nombre}}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
 	</div>
 	
 {% endblock %}

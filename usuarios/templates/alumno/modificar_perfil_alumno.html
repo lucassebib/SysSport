@@ -2,7 +2,7 @@
 {% block contenido %}
 <!-- -->
 <div class="panel-info">
-	<div class="page-header">
+	<div class="page-header panel-default">
 		<h1><i>Mi perfil </i></h1>
 	</div>
 	<ul class="nav navbar-right nav-pills">
@@ -22,7 +22,7 @@
 				<img src="{{alumno.foto_perfil.url}}" class=" img-circle perfil" >
 				<form enctype="multipart/form-data" action="" method="POST">{% csrf_token %}
         			{{ form.as_p }}
-        			<button class="btn btn-default" type="submit">Cambiar</button>
+        			<button class="btn btn-primary" type="submit">Cambiar</button>
         			<label>{{mensaje}}</label>
     			</form>
 			</div>

@@ -1,38 +1,35 @@
 {% extends "baseProfesor.html" %}
 
 {% block contenido %}
-	<caption>
-		<h1>Lista de alumnos de <b>{{nombre}}</b></h1>
-	</caption>
+	<div class="panel-info">
+		<div class="page-header panel-default">
+			<h1>Lista de alumnos de <b>{{nombre}}</b></h1>
+		</div>
 
-	<div>
+	<div class="page-content">
 		<form method="POST">{% csrf_token %}
 			<label for="q">Busqueda: </label>
     		<input type="text" name="q" value="{{query|escape }}">
-    		<button class="btn btn-default" type="submit" name="btn_buscar" value="Buscar">Buscar</button>
+    		<button class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar">Buscar</button>
     		<div class="radio">
 	    		<label class="radio-inline"><input type="radio" name="opcion" value="legajo">Legajo</label>
 	  			<label class="radio-inline"><input type="radio" name="opcion" value="carrera">Carrera</label>
 	  			<label class="radio-inline"><input type="radio" name="opcion" value="apellido">Apellido</label> 
   			</div>
 		</form>
-		
-	</div>	
-	
-	<div class=" panel-heading">
-		<h4>Seleccione alumno para ver informacion:</h4>
-	</div>
-	<table class="table table-striped">	
-		<thead>
-			<tr>
-				<th>Nombre y Apellido </th>
-				<th> Tipo de Usuario</th>
-				<th> Carrera</th>
-				<th> Legajo</th>
-			</tr>
-		</thead>
-		
-		<tbody>
+		<div class=" panel-heading">
+			<h4>Seleccione alumno para ver informacion:</h4>
+		</div>
+		<table class="table table-striped">	
+			<thead>
+				<tr>
+					<th>Nombre y Apellido </th>
+					<th> Tipo de Usuario</th>
+					<th> Carrera</th>
+					<th> Legajo</th>
+				</tr>
+			</thead>
+			<tbody>
 			{% if alumnos %}
 				{% for a in alumnos %}
 					<tr>
@@ -51,11 +48,12 @@
 				<tr>
 					<th><h4>{{mensaje|safe}}</h4>
 					<button class="btn btn-default" type="button" value="Volver" onclick="history.back(-1)" />Cancelar</button>
+
 				</tr>
 			{% endif %}	
-		</tbody>
-			
-		
-	</table>
-	<button class="btn btn-default"  type="button" value="Volver" onclick="history.back(-1)" />Volver</button>
+			</tbody>
+		</table>
+		<button class="btn btn-primary"  type="button" value="Volver" onclick="history.back(-1)" />Volver</button>
+		</div>
+	</div>
 {% endblock %}

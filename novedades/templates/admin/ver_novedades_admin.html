@@ -1,6 +1,7 @@
 {% extends "baseAdmin.html" %}
 
 {% block contenido %}
+<<<<<<< HEAD
 	
 	<script type="text/javascript">
 
@@ -28,12 +29,17 @@
 
 	<div class="page-header">
 		<h1><i>Novedades</i></h1>
+=======
+<div class="panel-info">
+	<div class="page-header panel-default">
+		<h1><i>Novedades {{mensaje}}</i></h1>
+>>>>>>> 791de8f747fccbe5178ec2f3212916f553bb16dc
 	</div>
 
 	<div class="page-content">
 		<form class="form-horizontal">{% csrf_token %}
-			<ul class="nav navbar-nav nav-pills navbar-right">
-			 	<li><a href="{% url 'crear_novedad_admin' %}"><span class="glyphicon glyphicon-plus"></span> </span>Nueva Novedad</a>
+			<ul class="nav nav-pills navbar-right">
+			 	<li><a href="{% url 'crear_novedad_admin' %}"><span class="glyphicon glyphicon-plus"></span> </span>Nueva Novedad</a></li>
 			 </ul>
 		 </form>
 
@@ -41,8 +47,13 @@
 	 	<div>
 			<form method="POST">{% csrf_token %}
 				<label for="q">Busqueda: </label>
+<<<<<<< HEAD
 	    		<input type="text" id="buscar" name="q" value="{{query|escape }}">
 	    		<input type="submit" name="btn_buscar" value="Buscar">
+=======
+	    		<input type="text" name="q" value="{{query|escape }}">
+	    		<input class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar">
+>>>>>>> 791de8f747fccbe5178ec2f3212916f553bb16dc
 	    		
 	    		<input type="radio" id="check_autor" name="opcion" value="autor" onchange="javascript:showContent()">Autor
 	  			<input type="radio" name="opcion" value="titulo" onchange="javascript:showContent()">Titulo
@@ -79,6 +90,7 @@
 					<th>Fecha Publicacion</th>
 				</tr>
 			</thead>
+<<<<<<< HEAD
 			
 				
 					<tbody>
@@ -119,9 +131,39 @@
 							</tr>
 						{% endif %}							
 					</tbody>											
+=======
+
+			{% for n in novedades %}
+				<tbody>
+					<tr>
+
+						<td><a href="{% url 'editar_novedad_admin' n.id %}">{{n.titulo}}</a> </td>
+						<td>
+							{% if n.autor.is_superuser %}
+								{{n.autor.username}} 
+							{%else%}
+								{{n.autor.get_full_name}}
+							{% endif %}
+						</td>
+						<td>
+							{% if n.categoria.all %}
+								{{n.obtener_categorias}}
+							{% else %}
+								--
+							{% endif %}
+						</td>
+						<td>{{n.ver_visibilidad}}</td>
+						<td>{{n.fecha_publicacion}} </td>
+						<td>
+							<button class="btn"><a href="{% url 'visualizar_novedad_admin' n.id %}">Visualizar</a></button>
+						</td>
+					</tr>
+				</tbody>
+			{% endfor %}
+>>>>>>> 791de8f747fccbe5178ec2f3212916f553bb16dc
 		</table>
 	</div>	
-
+</div>
 
 	
 

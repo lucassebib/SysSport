@@ -2,17 +2,18 @@
 
 
 {% block contenido %}
+<div class="panel-default">
 	<div class="panel-heading" align="center">
-		<h4>¿Está seguro que desea eliminar esta novedad <b>"{{novedades.titulo}}"?</b></h4>
+		<p>¿Está seguro que desea eliminar esta novedad <b>"{{novedades.titulo}}"?</b></p>
 	</div>
 	<div class="panel-body" align="center" >
 		<form action='' method='POST'>
 			{% csrf_token %}
-			<button class="btn btn-default" type='submit' value='Confirmar'>Confirmar</button>
-			<button class="btn btn-default" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
+			<button class="btn btn-primary" type='submit' value='Confirmar'>Confirmar</button>
+			<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
 		</form>
 	</div>
-	
+</div>	
 {% endblock %}
 
 
