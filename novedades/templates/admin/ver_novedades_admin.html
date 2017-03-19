@@ -1,6 +1,32 @@
 {% extends "baseAdmin.html" %}
 
 {% block contenido %}
+	
+	<script type="text/javascript">
+
+		function showContent() {
+	        element_fecha = document.getElementById("div_escondido_fecha"); 
+	        seleccion_fecha = document.getElementById("check_fecha");
+		        if (seleccion_fecha.checked) {
+		            element_fecha.style.display='block';
+		        }
+		        else {
+		            element_fecha.style.display='none';
+		        }
+
+		    element_autor = document.getElementById("div_escondido_autor"); 
+	        seleccion_autor = document.getElementById("check_autor");
+		        if (seleccion_autor.checked) {
+		            element_autor.style.display='block';
+		        }
+		        else {
+		            element_autor.style.display='none';
+		        }
+		}
+	</script>
+
+
+
 <div class="panel-info">
 	<div class="page-header panel-default">
 		<h1><i>Novedades {{mensaje}}</i></h1>
@@ -17,12 +43,31 @@
 	 	<div>
 			<form method="POST">{% csrf_token %}
 				<label for="q">Busqueda: </label>
+
 	    		<input type="text" name="q" value="{{query|escape }}">
 	    		<input class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar">
 	    		
-	    		<input type="radio" name="opcion" value="fecha">Fecha
-	  			<input type="radio" name="opcion" value="autor">Autor
-	  			<input type="radio" name="opcion" value="titulo">Titulo 
+	    		<input type="radio" id="check_autor" name="opcion" value="autor" onchange="javascript:showContent()">Autor
+	  			<input type="radio" name="opcion" value="titulo" onchange="javascript:showContent()">Titulo
+	    		<input type="radio" id="check_fecha" name="opcion" value="fecha" id="fecha" onchange="javascript:showContent()">Fecha
+	  			 
+			
+
+			<div class="form-group" id="div_escondido_fecha" style="display: none;">
+				Ingrese la fecha con el siguiente formato: DD/MM/YYYY<br>
+				<input  type="checkbox" name="fecha" value="dia" checked> Dia DD<br>
+				<input  type="checkbox" name="fecha" value="mes" checked> Mes MM<br>
+				<input  type="checkbox" name="fecha" value="anio" checked> Año YYYY<br>
+			</div>
+
+			<div class="form-group" id="div_escondido_autor" style="display: none;">
+				<form method="POST">{% csrf_token %}
+					Ingrese el parametro de busque por Autor:<br>
+		    		<input type="radio" name="opcion_autor" value="nombre" checked="">Nombre
+		  			<input type="radio" name="opcion_autor" value="apellido">Apellido
+				</form>
+
+			</div>
 			</form>
 		</div>
 		<!-- FIN BUSCADOR -->
@@ -36,35 +81,46 @@
 					<th>Visible para</th>
 					<th>Fecha Publicacion</th>
 				</tr>
-			</thead>
-
-			{% for n in novedades %}
-				<tbody>
+			</thead>				
+			<tbody>
+				{% if novedades %}
+					{% for n in novedades %}
+						<tr>
+							<td><a href="{% url 'editar_novedad_admin' n.id %}">{{n.titulo}}</a> </td>
+							<td>
+								{% if n.autor.is_superuser %}
+									{{n.autor.username}} 
+								{%else%}
+									{{n.autor.get_full_name}}
+								{% endif %}
+							</td>
+							<td>
+								{% if n.categoria.all %}
+									{{n.obtener_categorias}}
+								{% else %}
+									--
+								{% endif %}
+							</td>
+							<td>{{n.ver_visibilidad}}</td>
+							<td>{{n.fecha_publicacion}} </td>
+							<td>
+								<button class="btn"><a href="{% url 'visualizar_novedad_admin' n.id %}">Visualizar</a></button>
+								<button><a href="{% url 'eliminar_novedad_admin' n.id %}">Eliminar</a></button>
+							</td>
+						</tr>
+					{% endfor %}
+				{% else %}
 					<tr>
-
-						<td><a href="{% url 'editar_novedad_admin' n.id %}">{{n.titulo}}</a> </td>
-						<td>
-							{% if n.autor.is_superuser %}
-								{{n.autor.username}} 
-							{%else%}
-								{{n.autor.get_full_name}}
-							{% endif %}
-						</td>
-						<td>
-							{% if n.categoria.all %}
-								{{n.obtener_categorias}}
-							{% else %}
-								--
-							{% endif %}
-						</td>
-						<td>{{n.ver_visibilidad}}</td>
-						<td>{{n.fecha_publicacion}} </td>
-						<td>
-							<button class="btn"><a href="{% url 'visualizar_novedad_admin' n.id %}">Visualizar</a></button>
-						</td>
+						<th><h4>{{mensaje|safe}}</h4>
+						<th>-</th>
+						<th>-</th>
+						<th>-</th>
+						<th>-</th>
+						<button class="btn btn-default" type="button" value="Volver" onclick="history.back(-1)" />Cancelar</button>
 					</tr>
-				</tbody>
-			{% endfor %}
+				{% endif %}							
+			</tbody>											
+
 		</table>
 	</div>	
 </div>

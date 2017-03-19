@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.db import models
 
-
 class Entrenamiento(models.Model):
 	lista_dias = ((1, "Lunes"), (2, "Martes"), (3, "Miercoles"), (4, "Jueves"), (5, "Viernes"), (6, "Sabado"), (7, "Domingo")) 
 	lista_horarios = ((1, "07:00"), (2, "07:30"), (3, "08:00"), (4, "08:30"), (5, "09:00"), (6, "09:30"), 

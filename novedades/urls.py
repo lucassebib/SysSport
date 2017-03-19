@@ -29,6 +29,7 @@ urlpatterns += patterns('',
     url(r'^administrador/novedades/crear$', crear_novedad_admin, name='crear_novedad_admin'),
     url(r'^administrador/novedades/editar/(?P<pk>[0-9]+)/$', editar_novedades_admin, name='editar_novedad_admin'),
     url(r'^administrador/novedades/visualizar/(?P<pk>[0-9]+)/$', ver_novedad_admin, name='visualizar_novedad_admin'),
+    url(r'^administrador/novedades/eliminar/(?P<pk>[0-9]+)/$', eliminar_novedad_admin, name='eliminar_novedad_admin'),
 
 
 )

@@ -23,7 +23,7 @@
 
 	<div class="page-content">
 
-		<form action='' method='POST'>{% csrf_token %}
+		<form action='' method='POST' enctype="multipart/form-data">{% csrf_token %}
 			<label  class="form-group">Titulo:</label>
 			{{form.titulo}}<br>
 			<label class="form-group">Contenido:</label><br>

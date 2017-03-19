@@ -46,7 +46,9 @@
 				{% endfor %}
 			{% else %}
 				<tr>
-					<th><h4>{{mensaje|safe}}</h4></th>
+					<th><h4>{{mensaje|safe}}</h4>
+					<button class="btn btn-default" type="button" value="Volver" onclick="history.back(-1)" />Cancelar</button>
+
 				</tr>
 			{% endif %}	
 			</tbody>
