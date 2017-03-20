@@ -29,12 +29,8 @@
 					<td> <a href="">{{deporte.nombre}}</a> </td>
 					<td> <a href="">{{deporte.descripcion}}</a> </td>
 					<td> <a href="">{{deporte.ver_aptopara}}</a> </td>
-					<td>
-					<button class="btn"><a href="{% url 'eliminar_deporte' deporte.id %}">Eliminar</a></button>
-					</td>
-					<td>
-					<button class="btn" ><a href="{% url 'modificar_deporte' deporte.id %}">Modificar</a></button>
-					</td>
+					<td> <a href="{% url 'modificar_deporte' deporte.id %}">Modificar</a></td>
+					<td><a href="{% url 'eliminar_deporte' deporte.id %}">Eliminar</a></td>
 				</tr>
 			</tbody>
 			{% endfor %}

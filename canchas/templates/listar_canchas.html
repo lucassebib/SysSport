@@ -8,7 +8,7 @@
 	<div class="page-content">
 			<form class="form-horizontal" method='POST'>
 		 		<ul class="nav nav-pills navbar-right">
-			 		<li><a id="agregar" href="{% url 'crear-cancha' %}"><span class="glyphicon glyphicon-plus"></span> </span> Alta cancha</a></li>
+			 		<li><a id="agregar" href="{% url 'crear-cancha' %}"><span class="glyphicon glyphicon-plus"></span> </span> Nueva cancha</a></li>
 				</ul>
 			</form>
 		
@@ -24,7 +24,8 @@
 					<tr>
 						<td>{{c.nombre}}</td>
 						<td>{{c.descripcion}}</td>
-						<td><a href="{% url 'cancha-actualizar' c.id %}">Modificar</a>&nbsp; &nbsp;<a href="{% url 'eliminar-canchas' c.id %}">Eliminar</a></td>
+						<td><a href="{% url 'cancha-actualizar' c.id %}">Modificar</a></td>
+						<td><a href="{% url 'eliminar-canchas' c.id %}">Eliminar</a></td>
 					</tr>								
 				</tbody>
 			{% endfor %}
