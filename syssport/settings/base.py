@@ -2,7 +2,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from django.core.urlresolvers import reverse_lazy
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '8h@d$dvno$6i-6!+(q9zih-1ttbm^w0#rxwpbca_^%h1s*ssu*'
