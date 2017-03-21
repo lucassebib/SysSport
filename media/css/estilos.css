@@ -41,7 +41,9 @@ a, li, h1, h2, h3, h4, p {
 	min-width: 340px;
 	margin-left: 10px;
 }
-
+.panel-info{
+	margin-left: 10px;
+}
 .navbar-right{
 	list-style-type: none;
 	padding-right:30px: 
@@ -91,7 +93,6 @@ a, li, h1, h2, h3, h4, p {
 }
 .navbar-default .navbar-toggle, .navbar-default .navbar-collapse{
 	overflow-x: hidden;
-
 }
 .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
 	background-color: transparent;
@@ -135,8 +136,8 @@ a:hover, a:focus{
 }
 /*FIN LOGIN*/
 .page-header {
-	margin: 0;
-	padding: 0;
+	margin: 10px;
+	padding: 5px;
 	color: #eee;
 }
 .page-content{
