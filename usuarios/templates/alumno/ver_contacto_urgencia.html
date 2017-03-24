@@ -5,13 +5,26 @@
 			<h1><i>Contactos de Urgencia de </i><b>{{request.user}}</b> </h1>
 		</div>
 		<div class="page-content">
-			<p><i>Un contacto de Urgencia es una persona cercana a Usted a la que podremos localizar en caso de efectuarse alguna emergencia durante la realizacion de eventos deportivos o entrenamientos. Es por esto que resultaria de vital importancia que nos suministres este tipo de informacion</i></p>
-			<ul class="nav navbar-right nav-pills">
-			 	<li><a href="{% url 'agregar_contactoUrgencia' %}"><span class="glyphicon glyphicon-plus"></span> </span>Agregar contacto</a></li>
-			</ul>
-			<div class="container">
-				
-				<form role="form" class="form-horizontal" method='POST'>{% csrf_token %}
+
+	<a onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){
+		this.parentNode.getElementsByTagName('div')[0].style.display = '';this.value = 'Ocultar';
+		}
+	else{
+	this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Ver más';
+	}" type="button"  class="btn btn-default btn-sm" > 
+	<span class = "glyphicon glyphicon-info-sign"> </span> </a> 
+
+		<div style="display: none;">
+			<p>Un contacto de Urgencia es una persona cercana a Usted a la que podremos localizar en caso de efectuarse alguna emergencia durante la realizacion de eventos deportivos o entrenamientos. Es por esto que resultaria de vital importancia que nos suministres este tipo de informacion</p>
+		</div>
+
+
+		
+			<form class="form-horizontal" method='POST'>{% csrf_token %}
+				<ul class="nav navbar-right nav-pills">
+				 	<li><a href="{% url 'agregar_contactoUrgencia' %}"><span class="glyphicon glyphicon-plus"></span> </span>Agregar contacto</a></li>
+				 	
+				</ul>
 				
 				{% if contactos %}
 					{% for c in contactos %}
