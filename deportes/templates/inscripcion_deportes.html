@@ -13,25 +13,22 @@
 				</tr>
 			</thead>		
 			{% for d in deportes %}
-				<tbody>
-					<tr>
-						<td>{{d.nombre}} </td>
-						<td>{{d.descripcion}}</td>
-						<td>				
-								{% if d in deportes_alumno %}
-									{% if darse_de_baja %}
-										<a type="text" href="{% url 'desinscribir_deporte' d.id %}">Darse de Baja</a>
-									{% endif %}
-									{% else %}
-										{% if darse_de_baja %}
-										<a type="text" href="{% url 'inscripcion_deporte' d.id %}">Inscribirme</a>
-										{% endif %}
-								{% endif %}
-						</td>
-					</tr>
-				</tbody>
+			<tbody>
+				<tr>
+					<td>{{d.nombre}} </td>
+					<td>{{d.descripcion}}</td>
+					<td>				
+						{% if d in deportes_alumno %}
+							{% if darse_de_baja %}
+								<a title="Baja" type="text" href="{% url 'desinscribir_deporte' d.id %}"><span class="glyphicon glyphicon-remove"></span></a>
+							{% endif %}
+							{% else %}
+								<a title="Alta" type="text" href="{% url 'inscripcion_deporte' d.id %}"><span class="glyphicon glyphicon-plus"></span></a>
+						{% endif %}
+					</td>
+				</tr>
+			</tbody>
 			{% endfor %}
-
 		</table>
 	</div>
 	</div>

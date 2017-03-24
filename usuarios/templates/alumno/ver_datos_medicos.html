@@ -10,10 +10,9 @@
 				<li class="nav-item active"><a class="nav-link" href="#ficha_medica" data-toggle="tab" >Ficha Médica</a></li>
 				<li class="nav-item"><a class="nav-link" href="#informacion_medica" data-toggle="tab" >Información Médica</a></li>
 			</ul>
-		<div class="tab-content">
+			<div class="tab-content">
 
 	<!-- ################ PANEL FICHA MEDICA ####################################-->
-
 
 <a onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){
 this.parentNode.getElementsByTagName('div')[0].style.display = '';this.value = 'Ocultar';
@@ -53,13 +52,29 @@ this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.valu
 									<td>El profesor de {{d.nombre}} no ha subido aun una ficha medica.</td>
 									<td>-</td>
 								{% endif %}
-							</tr>
-						</tbody>
-					{% endfor %}	
-				{% endif %} 				
-			</table>
 
-			{% if deportes %}
+							</tr>
+						</thead>
+			
+						{% if deportes %}
+							{% for d in deportes %}
+								<tbody>
+									<tr>
+										<td>{{d.nombre}} </td>
+										{% if d.ficha_medica %}
+											<td>{{d.ficha_medica.descripcion}}</td>
+											<td><a href="{{d.ficha_medica.ficha_medica.url}}">link</a></td>
+										{% else %}
+											<td>El profesor de {{d.nombre}} no ha subido aun una ficha medica.</td>
+											<td>-</td>
+										{% endif %}
+									</tr>
+								</tbody>
+							{% endfor %}	
+						{% endif %} 				
+					</table>
+
+					{% if deportes %}
 
 				<form method="POST" enctype="multipart/form-data">{% csrf_token %}
 					<h1><u>Actualmente:</u></h1>
@@ -89,7 +104,6 @@ this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.valu
 				</form>
 			{% endif %} 
 		</div>
-
 	<!-- ################ PANEL INFORMACION MEDICA ####################################-->
 
 		<div role="tabpanel" class="tab-pane fade" id="informacion_medica" >

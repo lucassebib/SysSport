@@ -18,12 +18,13 @@
 				<tr>
 					<td>{{d.nombre}} </td>
 					<td>{{d.descripcion}}</td>
-					{% if darse_de_baja %}
-						<td><a type="text" href="{% url 'desinscribir_deporte' d.id %}">Darse de Baja</a></td>
-					{% endif %}
 					{% if editar_info %}
-						<td><a type="text" href="{% url 'editar_info_deporte' d.id %}">Editar </a></td>
+						<td><a title="Editar" type="text" href="{% url 'editar_info_deporte' d.id %}"><span class="glyphicon glyphicon-edit"></span></a></td>
 					{% endif %}
+					{% if darse_de_baja %}
+						<td><a title="Baja" type="text" href="{% url 'desinscribir_deporte' d.id %}"><span class="glyphicon glyphicon-remove"></span></a></td>
+					{% endif %}
+					
 				</tr>
 			</tbody>
 		{% endfor %}

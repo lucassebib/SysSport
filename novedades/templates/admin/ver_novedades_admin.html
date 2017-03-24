@@ -51,7 +51,7 @@
 					<div class="form-group">
 						<label for="q">Busqueda: </label>
 						<input type="text" name="q" value="{{query|escape }}">
-	    				<input class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar">
+	    				<button class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar"><span class="glyphicon glyphicon-search"> </span> Buscar</button>
 					</div>
 			   		<input type="radio" id="check_autor" name="opcion" value="autor" onchange="javascript:showContent()" >Autor
 	  				<input type="radio" name="opcion" value="titulo" onchange="javascript:showContent()">Titulo
@@ -111,10 +111,10 @@
 							<td>{{n.ver_visibilidad}}</td>
 							<td>{{n.fecha_publicacion}} </td>
 							<td>
-								<a href="{% url 'visualizar_novedad_admin' n.id %}">Visualizar</a>
+								<a title="Visualizar" href="{% url 'visualizar_novedad_admin' n.id %}"><span class="glyphicon glyphicon-eye-open"></span></a>
 							</td>
 							<td>
-								<a href="{% url 'eliminar_novedad_admin' n.id %}">Eliminar</a>
+								<a title="Eliminar" href="{% url 'eliminar_novedad_admin' n.id %}"><span class="glyphicon glyphicon-remove"></span></a>
 							</td>
 						</tr>
 					{% endfor %}
