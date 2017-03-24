@@ -15,48 +15,61 @@ from deportes.models import Deporte
 from novedades.models import Notificacion
 from novedades.paginacion import Paginate
 from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccion, ContactoDeUrgencia, DatosMedicos, carreras_disponibles 
+from django.contrib.auth.decorators import user_passes_test
 
-
-
+#@user_passes_test(lambda user: not user.is_authenticated())
 def vista_pagina_inicio(request):
 	form1 = FormularioAutenticacion()
-	template = "inicio.html"
-
-	if request.method == "POST":
-		form1 = FormularioAutenticacion(request.POST)
-		if form1.is_valid():
-			usuario = form1.cleaned_data['username']
-			password = form1.cleaned_data['password']
-			user = authenticate(username=usuario, password=password)
-
- 			try:
-				if user is not None:
-					if user.is_active:
-						loguear(request, user)
-						id_usuario = request.user.id
-						try:							
-							g = Alumno.objects.get(id=id_usuario)
-							return HttpResponseRedirect('/inicial_alumnos')
-						except Exception as e:
-							try:
-								g = Profesor.objects.get(id=id_usuario)
-								return HttpResponseRedirect('/inicial_profesores')
-							except Exception as e:
-								g = UsuarioInvitado.objects.get(id=id_usuario)
-								return HttpResponseRedirect('/inicial_alumnos')									
-					else:
-						ctx = {"form1":form1, "mensaje": "Usuario Inactivo"}
-						return render_to_response(template,ctx, context_instance=RequestContext(request))
-				else:
-					ctx = {"form1":form1, "mensaje": "Nombre de usuario o password incorrectos"}
-					return render_to_response(template,ctx, context_instance=RequestContext(request))
+	if request.user.is_authenticated():
+		id_usuario = request.user.id
+		try:
+			g = Alumno.objects.get(id=id_usuario)
+			return HttpResponseRedirect('/inicial_alumnos')
+		except Exception as e:
+			try:
+				g = Profesor.objects.get(id=id_usuario)
+				return HttpResponseRedirect('/inicial_profesores')
 			except Exception as e:
-				if user.is_staff:
-					return HttpResponseRedirect('/inicial-admin')
+				g = UsuarioInvitado.objects.get(id=id_usuario)
+				return HttpResponseRedirect('/inicial_alumnos')									
+
+	else:
+		template = "inicio.html"
+
+		if request.method == "POST":
+			form1 = FormularioAutenticacion(request.POST)
+			if form1.is_valid():
+				usuario = form1.cleaned_data['username']
+				password = form1.cleaned_data['password']
+				user = authenticate(username=usuario, password=password)
+
+	 			try:
+					if user is not None:
+						if user.is_active:
+							loguear(request, user)
+							id_usuario = request.user.id
+							try:							
+								g = Alumno.objects.get(id=id_usuario)
+								return HttpResponseRedirect('/inicial_alumnos')
+							except Exception as e:
+								try:
+									g = Profesor.objects.get(id=id_usuario)
+									return HttpResponseRedirect('/inicial_profesores')
+								except Exception as e:
+									g = UsuarioInvitado.objects.get(id=id_usuario)
+									return HttpResponseRedirect('/inicial_alumnos')									
+						else:
+							ctx = {"form1":form1, "mensaje": "Usuario Inactivo"}
+							return render_to_response(template,ctx, context_instance=RequestContext(request))
+					else:
+						ctx = {"form1":form1, "mensaje": "Nombre de usuario o password incorrectos"}
+						return render_to_response(template,ctx, context_instance=RequestContext(request))
+				except Exception as e:
+					if user.is_staff:
+						return HttpResponseRedirect('/inicial-admin')
 
 	ctx = {"form1":form1, "mensaje":""}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
-
 def app_logout(request):
 	logout(request)
 	return HttpResponseRedirect('/inicio')
