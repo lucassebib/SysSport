@@ -19,10 +19,7 @@ DATABASES = {
         }
     }
     #aqui debe ir la coneccion con la base de datos del SYSACAD
-    #'sysacad'{
-    #    'ENGINE': 'sqlserver_ado'
 
-    #}
 }
 
 # Static files (CSS, JavaScript, Images)

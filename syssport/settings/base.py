@@ -21,7 +21,8 @@ INSTALLED_APPS = (
     'deportes',
     'canchas',
     'entrenamiento',
-    'tinymce'
+    'tinymce',
+    'peticiones',
 
 )
 
