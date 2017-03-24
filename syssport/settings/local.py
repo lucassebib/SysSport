@@ -11,7 +11,7 @@ DATABASES = {
         'NAME': 'syssport',
         'HOST': 'localhost',
         'USER': 'proyecto',
-        'PASSWORD': 'proyecto2016',
+        'PASSWORD': 'proyecto2017',
 
         'OPTIONS': {
                     'uncicode_result': 'True',

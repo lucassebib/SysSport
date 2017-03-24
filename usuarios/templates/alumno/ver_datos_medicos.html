@@ -16,12 +16,12 @@
 
 
 <input value="Ver más" onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){
-
 this.parentNode.getElementsByTagName('div')[0].style.display = '';this.value = 'Ocultar';
 }
 else{
 this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Ver más';
 }" type="button">
+
 <div style="display: none;">
 	<div role="tabpanel" class="tab-pane fade in active" id="ficha_medica">
 			<i><p>En este espacio usted podra subir su ficha medica.</p>
@@ -32,10 +32,6 @@ this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.valu
 		</div>
 		 
 </div>
-
-
-			
-
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -75,11 +71,20 @@ this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.valu
 						{% endif %} 
 					<hr style="border-color:blue;">
 					<hr style="border-color:blue;">
-					<hr style="border-color:blue;">
-					<p>Para subir o modificar su ficha medica, seleccione la opcion 'Seleccionar archivo' y posteriormente haga click en Guardar...</p>
-					<p>Por favor, utilice el siguiente formato para el nombre de su archivo: DEPORTE_APELLIDO-NOMBRE_DNI</p>
+				
+<input value="Ayuda" onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){
+this.parentNode.getElementsByTagName('div')[0].style.display = '';this.value = 'Ocultar';
+}
+else{
+this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Ver más';
+}" type="button">
+<div style="display: none;">
+		<p>Para subir o modificar su ficha medica, seleccione la opcion 'Seleccionar archivo' y posteriormente haga click en Guardar...</p>
+</div>
+
+					<p>Formato del nombre del archivo: DEPORTE_APELLIDO-NOMBRE_DNI, extención .pdf</p>
 					{{form.as_p}}
-					<button type='submit' class="btn btn-default" value='Guardar' name="boton_guardar_form">Guardar</button>
+					<button type='submit' class="btn btn-primary" value='Guardar' name="boton_guardar_form">Guardar</button>
 				</form>
 			{% endif %} 
 		</div>
@@ -87,7 +92,7 @@ this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.valu
 	<!-- ################ PANEL INFORMACION MEDICA ####################################-->
 
 		<div role="tabpanel" class="tab-pane fade" id="informacion_medica" >
-			<i><p>A continuacion, nos gustaria que nos suministres los siguientes datos.</p> 
+			<i><p>Datos Medicos.</p> 
 				<p>Al finalizar, seleccione la opcion "Guardar". Podra dirigirse a esta seccion cada vez que quiera realizar alguna modificacion.</p></i> 	
 			<form class="form-horizontal" role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
 			 	<div class="well">
@@ -96,7 +101,7 @@ this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.valu
 							<h4><i><b>Información médica: </b></i></h4>
 						</div>
 						{% for field in form_dm %}
-							<p>{{field.label}}:</p>
+						    <p>{{field.label}}:</p>
 							<p>{{field}}</p>
 						{% endfor %}
 					</div>
