@@ -22,8 +22,8 @@
 				<img src="{{alumno.foto_perfil.url}}" class=" img-circle perfil" >
 				<form enctype="multipart/form-data" action="" method="POST">{% csrf_token %}
         			{{ form.as_p }}
-        			<button class="btn btn-primary" type="submit">Cambiar</button>
-        			<label>{{mensaje}}</label>
+        			<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-camera"></span> Cambiar</button>
+        			{{mensaje}}
     			</form>
 			</div>
 
@@ -31,6 +31,7 @@
 			<div class="perfil-datos">
 				<div class="form-group">
 					<label class=" control-label">Nombre:  </label>
+
 					<label class=" control-label"> {{nombre}} </label>
 				</div>
 				<div class="form-group">

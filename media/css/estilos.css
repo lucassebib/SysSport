@@ -19,7 +19,7 @@
 }
 /*FIN HEADER*/
 /*BODY*/
-html, body, .main.container-fluid{
+html, body, .main.container-fluid, .container{
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	background-color: #D8D8D8;
 	overflow-x: hidden;
@@ -29,8 +29,16 @@ html, body, .main.container-fluid{
 a, li, h1, h2, h3, h4, p {
 	color: #000;
 	list-style: none;
+	margin:0;
 }
+.contacto-tabla{
+	width: 30%;
+	padding-top: 30px; 
+}
+#contacto-fila{
+	padding-left: 20px;
 
+}
 .region-izquierda{
 	float: left;
 	min-width: 310px;
@@ -54,7 +62,6 @@ a, li, h1, h2, h3, h4, p {
 	color: #fff;
 	padding: 0px;
 	margin: 0;
-	height: 100px;
 	min-width: 340px;
 }
 .img-perfil{
@@ -375,11 +382,9 @@ a:hover, a:focus{
 	}
 }
 /*FIN FOOTER*/
-
 /*Para 960*/
 @media only screen and (min-width: 821px) {
     .jumbotron { 
-        
         background-repeat:no-repeat;
 		background-size: 100% 100%;
         padding: 0px;
