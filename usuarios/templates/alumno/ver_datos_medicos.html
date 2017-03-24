@@ -15,13 +15,13 @@
 	<!-- ################ PANEL FICHA MEDICA ####################################-->
 
 
-<input value="Ver más" onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){
+<a onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){
 this.parentNode.getElementsByTagName('div')[0].style.display = '';this.value = 'Ocultar';
 }
 else{
 this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Ver más';
-}" type="button">
-
+}" type="button" class="btn btn-default btn-sm" >
+<span class = "glyphicon glyphicon-info-sign"> </span> </a> 
 <div style="display: none;">
 	<div role="tabpanel" class="tab-pane fade in active" id="ficha_medica">
 			<i><p>En este espacio usted podra subir su ficha medica.</p>
@@ -48,7 +48,7 @@ this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.valu
 								<td>{{d.nombre}} </td>
 								{% if d.ficha_medica %}
 									<td>{{d.ficha_medica.descripcion}}</td>
-									<td><a href="{{d.ficha_medica.ficha_medica.url}}">link</a></td>
+									<td><a href="{{d.ficha_medica.ficha_medica.url}}"><span class = "glyphicon glyphicon-save"> </span> </a> </td>
 								{% else %}
 									<td>El profesor de {{d.nombre}} no ha subido aun una ficha medica.</td>
 									<td>-</td>
@@ -72,12 +72,13 @@ this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.valu
 					<hr style="border-color:blue;">
 					<hr style="border-color:blue;">
 				
-<input value="Ayuda" onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){
+<a onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){
 this.parentNode.getElementsByTagName('div')[0].style.display = '';this.value = 'Ocultar';
 }
 else{
 this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Ver más';
-}" type="button">
+}" type="button" class="btn btn-default btn-sm">
+<span class = "glyphicon glyphicon-info-sign"> </span> </a> 
 <div style="display: none;">
 		<p>Para subir o modificar su ficha medica, seleccione la opcion 'Seleccionar archivo' y posteriormente haga click en Guardar...</p>
 </div>
