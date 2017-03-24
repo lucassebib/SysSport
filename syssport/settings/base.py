@@ -1,20 +1,11 @@
+import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from django.core.urlresolvers import reverse_lazy
-import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '8h@d$dvno$6i-6!+(q9zih-1ttbm^w0#rxwpbca_^%h1s*ssu*'
- 
-DEBUG = True
-
-TEMPLATE_DEBUG = True
-
-ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -30,7 +21,8 @@ INSTALLED_APPS = (
     'deportes',
     'canchas',
     'entrenamiento',
-    'tinymce'
+    'tinymce',
+    'peticiones',
 
 )
 
@@ -44,7 +36,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-
 TINYMCE_DEFAULT_CONFIG = {
     'plugins': "table,spellchecker,paste,searchreplace",
     'theme': "advanced",
@@ -52,9 +43,7 @@ TINYMCE_DEFAULT_CONFIG = {
     'custom_undo_redo_levels': 10,
 }
 
-ROOT_URLCONF = 'syssport.urls'
-
-WSGI_APPLICATION = 'syssport.wsgi.application'
+TEMPLATE_DEBUG = True
 
 TEMPLATE_DIRS = ('templates',)
 
@@ -88,7 +77,7 @@ DATABASES = {
         'NAME': 'syssport',
         'HOST': 'localhost',
         'USER': 'proyecto',
-        'PASSWORD': 'proyecto2017',
+        'PASSWORD': 'proyecto2016',
 
         'OPTIONS': {
                     'uncicode_result': 'True',
@@ -99,12 +88,13 @@ DATABASES = {
 }
 
 
+WSGI_APPLICATION = 'syssport.wsgi.application'
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
-
 LANGUAGE_CODE = 'es-ar'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'UTC' 
 
 USE_I18N = True
 
@@ -113,10 +103,16 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
+#MEDIA_ROOT = '/media/'
 
-STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+MEDIA_URL = '/media/'
+
+STATICFILES_DIRS = ( 
+    os.path.join(BASE_DIR,'media'),
+    
+)
 
 LOGIN_URL = reverse_lazy('url_login')
 
@@ -130,7 +126,6 @@ EMAIL_PORT = 25
 EMAIL_HOST_USER = 'syssport2017@gmail.com'
 EMAIL_HOST_PASSWORD ='proyecto2017'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
 
 
 

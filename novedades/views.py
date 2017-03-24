@@ -14,6 +14,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from deportes.models import Deporte
 from novedades.models import Novedades, Comentario, Notificacion
+from peticiones.models import Peticionesservidor
 from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona
 
 from forms import FormularioComentario, FormularioNovedades, FormularioNovedadesAdmin
@@ -21,7 +22,10 @@ from paginacion import Paginate
 
 @login_required	
 def vista_index_alumnos(request):
-	template = "inicial_alumnos.html"	
+	template = "inicial_alumnos.html"
+	#p = Peticionesservidor.objects.using('sysacad').filter(statussalida = '3')
+	#n = Novedades.objects.using('default22').all()
+	#print(p)
 	return render_to_response(template, context_instance=RequestContext(request))
 
 @login_required	
