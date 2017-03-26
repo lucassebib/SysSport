@@ -28,6 +28,11 @@ urlpatterns += patterns('',
     url(r'^profesor/deporte/editar_informacion/(?P<pk>[0-9]+)/agregar_entrenamiento/$', editar_entrenamiento_deporte, name='editar_entrenamiento_deporte'),
 )
 
+#URL ALUMNO
+urlpatterns+= patterns('',
+
+)
+
 #URL ADMIN
 urlpatterns+= patterns('',
     url(r'^administrador/nuevo_deporte$', crear_deporte, name='crear-deporte'),

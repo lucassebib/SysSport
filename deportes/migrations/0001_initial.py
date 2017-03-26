@@ -8,6 +8,7 @@ import usuarios.validators
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('entrenamiento', '0001_initial'),
     ]
 
     operations = [
@@ -17,7 +18,9 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('nombre', models.CharField(max_length=100)),
                 ('descripcion', models.TextField()),
+                ('foto', models.ImageField(default=b'usuarios/deportes/fotos_deportes/none/deporte_default.png', upload_to=b'usuarios/deportes/fotos_deportes/')),
                 ('apto_para', models.IntegerField(default=3, choices=[(1, b'Solo Masculino'), (2, b'Solo Femenino'), (3, b'Mixto')])),
+                ('entrenamientos', models.ManyToManyField(to='entrenamiento.Entrenamiento', null=True, verbose_name=b'Entrenamientos', blank=True)),
             ],
             options={
                 'verbose_name_plural': 'Deportes',

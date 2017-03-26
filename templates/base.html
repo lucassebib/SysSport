@@ -55,8 +55,8 @@
                   		<div class="collapse navbar-collapse" id="navegacion-dep">
                                               
                   			<ul class="nav navbar-nav navbar-right">
-                  				{% if user.is_authenticated %}
-                            <li><p class="panel-title visible-lg visible-md visible-sm visible-xs " align="center" id="hola_usuario">Hola, <b>{{ user.username }} </b></p></li>
+                  				{% if user.is_authenticated or request.session.user %}
+                            <li><p class="panel-title visible-lg visible-md visible-sm visible-xs " align="center" id="hola_usuario">Hola, <b>{% if request.session.user %}{{request.session.nombre}} {% else %} {{user.username}} {% endif %} </b></p></li>
                             <li><a href="{% url 'url_logout'%}" >Salir</a></li> 
 	                    		{% else %}
                               <li><a href="registrarse" >Registrarse</a></li>

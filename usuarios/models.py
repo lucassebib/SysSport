@@ -98,10 +98,13 @@ class Profesor(Persona):
 
 carreras_disponibles = ((1,"ISI"),(2,"IQ"), (3, "IEM"), (4, "LAR"), (5, "TSP"), (6, "OTRO"))
 
-class Alumno(Persona):
+class Alumno(models.Model):
+	foto_perfil = models.ImageField(upload_to='usuarios/fotos_de_perfil/', default="usuarios/fotos_de_perfil/None/default_profile.jpg")
 	legajo =  models.IntegerField(blank=True, null=True)
+	dni = models.BigIntegerField(blank=True, null=True)
 	ficha_medica = models.FileField(upload_to='usuarios/fichas_medicas/', blank=True, validators=[valid_extension])
-	carrera = models.IntegerField(choices=carreras_disponibles, default=1)
+	#carrera = models.IntegerField(choices=carreras_disponibles, default=1)
+	lista_deporte = models.ManyToManyField(Deporte, verbose_name='Deportes Inscripto')
 	contactos_de_urgencia = models.ManyToManyField(ContactoDeUrgencia, verbose_name='Contacto de Urgencia', blank=True, null=True)
 	datos_medicos = models.ForeignKey(DatosMedicos, blank=True, null=True)
 
@@ -122,6 +125,9 @@ class Alumno(Persona):
 
 	def nombre_archivo(self):
 		return os.path.basename(self.ficha_medica.name)
+
+	def obtener_deportes(self):
+		return self.lista_deporte.all()
 		
 class UsuarioInvitado(Persona): 
 	institucion = models.CharField(max_length=100)
@@ -158,7 +164,6 @@ admin.site.register(Profesor,ProfesorAdmin)
 
 class AlumnoAdmin(admin.ModelAdmin):
 	list_display = ('legajo', 'deportes_inscripto')
-	fields = ('username', 'password', 'first_name', 'last_name','sexo', 'email', 'direccion', 'carrera', 'legajo', 'dni', 'fecha_nacimiento', 'telefono', 'foto_perfil', 'lista_deporte', 'ficha_medica','contactos_de_urgencia', 'groups', 'user_permissions', 'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined')
 
 admin.site.register(Alumno,AlumnoAdmin)
 

@@ -15,13 +15,25 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Alumno',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('legajo', models.IntegerField(null=True, blank=True)),
+                ('ficha_medica', models.FileField(blank=True, upload_to=b'usuarios/fichas_medicas/', validators=[usuarios.validators.valid_extension])),
+            ],
+            options={
+                'verbose_name_plural': 'Alumnos',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='ContactoDeUrgencia',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('nombre', models.CharField(max_length=100, null=True, blank=True)),
                 ('apellido', models.CharField(max_length=100, null=True, blank=True)),
                 ('parentezco', models.CharField(max_length=100, null=True, blank=True)),
-                ('telefono', models.IntegerField(null=True, blank=True)),
+                ('telefono', models.CharField(max_length=15, null=True, blank=True)),
             ],
             options={
             },
@@ -66,7 +78,7 @@ class Migration(migrations.Migration):
                 ('user_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
                 ('dni', models.BigIntegerField(null=True, blank=True)),
                 ('fecha_nacimiento', models.DateField(null=True, blank=True)),
-                ('telefono', models.IntegerField(null=True, blank=True)),
+                ('telefono', models.CharField(max_length=15, null=True, blank=True)),
                 ('foto_perfil', models.ImageField(default=b'usuarios/fotos_de_perfil/None/default_profile.jpg', upload_to=b'usuarios/fotos_de_perfil/')),
                 ('sexo', models.IntegerField(default=1, choices=[(1, b'Masculino'), (2, b'Femenino')])),
             ],
@@ -76,19 +88,6 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'users',
             },
             bases=('auth.user',),
-        ),
-        migrations.CreateModel(
-            name='Alumno',
-            fields=[
-                ('persona_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='usuarios.Persona')),
-                ('legajo', models.IntegerField(null=True, blank=True)),
-                ('ficha_medica', models.FileField(blank=True, upload_to=b'usuarios/fichas_medicas/', validators=[usuarios.validators.valid_extension])),
-                ('carrera', models.IntegerField(default=1, choices=[(1, b'ISI'), (2, b'IQ'), (3, b'IEM'), (4, b'LAR'), (5, b'TSP')])),
-            ],
-            options={
-                'verbose_name_plural': 'Alumnos',
-            },
-            bases=('usuarios.persona',),
         ),
         migrations.CreateModel(
             name='Profesor',
@@ -143,6 +142,12 @@ class Migration(migrations.Migration):
             model_name='alumno',
             name='datos_medicos',
             field=models.ForeignKey(blank=True, to='usuarios.DatosMedicos', null=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='alumno',
+            name='lista_deporte',
+            field=models.ManyToManyField(to='deportes.Deporte', verbose_name=b'Deportes Inscripto'),
             preserve_default=True,
         ),
     ]

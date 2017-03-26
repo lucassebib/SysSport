@@ -24,15 +24,19 @@
 				<div role="tabpanel" class="tab-pane fade in active" id="datos_personales">
 					
 					<div class="form-group col-md-9">					
-						Nombre: {{alumno.first_name}} </br>
-						Apellido: {{alumno.last_name}} </br>
+						Nombre: {% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.first_name}} {% endif %} </br>
+						Apellido: {% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.last_name}} {% endif %} </br>
 						DNI: {{alumno.dni}} </br>
-						Fecha de Nacimiento: {{alumno.fecha_nacimiento}} </br>
-						Telefono: {{alumno.telefono}} </br>
-						{% if alumno.direccion %}
-							Direccion: {{alumno.direccion}} </br>
+						Fecha de Nacimiento: {% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.fecha_nacimiento}} {% endif %}  </br>
+						Telefono: {% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.telefono}} {% endif %}  </br>
+						{% if alumnoUTN %}
+							Direccion: obtener del sysacad </br>
 						{% else %}
-							Direccion: -</br>
+							{% if alumno.direccion %}
+								Direccion: {{alumno.direccion}} </br>
+							{% else %}
+								Direccion: -</br>
+							{% endif %}
 						{% endif %}
 
 						{% if alumnoInvitado %}
@@ -62,7 +66,7 @@
 					<div role="tabpanel" class="tab-pane fade" id="info_academica">
 						<div class="form-group">
 							Legajo: {{alumno.legajo}}</br>
-							Carrera: {{alumno.ver_nombre_carrera}}</br>
+							Carrera: obtener del sysacad</br>
 							Condicion:</br>
 							Periodo Inicial <input type="date" name="fecha">
 							Periodo Final <input type="date" name="fecha">

@@ -16,13 +16,15 @@ from deportes.models import Deporte
 from novedades.models import Novedades, Comentario, Notificacion
 from peticiones.models import Peticionesservidor
 from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona
+#from usuarios.decorators import login_required as login_requerido
 
 from forms import FormularioComentario, FormularioNovedades, FormularioNovedadesAdmin
 from paginacion import Paginate
 
-@login_required	
 def vista_index_alumnos(request):
+
 	template = "inicial_alumnos.html"
+
 	#p = Peticionesservidor.objects.using('sysacad').filter(statussalida = '3')
 	#n = Novedades.objects.using('default22').all()
 	#print(p)
@@ -416,12 +418,11 @@ def ver_novedades(request, pk):
 	form = FormularioComentario()
 	id_usuario = request.user.id
 	novedad = Novedades.objects.get(id=pk)
-	#edicion = False
 	puede_editar_comentarios = False
 	mensaje = ''
 	
 	try:
-		g = Alumno.objects.get(id=id_usuario)
+		g = Alumno.objects.get(legajo=int(request.session['user']))
 		extiende = 'baseAlumno.html'
 	except Exception as e:
 		try:
@@ -441,17 +442,21 @@ def ver_novedades(request, pk):
 		form = FormularioComentario(request.POST)
 		if form.is_valid():
 			texto = form.cleaned_data['texto']
-			autor = Persona.objects.get(id=request.user.id)
+			autor = g.id 
 			comentario = Comentario(texto=texto, autor=autor)
 			comentario.save()
 			novedad.lista_comentarios.add(comentario)
 			novedad.save()
 			#form = FormularioComentario() 
 
-			if not autor.id == novedad.autor.id and not novedad.autor.is_staff:
+			if not autor == novedad.autor.id and not novedad.autor.is_staff:
 				n = Notificacion()
-				n.id_autor_comentario = autor.id
-				n.autor_comentario = autor.obtenerNombreCompleto()
+				n.id_autor_comentario = autor
+				try:
+					nombre_completo = request.session['nombre'] + ' ' + request.session['apellido'] 
+				except Exception as e:
+					nombre_completo = Persona.objects.get(id=request.user.id).obtenerNombreCompleto
+				n.autor_comentario = nombre_completo
 				n.notificar_a = novedad.autor
 				n.novedad = novedad
 				n.save()
@@ -475,7 +480,8 @@ def ver_novedades(request, pk):
 		'comentarios':novedad.lista_comentarios.all().order_by('-id'),
 		'extiende': extiende,
 		'puede_editar_comentarios': puede_editar_comentarios,
-		'mensaje': mensaje
+		'mensaje': mensaje,
+		'usuario': g,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
@@ -492,10 +498,16 @@ def novedades_profesores(request):
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
 
 ################################## NOVEDADES DE ALUMNOS #############################################
-@login_required	
+
 def novedades_alumnos(request):
 	template = "novedades_alumnos.html"	
-	alumno = Persona.objects.get(id=request.user.id)
+	
+	try:
+		alumno = Persona.objects.get(id=request.user.id)
+	except Exception as e:
+		alumno = Alumno.objects.get(legajo=int(request.session['user']))
+	
+	
 	deportes = alumno.obtener_deportes()	
 	
 	posts = Novedades.objects.filter(visibilidad__in=[1,2]) | Novedades.objects.filter(visibilidad__in=[3], categoria__in=alumno.obtener_deportes())
@@ -509,10 +521,16 @@ def novedades_alumnos(request):
 	}
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
 
-@login_required
+
 def ver_novedad_filtrado(request, pk):
 	template = "ver_novedad_filtrado.html"	
-	alumno = Persona.objects.get(id=request.user.id)
+	
+	try:
+		alumno = Persona.objects.get(id=request.user.id)
+	except Exception as e:
+		alumno = Alumno.objects.get(legajo=int(request.session['user']))
+		
+	
 	posts = Novedades.objects.filter(categoria__in=pk)
 	deportes = alumno.obtener_deportes()	
 

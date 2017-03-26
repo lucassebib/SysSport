@@ -42,7 +42,7 @@
 				<div class="texto_mensaje">
 					<p2>{{ c.texto }}</p2>
 					<div class="navbar-btn">
-						{% if c.obtener_idAutor = user.id or puede_editar_comentarios %}
+						{% if c.obtener_idAutor = usuario.id or puede_editar_comentarios %}
 							<form method="POST">{% csrf_token %}
 								<button type="submit" class="btn btn-primary" name="boton_eliminar" value="{{c.id}}">Eliminar</button>
 								<!--<td><button type="submit" name="boton_editar" value="{{c.id}}">Editar</button> </td> -->

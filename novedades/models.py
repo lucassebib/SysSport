@@ -1,23 +1,29 @@
+from django.contrib.auth.models import User
+from django.contrib import admin
+from django.core.urlresolvers import reverse
 from django.db import models
 from tinymce import  models as tinymce_models
-from django.contrib import admin
+
 from usuarios.models import Profesor
 from deportes.models import Deporte
-from usuarios.models import Persona
-from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User
+from usuarios.models import Persona, Alumno
+
 
 class Comentario(models.Model):
 	texto = models.TextField( verbose_name ='comentario')
-	autor = models.ForeignKey(Persona)
+	autor = models.IntegerField()
 
 	def obtener_url_imagen(self):
-		id_autor = self.autor.id
-		url_foto = Persona.objects.get(id=id_autor).foto_perfil.url
+		id_autor = self.autor
+		try:
+			url_foto = Persona.objects.get(id=id_autor).foto_perfil.url
+		except Exception as e:
+			url_foto = Alumno.objects.get(id=id_autor).foto_perfil.url
+		
 		return url_foto
 		
 	def obtener_idAutor(self):
-		return self.autor.id
+		return self.autor
 
 class Novedades(models.Model):
 	pueden_ver = ((1,"Todas las personas"),(2,"Todos los Usuarios Registrados"), (3, "Solo los Usuarios del Deporte"))

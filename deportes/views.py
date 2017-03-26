@@ -135,9 +135,11 @@ def ver_deportes_personas(request):
     darse_de_baja = True
     editar_info = False
     mensaje = ''
+    g = ''
 
     try:
-        g = Alumno.objects.get(id=id_usuario)
+
+        g = Alumno.objects.get(legajo=int(request.session['user']))
         extiende = 'baseAlumno.html'
     except Exception as e:
         try:
@@ -157,7 +159,7 @@ def ver_deportes_personas(request):
                     if request.user.is_staff:
                         extiende = 'baseAdmin.html'   
     ctx = {
-        'deportes': Persona.objects.get(id=request.user.id).lista_deporte.all(),
+        'deportes': g.lista_deporte.all(),
         'extiende': extiende,
         'usuario': request.user.username,
         'darse_de_baja': darse_de_baja,
@@ -178,13 +180,13 @@ def listar_deportes(request):
 
 
 ######################################## PARA ALUMNOS ##################################################
-@login_required
+
 def inscripcion_deportes(request):
     template = "inscripcion_deportes.html"
     id_usuario = request.user.id
     darse_de_baja = True
     try:
-        g = Alumno.objects.get(id=id_usuario)
+        g = Alumno.objects.get(legajo=int(request.session['user']))
         darse_de_baja = True
     except Exception as e:
         try:
@@ -205,35 +207,49 @@ def inscripcion_deportes(request):
 
     ctx = {
         'deportes': Deporte.objects.all(), 
-        'deportes_alumno': Persona.objects.get(id=request.user.id).lista_deporte.all(),
+        'deportes_alumno': g.lista_deporte.all(),
         'darse_de_baja': darse_de_baja,
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
-@login_required
+
 def baja_deporte(request, pk):
     template = "baja_deporte.html"
 
+    try:
+        alumno = Alumno.objects.get(legajo=int(request.session['user']))
+    except Exception as e:
+        alumno = Persona.objects.get(id=request.user.id)
+
     if request.method == "POST":
-        Persona.objects.get(id=request.user.id).lista_deporte.remove(pk)
-        return HttpResponseRedirect('/ver-lista-deportes')   
+        alumno.lista_deporte.remove(pk)
+        url = 'ver_deportes_personas'
+        return HttpResponseRedirect(reverse(url))   
 
     ctx = {
         'deporte': Deporte.objects.get(id=pk).nombre,
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
-@login_required
+
 def inscribir_deporte(request, pk):
     template = "inscribir_deporte.html"
     mensaje = ""
 
     if request.method == "POST":
         d = Deporte.objects.get(id=pk)
-        p = Persona.objects.get(id=request.user.id)
-        if d.apto_para == p.sexo or d.apto_para == 3: 
-            p.lista_deporte.add(d)
-            return HttpResponseRedirect('/ver-lista-deportes')
+        
+        try:
+            alumno = Alumno.objects.get(legajo=int(request.session['user']))
+            sexo = request.session['sexo']
+        except Exception as e:
+            alumno = Persona.objects.get(id=request.user.id)
+            sexo = alumno.sexo
+
+        if d.apto_para == sexo or d.apto_para == 3: 
+            alumno.lista_deporte.add(d)
+            url = 'ver_deportes_personas'
+            return HttpResponseRedirect(reverse(url)) 
         else:
             mensaje = "ESTE DEPORTE ES APTO PARA: " + d.ver_aptopara()    
 
@@ -322,7 +338,8 @@ def editar_info_deporte(request, pk):
                 
             deporte.descripcion = formulario_deporte.cleaned_data['descripcion']
             deporte.save() 
-            return HttpResponseRedirect('/ver-lista-deportes')
+            url = 'ver_deportes_personas'
+            return HttpResponseRedirect(reverse(url)) 
     else:
         if request.method == 'POST' and 'boton_eliminar' in request.POST:
             id_eliminar = request.POST.get('boton_eliminar_id')

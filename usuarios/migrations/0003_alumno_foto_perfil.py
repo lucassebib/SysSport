@@ -7,14 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('usuarios', '0001_initial'),
+        ('usuarios', '0002_alumno_dni'),
     ]
 
     operations = [
-        migrations.AlterField(
+        migrations.AddField(
             model_name='alumno',
-            name='carrera',
-            field=models.IntegerField(default=1, choices=[(1, b'ISI'), (2, b'IQ'), (3, b'IEM'), (4, b'LAR'), (5, b'TSP'), (6, b'OTRO')]),
+            name='foto_perfil',
+            field=models.ImageField(default=b'usuarios/fotos_de_perfil/None/default_profile.jpg', upload_to=b'usuarios/fotos_de_perfil/'),
             preserve_default=True,
         ),
     ]

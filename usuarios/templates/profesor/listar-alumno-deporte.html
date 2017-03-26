@@ -33,10 +33,10 @@
 			{% if alumnos %}
 				{% for a in alumnos %}
 					<tr>
-						<th><a href="{% url 'info-alumno' a.id %}">{{a.obtenerNombreCompleto}}</a></th>
+						<th><a href="{% url 'info-alumno' a.id %}">{% if a.tipo_usuario == 'alumno' %}obtener del sysacad {% else %} {{a.obtenerNombreCompleto}} {% endif %}</a></th>
 				    	<th>{{a.tipo_usuario}}</th>
 				    	{% if a.tipo_usuario == 'alumno' %}
-				    		<th>{{a.ver_nombre_carrera}}</th>
+				    		<th>obtener del sysacad</th>
 				    		<th>{{a.legajo}}</th>
 				    	{% else %}
 				    		<th>-</th>

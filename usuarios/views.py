@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
+from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
@@ -27,35 +28,57 @@ def vista_pagina_inicio(request):
 		if form1.is_valid():
 			usuario = form1.cleaned_data['username']
 			password = form1.cleaned_data['password']
-			user = authenticate(username=usuario, password=password)
+			try:
+				#Intento iniciar sesion de Alumno UTN
+				alumno_utn_bd = Alumno.objects.get(legajo=usuario)
+				#Resultado de la autenticacion del Sysacad
+				alumno_utn = True
+				if alumno_utn_bd and alumno_utn:
+					#Se inicia sesion de un alumno UTN
+					request.session["user"] = usuario
+					request.session["nombre"] = 'Lucas'
+					request.session["apellido"] = 'Ibaniez'
+					request.session["carrera"] = 'ISI'
+					request.session["correo"] = 'lucas@utn.com'
 
- 			try:
-				if user is not None:
-					if user.is_active:
-						loguear(request, user)
-						id_usuario = request.user.id
-						try:							
-							g = Alumno.objects.get(id=id_usuario)
-							return HttpResponseRedirect('/inicial_alumnos')
-						except Exception as e:
+					# Tener en cuenta que: (1,"Masculino"),(2,"Femenino")
+					request.session["sexo"] = 1
+					
+					request.session["fecha_nacimiento"] = '22/03/1992'
+					request.session["telefono"] = '3704217140'
+					request.session["direccion"] = 'Av 9 de Julio 1487'
+					url = 'inicial_alumnos'
+					return HttpResponseRedirect(reverse(url))
+			except Exception as e:
+				#Inicia Sesion Alumno invitado, profesor o administrador
+				user = authenticate(username=usuario, password=password)
+	 			try:
+					if user is not None:
+						if user.is_active:
+							loguear(request, user)
+							id_usuario = request.user.id
 							try:
 								g = Profesor.objects.get(id=id_usuario)
-								return HttpResponseRedirect('/inicial_profesores')
+								url = 'inicial_profesores'
+								return HttpResponseRedirect(reverse(url))
 							except Exception as e:
 								g = UsuarioInvitado.objects.get(id=id_usuario)
-								return HttpResponseRedirect('/inicial_alumnos')									
+								url = 'inicial_alumnos'
+								return HttpResponseRedirect(reverse(url))									
+						else:
+							ctx = {"form1":form1, "mensaje": "Usuario Inactivo"}
+							return render_to_response(template,ctx, context_instance=RequestContext(request))
 					else:
-						ctx = {"form1":form1, "mensaje": "Usuario Inactivo"}
+						ctx = {"form1":form1, "mensaje": "Nombre de usuario o password incorrectos"}
 						return render_to_response(template,ctx, context_instance=RequestContext(request))
-				else:
-					ctx = {"form1":form1, "mensaje": "Nombre de usuario o password incorrectos"}
-					return render_to_response(template,ctx, context_instance=RequestContext(request))
-			except Exception as e:
-				if user.is_staff:
-					return HttpResponseRedirect('/inicial-admin')
+				except Exception as e:
+					if user.is_staff:
+						url = 'inicial_admin'
+						return HttpResponseRedirect(reverse(url))
 
 	ctx = {"form1":form1, "mensaje":""}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
 
 def app_logout(request):
 	logout(request)
@@ -72,18 +95,22 @@ def vista_inicial_admin(request):
 	template = "admin/inicial_admin.html"
 	return render_to_response(template, context_instance=RequestContext(request))
 
-@login_required
+
 def ver_informacion_perfil_persona(request, pk):
 	template = "ver_informacion_perfil_persona.html"
 	id_usuario = request.user.id
 	tipo_usuario = "" 
 	
-	persona_visitada = Persona.objects.get(id=pk)
+	try:
+		persona_visitada = Persona.objects.get(id=pk)
+	except Exception as e:
+		persona_visitada = Alumno.objects.get(id=pk)
+	
 	
 	extiende = ''
 	
 	try:
-		g = Alumno.objects.get(id=id_usuario)
+		g = Alumno.objects.get(legajo=int(request.session['user']))
 		extiende = 'baseAlumno.html'
 	except Exception as e:
 		try:
@@ -97,8 +124,10 @@ def ver_informacion_perfil_persona(request, pk):
 	try:
 		g_visitado = Alumno.objects.get(id=pk)
 		tipo_usuario_visitado = 'alumno'
+		#OBTENER VALORES DEL SYSACAD
+		carrera = 'obtener del sysacad'
 		ctx1 = {
-			'carrera': g_visitado.ver_nombre_carrera,
+			'carrera': carrera,
 		}
 	except Exception as e:
 		try:
@@ -132,14 +161,13 @@ def ver_informacion_perfil_persona(request, pk):
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
-@login_required
 def editar_error(request):
 	template = "editar_error.html"
 	extiende = ''
 	id_usuario = request.user.id
 	
 	try:
-		g = Alumno.objects.get(id=id_usuario)
+		g = Alumno.objects.get(legajo=int(request.session['user']))
 		extiende = 'baseAlumno.html'
 	except Exception as e:
 		try:
@@ -161,7 +189,6 @@ def editar_error(request):
 #	template = "usuario_noLogueado.html"	
 #	return render_to_response(template, context_instance=RequestContext(request))
 
-@login_required
 def modificarPerfilAlumno(request):
 	template = "alumno/modificar_perfil_alumno.html"
 	form = FormularioCargarImagen()
@@ -171,7 +198,11 @@ def modificarPerfilAlumno(request):
 		form = FormularioCargarImagen(request.POST, request.FILES)
 		if form.is_valid():
 			if request.FILES:
-				p = Persona.objects.get(id=request.user.id)
+				try:
+					p = Persona.objects.get(id=request.user.id)
+				except Exception as e:
+					p = Alumno.objects.get(legajo=int(request.session['user']))
+				
 
 				if not p.foto_perfil == "usuarios/fotos_de_perfil/None/default_profile.jpg":
 					p.foto_perfil.delete(False)
@@ -183,12 +214,18 @@ def modificarPerfilAlumno(request):
 				mensaje='no ha seleccionado ninguna imagen'
 
 	try:
-		alumno = Alumno.objects.get(id=request.user.id)
+		alumno = Alumno.objects.get(legajo=int(request.session['user']))
 		tipo_usuario = "alumno"
 		ctx1 = {
-			'legajo': alumno.legajo,
-			'alumno': alumno,
-			'carrera': alumno.ver_nombre_carrera,
+			'legajo': request.session['user'],
+			'carrera': request.session['carrera'],
+			'email': request.session['correo'],
+			'nombre': request.session['nombre'],
+			'apellido': request.session['apellido'],
+			'sexo': request.session['sexo'],
+			'fecha_nacimiento': request.session['fecha_nacimiento'],
+			'telefono': request.session['telefono'],
+			'direccion': request.session['direccion'],
 		} 	 
 	except Exception as e:
 		alumno = UsuarioInvitado.objects.get(id=request.user.id)
@@ -196,21 +233,22 @@ def modificarPerfilAlumno(request):
 
 		ctx1 = {
 			'institucion': alumno.institucion,
-			'alumno': alumno,
-		} 
-
-	ctx = {
-			'form': form,
+		
 			'email': alumno.email,
-			'mensaje': mensaje,
-			'usuario':request.user.username,
 			'nombre': request.user.first_name,
 			'apellido': request.user.last_name,
-			'dni': alumno.dni,
 			'sexo': alumno.ver_sexo,
 			'fecha_nacimiento': alumno.fecha_nacimiento,
 			'telefono': alumno.telefono,
 			'direccion': alumno.direccion,
+		} 
+
+	ctx = {
+			'form': form,
+			'mensaje': mensaje,
+			#'usuario':request.user.username,
+			'alumno': alumno,
+			'dni': alumno.dni,
 			'is_alumno': "alumno"==tipo_usuario,
 			'is_invitado': "invitado"==tipo_usuario,		
 			}
@@ -342,11 +380,13 @@ def editar_perfil_alumno(request):
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 #-------#ABM CONTACTOS DE URGENCIA #---------#
-@login_required
+
 def agregar_contactoUrgencia(request):
 	template = "alumno/agregar_contacto_urgencia.html"
 	form_principal = FormularioContactoDeUrgencia()
 	form_direccion = FormularioDireccion()
+	guardar = True
+	mensaje_error = ''
 
 	if request.method == "POST":
 		form_principal = FormularioContactoDeUrgencia(request.POST)
@@ -356,7 +396,11 @@ def agregar_contactoUrgencia(request):
 			nombre = form_principal.cleaned_data['nombre']
 			apellido = form_principal.cleaned_data['apellido']
 			parentezco = form_principal.cleaned_data['parentezco']
+			
 			telefono = form_principal.cleaned_data['telefono']
+			if not telefono.isdigit():
+				guardar = False
+				mensaje_error = 'Error, solo se permiten numeros en el Telefono'
 
 			form_direccion = FormularioDireccion(request.POST)
 
@@ -376,25 +420,27 @@ def agregar_contactoUrgencia(request):
 			provincia = request.POST.get('provincia')
 			localidad = request.POST.get('localidad')
 
-			direccion = Direccion(calle=calle, altura=altura, piso=piso, nro_departamento=nro_departamento, provincia=provincia, localidad=localidad)
-			direccion.save()
-			
-			contacto = ContactoDeUrgencia(nombre=nombre, apellido=apellido, parentezco=parentezco, telefono=telefono, direccion=direccion)
-			contacto.save()
+			if guardar:
+				direccion = Direccion(calle=calle, altura=altura, piso=piso, nro_departamento=nro_departamento, provincia=provincia, localidad=localidad)
+				direccion.save()
+				
+				contacto = ContactoDeUrgencia(nombre=nombre, apellido=apellido, parentezco=parentezco, telefono=telefono, direccion=direccion)
+				contacto.save()
 
-			try:
-				alumno = Alumno.objects.get(id=request.user.id)
-			except Exception as e:
-				alumno = UsuarioInvitado.objects.get(id=request.user.id)
-			
-			alumno.contactos_de_urgencia.add(contacto)
-			alumno.save()
-			
-			return HttpResponseRedirect('/alumno/contacto_urgencia')
+				try:
+					alumno = Alumno.objects.get(legajo=int(request.session['user']))
+				except Exception as e:
+					alumno = UsuarioInvitado.objects.get(id=request.user.id)
+				
+				alumno.contactos_de_urgencia.add(contacto)
+				alumno.save()
+				
+				return HttpResponseRedirect('/alumno/contacto_urgencia')
 
 	ctx = {
 		'form_principal': form_principal,
 		'form_direccion': form_direccion,
+		'mensaje_error': mensaje_error,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
@@ -403,7 +449,7 @@ def ver_contacto_urgencia(request):
 	contactos = ''
 
 	try:
-		contactos = Alumno.objects.get(id=request.user.id).contactos_de_urgencia.all()
+		contactos = Alumno.objects.get(legajo=request.session['user']).contactos_de_urgencia.all()
 	except Exception as e:
 		contactos = UsuarioInvitado.objects.get(id=request.user.id).contactos_de_urgencia.all()
 
@@ -423,7 +469,7 @@ def eliminar_contactoUrgencia(request, pk):
 	contacto = ContactoDeUrgencia.objects.get(id=pk)
 
 	try:
-		alumno = Alumno.objects.get(id=request.user.id)
+		alumno = Alumno.objects.get(legajo=request.session['user'])
 	except Exception as e:
 		alumno = UsuarioInvitado.objects.get(id=request.user.id)
 
@@ -444,6 +490,8 @@ def editar_contactoUrgencia(request, pk):
 	alumno = ''
 	contacto = ContactoDeUrgencia.objects.get(id=pk)
 	direccion = Direccion.objects.get(id=contacto.direccion.id)
+	guardar = True
+	mensaje_error = ''
 
 	form_contacto = FormularioContactoDeUrgencia()
 	form_contacto.initial = {
@@ -469,7 +517,11 @@ def editar_contactoUrgencia(request, pk):
 			nombre = form_contacto.cleaned_data['nombre']
 			apellido = form_contacto.cleaned_data['apellido']
 			parentezco = form_contacto.cleaned_data['parentezco']
+			
 			telefono = form_contacto.cleaned_data['telefono']
+			if not telefono.isdigit():
+				guardar = False
+				mensaje_error = 'Error, solo se permiten numeros en el Telefono'
 
 			form_direccion = FormularioDireccion(request.POST)
 
@@ -490,26 +542,28 @@ def editar_contactoUrgencia(request, pk):
 			provincia = request.POST.get('provincia')
 			localidad = request.POST.get('localidad')
 
-			direccion.calle =calle 
-			direccion.altura=altura
-			direccion.piso=piso
-			direccion.nro_departamento=nro_departamento
-			direccion.provincia=provincia
-			direccion.localidad=localidad
-			direccion.save()
-			
-			contacto.nombre=nombre
-			contacto.apellido=apellido
-			contacto.parentezco=parentezco
-			contacto.telefono=telefono
-			contacto.direccion=direccion
-			contacto.save()
-			return HttpResponseRedirect('/alumno/contacto_urgencia')
+			if guardar:
+				direccion.calle =calle 
+				direccion.altura=altura
+				direccion.piso=piso
+				direccion.nro_departamento=nro_departamento
+				direccion.provincia=provincia
+				direccion.localidad=localidad
+				direccion.save()
+				
+				contacto.nombre=nombre
+				contacto.apellido=apellido
+				contacto.parentezco=parentezco
+				contacto.telefono=telefono
+				contacto.direccion=direccion
+				contacto.save()
+				return HttpResponseRedirect('/alumno/contacto_urgencia')
 
 	ctx = {
 		'nombre_contacto' : contacto.obtenerNombreCompleto,
 		'form_contacto': form_contacto,
 		'form_direccion': form_direccion,
+		'mensaje_error': mensaje_error,
 	}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
@@ -525,7 +579,7 @@ def ver_datos_medicos(request):
 	mensaje=''
 
 	try:
-		alumno = Alumno.objects.get(id=id_alumno)
+		alumno = Alumno.objects.get(legajo=request.session['user'])
 	except Exception as e:
 		alumno = UsuarioInvitado.objects.get(id=id_alumno)
 
