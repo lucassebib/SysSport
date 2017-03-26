@@ -24,8 +24,8 @@
 					<tr>
 						<td>{{c.nombre}}</td>
 						<td>{{c.descripcion}}</td>
-						<td><a href="{% url 'cancha-actualizar' c.id %}">Modificar</a></td>
-						<td><a href="{% url 'eliminar-canchas' c.id %}">Eliminar</a></td>
+						<td><a title="Editar" type="text" href="{% url 'cancha-actualizar' c.id %}"> <span class="glyphicon glyphicon-edit"></span> </a></td>
+						<td><a title="Eliminar" type="text" href="{% url 'eliminar-canchas' c.id %}"><span class="glyphicon glyphicon-remove"></span></a></td>
 					</tr>								
 				</tbody>
 			{% endfor %}

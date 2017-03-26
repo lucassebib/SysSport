@@ -122,6 +122,17 @@ a, li, h1, h2, h3, h4, p {
 a:hover, a:focus{
 	color: #555;
 }
+#link-Publicacion:hover{
+	color :#800080;
+	
+}
+#link-Publicacion:link{
+	color :#00FF00;
+	text-decoration:underline;
+	
+}
+
+
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus{
 	background-color: #999;
 	color: #fff;

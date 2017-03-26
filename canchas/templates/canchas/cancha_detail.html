@@ -19,8 +19,16 @@
 					<td>{{canchas.nombre}}</td>
 					<td>{{canchas.descripcion}}</td>
 					<td>{{canchas.direccion}}</td>
-					<td><a href="{% url 'cancha-actualizar' canchas.id %}">Modificar</a></td>
-					<td><a href="{% url 'eliminar-canchas' canchas.id %}">Eliminar</a></td>
+					<td>
+						<a title="Editar" type="text"  href="{% url 'cancha-actualizar' canchas.id %}"> 
+						<span class="glyphicon glyphicon-edit"></span>
+						</a>
+					</td>
+					<td>
+						<a title="Eliminar" type="text" href="{% url 'eliminar-canchas' canchas.id %}">
+						<span class="glyphicon glyphicon-remove"></span>
+						</a>
+					</td>
 				</tr>
 			</tbody>
 			
