@@ -20,7 +20,10 @@ def deporte_detalle(request, pk):
     template = "deporte_detalle.html"
     deporte = Deporte.objects.get(id=pk)
     e = deporte.entrenamientos.all()
-    profesor = Profesor.objects.get(lista_deporte__in=pk) 
+    try:
+        profesor = Profesor.objects.get(lista_deporte__in=pk)
+    except Exception as e:
+        profesor= ''
 
     ctx = {
         'deporte': deporte,
