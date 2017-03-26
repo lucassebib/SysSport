@@ -23,26 +23,32 @@
 					<div class="col-md-3">
 						<img src="{{ alumno.foto_perfil.url }}" class="img-responsive img-circle" >
 					</div>
-					<div class="form-group col-md-9">					
-						Nombre: {% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.first_name}} {% endif %} </br>
-						Apellido: {% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.last_name}} {% endif %} </br>
-						DNI: {{alumno.dni}} </br>
-						Fecha de Nacimiento: {% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.fecha_nacimiento}} {% endif %}  </br>
-						Telefono: {% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.telefono}} {% endif %}  </br>
+					<table class="col-md-6">					
+						<tr class="form-group"><td>Nombre:</td> 
+						<td>{% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.first_name}} {% endif %} </td></tr>
+						<tr class="form-group"><td>Apellido:</td>
+						<td> {% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.last_name}} {% endif %} </td></tr>
+						<tr class="form-group"><td>DNI: </td>
+						<td>{{alumno.dni}} </td></tr>
+						<tr class="form-group"><td>Fecha de Nacimiento:</td>
+						<td> {% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.fecha_nacimiento}} {% endif %}</td>  </tr>
+						<tr class="form-group"><td>Telefono:</td>
+						<td> {% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.telefono}} {% endif %}  </td></tr>
 						{% if alumnoUTN %}
-							Direccion: obtener del sysacad </br>
 						{% else %}
 							{% if alumno.direccion %}
-								Direccion: {{alumno.direccion}} </br>
+								<tr class="form-group"><td>Direccion:</td>
+								<td> {{alumno.direccion}}</td> </tr>
 							{% else %}
-								Direccion: -</br>
+								<tr class="form-group"><td>Direccion: -</td></tr>
 							{% endif %}
 						{% endif %}
 
 						{% if alumnoInvitado %}
-							Institucion: {{alumno.institucion}}
+							<tr class="form-group"><td>Institucion: </td>
+							<td>{{alumno.institucion}}</td></tr>
 						{% endif %}
-					</div>
+					</table>
 				</div>
 				<div role="tabpanel" class="tab-pane fade" id="contactos_urgencia">
 					<div class="form-group">
@@ -80,47 +86,62 @@
 		<!-- PANEL DATOS ACADEMICOS -->	
 				{% if alumnoUTN %}
 					<div role="tabpanel" class="tab-pane fade" id="info_academica">
-						<div class="form-group">
+						<table class="form-group">
 							<div class="col-md-3">
 								<img src="{{ alumno.foto_perfil.url }}" class="img-responsive img-circle" >
 							</div>
-							Legajo: {{alumno.legajo}}</br>
-							Carrera: obtener del sysacad</br>
-							Condicion:</br>
-							<label>Periodo Inicial</label> </br>
-							<label><input type="date" name="fecha"></label></br>
-							<label>Periodo Final</label> </br> 
-							<label><input type="date" name="fecha"></label></br>
-							<label>Cantidad de Materias</label> </br>
-							<input type="Text">
+							<tr class="form-group"><td>
+							Legajo: </td>
+							<td>{{alumno.legajo}}</td></tr>
+												
+							<tr class="form-group"><td>
+							Carrera:</td>
+							<td> obtener del sysacad</td></tr>
+												
+							<tr class="form-group"><td>Condicion:</td></tr>
+							<tr class="form-group"><td><label>Periodo Inicial </label> </td>
+							<td><label><input class="text" type="date" name="fecha"></label></td></tr>
+							<tr class="form-group"><td><label>Periodo Final </label> </td> 
+							<td><label><input class="text" type="date" name="fecha"></label></td></tr>
+							<tr class="form-group"><td><label>Cantidad de Materias </label> </td>
+							<td><input class="text" type="Text"></td></tr>
 							
-						</div>
+						</table>
 					</div>
 				{% endif %}	
 
 		<!-- PANEL DATOS MEDICOS -->
 				<div role="tabpanel" class="tab-pane fade" id="info_medica">
-					<div class="form-group">
+					<table class="form-group">
 						<div class="col-md-3">
 							<img src="{{ alumno.foto_perfil.url }}" class="img-responsive img-circle" >
 						</div>
-					Grupo Sanguineo: {{alumno.datos_medicos.ver_grupo_sanguineo}}</br>
-					Alergias: {{alumno.datos_medicos.alergias}}</br>
-					Toma medicamentos: {{alumno.datos_medicos.ver_toma_medicamentos}}</br>
-					Cuales? {{alumno.datos_medicos.medicamentos_cuales}}</br>
-					Tuvo Operaciones: {{alumno.datos_medicos.ver_tuvo_operaciones}}</br>
-					De que tipo? {{alumno.datos_medicos.operaciones_cuales}}</br>
-					Tiene Obra Social? {{alumno.datos_medicos.ver_tiene_osocial}}</br>
-					Cual? {{alumno.datos_medicos.osocial_cual}}</br>
+					<tr class="form-group"><td>Grupo Sanguineo:</td>
+					<td> {{alumno.datos_medicos.ver_grupo_sanguineo}}</td></tr>
+					<tr class="form-group"><td>Alergias:</td>
+					<td> {{alumno.datos_medicos.alergias}}</td></tr>
+					<tr class="form-group"><td>Toma medicamentos:</td>
+					<td> {{alumno.datos_medicos.ver_toma_medicamentos}}</td></tr>
+					<tr class="form-group"><td>¿Cuál/es?</td>
+					<td> {{alumno.datos_medicos.medicamentos_cuales}}</td></tr>
+					<tr class="form-group"><td>Cirujias:</td>
+					<td>{{alumno.datos_medicos.ver_tuvo_operaciones}}</td></tr>
+					<tr class="form-group"><td> ¿De qué tipo?</td><td> {{alumno.datos_medicos.operaciones_cuales}}</td></tr>
+					<tr class="form-group"><td>¿Tiene Obra Social?</td>
+					<td> {{alumno.datos_medicos.ver_tiene_osocial}}</td></tr>
+					<tr class="form-group"><td>Cuál/es?</td>
+					<td> {{alumno.datos_medicos.osocial_cual}}</td></tr>
 
 					{% if alumno.ficha_medica %}
-						Ficha Medica: <a href="{{ alumno.ficha_medica.url }}">Descargar</a>
+						<tr class="form-group"><td>Ficha Medica:</td><td> <a href="{{ alumno.ficha_medica.url }}">Descargar</a></td></tr>
 					{% endif %}
-					</div>
-				</div>				
+					
+				</table>				
 		</div>
 		
 	</div>
+
+</div>
 <input class="btn btn-primary" type="button" value="Volver" onclick="history.back(-1)" />
 </div>
 {% endblock %}
