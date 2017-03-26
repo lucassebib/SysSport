@@ -7,22 +7,31 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
 from django.template import Context
 from django.views.generic.edit import UpdateView
-
 from itertools import chain
-
 from forms import *
-
 from deportes.models import Deporte
 from novedades.models import Notificacion
-from novedades.paginacion import Paginate
 from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccion, ContactoDeUrgencia, DatosMedicos, carreras_disponibles 
+from django.contrib.auth.decorators import user_passes_test
 
-
-
+#@user_passes_test(lambda user: not user.is_authenticated())
 def vista_pagina_inicio(request):
 	form1 = FormularioAutenticacion()
-	template = "inicio.html"
 
+#	if request.user.is_authenticated() or request.session:
+#		id_usuario = request.user.id
+#		try:
+#			g = Alumno.objects.get(legajo=int(request.session['legajo']))
+#			return HttpResponseRedirect('/inicial_alumnos')
+#		except Exception as e:
+#			try:
+#				g = Profesor.objects.get(id=id_usuario)
+#				return HttpResponseRedirect('/inicial_profesores')
+#			except Exception as e:
+#				g = UsuarioInvitado.objects.get(id=id_usuario)
+#				return HttpResponseRedirect('/inicial_alumnos')	
+#	else:
+	template = "inicio.html"								
 	if request.method == "POST":
 		form1 = FormularioAutenticacion(request.POST)
 		if form1.is_valid():
@@ -453,14 +462,14 @@ def ver_contacto_urgencia(request):
 	except Exception as e:
 		contactos = UsuarioInvitado.objects.get(id=request.user.id).contactos_de_urgencia.all()
 
-	pag = Paginate(request, contactos, 1)
+	# pag = Paginate(request, contactos, 1)
 
 	ctx = {
-		'contactos': pag['queryset'],
-     	'paginator': pag,
-     	#'contactos': contactos,
+	#	'contactos': pag['queryset'],
+    #	'paginator': pag,
+    	'contactos': contactos,
 
-}
+	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 def eliminar_contactoUrgencia(request, pk):

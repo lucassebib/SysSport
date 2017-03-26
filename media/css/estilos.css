@@ -19,7 +19,7 @@
 }
 /*FIN HEADER*/
 /*BODY*/
-html, body, .main.container-fluid{
+html, body, .main.container-fluid, .container{
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	background-color: #D8D8D8;
 	overflow-x: hidden;
@@ -29,8 +29,16 @@ html, body, .main.container-fluid{
 a, li, h1, h2, h3, h4, p {
 	color: #000;
 	list-style: none;
+	margin:0;
 }
+.contacto-tabla{
+	width: 30%;
+	padding-top: 30px; 
+}
+#contacto-fila{
+	padding-left: 20px;
 
+}
 .region-izquierda{
 	float: left;
 	min-width: 310px;
@@ -49,12 +57,12 @@ a, li, h1, h2, h3, h4, p {
 	padding-right:30px: 
 }
 .jumbotron{
-	background-image: url("../img/bannerInicio.jpeg");
+	background-image: url("../img/banner2.jpg");
 	background-repeat:no-repeat;
 	color: #fff;
 	padding: 0px;
 	margin: 0;
-	height: 100px;
+	height: 50px;
 	min-width: 340px;
 }
 .img-perfil{
@@ -114,6 +122,17 @@ a, li, h1, h2, h3, h4, p {
 a:hover, a:focus{
 	color: #555;
 }
+#link-Publicacion:hover{
+	color :#800080;
+	
+}
+#link-Publicacion:link{
+	color :#00FF00;
+	text-decoration:underline;
+	
+}
+
+
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus{
 	background-color: #999;
 	color: #fff;
@@ -375,15 +394,13 @@ a:hover, a:focus{
 	}
 }
 /*FIN FOOTER*/
-
 /*Para 960*/
 @media only screen and (min-width: 821px) {
     .jumbotron { 
-        
         background-repeat:no-repeat;
 		background-size: 100% 100%;
         padding: 0px;
-        height: 350px;
+        height: 230px;
     }
     .region-principal{
     	width: 60%;
@@ -403,7 +420,7 @@ a:hover, a:focus{
 				
 		color: #fff;
 		padding: 0px;
-		height: 300px;
+		height: 190px;
 	}
 	.region-principal{
     	width: 20%;
@@ -420,7 +437,7 @@ a:hover, a:focus{
 	background-size: 100% 100%;
 	color: #fff;
 	padding: 0px;
-	height: 240px;
+	height: 230px;
 	}
 	.region-principal{
     	width: 9%;

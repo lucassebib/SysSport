@@ -10,7 +10,7 @@
 	<div class="page-content">
 		<form class="form-horizontal">{% csrf_token %}
 			<ul class="nav nav-pills navbar-right">
-			 	<li><a href="{% url 'crear-deporte' %}"><span class="glyphicon glyphicon-plus"></span> </span>Nuevo Deporte</a></li>
+			 	<li><a href="{% url 'crear-deporte' %}" ><span class="glyphicon glyphicon-plus"></span> </span>Nuevo Deporte</a></li>
 			 </ul>
 		 </form>
 
@@ -29,8 +29,8 @@
 					<td> <a href="">{{deporte.nombre}}</a> </td>
 					<td> <a href="">{{deporte.descripcion}}</a> </td>
 					<td> <a href="">{{deporte.ver_aptopara}}</a> </td>
-					<td> <a href="{% url 'modificar_deporte' deporte.id %}">Modificar</a></td>
-					<td><a href="{% url 'eliminar_deporte' deporte.id %}">Eliminar</a></td>
+					<td> <a title="Editar" type="text" title="Modificar" href="{% url 'modificar_deporte' deporte.id %}"><span class="glyphicon glyphicon-edit"></span></a></td>
+					<td><a title="Eliminar" type="text" title="Eliminar" href="{% url 'eliminar_deporte' deporte.id %}"><span class="glyphicon glyphicon-remove"></span></a></td>
 				</tr>
 			</tbody>
 			{% endfor %}

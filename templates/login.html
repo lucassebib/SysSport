@@ -8,8 +8,10 @@
 			<form id="login-form" action="{% url 'url_login' %}" class="navbar-form" role="form" method="POST" accept-charset="utf-8">
 			{% csrf_token %} 
 			<div class="form-group">
-				<p>{{form1.username}}</p>
-				<p>{{form1.password}}</p>
+				{{form1.username}}
+			</div>
+			<div class="form-group">
+				{{form1.password}}
 			</div>
 			<div class="form-group col-lg-10">
 				    <label>

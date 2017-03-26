@@ -9,25 +9,32 @@
                 </button>
                 <span class="navbar-header menu">
                     <div class="visible-xs panel-heading" align="center">
-                         <h3 class="panel-title">Administración de Usuarios</h3>
+                         <h3 class="panel-title">Administración</h3>
                     </div>
                 </span>
             </div>
 
             <div class="navbar-collapse collapse" id="adm-usuarios">
                 <div class="visible-lg visible-md visible-sm  panel-heading" align="center">
-                         <h3 class="panel-title">Administración de Usuarios</h3>
+                         <h3 class="panel-title">Administración</h3>
                 </div>
                 <ul class="nav nav-pills nav-stacked">
                     <li class="{% if 'ver_usuarios' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_usuarios' %}">Usuarios</a></li>
+                </ul>
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="{% if 'ver_novedades_admin' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_novedades_admin' %}#contenido">Novedades</a></li>
+                </ul>
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="{% if 'listar-canchas' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar-canchas' %}#contenido">Canchas</a></li>
+                </ul>
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="{% if 'listar-deporte' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar-deporte' %}#contenido">Deportes</a></li>
                 </ul>
             </div> 
         </div>
     </div>
 
     <!--
-    Menu de Canchas 
-    <div class=" sidebar-nav menu">
         <div class="navbar navbar-default menu" role="navigation">
             <div class="navbar-header menu">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#adm-canchas">
@@ -52,12 +59,12 @@
                 </ul>
             </div> 
         </div>
-    </div>
+    </div> -->
 
-    --> 
+
 
     <!--Menu de Deportes --> 
-    <div class=" sidebar-nav menu">
+   <!-- <div class=" sidebar-nav menu">
         <div class="navbar navbar-default menu" role="navigation">
             <div class="navbar-header menu">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#adm-deportes">
@@ -82,10 +89,10 @@
                 </ul>
             </div>         
             </div>
-    </div>
+    </div> -->
 
     <!--Menu de Novedades --> 
-    <div class=" sidebar-nav menu">
+   <!-- <div class=" sidebar-nav menu">
         <div class="navbar navbar-default menu" role="navigation">
             <div class="navbar-header menu">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#adm-novedades">
@@ -110,4 +117,4 @@
                 </ul>
             </div> 
         </div>
-    </div>
+    </div> -->

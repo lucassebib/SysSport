@@ -15,11 +15,11 @@
 		 	
 		 
 	 		<div class="form-group">
-	 			<label>Nombre del Deporte: </label>
+	 			<label>Nombre del Deporte: </label></br>
 	 			<input type="text" value="{{deporte.nombre}}" readonly>
 	 		</div>
 	 		<div class="form-group">
-	 			<label>Generos aptos: </label>
+	 			<label>Generos aptos: </label></br>
 	 			<input type="text" value="{{deporte.ver_aptopara}}" readonly>
 	 		</div>
 		 		
@@ -42,7 +42,7 @@
 				{% for e in entrenamientos %}
 					<div class="form-group">
 						<p>{{e.ver_dia}} de {{e.ver_horario_inicio}} a {{e.ver_horario_fin}}
-						<input class="btn btn-default " type='submit' name="boton_eliminar" value='X'>
+						<button  type='submit' name="boton_eliminar" value=''><span class = "glyphicon glyphicon-remove"> </span></button>
 						<input class="btn btn-default" type='hidden' name="boton_eliminar_id" value='{{e.id}}'></p>
 					</div>
 				{% endfor %}		

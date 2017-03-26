@@ -18,16 +18,23 @@
 			<!-- 
 				INFORMACION DEL PROFESOR
 			-->
-			<div class="info-profesor">
-				<div class="form-group">
-					<img src="{{profesor.foto_perfil.url}}" class=" img-circle perfil-profesor">
+			{% if profesor %}	
+				<div class="info-profesor">
+					<div class="form-group">
+						<img src="{{profesor.foto_perfil.url}}" class=" img-circle perfil-profesor">
+					</div>
+					<div class="form-group">
+						<li><label class="control-label">Prof.</label>
+						 {{profesor.obtenerNombreCompleto}}					
+						 </li>
+						<li><label class="control-label">{{profesor.email}}</label></li>
+					</div>
 				</div>
-				<div class="form-group">
-					<li><label class="control-label">Prof.</label> {{profesor.obtenerNombreCompleto}}</li>
-					<li><label class="control-label">{{profesor.email}}</label></li>
-				</div>
-			</div>
+			{% else %}
+			 <p>--</p>
+			{% endif %}
 		</div>
+		
 		<!-- 
 			ACA ESTA LA INFO DEL DEPORTE
 		-->

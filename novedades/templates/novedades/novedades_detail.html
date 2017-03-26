@@ -22,8 +22,8 @@
 					<td>categoria: {{novedades.obtener_categorias}}</td>
 				</tr>	
 				<tr>			
-					<td><a href="{% url 'actualizar-novedad' novedades.id %}">Modificar</a></td>
-					<td><a href="{% url 'eliminar-novedad' novedades.id %}">Eliminar</a></td>
+					<td><a title="Editar" type="text" href="{% url 'actualizar-novedad' novedades.id %}"><span class="glyphicon glyphicon-edit" > </span> </a></td>
+					<td><a title="Eliminar" type="text" href="{% url 'eliminar-novedad' novedades.id %}" ><span class="glyphicon glyphicon-remove" > </span></a></td>
 					<td><a href="{% url 'listar-novedades' %}"> Ver Todas</a></td>
 
 				</tr>
