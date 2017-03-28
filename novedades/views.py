@@ -25,9 +25,9 @@ def vista_index_alumnos(request):
 
 	template = "inicial_alumnos.html"
 
-	#p = Peticionesservidor.objects.using('sysacad').filter(statussalida = '3')
+	p = Peticionesservidor.objects.using('sysacad').all()[1]
 	#n = Novedades.objects.using('default22').all()
-	#print(p)
+	print(p)
 	return render_to_response(template, context_instance=RequestContext(request))
 
 @login_required	
