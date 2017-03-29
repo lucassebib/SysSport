@@ -7,6 +7,16 @@ class FormularioAutenticacion(forms.Form):
 	username = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'usuario', 'class':'form-control', 'required' :'True'}))
 	password = forms.CharField(label='', widget=forms.PasswordInput(render_value=False, attrs={'placeholder': 'contrasena','class':'form-control', 'required':'True'}))
 
+class FormularioRegistracion(forms.ModelForm):
+	password = forms.CharField(label='', widget=forms.PasswordInput(render_value=False, attrs={'placeholder': 'contrasena','class':'form-control', 'required':'True'}))
+
+	class Meta:
+		model = Alumno
+		fields = ["legajo", "lista_deporte"]
+		widgets = {
+           'lista_deporte': forms.Select,
+        }
+
 class FormularioDireccion(forms.ModelForm):
 	class Meta:
 		model = Direccion

@@ -9,25 +9,33 @@
         </div>
         <div class="page-content">
              <p>Para registrarte debes ingresar con tu usuario y contraseña del Sysacad</p>
-            <form class="form-horizontal" method="GET">
-            
+            <form class="form-horizontal" method="POST">
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Usuario: </label>
+                    <label class="col-sm-3 control-label">Legajo:</label>
                     <div class="col-sm-2">
-                        <input type="text" placeholder="Ingrese legajo">
+                        {{form.legajo}}<br>
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Contraseña: </label>
+                    <label class="col-sm-3 control-label">Contraseña:</label>
                     <div class="col-sm-2">
-                        <input type="text" placeholder="contraseña">
+                        {{form.password}}
                     </div>
                 </div>
-                                              	
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Inscribirse a:</label>
+                    <div class="col-sm-2">
+                        {{form.lista_deporte}}
+                    </div>
                 </div>
+                
                 <div class="col-lg-offset-3 col-lg-10">
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </div>
+            
+            
             </form>
         </div>
     </div>
