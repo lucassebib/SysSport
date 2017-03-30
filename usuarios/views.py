@@ -12,8 +12,8 @@ from itertools import chain
 
 from deportes.models import Deporte
 from novedades.models import Notificacion
-from peticiones.funciones import autenticacion
-from usuarios.funciones import obtener_id, extiende_de
+from peticiones.funciones import *
+from usuarios.funciones import *
 from usuarios.forms import *
 from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccion, ContactoDeUrgencia, DatosMedicos, carreras_disponibles 
 
@@ -39,23 +39,26 @@ def vista_pagina_inicio(request):
 		form1 = FormularioAutenticacion(request.POST)
 		if form1.is_valid():
 			usuario = form1.cleaned_data['username']
-			password = form1.cleaned_data['password']			
+			password = form1.cleaned_data['password']
+						
 			try:			
 				#request.session.flush()
 				#request.session.cycle_key()
-
-				#Intento iniciar sesion de Alumno UTN
-				alumno_utn_bd = Alumno.objects.get(legajo=int(usuario))
-				#Resultado de la autenticacion del Sysacad
-				alumno_utn = autenticacion(usuario, password)
-				
+							
+				#--Intento iniciar sesion de Alumno UTN
+				alumno_utn_bd = Alumno.objects.get(legajo=int(usuario))	
+				#--Resultado de la autenticacion del Sysacad	
+				#alumno_utn = autenticacion(usuario, password)
+				alumno_utn = True			
 				if alumno_utn_bd and alumno_utn:
-					#Se inicia sesion de un alumno UTN
+					#--Se inicia sesion de un alumno UTN
+					#datos = obtener_datos_iniciales(usuario, password)	
+					datos = {'nombre': 'Lucas', 'apellido': 'Perez', 'carrera': 5}				
 					request.session["user"] = usuario
 					request.session['id_user']= alumno_utn_bd.id
-					request.session["nombre"] = 'Lucas'
-					request.session["apellido"] = 'Ibaniez'
-					request.session["carrera"] = 'ISI'
+					request.session["nombre"] = datos['nombre']
+					request.session["apellido"] = datos['apellido']
+					request.session["carrera"] = int(datos['carrera'])
 					request.session["correo"] = 'lucas@utn.com'
 
 					# Tener en cuenta que: (1,"Masculino"),(2,"Femenino")
@@ -230,11 +233,11 @@ def modificarPerfilAlumno(request):
 		tipo_usuario = "alumno"
 		ctx1 = {
 			'legajo': request.session['user'],
-			'carrera': request.session['carrera'],
+			'carrera': mostrar_carrera(request.session['carrera']),
 			'email': request.session['correo'],
 			'nombre': request.session['nombre'],
 			'apellido': request.session['apellido'],
-			'sexo': request.session['sexo'],
+			'sexo': mostrar_sexo(request.session['sexo']),
 			'fecha_nacimiento': request.session['fecha_nacimiento'],
 			'telefono': request.session['telefono'],
 			'direccion': request.session['direccion'],
@@ -403,11 +406,12 @@ def agregar_contactoUrgencia(request):
 	if request.method == "POST":
 		form_principal = FormularioContactoDeUrgencia(request.POST)
 		if form_principal.is_valid():
-			
-
 			nombre = form_principal.cleaned_data['nombre']
+			nombre = dar_formato(nombre)
 			apellido = form_principal.cleaned_data['apellido']
+			apellido = dar_formato(apellido)
 			parentezco = form_principal.cleaned_data['parentezco']
+			parentezco = dar_formato(parentezco)
 			
 			telefono = form_principal.cleaned_data['telefono']
 			if not telefono.isdigit():
@@ -417,6 +421,7 @@ def agregar_contactoUrgencia(request):
 			form_direccion = FormularioDireccion(request.POST)
 
 			calle = request.POST.get('calle')
+			calle = dar_formato(calle)
 			altura = request.POST.get('altura')
 			if altura == '':
 				altura = 0
@@ -429,8 +434,15 @@ def agregar_contactoUrgencia(request):
 			if nro_departamento == '':
 				nro_departamento = 0
 
+			if not validar_nro_dpto(nro_departamento):
+				guardar = False
+				mensaje_error = 'Error al ingresar Nro de Departamento.'
+
 			provincia = request.POST.get('provincia')
+			provincia = dar_formato(provincia)
+			
 			localidad = request.POST.get('localidad')
+			localidad = dar_formato(localidad)
 
 			if guardar:
 				direccion = Direccion(calle=calle, altura=altura, piso=piso, nro_departamento=nro_departamento, provincia=provincia, localidad=localidad)
@@ -447,8 +459,10 @@ def agregar_contactoUrgencia(request):
 				alumno.contactos_de_urgencia.add(contacto)
 				alumno.save()
 				
-				return HttpResponseRedirect('/alumno/contacto_urgencia')
-
+				url = 'ver_contacto_urgencia'
+				return HttpResponseRedirect(reverse(url))
+		else:
+			mensaje_error = 'Faltan datos obligatorios'
 	ctx = {
 		'form_principal': form_principal,
 		'form_direccion': form_direccion,
@@ -527,9 +541,12 @@ def editar_contactoUrgencia(request, pk):
 		form_contacto = FormularioContactoDeUrgencia(request.POST)
 		if form_contacto.is_valid():
 			nombre = form_contacto.cleaned_data['nombre']
+			nombre = dar_formato(nombre)
 			apellido = form_contacto.cleaned_data['apellido']
+			apellido = dar_formato(apellido)
 			parentezco = form_contacto.cleaned_data['parentezco']
-			
+			parentezco = dar_formato(parentezco)
+
 			telefono = form_contacto.cleaned_data['telefono']
 			if not telefono.isdigit():
 				guardar = False
@@ -538,6 +555,8 @@ def editar_contactoUrgencia(request, pk):
 			form_direccion = FormularioDireccion(request.POST)
 
 			calle = request.POST.get('calle')
+			calle = dar_formato(calle)
+			
 			altura = request.POST.get('altura')
 
 			if altura == '':
@@ -551,8 +570,14 @@ def editar_contactoUrgencia(request, pk):
 			if nro_departamento == '':
 				nro_departamento = 0
 
+			if not validar_nro_dpto(nro_departamento):
+				guardar = False
+				mensaje_error = 'Error al ingresar Nro de Departamento.'
+
 			provincia = request.POST.get('provincia')
+			provincia = dar_formato(provincia)
 			localidad = request.POST.get('localidad')
+			localidad = dar_formato(localidad)
 
 			if guardar:
 				direccion.calle =calle 

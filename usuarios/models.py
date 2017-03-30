@@ -37,7 +37,7 @@ class Direccion(models.Model):
 	calle = models.CharField(max_length=100, blank=True, null=True)
 	altura = models.IntegerField(blank=True, null=True)
 	piso = models.IntegerField(blank=True, null=True)
-	nro_departamento = models.IntegerField(blank=True, null=True)
+	nro_departamento = models.CharField(max_length=2, blank=True, null=True)
 	provincia = models.CharField(max_length=100, blank=True, null=True)
 	localidad = models.CharField(max_length=100, blank=True, null=True)
 
@@ -56,9 +56,12 @@ class ContactoDeUrgencia(models.Model):
 
 	def obtenerNombreCompleto(self):
 		return '%s %s' % (self.nombre, self.apellido)
+#----------------------------------------------------------------------------------
+lista_sexos = ((1,"Masculino"),(2,"Femenino"))
+carreras_disponibles = ((5,"ISI"),(27,"IQ"), (8, "IEM"), (84, "LAR"), (34, "TSP"), (0, "OTRO"))
 
 class Persona(Usuario):
-	lista_sexos = ((1,"Masculino"),(2,"Femenino"))
+	
 
 	#Hereda de Usuario> 'username', 'password', 'first_name', 'last_name', 'groups', 'user_permissions', 
 	#'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined'
@@ -98,7 +101,7 @@ class Profesor(Persona):
 	def profesor_de(self):
 		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
 
-carreras_disponibles = ((1,"ISI"),(2,"IQ"), (3, "IEM"), (4, "LAR"), (5, "TSP"), (6, "OTRO"))
+
 
 class Alumno(models.Model):
 	foto_perfil = models.ImageField(upload_to='usuarios/fotos_de_perfil/', default="usuarios/fotos_de_perfil/None/default_profile.jpg")
@@ -109,10 +112,10 @@ class Alumno(models.Model):
 	lista_deporte = models.ManyToManyField(Deporte, verbose_name='Deportes Inscripto')
 	contactos_de_urgencia = models.ManyToManyField(ContactoDeUrgencia, verbose_name='Contacto de Urgencia', blank=True, null=True)
 	datos_medicos = models.ForeignKey(DatosMedicos, blank=True, null=True)
-	is_active = models.BooleanField(default=False)
+	#is_active = models.BooleanField(default=False)
 	
-	activation_key = models.CharField(max_length=40, blank=True)
-	key_expires = models.DateTimeField(default=datetime.date.today())
+	#activation_key = models.CharField(max_length=40, blank=True)
+	#key_expires = models.DateTimeField(default=datetime.date.today())
 
 	class Meta:
 		verbose_name_plural = "Alumnos"
