@@ -36,6 +36,9 @@ urlpatterns += patterns('',
     url(r'^password_reset_done$' , password_reset_done, 
     		{ 'template_name' : 'registracion/password_reset_done.html'}, 
     		name='password_reset_done'),
+    url(r'^cuenta/registracion_completada$', vista_registracion_exitosa, name = 'vista_registracion_exitosa'),
+    url(r'^cuenta/confirmar/(?P<activation_key>\w+)/', vista_confirmar_alta, name='vista_confirmar_alta'),
+
 	
 )
 

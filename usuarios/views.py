@@ -1,11 +1,17 @@
+import hashlib, random
+import time
+from datetime import datetime, date, time, timedelta
+
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
+from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
 from django.template import Context
+from django.utils import timezone
 from django.views.generic.edit import UpdateView
 from itertools import chain
 
@@ -110,10 +116,84 @@ def vista_recuperar_clave(request):
 def vista_registrarse(request):
 	template = 'registro.html'
 	form = FormularioRegistracion()
+	mensaje_error = ''
+
+	if request.method == 'POST' and 'boton_enviar' in request.POST:
+		#form = FormularioRegistracion(request.POST)		
+		legajo = request.POST.get('legajo')
+		password = request.POST.get('password')
+		lista_deporte = request.POST.get('lista_deporte')
+
+		#validar datos
+		datos_validos = True
+
+		#validacion con el sysacad
+		validacion = True
+
+		#datos sysacad
+		email = 'el_lucas992@hotmail.com'
+		dni = 36206924
+		nombre = 'Lucas'
+
+		#Creamos el alumno
+		if validacion and datos_validos:
+			a = Alumno(legajo=legajo, dni=dni)
+			a.save()
+			a.lista_deporte.add(lista_deporte)
+			a.save()
+			salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
+			activation_key = hashlib.sha1(salt+email).hexdigest()
+			key_expires = datetime.today() + timedelta(2)
+			a.activation_key = activation_key
+			a.key_expires = key_expires
+			a.save()
+
+			#Enviar mail de confirmacion
+			asunto = 'Confirmacion de cuenta en Sysport'
+			direccion_servidor = 'http://127.0.0.1:8000/cuenta/confirmar'
+			cuerpo = "Hola %s, Gracias por registrarte. Para activar tu cuenta da click en este link en menos de 48 horas: %s/%s" % (nombre, direccion_servidor, activation_key)
+			send_mail(asunto, cuerpo, 'ver_cuenta@example.com', [email], fail_silently=False)
+
+			url = 'vista_registracion_exitosa'
+			return HttpResponseRedirect(reverse(url))
+	
 	ctx = {
 		'form': form,
+		'mensaje_error': mensaje_error,
 	}
-	return render_to_response(template, ctx)
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def vista_confirmar_alta(request, activation_key):
+	template = 'registracion/confirmar_alta.html'
+	mensaje_error = ''
+	direccion_servidor = ''
+
+	# Verifica que el token de activacion sea valido
+	a = Alumno.objects.get(activation_key=activation_key)
+	
+	if not a:
+		mensaje_error = 'No ha sido posible activar la cuenta, intente nuevamente'
+	else:
+		# verifica si el token de activacion ha expirado y si es asi renderiza el html de registro expirado
+		print(a.key_expires)
+		print(timezone.now())
+		if timezone.now() < a.key_expires:
+			# Si el token no ha expirado, se activa el usuario y se muestra el html de confirmacion
+			a.is_active = True
+			a.save()
+			mensaje_error = 'Cuentra creada con exito'
+		else:
+			mensaje_error = 'La autenticacion ha expirado'
+			
+	ctx = {
+		'mensaje_error': mensaje_error,
+	}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def vista_registracion_exitosa(request):
+	template = 'registracion/registracion_exitosa.html'
+	ctx = {}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 @login_required
 def vista_inicial_admin(request):	

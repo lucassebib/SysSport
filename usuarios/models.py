@@ -58,11 +58,9 @@ class ContactoDeUrgencia(models.Model):
 		return '%s %s' % (self.nombre, self.apellido)
 #----------------------------------------------------------------------------------
 lista_sexos = ((1,"Masculino"),(2,"Femenino"))
-carreras_disponibles = ((5,"ISI"),(27,"IQ"), (8, "IEM"), (84, "LAR"), (34, "TSP"), (0, "OTRO"))
+carreras_disponibles = ((5,"Ingenieria en Sistemas de Informacion"),(27,"Ingenieria Quimica"), (8, "Ingenieria Electromecanica"), (84, "Licenciatura en Administracion Rural"), (34, "Tecnicatura Superior en Programacion"), (0, "OTRO"))
 
 class Persona(Usuario):
-	
-
 	#Hereda de Usuario> 'username', 'password', 'first_name', 'last_name', 'groups', 'user_permissions', 
 	#'is_staff', 'is_active', 'is_superuser', 'last_login', 'date_joined'
 	dni = models.BigIntegerField(blank=True, null=True)
@@ -112,10 +110,10 @@ class Alumno(models.Model):
 	lista_deporte = models.ManyToManyField(Deporte, verbose_name='Deportes Inscripto')
 	contactos_de_urgencia = models.ManyToManyField(ContactoDeUrgencia, verbose_name='Contacto de Urgencia', blank=True, null=True)
 	datos_medicos = models.ForeignKey(DatosMedicos, blank=True, null=True)
-	#is_active = models.BooleanField(default=False)
 	
-	#activation_key = models.CharField(max_length=40, blank=True)
-	#key_expires = models.DateTimeField(default=datetime.date.today())
+	is_active = models.BooleanField(default=False)
+	activation_key = models.CharField(max_length=40, blank=True)
+	key_expires = models.DateTimeField(default=datetime.date.today())
 
 	class Meta:
 		verbose_name_plural = "Alumnos"
@@ -128,9 +126,6 @@ class Alumno(models.Model):
 
 	def tipo_usuario(self):
 		return 'alumno'
-
-	def ver_nombre_carrera(self):
-		return self.get_carrera_display()
 
 	def nombre_archivo(self):
 		return os.path.basename(self.ficha_medica.name)

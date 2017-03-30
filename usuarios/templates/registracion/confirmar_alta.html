@@ -1,0 +1,9 @@
+{% extends "usuario_noLogueado.html" %}
+
+ {% block contenido %}
+	<div class="panel-info">
+		 <h1 class ="text-center">Resultado de la peticion: {{mensaje_error}}</h1>
+
+		 <p class="text-center"><a href="{% url 'url_login' %}"> Iniciar sesion</a></p>
+	</div>
+ {% endblock %}
