@@ -120,6 +120,7 @@ def delete_profe(request, pk):
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 #######################################################################################################
+
 def vista_pagina_inicio(request):
 	form1 = FormularioAutenticacion()
 

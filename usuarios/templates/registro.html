@@ -8,36 +8,32 @@
            
         </div>
         <div class="page-content">
-             <p>Para registrarte debes ingresar con tu usuario y contraseña del Sysacad</p>
-            <form class="form-horizontal" method="POST" accept-charset="utf-8">{% csrf_token %}
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Legajo:</label>
-                    <div class="col-sm-2">
-                        {{form.legajo}}<br>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Contraseña:</label>
-                    <div class="col-sm-2">
-                        {{form.password}}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Inscribirse a:</label>
-                    <div class="col-sm-2">
-                        {{form.lista_deporte}}
-                    </div>
-                </div>
-                
-                <div class="col-lg-offset-3 col-lg-10">
-                    <button type="submit" class="btn btn-primary" name="boton_enviar" value="enviar">Enviar</button>
-                    {{mensaje_error}}
-                </div>
-            
-            
-            </form>
+        	<div class="panel-title">
+        		 <p>Para registrarte debes ingresar con tu usuario y contraseña del Sysacad</p>
+        	</div>
+            <table class="registro">
+            	<form role="form" class="navbar-form" method="POST" accept-charset="utf-8">{% csrf_token %}
+            	
+	                <tr class="form-horizontal">
+	                    <td><label class="control-label">Legajo </label></td>
+	                    <td>{{form.legajo}}</td>
+	                </tr>
+	                <tr class="form-horizontal">
+	                  	<td><label class="control-label">Contraseña </label></td>
+	                  	<td>{{form.password}}</td>
+	                </tr>
+	                <tr class="form-group">
+	                    <td><label class="control-label">Inscribirse a: </label></td>
+	                    <td>{{form.lista_deporte}}</td>
+	                </tr>
+	                <tr class="form-horizontal">
+	                    <td><button type="submit" class="btn btn-primary" name="boton_enviar" value="enviar">Enviar</button></td>
+	                </tr>
+	                <tr>
+	                    {{mensaje_error}}
+	                </tr>
+               	</form>
+            </table>
         </div>
     </div>
 {% endblock %}
