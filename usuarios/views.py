@@ -118,9 +118,7 @@ def listar_profes(request):
 #######################################################################################################
 
 #@user_passes_test(lambda user: not user.is_authenticated())
-=======
 
->>>>>>> a7781f7ffcaefaf29eb98f63784b5a079f7eae85
 def vista_pagina_inicio(request):
 	form1 = FormularioAutenticacion()
 
