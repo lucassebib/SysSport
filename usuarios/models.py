@@ -1,6 +1,8 @@
 import os
 import datetime
 
+from datetime import tzinfo, timedelta, datetime, date
+
 from django.contrib import admin
 from django.contrib.auth.models import User as Usuario
 from django.db import models
@@ -113,7 +115,7 @@ class Alumno(models.Model):
 	
 	is_active = models.BooleanField(default=False)
 	activation_key = models.CharField(max_length=40, blank=True)
-	key_expires = models.DateTimeField(default=datetime.date.today())
+	key_expires = models.DateTimeField(auto_now_add=True)
 
 	class Meta:
 		verbose_name_plural = "Alumnos"
