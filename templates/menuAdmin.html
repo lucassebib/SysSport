@@ -21,7 +21,7 @@
 
                 <ul class="nav nav-pills nav-stacked">
                     <li class="{% if 'ver_novedades_admin' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_novedades_admin' %}#contenido">Novedades</a></li>
-                    <li class="{% if 'listar-canchas' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar-canchas' %}#contenido">Canchas</a></li>
+                    <!--<li class="{% if 'listar-canchas' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar-canchas' %}#contenido">Canchas</a></li>-->
                     <li class="{% if 'listar-deporte' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar-deporte' %}#contenido">Deportes</a></li>
                     <li class="{% if 'listar_profes' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar_profes' %}#contenido">Profesores</a></li>
                     <li ><a href="#">Alumnos Invitados</a></li>

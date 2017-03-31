@@ -53,24 +53,27 @@
 						<input type="text" name="q" value="{{query|escape }}">
 	    				<button class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar"><span class="glyphicon glyphicon-search"> </span> Buscar</button>
 					</div>
-			   		<input type="radio" id="check_autor" name="opcion" value="autor" onchange="javascript:showContent()" >Autor
-	  				<input type="radio" name="opcion" value="titulo" onchange="javascript:showContent()">Titulo
-	    			<input type="radio" id="check_fecha" name="opcion" value="fecha" id="fecha" onchange="javascript:showContent()">Fecha
-	  			 
+					<ul class="nav">
+						<li><input type="radio" id="check_autor" name="opcion" value="autor" onchange="javascript:showContent()" > Autor</li>
+						<ul class="form-group" id="div_escondido_autor" style="display: none;">
+							<form method="POST">{% csrf_token %}
+							Ingrese el parametro de busqueda por Autor:<br>
+							<li><input type="radio" name="opcion_autor" value="nombre" checked="">Nombre</li>
+							<li><input type="radio" name="opcion_autor" value="apellido">Apellido</li>
+							</form>
+						</ul>
+						<li><input type="radio" name="opcion" value="titulo" onchange="javascript:showContent()"> Titulo</li>
+						<li><input type="radio" id="check_fecha" name="opcion" value="fecha" id="fecha" onchange="javascript:showContent()"> Fecha</li>
+						<ul class="form-group" id="div_escondido_fecha" style="display: none;">
+							Ingrese la fecha con el siguiente formato: DD/MM/AAAA<br>
+							<li><input  type="checkbox" name="fecha" value="dia" checked> Dia DD</li>
+							<li><input  type="checkbox" name="fecha" value="mes" checked> Mes MM</li>
+							<li><input  type="checkbox" name="fecha" value="anio" checked> Año AAAA</li>
+						</ul>
+					</ul>
+			   		
 				</div>
-	   			<div class="form-group" id="div_escondido_fecha" style="display: none;">
-					Ingrese la fecha con el siguiente formato: DD/MM/AAAA<br>
-					<input  type="checkbox" name="fecha" value="dia" checked> Dia DD<br>
-					<input  type="checkbox" name="fecha" value="mes" checked> Mes MM<br>
-					<input  type="checkbox" name="fecha" value="anio" checked> Año AAAA<br>
-				</div>
-				<div class="form-group" id="div_escondido_autor" style="display: none;">
-					<form method="POST">{% csrf_token %}
-						Ingrese el parametro de busqueda por Autor:<br>
-			    		<input type="radio" name="opcion_autor" value="nombre" checked="">Nombre
-			  			<input type="radio" name="opcion_autor" value="apellido">Apellido
-					</form>
-				</div>
+	   			
 			</form>
 		</div>
 		<div class="form-group">
@@ -93,7 +96,7 @@
 					{% for n in novedades %}
 						<tr>
 							<td>
-								<a href="{% url 'editar_novedad_admin' n.id %}">{{n.titulo}}</a> </td>
+								<a href="{% url 'visualizar_novedad_admin' n.id %}">{{n.titulo}}</a> </td>
 							<td>
 								{% if n.autor.is_superuser %}
 									{{n.autor.username}} 
@@ -111,7 +114,7 @@
 							<td>{{n.ver_visibilidad}}</td>
 							<td>{{n.fecha_publicacion}} </td>
 							<td>
-								<a title="Visualizar" href="{% url 'visualizar_novedad_admin' n.id %}"><span class="glyphicon glyphicon-eye-open"></span></a>
+								<a title="Editar" href="{% url 'editar_novedad_admin' n.id %}"><span class="glyphicon glyphicon-edit"></span></a>
 							</td>
 							<td>
 								<a title="Eliminar" href="{% url 'eliminar_novedad_admin' n.id %}"><span class="glyphicon glyphicon-remove"></span></a>

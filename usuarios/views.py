@@ -31,7 +31,7 @@ from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccio
 
 #################### AMB profeor Realizado Por el Admin ######################################
 def alta_profesor(request):
-	template = "admin/adminProfe/alta_profe.html"
+	template = "admin/adminProfesores/alta_profe.html"
 	form = FormularioAltaProfe()
 	mensaje = request.user
 	#u = User.objects.get()
@@ -62,7 +62,7 @@ def alta_profesor(request):
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 def actualizar_profes(request, pk):
-    template = "admin/adminProfe/profes_modificar.html"
+    template = "admin/adminProfesores/profes_modificar.html"
     p = Profesor.objects.get(id=pk)
     form = FormularioAltaProfe()
 
@@ -94,7 +94,7 @@ def actualizar_profes(request, pk):
     return render_to_response(template, ctx, context_instance=RequestContext(request))
     
 def listar_profes(request):
-	template = "admin/adminProfe/listar_profes.html"
+	template = "admin/adminProfesores/listar_profes.html"
 	ctx = {
         'profes': Profesor.objects.all(),
 
@@ -102,7 +102,7 @@ def listar_profes(request):
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 def delete_profe(request, pk):
-	template = "admin/adminProfe/profe_confirm_delete.html"
+	template = "admin/adminProfesores/profe_confirm_delete.html"
 
 	#string(pk)
 	p = Profesor.objects.get(id= pk)
