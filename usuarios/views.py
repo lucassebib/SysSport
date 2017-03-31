@@ -43,13 +43,23 @@ def alta_profesor(request):
 			apellido = form.cleaned_data['last_name']
 			usuario = form.cleaned_data['username']
 			contrasenia = form.cleaned_data['password']
-
-
+			dni = form.cleaned_data['dni']
+			fechaN = form.cleaned_data['fecha_nacimiento']
+			sexo = form.cleaned_data['sexo']
+			foto = form.cleaned_data['foto_perfil']
+			email = form.cleaned_data['email']
+			
 			p = Profesor()
 			p.first_name = nombre
 			p.last_name = apellido
 			p.username = usuario
+			p.dni = dni
+			p.fecha_nacimiento = fechaN
+			p.sexo = sexo
+			p.foto = foto
+			p.email = email
 			p.password = contrasenia
+			p.set_password(nueva_contrasenia)
 			p.save()
 			
 			return HttpResponseRedirect(reverse('listar_profes'))
@@ -82,9 +92,14 @@ def actualizar_profes(request, pk):
     form = FormularioAltaProfe()
 
     form.initial = {
-        'nombre': p.first_name,
-        'apellido': p.last_name,
-        'usuario': p.username,
+        'first_name': p.first_name,
+        'last_name': p.last_name,
+        'username': p.username,
+        'dni':p.dni,
+        'fecha_nacimiento':p.fecha_nacimiento,
+        'sexo':p.sexo,
+        'foto_perfil':p.foto_perfil,
+        'email':p.email
         
     }
     
@@ -95,11 +110,22 @@ def actualizar_profes(request, pk):
             nuevo_apellido = form.cleaned_data['last_name']
             nueva_usuario = form.cleaned_data['username']
             nueva_contrasenia = form.cleaned_data['password']
+            nuevo_dni = form.cleaned_data['dni']
+            nuevo_fechaN = form.cleaned_data['fecha_nacimiento']
+            nuevo_sexo = form.cleaned_data['sexo']
+            nuevo_foto = form.cleaned_data['foto_perfil']
+            nuevo_email = form.cleaned_data['email']
             
             p.first_name = nuevo_nombre
             p.last_name = nuevo_apellido
             p.username = nueva_usuario
+            p.dni = nuevo_dni
+            p.fecha_nacimiento = nuevo_fechaN
+            p.sexo = nuevo_sexo
+            p.foto = nuevo_foto
+            p.email = nuevo_email
             p.password = nueva_contrasenia
+            p.set_password(nueva_contrasenia) 
             p.save()
             return HttpResponseRedirect(reverse('listar_profes'))
     ctx = {
@@ -115,12 +141,128 @@ def listar_profes(request):
 
     }
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+##################################  AMB ALUMNO Admin    #####################################################################
+def alta_alumno(request):
+	template = "admin/adminAlumnoInvitado/alta_alumno.html"
+	form = FormularioAltaAlumnoInvitado()
+	mensaje = request.user
+	#u = User.objects.get()
+
+	if request.method == "POST" and 'boton_alta' in request.POST:
+		form = FormularioAltaAlumnoInvitado(request.POST)
+		if form.is_valid():
+			nombre = form.cleaned_data['first_name']
+			apellido = form.cleaned_data['last_name']
+			usuario = form.cleaned_data['username']
+			contrasenia = form.cleaned_data['password']
+			dni = form.cleaned_data['dni']
+			fechaN = form.cleaned_data['fecha_nacimiento']
+			sexo = form.cleaned_data['sexo']
+			foto = form.cleaned_data['foto_perfil']
+			email = form.cleaned_data['email']
+            
+
+
+
+			a = UsuarioInvitado()
+			a.first_name = nombre
+			a.last_name = apellido
+			a.username = usuario
+			a.password = contrasenia
+			a.fecha_nacimiento =fechaN
+			a.sexo = sexo
+			a.foto = foto
+			a.email = email
+			a.password =contrasenia
+			a.set_password(contrasenia)
+			a.save()
+			
+			return HttpResponseRedirect(reverse('listar_alumnos'))
+
+	ctx = {
+		'form': form,
+		'mensaje': mensaje,
+	}
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def eliminar_alumno(request, pk):
+	template = "admin/adminAlumnoInvitado/alumno_confirm_delete.html"
+	a = UsuarioInvitado.objects.get(id = pk)
+	
+	if request.method == 'POST' and 'bEliminar' in request.POST:
+		a.delete()
+        return HttpResponseRedirect(reverse('listar_alumnos'))
+
+	ctx = {
+		'alumno': a,
+
+	}
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def actualizar_alumnos(request, pk):
+    template = "admin/adminAlumnoInvitado/alumno_modificar.html"
+    a = UsuarioInvitado.objects.get(id=pk)
+    form = FormularioAltaAlumnoInvitado()
+
+    form.initial = {
+        'first_name': a.first_name,
+        'last_name': a.last_name,
+        'username': a.username,
+        'dni':a.dni,
+        'fecha_nacimiento':a.fecha_nacimiento,
+        'sexo':a.sexo,
+        'foto_perfil':a.foto_perfil,
+        'email':a.email
+    }
+    
+    if request.method == 'POST'and 'bModificar' in request.POST:
+        form = FormularioAltaAlumnoInvitado(request.POST)
+        if form.is_valid():
+            nuevo_nombre = form.cleaned_data['first_name']
+            nuevo_apellido = form.cleaned_data['last_name']
+            nueva_usuario = form.cleaned_data['username']
+            nueva_contrasenia = form.cleaned_data['password']
+            nuevo_dni = form.cleaned_data['dni']
+            nuevo_fechaN = form.cleaned_data['fecha_nacimiento']
+            nuevo_sexo = form.cleaned_data['sexo']
+            nuevo_foto = form.cleaned_data['foto_perfil']
+            nuevo_email = form.cleaned_data['email']
+           
+
+            a.first_name = nuevo_nombre
+            a.last_name = nuevo_apellido
+            a.username = nueva_usuario
+            a.password = nueva_contrasenia
+            a.set_password(nueva_contrasenia)
+            a.dni = nuevo_dni
+            a.fechaN = nuevo_fechaN
+            a.sexo = nuevo_sexo
+            a.foto = nuevo_foto
+            a.email = nuevo_email
+            a.email = nuevo_email           
+            a.save()
+
+            return HttpResponseRedirect(reverse('listar_alumnos'))
+    ctx = {
+        'form': form,
+    }
+
+    return render_to_response(template, ctx, context_instance=RequestContext(request))
+    
+def listar_alumnos(request):
+	template = "admin/adminAlumnoInvitado/listar_alumno.html"
+	ctx = {
+        'alumnos': UsuarioInvitado.objects.all(),
+
+    }
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
 #######################################################################################################
 
 #@user_passes_test(lambda user: not user.is_authenticated())
-=======
 
->>>>>>> a7781f7ffcaefaf29eb98f63784b5a079f7eae85
 def vista_pagina_inicio(request):
 	form1 = FormularioAutenticacion()
 
