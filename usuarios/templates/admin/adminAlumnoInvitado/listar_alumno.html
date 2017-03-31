@@ -29,7 +29,7 @@
 					<td> <a href="">{{a.first_name}}</a> </td>
 					<td> <a href="">{{a.last_name}}</a> </td>
 					<td> <a title="Editar" type="text" title="Modificar" href="{% url 'actualizar_alumnos' a.id %}"><span class="glyphicon glyphicon-edit"></span></a></td>
-					<td><a title="Eliminar" type="text" title="Eliminar" href="{% url 'eliminar_alumno' a.id %}"><span class="glyphicon glyphicon-remove"></span></a></td>
+					<td><a title="Eliminar" type="text" title="Eliminar" href="{% url 'delete_alumno' a.id %}"><span class="glyphicon glyphicon-remove"></span></a></td>
 				</tr>
 			</tbody>
 			{% endfor %}

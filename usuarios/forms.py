@@ -8,13 +8,14 @@ class FormularioAutenticacion(forms.Form):
 	password = forms.CharField(label='', widget=forms.PasswordInput(render_value=False, attrs={'placeholder': 'contrasena','class':'form-control', 'required':'True'}))
 
 class FormularioRegistracion(forms.ModelForm):
-	password = forms.CharField(label='', widget=forms.PasswordInput(render_value=False, attrs={'placeholder': 'contrasena','class':'form-control', 'required':'True'}))
+	legajo = forms.CharField(label='legajo', widget=forms.TextInput(attrs={'placeholder':'legajo', 'class':'form-control', 'required':'True'}))
+	password = forms.CharField(label='contrasena', widget=forms.PasswordInput(render_value=False, attrs={'placeholder': 'contrasena','class':'form-control', 'required':'True'}))
 
 	class Meta:
 		model = Alumno
-		fields = ["legajo", "lista_deporte"]
+		fields = ["legajo", "password", "lista_deporte"]
 		widgets = {
-           'lista_deporte': forms.Select,
+           'lista_deporte': forms.Select(attrs={'class':'form-control'})
         }
 
 class FormularioDireccion(forms.ModelForm):

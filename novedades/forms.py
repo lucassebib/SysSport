@@ -12,6 +12,9 @@ class FormularioComentario(forms.ModelForm):
 	class Meta:
 		model = Comentario
 		fields = ['texto']
+		widgets={
+			'texto': forms.Textarea(attrs={'cols':'60', 'rows':'20'})
+		}
 
 class FormularioNovedades(forms.ModelForm):
 	class Meta:

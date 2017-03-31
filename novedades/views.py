@@ -16,7 +16,7 @@ from deportes.models import Deporte
 from novedades.models import Novedades, Comentario, Notificacion
 from peticiones.models import Peticionesservidor
 from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona
-from usuarios.funciones import extiende_de
+from usuarios.funciones import *
 #from usuarios.decorators import login_required as login_requerido
 
 from forms import FormularioComentario, FormularioNovedades, FormularioNovedadesAdmin
@@ -389,11 +389,7 @@ def ver_novedad_admin(request, pk):
 def ver_novedades_visibilidadTodos(request):
 	template = "novedades_visibilidad_todos.html"
 	
-	if request.session:
-		id_usuario = int(request.session['id'])
-	else:
-		if request.user:
-			id_usuario = request.user.id
+	id_usuario = obtener_id(request)
 
 	extiende = extiende_de(id_usuario, request)
 

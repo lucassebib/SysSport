@@ -31,7 +31,7 @@ from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccio
 
 #################### AMB profeor Realizado Por el Admin ######################################
 def alta_profesor(request):
-	template = "admin/adminProfe/alta_profe.html"
+	template = "admin/adminProfesores/alta_profe.html"
 	form = FormularioAltaProfe()
 	mensaje = request.user
 	#u = User.objects.get()
@@ -71,23 +71,8 @@ def alta_profesor(request):
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
-def eliminar_profes(request, pk):
-	template = "admin/adminProfe/profe_confirm_delete.html"
-	p = Profesor.objects.get(id = pk)
-	
-	if request.method == 'POST' and 'bEliminar' in request.POST:
-		p.delete()
-        return HttpResponseRedirect(reverse('listar_profes'))
-
-	ctx = {
-		'profe': p,
-
-	}
-
-	return render_to_response(template, ctx, context_instance=RequestContext(request))
-
 def actualizar_profes(request, pk):
-    template = "admin/adminProfe/profes_modificar.html"
+    template = "admin/adminProfesores/profes_modificar.html"
     p = Profesor.objects.get(id=pk)
     form = FormularioAltaProfe()
 
@@ -135,12 +120,32 @@ def actualizar_profes(request, pk):
     return render_to_response(template, ctx, context_instance=RequestContext(request))
     
 def listar_profes(request):
-	template = "admin/adminProfe/listar_profes.html"
+	template = "admin/adminProfesores/listar_profes.html"
 	ctx = {
         'profes': Profesor.objects.all(),
 
     }
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def delete_profe(request, pk):
+	template = "admin/adminProfesores/profe_confirm_delete.html"
+
+	#string(pk)
+	p = Profesor.objects.get(id= pk)
+
+	
+	if request.method == 'POST' and 'bEliminar' in request.POST:
+		p.delete()
+		url = 'listar_profes'
+		return HttpResponseRedirect(reverse(url))
+
+	ctx = {
+		'profe': p,
+
+	}
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
 
 ##################################  AMB ALUMNO Admin    #####################################################################
 def alta_alumno(request):
@@ -187,16 +192,20 @@ def alta_alumno(request):
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
-def eliminar_alumno(request, pk):
+def delete_alumno(request, pk):
 	template = "admin/adminAlumnoInvitado/alumno_confirm_delete.html"
-	a = UsuarioInvitado.objects.get(id = pk)
+
+	#string(pk)
+	a = UsuarioInvitado.objects.get(id= pk)
+
 	
 	if request.method == 'POST' and 'bEliminar' in request.POST:
 		a.delete()
-        return HttpResponseRedirect(reverse('listar_alumnos'))
+		url = 'listar_alumnos'
+		return HttpResponseRedirect(reverse(url))
 
 	ctx = {
-		'alumno': a,
+		'profe': p,
 
 	}
 
@@ -262,6 +271,11 @@ def listar_alumnos(request):
 #######################################################################################################
 
 #@user_passes_test(lambda user: not user.is_authenticated())
+
+
+
+#######################################################################################################
+
 
 def vista_pagina_inicio(request):
 	form1 = FormularioAutenticacion()
@@ -1115,24 +1129,40 @@ def ver_usuarios(request):
 @login_required
 def ver_informacion_alumno(request, pk):
 	template = "profesor/ver_informacion_alumno.html"
-
+	ctx = {}
+	datos_medicos = ''
+	cantidad =0
+	
 	try:
 		alumno = Alumno.objects.get(id=pk)
 		tipo_usuario = 'alumno'
+		legajo = alumno.legajo
+		
+		if request.method == 'POST' and 'boton_calcular' in request.POST:
+			f_desde = request.POST.get('fecha_desde')
+			f_hasta = request.POST.get('fecha_hasta')
+			cantidad = obtener_datos_academicos(username=str(legajo), f_desde=f_desde, f_hasta=f_hasta)
+
 	except Exception as e:
 		alumno = UsuarioInvitado.objects.get(id=pk)
 		tipo_usuario = 'invitado'
 
-	#datos_medicos = DatosMedicos.objects.get(id=alumno.datos_medicos.id)
+	
+	try:
+		datos_medicos = DatosMedicos.objects.get(id=alumno.datos_medicos.id)
+	except Exception as e:
+		print(e)
 	
 	ctx = {
 		'alumno': alumno,
 		'contactos': alumno.contactos_de_urgencia.all(),
 		'alumnoUTN': tipo_usuario=='alumno',
 		'alumnoInvitado': tipo_usuario=='invitado',
+		'cantidad': cantidad,
 		#'dm': datos_medicos,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
+ 
 
 @login_required
 def modificarPerfilProfesor(request):
