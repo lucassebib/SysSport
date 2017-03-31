@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
@@ -18,12 +19,108 @@ from itertools import chain
 
 from deportes.models import Deporte
 from novedades.models import Notificacion
+
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.core.urlresolvers import reverse_lazy
 from peticiones.funciones import *
 from usuarios.funciones import *
 from usuarios.forms import *
+
 from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccion, ContactoDeUrgencia, DatosMedicos, carreras_disponibles 
 
+#################### AMB profeor Realizado Por el Admin ######################################
+def alta_profesor(request):
+	template = "admin/adminProfe/alta_profe.html"
+	form = FormularioAltaProfe()
+	mensaje = request.user
+	#u = User.objects.get()
 
+	if request.method == "POST" and 'boton_alta' in request.POST:
+		form = FormularioAltaProfe(request.POST)
+		if form.is_valid():
+			nombre = form.cleaned_data['first_name']
+			apellido = form.cleaned_data['last_name']
+			usuario = form.cleaned_data['username']
+			contrasenia = form.cleaned_data['password']
+
+
+			p = Profesor()
+			p.first_name = nombre
+			p.last_name = apellido
+			p.username = usuario
+			p.password = contrasenia
+			p.save()
+			
+			return HttpResponseRedirect(reverse('listar_profes'))
+
+	ctx = {
+		'form': form,
+		'mensaje': mensaje,
+	}
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def eliminar_profes(request, pk):
+	template = "admin/adminProfe/profe_confirm_delete.html"
+	p = Profesor.objects.get(id = pk)
+	
+	if request.method == 'POST' and 'bEliminar' in request.POST:
+		p.delete()
+        return HttpResponseRedirect(reverse('listar_profes'))
+
+	ctx = {
+		'profe': p,
+
+	}
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def actualizar_profes(request, pk):
+    template = "admin/adminProfe/profes_modificar.html"
+    p = Profesor.objects.get(id=pk)
+    form = FormularioAltaProfe()
+
+    form.initial = {
+        'nombre': p.first_name,
+        'apellido': p.last_name,
+        'usuario': p.username,
+        
+    }
+    
+    if request.method == 'POST'and 'bModificar' in request.POST:
+        form = FormularioAltaProfe(request.POST)
+        if form.is_valid():
+            nuevo_nombre = form.cleaned_data['first_name']
+            nuevo_apellido = form.cleaned_data['last_name']
+            nueva_usuario = form.cleaned_data['username']
+            nueva_contrasenia = form.cleaned_data['password']
+            
+            p.first_name = nuevo_nombre
+            p.last_name = nuevo_apellido
+            p.username = nueva_usuario
+            p.password = nueva_contrasenia
+            p.save()
+            return HttpResponseRedirect(reverse('listar_profes'))
+    ctx = {
+        'form': form,
+    }
+
+    return render_to_response(template, ctx, context_instance=RequestContext(request))
+    
+def listar_profes(request):
+	template = "admin/adminProfe/listar_profes.html"
+	ctx = {
+        'profes': Profesor.objects.all(),
+
+    }
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+#######################################################################################################
+
+#@user_passes_test(lambda user: not user.is_authenticated())
+=======
+
+>>>>>>> a7781f7ffcaefaf29eb98f63784b5a079f7eae85
 def vista_pagina_inicio(request):
 	form1 = FormularioAutenticacion()
 
