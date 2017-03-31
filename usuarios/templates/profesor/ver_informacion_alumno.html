@@ -1,6 +1,14 @@
 {% extends "baseProfesor.html" %}
 
 {% block contenido %}
+<script language="javascript" type="text/javascript">
+
+	function popitup(url) {
+	    newwindow=window.open(url,'{{title}}','height=200,width=150');
+	    if (window.focus) {newwindow.focus()}
+	    return false;
+	}
+</script>
 <div class="panel-info">	
 	<div class="page-header panel-default">
 		<h1><i>{{alumno.get_full_name}} </i></h1>
@@ -86,27 +94,37 @@
 		<!-- PANEL DATOS ACADEMICOS -->	
 				{% if alumnoUTN %}
 					<div role="tabpanel" class="tab-pane fade" id="info_academica">
-						<table class="form-group">
-							<div class="col-md-3">
-								<img src="{{ alumno.foto_perfil.url }}" class="img-responsive img-circle" >
-							</div>
-							<tr class="form-group"><td>
-							Legajo: </td>
-							<td>{{alumno.legajo}}</td></tr>
-												
-							<tr class="form-group"><td>
-							Carrera:</td>
-							<td> obtener del sysacad</td></tr>
-												
-							<tr class="form-group"><td>Condicion:</td></tr>
-							<tr class="form-group"><td><label>Periodo Inicial </label> </td>
-							<td><label><input class="text" type="date" name="fecha"></label></td></tr>
-							<tr class="form-group"><td><label>Periodo Final </label> </td> 
-							<td><label><input class="text" type="date" name="fecha"></label></td></tr>
-							<tr class="form-group"><td><label>Cantidad de Materias </label> </td>
-							<td><input class="text" type="Text"></td></tr>
-							
-						</table>
+						<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+							<table class="form-group">
+								<div class="col-md-3">
+									<img src="{{ alumno.foto_perfil.url }}" class="img-responsive img-circle" >
+								</div>
+								<tr class="form-group"><td>
+								Legajo: </td>
+								<td>{{alumno.legajo}}</td></tr>
+													
+								<tr class="form-group"><td>
+								Carrera:</td>
+								<td> obtener del sysacad</td></tr>
+													
+								<tr class="form-group"><td>Condicion:</td></tr>
+								<tr class="form-group"><td><label>Periodo Inicial </label> </td>
+								<td><label><input class="text" type="date" name="fecha_desde"></label></td></tr>
+								
+								<tr class="form-group"><td><label>Periodo Final </label> </td> 
+								<td><label><input class="text" type="date" name="fecha_hasta"></label></td></tr>
+								<!--
+								<tr class="form-group"><td><label>Cantidad de Materias </label> </td>
+								<td><input class="text" type="Text"></td></tr>	
+								-->						
+							</table>
+
+							<a href="popupex.html" onclick="return popitup('/cantidad/'+)"><input class="btn btn-primary" type='submit' name="boton_calcular" value='Calcular'></a>
+						</form>
+						
+							<tr class="form-group"><td><label>El alumno ha aprobado: </label> </td> 
+							<td><label><input class="text" type="text" value="{{cantidad}}"></label></td></tr>
+						
 					</div>
 				{% endif %}	
 

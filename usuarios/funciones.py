@@ -6,10 +6,14 @@ def obtener_id(request):
 		Recibe request como parametro y devuelve el id del usuario autenticado 
 		segun sea o Alumno o (AlumnoInvitado|Profesor|Admin)
 	"""
+	id_usuario = 0
 	if 'id_user' in request.session:
 		id_usuario = int(request.session['id'])
 	else:
-		id_usuario = int(request.user.id)
+		try:
+			id_usuario = int(request.user.id)
+		except Exception as e:
+			print(e)
 	
 	return id_usuario
 
@@ -31,6 +35,8 @@ def extiende_de(id_usuario, request=None):
 			except Exception as e:
 				if request.user.is_staff:
 					extiende = 'baseAdmin.html'
+				else:
+					extiende = 'usuario_noLogueado.html'
 	return extiende
 
 def mostrar_carrera(cod_carrera):

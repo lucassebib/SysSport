@@ -18,21 +18,21 @@
 			<thead>
 				<tr>
 					<th>Nombre</th>
-					<th>Apellido</th>
-					
+					<th>Apellido</th>				
 				</tr>
 			</thead>
-
-			{% for p in profes %}
 			<tbody>
-				<tr>
-					<td> <a href="">{{p.first_name}}</a> </td>
-					<td> <a href="">{{p.last_name}}</a> </td>
-					<td> <a title="Editar" type="text" title="Modificar" href="{% url 'actualizar_profes' p.id %}"><span class="glyphicon glyphicon-edit"></span></a></td>
-					<td><a title="Eliminar" type="text" title="Eliminar" href="{% url 'eliminar_profes' p.id %}"><span class="glyphicon glyphicon-remove"></span></a></td>
-				</tr>
-			</tbody>
+			{% for p in profes %}
+				
+					<tr>
+						<td> <a href="">{{p.first_name}}</a> </td>
+						<td> <a href="">{{p.last_name}}</a> </td>
+						<td> <a title="Editar" type="text" title="Modificar" href="{% url 'actualizar_profes' p.id %}"><span class="glyphicon glyphicon-edit"></span></a></td>
+						<td> <a title="Eliminar" type="text" title="Eliminar" href="{% url 'delete_profe' p.id %}"><span class="glyphicon glyphicon-remove"></span></a></td>
+					</tr>
+				<a href="{% url 'delete_profe' p.id %}">eliminar {{p.id}}</a>
 			{% endfor %}
+			</tbody>
 		</table>
 		
 	</div>
