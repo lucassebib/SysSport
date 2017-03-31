@@ -1,0 +1,33 @@
+{% extends "baseAdmin.html" %}
+{% block contenido %}
+	<div class="well ">
+		<div class="panel-info">
+			<h2><i>Modificar Perfil Profesor </b> </h2>
+					
+			<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+				<div class="panel" > 
+					<div class=" panel-default">
+						<div class="panel-heading">
+							<h4>Datos Personales del Profesor:</h4>
+						</div>
+						<div class="panel">
+							{% for field in form %}	   		
+								<p>{{field.label}}</p>
+								<p>{{field}} </p>
+								
+							{% endfor %}									
+						</div>		
+					</div>
+
+					
+				</div>
+				<button class="btn btn-primary" type='submit' value='Aceptar' name= 'bModificar'> Aceptar</button>
+				<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
+			</form>
+			
+		</div>
+	</div>
+{% endblock %}
+
+
+

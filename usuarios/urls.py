@@ -41,8 +41,14 @@ urlpatterns += patterns('',
 
 #URLs ADMIN
 urlpatterns += patterns('',
-	url(r'^ver-usuarios$', ver_usuarios, name='ver_usuarios'),  
-)
+	url(r'^ver-usuarios$', ver_usuarios, name='ver_usuarios'), 
+	url(r'^altaProfesor$',alta_profesor, name='alta_profesor'),
+	url(r'^profesores$', listar_profes, name='listar_profes'),
+    url(r'^profesores/modificar/(?P<pk>[0-9]+)$', actualizar_profes, name='actualizar_profes'),
+   	url(r'^profesores/eliminar/(?P<pk>[0-9]+)$', eliminar_profes, name='eliminar_profes'),
+    
+) 
+
 
 #URLs PROFESOR
 urlpatterns += patterns('',

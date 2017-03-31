@@ -18,9 +18,7 @@
                 <div class="visible-lg visible-md visible-sm  panel-heading" align="center">
                          <h3 class="panel-title">Administración</h3>
                 </div>
-                <ul class="nav nav-pills nav-stacked">
-                    <li class="{% if 'ver_usuarios' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_usuarios' %}">Usuarios</a></li>
-                </ul>
+
                 <ul class="nav nav-pills nav-stacked">
                     <li class="{% if 'ver_novedades_admin' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_novedades_admin' %}#contenido">Novedades</a></li>
                 </ul>
@@ -29,6 +27,12 @@
                 </ul>
                 <ul class="nav nav-pills nav-stacked">
                     <li class="{% if 'listar-deporte' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar-deporte' %}#contenido">Deportes</a></li>
+                </ul>
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="{% if 'listar_profes' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar_profes' %}#contenido">Profesores</a></li>
+                </ul>
+                <ul class="nav nav-pills nav-stacked">
+                    <li ><a href="#">Alumnos Invitados</a></li>
                 </ul>
             </div> 
         </div>
