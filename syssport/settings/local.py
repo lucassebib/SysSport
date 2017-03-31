@@ -27,11 +27,7 @@ DATABASES = {
         'USER': 'usrsysacadweb',
         'PASSWORD': 'deportes123',
         
-        'OPTIONS': {
-                    'uncicode_result': 'True',
-                    'provider': 'SQLNCLI10',
-                    'use_mars': 'DataTypeCompatibility=80;MARS Connection=True;'
-        }
+       
     }
 
 }

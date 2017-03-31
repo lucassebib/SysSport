@@ -1,22 +1,33 @@
+import hashlib, random
+import time
+from datetime import datetime, date, time, timedelta
+
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
+from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
 from django.template import Context
+from django.utils import timezone
 from django.views.generic.edit import UpdateView
 from itertools import chain
-from forms import *
+
+
 from deportes.models import Deporte
 from novedades.models import Notificacion
+
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
+from peticiones.funciones import *
+from usuarios.funciones import *
+from usuarios.forms import *
+
 from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccion, ContactoDeUrgencia, DatosMedicos, carreras_disponibles 
-from django.contrib.auth.decorators import user_passes_test
 
 #################### AMB profeor Realizado Por el Admin ######################################
 def alta_profesor(request):
@@ -107,6 +118,9 @@ def listar_profes(request):
 #######################################################################################################
 
 #@user_passes_test(lambda user: not user.is_authenticated())
+=======
+
+>>>>>>> a7781f7ffcaefaf29eb98f63784b5a079f7eae85
 def vista_pagina_inicio(request):
 	form1 = FormularioAutenticacion()
 
@@ -129,17 +143,25 @@ def vista_pagina_inicio(request):
 		if form1.is_valid():
 			usuario = form1.cleaned_data['username']
 			password = form1.cleaned_data['password']
-			try:
-				#Intento iniciar sesion de Alumno UTN
-				alumno_utn_bd = Alumno.objects.get(legajo=usuario)
-				#Resultado de la autenticacion del Sysacad
-				alumno_utn = True
+						
+			try:			
+				#request.session.flush()
+				#request.session.cycle_key()
+							
+				#--Intento iniciar sesion de Alumno UTN
+				alumno_utn_bd = Alumno.objects.get(legajo=int(usuario))	
+				#--Resultado de la autenticacion del Sysacad	
+				#alumno_utn = autenticacion(usuario, password)
+				alumno_utn = True			
 				if alumno_utn_bd and alumno_utn:
-					#Se inicia sesion de un alumno UTN
+					#--Se inicia sesion de un alumno UTN
+					#datos = obtener_datos_iniciales(usuario, password)	
+					datos = {'nombre': 'Lucas', 'apellido': 'Perez', 'carrera': 5}				
 					request.session["user"] = usuario
-					request.session["nombre"] = 'Lucas'
-					request.session["apellido"] = 'Ibaniez'
-					request.session["carrera"] = 'ISI'
+					request.session['id_user']= alumno_utn_bd.id
+					request.session["nombre"] = datos['nombre']
+					request.session["apellido"] = datos['apellido']
+					request.session["carrera"] = int(datos['carrera'])
 					request.session["correo"] = 'lucas@utn.com'
 
 					# Tener en cuenta que: (1,"Masculino"),(2,"Femenino")
@@ -189,7 +211,86 @@ def vista_recuperar_clave(request):
 	return render_to_response('recup_clave.html')
 
 def vista_registrarse(request):
-	return render_to_response('registro.html')
+	template = 'registro.html'
+	form = FormularioRegistracion()
+	mensaje_error = ''
+
+	if request.method == 'POST' and 'boton_enviar' in request.POST:
+		#form = FormularioRegistracion(request.POST)		
+		legajo = request.POST.get('legajo')
+		password = request.POST.get('password')
+		lista_deporte = request.POST.get('lista_deporte')
+
+		#validar datos
+		datos_validos = True
+
+		#validacion con el sysacad
+		validacion = True
+
+		#datos sysacad
+		email = 'el_lucas992@hotmail.com'
+		dni = 36206924
+		nombre = 'Lucas'
+
+		#Creamos el alumno
+		if validacion and datos_validos:
+			a = Alumno(legajo=legajo, dni=dni)
+			a.save()
+			a.lista_deporte.add(lista_deporte)
+			a.save()
+			salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
+			activation_key = hashlib.sha1(salt+email).hexdigest()
+			key_expires = datetime.today() + timedelta(2)
+			a.activation_key = activation_key
+			a.key_expires = key_expires
+			a.save()
+
+			#Enviar mail de confirmacion
+			asunto = 'Confirmacion de cuenta en Sysport'
+			direccion_servidor = 'http://127.0.0.1:8000/cuenta/confirmar'
+			cuerpo = "Hola %s, Gracias por registrarte. Para activar tu cuenta da click en este link en menos de 48 horas: %s/%s" % (nombre, direccion_servidor, activation_key)
+			send_mail(asunto, cuerpo, 'ver_cuenta@example.com', [email], fail_silently=False)
+
+			url = 'vista_registracion_exitosa'
+			return HttpResponseRedirect(reverse(url))
+	
+	ctx = {
+		'form': form,
+		'mensaje_error': mensaje_error,
+	}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def vista_confirmar_alta(request, activation_key):
+	template = 'registracion/confirmar_alta.html'
+	mensaje_error = ''
+	direccion_servidor = ''
+
+	# Verifica que el token de activacion sea valido
+	a = Alumno.objects.get(activation_key=activation_key)
+	
+	if not a:
+		mensaje_error = 'No ha sido posible activar la cuenta, intente nuevamente'
+	else:
+		# verifica si el token de activacion ha expirado y si es asi renderiza el html de registro expirado
+		print(a.key_expires)
+		print(timezone.now())
+		if timezone.now() < a.key_expires:
+			# Si el token no ha expirado, se activa el usuario y se muestra el html de confirmacion
+			a.is_active = True
+			a.save()
+			mensaje_error = 'Cuentra creada con exito'
+		else:
+			mensaje_error = 'La autenticacion ha expirado'
+			
+	ctx = {
+		'mensaje_error': mensaje_error,
+	}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def vista_registracion_exitosa(request):
+	template = 'registracion/registracion_exitosa.html'
+	ctx = {}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 @login_required
 def vista_inicial_admin(request):	
@@ -199,28 +300,18 @@ def vista_inicial_admin(request):
 
 def ver_informacion_perfil_persona(request, pk):
 	template = "ver_informacion_perfil_persona.html"
-	id_usuario = request.user.id
-	tipo_usuario = "" 
 	
+	id_usuario = obtener_id(request)
+	
+	tipo_usuario = "" 
+
 	try:
 		persona_visitada = Persona.objects.get(id=pk)
 	except Exception as e:
 		persona_visitada = Alumno.objects.get(id=pk)
+		
+	extiende = extiende_de(id_usuario, request)
 	
-	
-	extiende = ''
-	
-	try:
-		g = Alumno.objects.get(legajo=int(request.session['user']))
-		extiende = 'baseAlumno.html'
-	except Exception as e:
-		try:
-			g = Profesor.objects.get(id=id_usuario)
-			extiende = 'baseProfesor.html'
-		except Exception as e:
-			g = UsuarioInvitado.objects.get(id=id_usuario)
-			extiende = 'baseAlumno.html'
-
 	ctx1 = {}	
 	try:
 		g_visitado = Alumno.objects.get(id=pk)
@@ -319,11 +410,11 @@ def modificarPerfilAlumno(request):
 		tipo_usuario = "alumno"
 		ctx1 = {
 			'legajo': request.session['user'],
-			'carrera': request.session['carrera'],
+			'carrera': mostrar_carrera(request.session['carrera']),
 			'email': request.session['correo'],
 			'nombre': request.session['nombre'],
 			'apellido': request.session['apellido'],
-			'sexo': request.session['sexo'],
+			'sexo': mostrar_sexo(request.session['sexo']),
 			'fecha_nacimiento': request.session['fecha_nacimiento'],
 			'telefono': request.session['telefono'],
 			'direccion': request.session['direccion'],
@@ -492,11 +583,12 @@ def agregar_contactoUrgencia(request):
 	if request.method == "POST":
 		form_principal = FormularioContactoDeUrgencia(request.POST)
 		if form_principal.is_valid():
-			
-
 			nombre = form_principal.cleaned_data['nombre']
+			nombre = dar_formato(nombre)
 			apellido = form_principal.cleaned_data['apellido']
+			apellido = dar_formato(apellido)
 			parentezco = form_principal.cleaned_data['parentezco']
+			parentezco = dar_formato(parentezco)
 			
 			telefono = form_principal.cleaned_data['telefono']
 			if not telefono.isdigit():
@@ -506,6 +598,7 @@ def agregar_contactoUrgencia(request):
 			form_direccion = FormularioDireccion(request.POST)
 
 			calle = request.POST.get('calle')
+			calle = dar_formato(calle)
 			altura = request.POST.get('altura')
 			if altura == '':
 				altura = 0
@@ -518,8 +611,15 @@ def agregar_contactoUrgencia(request):
 			if nro_departamento == '':
 				nro_departamento = 0
 
+			if not validar_nro_dpto(nro_departamento):
+				guardar = False
+				mensaje_error = 'Error al ingresar Nro de Departamento.'
+
 			provincia = request.POST.get('provincia')
+			provincia = dar_formato(provincia)
+			
 			localidad = request.POST.get('localidad')
+			localidad = dar_formato(localidad)
 
 			if guardar:
 				direccion = Direccion(calle=calle, altura=altura, piso=piso, nro_departamento=nro_departamento, provincia=provincia, localidad=localidad)
@@ -536,8 +636,10 @@ def agregar_contactoUrgencia(request):
 				alumno.contactos_de_urgencia.add(contacto)
 				alumno.save()
 				
-				return HttpResponseRedirect('/alumno/contacto_urgencia')
-
+				url = 'ver_contacto_urgencia'
+				return HttpResponseRedirect(reverse(url))
+		else:
+			mensaje_error = 'Faltan datos obligatorios'
 	ctx = {
 		'form_principal': form_principal,
 		'form_direccion': form_direccion,
@@ -616,9 +718,12 @@ def editar_contactoUrgencia(request, pk):
 		form_contacto = FormularioContactoDeUrgencia(request.POST)
 		if form_contacto.is_valid():
 			nombre = form_contacto.cleaned_data['nombre']
+			nombre = dar_formato(nombre)
 			apellido = form_contacto.cleaned_data['apellido']
+			apellido = dar_formato(apellido)
 			parentezco = form_contacto.cleaned_data['parentezco']
-			
+			parentezco = dar_formato(parentezco)
+
 			telefono = form_contacto.cleaned_data['telefono']
 			if not telefono.isdigit():
 				guardar = False
@@ -627,6 +732,8 @@ def editar_contactoUrgencia(request, pk):
 			form_direccion = FormularioDireccion(request.POST)
 
 			calle = request.POST.get('calle')
+			calle = dar_formato(calle)
+			
 			altura = request.POST.get('altura')
 
 			if altura == '':
@@ -640,8 +747,14 @@ def editar_contactoUrgencia(request, pk):
 			if nro_departamento == '':
 				nro_departamento = 0
 
+			if not validar_nro_dpto(nro_departamento):
+				guardar = False
+				mensaje_error = 'Error al ingresar Nro de Departamento.'
+
 			provincia = request.POST.get('provincia')
+			provincia = dar_formato(provincia)
 			localidad = request.POST.get('localidad')
+			localidad = dar_formato(localidad)
 
 			if guardar:
 				direccion.calle =calle 

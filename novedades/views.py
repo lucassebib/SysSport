@@ -16,6 +16,7 @@ from deportes.models import Deporte
 from novedades.models import Novedades, Comentario, Notificacion
 from peticiones.models import Peticionesservidor
 from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona
+from usuarios.funciones import extiende_de
 #from usuarios.decorators import login_required as login_requerido
 
 from forms import FormularioComentario, FormularioNovedades, FormularioNovedadesAdmin
@@ -24,8 +25,7 @@ from paginacion import Paginate
 def vista_index_alumnos(request):
 
 	template = "inicial_alumnos.html"
-
-	#p = Peticionesservidor.objects.using('sysacad').filter(statussalida = '3')
+	#p = Peticionesservidor.objects.using('sysacad').all()[1]
 	#n = Novedades.objects.using('default22').all()
 	#print(p)
 	return render_to_response(template, context_instance=RequestContext(request))
@@ -388,24 +388,14 @@ def ver_novedad_admin(request, pk):
 	
 def ver_novedades_visibilidadTodos(request):
 	template = "novedades_visibilidad_todos.html"
-	id_usuario = request.user.id
-	try:
-		g = Alumno.objects.get(id=id_usuario)
-		extiende = 'baseAlumno.html'
-	except Exception as e:
-		try:
-			g = Profesor.objects.get(id=id_usuario)
-			extiende = 'baseProfesor.html'
-		except Exception as e:
-			try:
-				g = UsuarioInvitado.objects.get(id=id_usuario)
-				extiende = 'baseAlumno.html'
-			except Exception as e:
-				try:
-					extiende = 'usuario_noLogueado.html'
-				except Exception as e:
-					if request.user.is_staff:
-						extiende = 'baseAdmin.html'
+	
+	if request.session:
+		id_usuario = int(request.session['id'])
+	else:
+		if request.user:
+			id_usuario = request.user.id
+
+	extiende = extiende_de(id_usuario, request)
 
 	ctx = {
 		'posts': Novedades.objects.filter(visibilidad__in=[1]).order_by('-fecha_publicacion'), 

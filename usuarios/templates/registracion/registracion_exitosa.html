@@ -1,0 +1,9 @@
+{% extends "usuario_noLogueado.html" %}
+
+ {% block contenido %}
+	<div class="panel-info">
+		 <h1 class ="text-center">Hemos enviado un correo a su casilla de mensajes</h1>
+
+		 <p class="text-center"><a href="{% url 'url_login' %}"> Iniciar sesion</a></p>
+	</div>
+ {% endblock %}
