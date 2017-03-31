@@ -1,9 +1,8 @@
+# coding=utf-8
 import xml.etree.ElementTree as ET
 import time
 
 from datetime import datetime, date
-
-
 
 from peticiones.models import Peticionesservidor
 
@@ -57,22 +56,18 @@ def obtener_datos_iniciales(username, password):
 
 	return diccionario
 
-def add_months(sourcedate,months):
-	month = sourcedate.month - 1 + months
-	year = sourcedate.year + month / 12
-	month = month % 12 + 1
-	day = min(sourcedate.day,calendar.monthrange(year,month)[1])
-	return datetime.date(year,month,day)
-
 def obtener_datos_academicos(username, f_desde, f_hasta):
+	""" 
+		Devuelve la cantidad de materias aprobobadas por un alumno en el rango de fechas que se 
+		recibe por parametro
+	"""
 	year,month,day = f_desde.split('-')
 	desde = date(int(year),int(month),int(day))
-	
-	string(desde)
-	""" 
-		Devuelve la cantidad de materias aprobobadas por un alumno en el rango de fechas que se reciben por parametro
-	"""
 
+	year,month,day = f_hasta.split('-')
+	hasta = date(int(year),int(month),int(day))
+	
+	cont = 0
 	notas = {
 		'cuatro': 4,
 		'cinco': 5,
@@ -82,8 +77,9 @@ def obtener_datos_academicos(username, f_desde, f_hasta):
 		'nueve': 9,
 		'diez': 10,
 	}
-
+	
 	legajo = username 
+	"""
 	fecha = datetime.now().strftime('%Y%m%d%H%M%S')
 	IDEXTERNA = str(fecha) + str(username) + 'D'
 	peticion = Peticionesservidor()
@@ -91,7 +87,7 @@ def obtener_datos_academicos(username, f_desde, f_hasta):
 	peticion.idexterna = IDEXTERNA
 	peticion.estado = 0
 	peticion.parametro1 = '<?xml version = "1.0" encoding="Windows-1252" standalone="yes"?><VFPData><parametro1><legajo>'+legajo+'</legajo></parametro1> </VFPData>'
-	cont = 0
+	
 
 	try:
 		peticion.save(force_insert = True, using='sysacad')
@@ -104,17 +100,23 @@ def obtener_datos_academicos(username, f_desde, f_hasta):
 		return a
 
 	paramXML = ET.fromstring(newPeticion.parametro2.encode('ISO-8859-1'))
-
+	"""
+	paramXML = '<?xml version = "1.0" encoding="Windows-1252" standalone="yes"?><VFPData><_parametro2><fecha>2010-07-28</fecha><nombre>Algebra y Geometria Analitica</nombre><nota>seis</nota><especialidad>5</especialidad><abreviaturaespecialidad>Ing. Sist. Inf.</abreviaturaespecialidad><plan>2008</plan><materia>101</materia></_parametro2><_parametro2><fecha>2010-10-08</fecha><nombre>Matematica Discreta</nombre><nota>seis</nota><especialidad>5</especialidad><abreviaturaespecialidad>Ing. Sist. Inf.</abreviaturaespecialidad><plan>2008</plan><materia>121</materia></_parametro2></VFPData>'
+	paramXML = ET.fromstring(paramXML.encode('ISO-8859-1'))
+	#flag = False
 	for x in paramXML:
 		for z in x:
 			if z.tag == 'fecha':
-				c = 1
+				fecha = z.text
+				year,month,day = fecha.split('-')
+				fecha = date(int(year),int(month),int(day))
+				#if fecha>=desde and fecha<= hasta:
+				#	flag = True
 			
 			if z.tag == 'nota':
-				calificacion = notas.get(nota)
-				if calificacion>=4:
-					cont = cont + 1
-
+				calificacion = int(notas.get(z.text))
+				if calificacion>=4 and fecha>=desde and fecha<= hasta:
+					cont = cont + 1		
 	return cont
 
 
