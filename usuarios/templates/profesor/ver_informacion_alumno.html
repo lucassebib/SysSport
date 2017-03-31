@@ -86,27 +86,32 @@
 		<!-- PANEL DATOS ACADEMICOS -->	
 				{% if alumnoUTN %}
 					<div role="tabpanel" class="tab-pane fade" id="info_academica">
-						<table class="form-group">
-							<div class="col-md-3">
-								<img src="{{ alumno.foto_perfil.url }}" class="img-responsive img-circle" >
-							</div>
-							<tr class="form-group"><td>
-							Legajo: </td>
-							<td>{{alumno.legajo}}</td></tr>
-												
-							<tr class="form-group"><td>
-							Carrera:</td>
-							<td> obtener del sysacad</td></tr>
-												
-							<tr class="form-group"><td>Condicion:</td></tr>
-							<tr class="form-group"><td><label>Periodo Inicial </label> </td>
-							<td><label><input class="text" type="date" name="fecha"></label></td></tr>
-							<tr class="form-group"><td><label>Periodo Final </label> </td> 
-							<td><label><input class="text" type="date" name="fecha"></label></td></tr>
-							<tr class="form-group"><td><label>Cantidad de Materias </label> </td>
-							<td><input class="text" type="Text"></td></tr>
-							
-						</table>
+						<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+							<table class="form-group">
+								<div class="col-md-3">
+									<img src="{{ alumno.foto_perfil.url }}" class="img-responsive img-circle" >
+								</div>
+								<tr class="form-group"><td>
+								Legajo: </td>
+								<td>{{alumno.legajo}}</td></tr>
+													
+								<tr class="form-group"><td>
+								Carrera:</td>
+								<td> obtener del sysacad</td></tr>
+													
+								<tr class="form-group"><td>Condicion:</td></tr>
+								<tr class="form-group"><td><label>Periodo Inicial </label> </td>
+								<td><label><input class="text" type="date" name="fecha_desde"></label></td></tr>
+								
+								<tr class="form-group"><td><label>Periodo Final </label> </td> 
+								<td><label><input class="text" type="date" name="fecha_hasta"></label></td></tr>
+								
+								<tr class="form-group"><td><label>Cantidad de Materias </label> </td>
+								<td><input class="text" type="Text"></td></tr>							
+							</table>
+
+							<input class="btn btn-primary" type='submit' name="boton_calcular" value='Calcular'>
+						</form>
 					</div>
 				{% endif %}	
 

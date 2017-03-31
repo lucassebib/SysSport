@@ -1,7 +1,9 @@
 import xml.etree.ElementTree as ET
 import time
 
-from datetime import datetime
+from datetime import datetime, date
+
+
 
 from peticiones.models import Peticionesservidor
 
@@ -54,4 +56,69 @@ def obtener_datos_iniciales(username, password):
 				diccionario.update(temp)
 
 	return diccionario
+
+def add_months(sourcedate,months):
+	month = sourcedate.month - 1 + months
+	year = sourcedate.year + month / 12
+	month = month % 12 + 1
+	day = min(sourcedate.day,calendar.monthrange(year,month)[1])
+	return datetime.date(year,month,day)
+
+def obtener_datos_academicos(username, f_desde, f_hasta):
+	year,month,day = f_desde.split('-')
+	desde = date(int(year),int(month),int(day))
+	
+	string(desde)
+	""" 
+		Devuelve la cantidad de materias aprobobadas por un alumno en el rango de fechas que se reciben por parametro
+	"""
+
+	notas = {
+		'cuatro': 4,
+		'cinco': 5,
+		'seis': 6,
+		'siete': 7,
+		'ocho': 8,
+		'nueve': 9,
+		'diez': 10,
+	}
+
+	legajo = username 
+	fecha = datetime.now().strftime('%Y%m%d%H%M%S')
+	IDEXTERNA = str(fecha) + str(username) + 'D'
+	peticion = Peticionesservidor()
+	peticion.peticion = 206
+	peticion.idexterna = IDEXTERNA
+	peticion.estado = 0
+	peticion.parametro1 = '<?xml version = "1.0" encoding="Windows-1252" standalone="yes"?><VFPData><parametro1><legajo>'+legajo+'</legajo></parametro1> </VFPData>'
+	cont = 0
+
+	try:
+		peticion.save(force_insert = True, using='sysacad')
+		for x in range(20):
+			time.sleep(0.5)
+			newPeticion = Peticionesservidor.objects.using('sysacad').get(idexterna = IDEXTERNA)
+			if newPeticion.estado > 1:
+				break
+	except Exception as a:
+		return a
+
+	paramXML = ET.fromstring(newPeticion.parametro2.encode('ISO-8859-1'))
+
+	for x in paramXML:
+		for z in x:
+			if z.tag == 'fecha':
+				c = 1
+			
+			if z.tag == 'nota':
+				calificacion = notas.get(nota)
+				if calificacion>=4:
+					cont = cont + 1
+
+	return cont
+
+
+
+		
+		
 	

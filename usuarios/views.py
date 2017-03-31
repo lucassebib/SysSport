@@ -877,12 +877,18 @@ def ver_usuarios(request):
 def ver_informacion_alumno(request, pk):
 	template = "profesor/ver_informacion_alumno.html"
 
-	try:
-		alumno = Alumno.objects.get(id=pk)
-		tipo_usuario = 'alumno'
-	except Exception as e:
-		alumno = UsuarioInvitado.objects.get(id=pk)
-		tipo_usuario = 'invitado'
+	#try:
+	alumno = Alumno.objects.get(id=pk)
+	tipo_usuario = 'alumno'
+	legajo = alumno.legajo
+	
+	if request.method == 'POST' and 'boton_calcular' in request.POST:
+		f_desde = request.POST.get('fecha_desde')
+		f_hasta = request.POST.get('fecha_hasta')
+		cantidad = obtener_datos_academicos(username=str(legajo), f_desde=f_desde, f_hasta=f_hasta)
+	#except Exception as e:
+		#alumno = UsuarioInvitado.objects.get(id=pk)
+		#tipo_usuario = 'invitado'
 
 	#datos_medicos = DatosMedicos.objects.get(id=alumno.datos_medicos.id)
 	
