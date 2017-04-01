@@ -1,0 +1,40 @@
+{% extends "baseAdmin.html" %}
+
+{% block contenido %}
+<div class="panel-info">
+	<div class="page-header panel-default">
+		<h1><i>Usuarios Invitados</i></h1>
+	</div>
+
+
+	<div class="page-content">
+		<form class="form-horizontal">{% csrf_token %}
+			<ul class="nav nav-pills navbar-right">
+			 	<li><a href="{% url 'alta_alumno' %}" ><span class="glyphicon glyphicon-plus"></span> </span>Agregar Usuario</a></li>
+			 </ul>
+		 </form>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					
+				</tr>
+			</thead>
+
+			{% for a in alumnos %}
+			<tbody>
+				<tr>
+					<td> <a href="">{{a.first_name}}</a> </td>
+					<td> <a href="">{{a.last_name}}</a> </td>
+					<td> <a title="Editar" type="text" title="Modificar" href="{% url 'actualizar_alumnos' a.id %}"><span class="glyphicon glyphicon-edit"></span></a></td>
+					<td><a title="Eliminar" type="text" title="Eliminar" href="{% url 'delete_alumno' a.id %}"><span class="glyphicon glyphicon-remove"></span></a></td>
+				</tr>
+			</tbody>
+			{% endfor %}
+		</table>
+		
+	</div>
+</div>
+{% endblock %}

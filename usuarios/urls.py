@@ -48,8 +48,13 @@ urlpatterns += patterns('',
 	url(r'^altaProfesor$',alta_profesor, name='alta_profesor'),
 	url(r'^profesores$', listar_profes, name='listar_profes'),
     url(r'^profesores/modificar/(?P<pk>[0-9]+)$', actualizar_profes, name='actualizar_profes'),
+    url(r'^altaAlumnos$',alta_alumno, name='alta_alumno'),
+	url(r'^alumnos$', listar_alumnos, name='listar_alumnos'),
+    url(r'^alumnos/modificar/(?P<pk>[0-9]+)$', actualizar_alumnos, name='actualizar_alumnos'),
+   	url(r'^alumnos/eliminar/(?P<pk>[0-9]+)$', delete_alumno, name='delete_alumno'),
    	url(r'^profesores/delete/(?P<pk>[0-9]+)$', delete_profe, name='delete_profe'),
     
+
 ) 
 
 
