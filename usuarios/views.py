@@ -59,7 +59,7 @@ def alta_profesor(request):
 			p.foto = foto
 			p.email = email
 			p.password = contrasenia
-			p.set_password(nueva_contrasenia)
+			p.set_password(contrasenia)
 			p.save()
 			
 			return HttpResponseRedirect(reverse('listar_profes'))
@@ -167,9 +167,6 @@ def alta_alumno(request):
 			foto = form.cleaned_data['foto_perfil']
 			email = form.cleaned_data['email']
             
-
-
-
 			a = UsuarioInvitado()
 			a.first_name = nombre
 			a.last_name = apellido
@@ -269,11 +266,6 @@ def listar_alumnos(request):
     }
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 #######################################################################################################
-
-#@user_passes_test(lambda user: not user.is_authenticated())
-
-
-
 #######################################################################################################
 
 
@@ -298,17 +290,16 @@ def vista_pagina_inicio(request):
 		form1 = FormularioAutenticacion(request.POST)
 		if form1.is_valid():
 			usuario = form1.cleaned_data['username']
-			password = form1.cleaned_data['password']
-						
+			password = form1.cleaned_data['password']	
 			try:			
 				#request.session.flush()
-				#request.session.cycle_key()
-							
+				#request.session.cycle_key()							
 				#--Intento iniciar sesion de Alumno UTN
 				alumno_utn_bd = Alumno.objects.get(legajo=int(usuario))	
 				#--Resultado de la autenticacion del Sysacad	
 				#alumno_utn = autenticacion(usuario, password)
-				alumno_utn = True			
+				alumno_utn = True
+
 				if alumno_utn_bd and alumno_utn:
 					#--Se inicia sesion de un alumno UTN
 					#datos = obtener_datos_iniciales(usuario, password)	
@@ -381,7 +372,9 @@ def vista_registrarse(request):
 		datos_validos = True
 
 		#validacion con el sysacad
-		validacion = True
+		#validacion = True
+		validacion = establecer_conexion(int(legajo), password)
+		print(validacion)
 
 		#datos sysacad
 		email = 'el_lucas992@hotmail.com'
@@ -532,11 +525,6 @@ def editar_error(request):
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 ##########################################PARA ALUMNOS######################################################
-#@login_required	
-#def vista_index_noLogueado(request):
-#	template = "usuario_noLogueado.html"	
-#	return render_to_response(template, context_instance=RequestContext(request))
-
 def modificarPerfilAlumno(request):
 	template = "alumno/modificar_perfil_alumno.html"
 	form = FormularioCargarImagen()

@@ -6,13 +6,14 @@ def obtener_id(request):
 		Recibe request como parametro y devuelve el id del usuario autenticado 
 		segun sea o Alumno o (AlumnoInvitado|Profesor|Admin)
 	"""
-	id_usuario = 0
+	
 	if 'id_user' in request.session:
-		id_usuario = int(request.session['id'])
+		id_usuario = int(request.session['id_user'])
 	else:
 		try:
 			id_usuario = int(request.user.id)
 		except Exception as e:
+			id_usuario = 0
 			print(e)
 	
 	return id_usuario
