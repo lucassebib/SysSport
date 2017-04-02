@@ -17,7 +17,6 @@ from novedades.models import Novedades, Comentario, Notificacion
 from peticiones.models import Peticionesservidor
 from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona
 from usuarios.funciones import *
-#from usuarios.decorators import login_required as login_requerido
 
 from forms import FormularioComentario, FormularioNovedades, FormularioNovedadesAdmin
 from paginacion import Paginate

@@ -57,15 +57,25 @@ class FormularioDatosMedicos(forms.ModelForm):
 class FormularioAltaProfe(forms.ModelForm):
 	class Meta:
 		model = Profesor
-		fields = ['username', 'password', 'first_name', 'last_name', ]
+		fields = ['username', 'password', 'first_name', 'last_name', 'dni','fecha_nacimiento','sexo','foto_perfil','email']
 
 
 class FormularioEditarProfesor(forms.ModelForm):
 	class Meta:
 	        model = Profesor
-	        fields = ['username', 'password', 'first_name', 'last_name', ]
+	        fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email' ]
 
 
+class FormularioAltaAlumnoInvitado(forms.ModelForm):
+	class Meta:
+		model = UsuarioInvitado
+		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email' ]
+
+
+class FormularioEditarAlumnoInvitado(forms.ModelForm):
+	class Meta:
+	        model = UsuarioInvitado
+	        fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email' ]
 
 
 

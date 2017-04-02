@@ -25,9 +25,7 @@ DATABASES = {
         'NAME': 'SYSACAD',
         'HOST': '10.13.0.112',
         'USER': 'usrsysacadweb',
-        'PASSWORD': 'deportes123',
-        
-       
+        'PASSWORD': 'deportes123',     
     }
 
 }
