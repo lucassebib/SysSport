@@ -54,28 +54,111 @@ class FormularioDatosMedicos(forms.ModelForm):
 	class Meta:
 		model = DatosMedicos
 
+################## AMB usuarios##############################
+
 class FormularioAltaProfe(forms.ModelForm):
 	class Meta:
+		password = forms.CharField(widget=forms.PasswordInput())
 		model = Profesor
-		fields = ['username', 'password', 'first_name', 'last_name', 'dni','fecha_nacimiento','sexo','foto_perfil','email']
+		widgets = {
+			'password': forms.PasswordInput(),
+			'lista_deporte': forms.CheckboxSelectMultiple(),
+        }
+ 
+  		fields = ['username', 'password', 'first_name', 'last_name', 'dni','fecha_nacimiento','sexo','foto_perfil','email','lista_deporte']
+  	
+  	def __init__(self, *args, **kwargs):
+  			super(FormularioAltaProfe, self).__init__(*args, **kwargs)
+			self.fields['username'].required = True
+			self.fields['password'].required = True 
+			self.fields['first_name'].required = True 
+			self.fields['last_name'].required = True  
+			self.fields['dni'].required = False
+			self.fields['fecha_nacimiento'].required = False
+			self.fields['sexo'].required = True
+			self.fields['foto_perfil'].required = False
+			self.fields['email'].required = True
+			self.fields['lista_deporte'].required = True
+
 
 
 class FormularioEditarProfesor(forms.ModelForm):
 	class Meta:
-	        model = Profesor
-	        fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email' ]
+		password = forms.CharField(widget=forms.PasswordInput())
+		model = Profesor
+		widgets = {
+            'password': forms.PasswordInput(),
+            'lista_deporte': forms.CheckboxSelectMultiple(),
+        }
 
+
+		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email','lista_deporte' ]
+
+
+	def __init__(self, *args, **kwargs):
+		super(FormularioEditarProfesor, self).__init__(*args, **kwargs)
+		self.fields['username'].required = True
+		self.fields['password'].required = False 
+		self.fields['first_name'].required = True 
+		self.fields['last_name'].required = True  
+		self.fields['dni'].required = False
+		self.fields['fecha_nacimiento'].required = False
+		self.fields['sexo'].required = True
+		self.fields['foto_perfil'].required = False
+		self.fields['email'].required = True
+		self.fields['lista_deporte'].required = False
 
 class FormularioAltaAlumnoInvitado(forms.ModelForm):
 	class Meta:
+		password = forms.CharField(widget=forms.PasswordInput())
 		model = UsuarioInvitado
-		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email' ]
+		widgets = {
+            'password': forms.PasswordInput(),
+            'lista_deporte': forms.CheckboxSelectMultiple(),
+        }
+
+		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email', 'lista_deporte' ]
+
+
+
+	def __init__(self, *args, **kwargs):
+		super(FormularioAltaAlumnoInvitado, self).__init__(*args, **kwargs)
+		self.fields['username'].required = True
+		self.fields['password'].required = True 
+		self.fields['first_name'].required = True 
+		self.fields['last_name'].required = True  
+		self.fields['dni'].required = False
+		self.fields['fecha_nacimiento'].required = False
+		self.fields['sexo'].required = True
+		self.fields['foto_perfil'].required = False
+		self.fields['email'].required = True
+		self.fields['lista_deporte'].required = True
 
 
 class FormularioEditarAlumnoInvitado(forms.ModelForm):
 	class Meta:
-	        model = UsuarioInvitado
-	        fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email' ]
+		password = forms.CharField(widget=forms.PasswordInput())
+		model = UsuarioInvitado
+		widgets = {
+            'password': forms.PasswordInput(),
+            'lista_deporte': forms.CheckboxSelectMultiple(),
+        }
+
+		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email','lista_deporte' ]
+
+
+	def __init__(self, *args, **kwargs):
+		super(FormularioEditarProfesor, self).__init__(*args, **kwargs)
+		self.fields['username'].required = True
+		self.fields['password'].required = False 
+		self.fields['first_name'].required = True 
+		self.fields['last_name'].required = True  
+		self.fields['dni'].required = False
+		self.fields['fecha_nacimiento'].required = False
+		self.fields['sexo'].required = True
+		self.fields['foto_perfil'].required = False
+		self.fields['email'].required = True
+		self.fields['lista_deporte'].required = False
 
 
 
