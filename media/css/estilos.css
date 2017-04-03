@@ -58,6 +58,12 @@ a, li, h1, h2, h3, h4, p {
 	list-style-type: none;
 	padding-right:30px: 
 }
+.btn-volver{
+	margin-right: 20px;
+	margin-bottom: 10px;
+
+}
+
 .jumbotron{
 	background-image: url("../img/banner2.jpg");
 	background-repeat:no-repeat;

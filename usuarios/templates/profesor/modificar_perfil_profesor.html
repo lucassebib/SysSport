@@ -1,22 +1,33 @@
-{% extends "baseProfesor.html" %}
+{% extends extiende %}
 {% block contenido %}
 <!-- -->
 <div class="panel-info">
 	<div class="page-header panel-default">
-		<h1><i>Mi Perfil</i></h1>
+		<h1>
+			<div class="navbar-left btn-volver">
+				<button class="btn btn-primary" type="button" onclick="history.back(-1)" /><span class="glyphicon glyphicon-arrow-left"></span></button>	
+			</div>
+			<i> Mi Perfil</i>
+		</h1>
 	</div>
 	<ul class="nav navbar-right nav-pills">
+		{% if request.user.is_staff %}
+		{% else %}
 		<li><a href="{% url 'editar_error' %}"><span class="glyphicon glyphicon-edit"></span> </span>Editar Perfil</a></li>
-
+		{% endif %}
 	</ul>
 	<div class="page-content">
 		{% csrf_token %}
 			<div class="img-perfil">
 				<img src="{{profesor.foto_perfil.url}}" class="img-circle perfil" >
-				<form enctype="multipart/form-data" action="" method="POST">{% csrf_token %}
-        			{{ form.as_p }}
-        			<button class="btn btn-primary" type="submit">Cambiar</button>
-        			<label>{{mensaje}}</label>
+				{% if request.user.is_staff %}
+				{% else %}
+					<form class="" role="form" enctype="multipart/form-data" action="" method="POST">{% csrf_token %}
+	        			{{ form.as_p }}
+	        			<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-camera"></span> Cambiar</button>
+	        			<label>{{mensaje}}</label>
+	        		</form>
+        		{% endif %}
 			</div>
 			<table class="table table-condensed contacto-tabla">
 				<tr class="form-group">

@@ -7,6 +7,7 @@
 
 		<div class="page-content">
 			<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+				<!--
 				<div class="well"> 
 					<div class=" panel-default">
 						<div class="panel-heading">
@@ -29,6 +30,33 @@
 							{% endif %}	
 						{% endfor %}
 					</div>
+				</div>
+				-->
+				<div class="well" > 
+					<div class=" panel-default">
+						<div class="panel-heading">
+							<h4><b>Datos Personales del Contacto:</b></h4>
+						</div>
+						
+							{% for field in form_contacto %}	   		
+								{% if not field.label = 'Direccion' %}
+									<p>{{field.label}}</p>
+									<p>{{field}} </p>
+								{% endif %}	
+							{% endfor %}									
+							
+					</div>						
+					<div class=" panel-default">
+						<div class="panel-heading">
+							<h4><b>Direccion del Contacto:</b></h4>
+						</div>
+						
+							{% for field2 in form_direccion %}
+								<p>{{field2.label}}</p>
+								<p>{{field2}} </p>
+							{% endfor %}
+						
+					</div>		
 				</div>
 				<button class="btn btn-primary" type='submit' value='Guardar'>Guardar</button>
 				<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>

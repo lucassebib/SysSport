@@ -2,7 +2,14 @@
 
 {% block contenido %}
 <div class="panel-info">
-	<div class="page-header">
+	<div class="page-header panel-default">
+		<div class="navbar">
+			<div class="navbar-left btn-volver">
+				<button class="btn btn-primary" type="button" onclick="history.back(-1)" ><span class="glyphicon glyphicon-arrow-left"></span></button>
+			</div>
+		</div>
+	</div>
+	<div class="page-content page-comentarios">
 		<div class="fondo_mensaje esquinas">
 			<div class="titular-comentario contenido-comentario esquinas">
 				<table >
@@ -19,10 +26,8 @@
 				<p2>{{post.contenido|safe}}</p2>
 				<p><strong><b>Deporte: </b></strong>{{novedad.obtener_categorias}}</p>
 			</div>
-
 		</div>
-	</div>
-	<div class="page-content page-comentarios">
+		
 		<div class="fondo_mensaje esquinas">
 			{% for c in comentarios %}	
 				<div class="titular-comentario contenido-comentario esquinas">
@@ -59,7 +64,7 @@
 				</div>
 		</div>
 	</div>
-	<button class="btn btn-primary" type="button" value="Volver" onclick="history.back(-1)" />Volver</button>
+	
 </div>
 {% endblock %}
 		

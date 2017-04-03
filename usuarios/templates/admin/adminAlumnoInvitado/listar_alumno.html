@@ -17,8 +17,10 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Nombre</th>
-					<th>Apellido</th>
+					<th>Nombre y Apellido</th>
+					<th>DNI</th>
+					<th>Teléfono</th>
+					<th>Email</th>
 					
 				</tr>
 			</thead>
@@ -26,8 +28,10 @@
 			{% for a in alumnos %}
 			<tbody>
 				<tr>
-					<td> <a href="">{{a.first_name}}</a> </td>
-					<td> <a href="">{{a.last_name}}</a> </td>
+					<td> <a href="{% url 'ver_perfil_invitado' a.id %}">{{a.first_name}}&nbsp{{a.last_name}}</a></td>
+					<td>{{a.dni}}</td>
+					<td>{{a.telefono}}</td>
+					<td>{{a.email}}</td>
 					<td> <a title="Editar" type="text" title="Modificar" href="{% url 'actualizar_alumnos' a.id %}"><span class="glyphicon glyphicon-edit"></span></a></td>
 					<td><a title="Eliminar" type="text" title="Eliminar" href="{% url 'delete_alumno' a.id %}"><span class="glyphicon glyphicon-remove"></span></a></td>
 				</tr>

@@ -1,17 +1,25 @@
 {% extends "usuario_noLogueado.html" %}
-
+{% block menu %}
+	{% if user.is_staff %}
+		{% include "menuAdmin.html" %}
+	{% endif %}
+{% endblock %}
 {% block contenido %}
 <div class="panel-info">
 	<div class="page-header panel-default">
-		<h1><i>{{deporte.nombre}} </i></h1>
-		
+		<h1>
+			<div class="navbar-left btn-volver">
+				<button class="btn btn-primary" type="button" onclick="history.back(-1)" /><span class="glyphicon glyphicon-arrow-left"></span></button>	
+			</div>
+			<i>{{deporte.nombre}} </i>
+		</h1>
 	</div>
 	<div class="page-content">
 		<!-- 
 			ESTA SERIA LA FOTO DE PORTADA DEL DEPORTE. 
 			LA IDEA JUSTAMENTE ES QUE SE VEA COMO FOTO DE PORTADA TIPO FACEBOOK ASI COMO TE MOSTRE EN LA IMAGEN 
 		-->
-		<div class=" panel-default panel-heading">
+		<div class=" panel-heading">
 			<div class="img-perfil">
 				<img src="{{deporte.foto.url}}" class="img-responsive img-deporte" >
 			</div>
@@ -57,10 +65,6 @@
 					<p2>Todavia no se han cargado los horarios de entrenamiento.</p2>
 				{% endif %}
 			</div>
-		</div>
-
-		<div class="footer">
-			<button class="btn btn-primary" type="button" value="Atras" onclick="history.back(-1)" />Volver</button>	
 		</div>
 		
 	</div>

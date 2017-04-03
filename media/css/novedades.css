@@ -19,7 +19,7 @@ td{
 }
 
 .td_titulo{
-    padding-left: 10px;
+    
     width: 450px;
     height: auto;
     margin: 0;
@@ -54,6 +54,7 @@ table.tr_comentario{
 .titulo_novedad{
     color: #1995dc;
     margin-top: 5px;
+    text-align: left;
 }
 .titulo_novedad>a:active, .titulo_novedad>a:focus, .titulo_novedad>a:hover {
     color: #555;

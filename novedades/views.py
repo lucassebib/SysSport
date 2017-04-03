@@ -17,7 +17,6 @@ from novedades.models import Novedades, Comentario, Notificacion
 from peticiones.models import Peticionesservidor
 from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona
 from usuarios.funciones import *
-#from usuarios.decorators import login_required as login_requerido
 
 from forms import FormularioComentario, FormularioNovedades, FormularioNovedadesAdmin
 from paginacion import Paginate
@@ -326,7 +325,7 @@ def crear_novedad_admin(request):
 					n.categoria.add(c.id)
 
 			n.save()			
-			return HttpResponseRedirect('/admin/novedades')
+			return HttpResponseRedirect('/administrador/novedades')
 
 	ctx = {
 		'form': form,
