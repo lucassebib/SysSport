@@ -43,37 +43,31 @@
 			 	</ul>
 			</form>
 		</div>
-		
 		 <!-- BUSCADOR -->
 	 	<div >
 			<form id="formBusqueda" method="POST">{% csrf_token %}
-				<div class="form-horizontal">
-					<div class="form-group">
-						<label for="q">Busqueda: </label>
-						<input type="text" name="q" value="{{query|escape }}">
-	    				<button class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar"><span class="glyphicon glyphicon-search"> </span> Buscar</button>
-					</div>
-					<ul class="nav">
-						<li><input type="radio" id="check_autor" name="opcion" value="autor" onchange="javascript:showContent()" > Autor</li>
-						<ul class="form-group" id="div_escondido_autor" style="display: none;">
-							<form method="POST">{% csrf_token %}
-							Ingrese el parametro de busqueda por Autor:<br>
-							<li><input type="radio" name="opcion_autor" value="nombre" checked="">Nombre</li>
-							<li><input type="radio" name="opcion_autor" value="apellido">Apellido</li>
-							</form>
-						</ul>
-						<li><input type="radio" name="opcion" value="titulo" onchange="javascript:showContent()"> Titulo</li>
-						<li><input type="radio" id="check_fecha" name="opcion" value="fecha" id="fecha" onchange="javascript:showContent()"> Fecha</li>
-						<ul class="form-group" id="div_escondido_fecha" style="display: none;">
-							Ingrese la fecha con el siguiente formato: DD/MM/AAAA<br>
-							<li><input  type="checkbox" name="fecha" value="dia" checked> Dia DD</li>
-							<li><input  type="checkbox" name="fecha" value="mes" checked> Mes MM</li>
-							<li><input  type="checkbox" name="fecha" value="anio" checked> Año AAAA</li>
-						</ul>
-					</ul>
-			   		
+				<div class="form-group">
+					<input type="text" name="q" value="{{query|escape }}">
+    				<button class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar"><span class="glyphicon glyphicon-search"> </span> Buscar</button>
 				</div>
-	   			
+				<ul class="nav">
+					<li><input type="radio" id="check_autor" name="opcion" value="autor" onchange="javascript:showContent()" > Autor</li>
+					<ul class="form-group" id="div_escondido_autor" style="display: none;">
+						<form method="POST">{% csrf_token %}
+						Ingrese el parametro de busqueda por Autor:<br>
+						<li><input type="radio" name="opcion_autor" value="nombre" checked="">Nombre</li>
+						<li><input type="radio" name="opcion_autor" value="apellido">Apellido</li>
+						</form>
+					</ul>
+					<li><input type="radio" name="opcion" value="titulo" onchange="javascript:showContent()"> Titulo</li>
+					<li><input type="radio" id="check_fecha" name="opcion" value="fecha" id="fecha" onchange="javascript:showContent()"> Fecha</li>
+					<ul class="form-group" id="div_escondido_fecha" style="display: none;">
+						Ingrese la fecha con el siguiente formato: DD/MM/AAAA<br>
+						<li><input  type="checkbox" name="fecha" value="dia" checked> Dia DD</li>
+						<li><input  type="checkbox" name="fecha" value="mes" checked> Mes MM</li>
+						<li><input  type="checkbox" name="fecha" value="anio" checked> Año AAAA</li>
+					</ul>
+				</ul>   			
 			</form>
 		</div>
 		<div class="form-group">
@@ -95,8 +89,7 @@
 				{% if novedades %}
 					{% for n in novedades %}
 						<tr>
-							<td>
-								<a href="{% url 'visualizar_novedad_admin' n.id %}">{{n.titulo}}</a> </td>
+							<td><a href="{% url 'visualizar_novedad_admin' n.id %}">{{n.titulo}}</a></td>
 							<td>
 								{% if n.autor.is_superuser %}
 									{{n.autor.username}} 

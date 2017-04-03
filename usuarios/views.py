@@ -447,7 +447,7 @@ def vista_inicial_admin(request):
 	return render_to_response(template, context_instance=RequestContext(request))
 
 
-def ver_informacion_perfil_persona(request, pk):
+def ver_informacion_perfil_persona(request):
 	template = "ver_informacion_perfil_persona.html"
 	
 	id_usuario = obtener_id(request)
@@ -626,6 +626,7 @@ def editar_perfil_alumno(request):
 	invitado = UsuarioInvitado.objects.get(id=request.user.id)
 	mensaje = 'inicio'
 
+
 	form_principal = FormularioEdicionPerfilInvitado()
 	form_principal.initial = {
 		'first_name': invitado.first_name,
@@ -650,6 +651,7 @@ def editar_perfil_alumno(request):
 			'nro_departamento': direccion.nro_departamento,
 			'provincia': direccion.provincia,
 			'localidad': direccion.localidad,
+		
 		}
 	else:
 		mensaje = 'no tiene direccion'
@@ -712,6 +714,7 @@ def editar_perfil_alumno(request):
 		'mensaje': mensaje,
 		'form_principal': form_principal,
 		'form_direccion': form_direccion,
+		
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
@@ -1158,6 +1161,7 @@ def modificarPerfilProfesor(request):
 	form = FormularioCargarImagen()
 	mensaje=''
 	profesor = Profesor.objects.get(id=request.user.id) 
+	extiende = 'baseProfesor.html'
 
 	if request.method == 'POST':
 		form = FormularioCargarImagen(request.POST, request.FILES)
@@ -1185,9 +1189,119 @@ def modificarPerfilProfesor(request):
 			'sexo': profesor.ver_sexo,
 			'fecha_nacimiento': profesor.fecha_nacimiento,
 			'telefono': profesor.telefono,
-			'direccion': profesor.direccion,	
+			'direccion': profesor.direccion,
+			'extiende': extiende,	
 			}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
+@login_required
+def verPerfilProfesor(request, pk):
+	template = "profesor/modificar_perfil_profesor.html"
+	form = FormularioCargarImagen()
+	mensaje=''
+	profesor = Profesor.objects.get(id=pk)
+	extiende = 'baseAdmin.html'
+		
+	if request.method == 'POST':
+		form = FormularioCargarImagen(request.POST, request.FILES)
+		if form.is_valid():
+			if request.FILES:
+				p = Persona.objects.get(id=request.user.id)
+				if not p.foto_perfil == "usuarios/fotos_de_perfil/None/default_profile.jpg":
+					p.foto_perfil.delete(False)
+	
+				p.foto_perfil = form.cleaned_data['foto_perfil']
+				p.save()
+				return HttpResponseRedirect('')
+			else:
+				mensaje='no ha seleccionado ninguna imagen'
+
+	ctx = {
+			'form': form,
+			'mensaje': mensaje,
+			'legajo': profesor.legajo,
+			'profesor': profesor,
+			'usuario':request.user.username,
+			'nombre': request.user.first_name,
+			'apellido': request.user.last_name,
+			'dni': profesor.dni,
+			'sexo': profesor.ver_sexo,
+			'fecha_nacimiento': profesor.fecha_nacimiento,
+			'telefono': profesor.telefono,
+			'direccion': profesor.direccion,	
+			'extiende': extiende,
+			}
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+@login_required
+def verPerfilInvitado(request, pk):
+	template = "alumno/modificar_perfil_alumno.html"
+	form = FormularioCargarImagen()
+	mensaje= ""
+	extiende ="baseAdmin.html"
+
+	if request.method == 'POST':
+		form = FormularioCargarImagen(request.POST, request.FILES)
+		if form.is_valid():
+			if request.FILES:
+				try:
+					p = Persona.objects.get(id=request.user.id)
+				except Exception as e:
+					p = Alumno.objects.get(legajo=int(request.session['user']))
+				
+
+				if not p.foto_perfil == "usuarios/fotos_de_perfil/None/default_profile.jpg":
+					p.foto_perfil.delete(False)
+				
+				p.foto_perfil = form.cleaned_data['foto_perfil']
+				p.save()
+				return HttpResponseRedirect('')
+			else:
+				mensaje='no ha seleccionado ninguna imagen'
+
+	try:
+		alumno = Alumno.objects.get(legajo=int(request.session['user']))
+		tipo_usuario = "alumno"
+		ctx1 = {
+			'legajo': request.session['user'],
+			'carrera': mostrar_carrera(request.session['carrera']),
+			'email': request.session['correo'],
+			'nombre': request.session['nombre'],
+			'apellido': request.session['apellido'],
+			'sexo': mostrar_sexo(request.session['sexo']),
+			'fecha_nacimiento': request.session['fecha_nacimiento'],
+			'telefono': request.session['telefono'],
+			'direccion': request.session['direccion'],
+		} 	 
+	except Exception as e:
+		alumno = UsuarioInvitado.objects.get(id=pk)
+		tipo_usuario = "invitado"
+
+		ctx1 = {
+			'institucion': alumno.institucion,
+			'email': alumno.email,
+			'nombre': request.user.first_name,
+			'apellido': request.user.last_name,
+			'sexo': alumno.ver_sexo,
+			'fecha_nacimiento': alumno.fecha_nacimiento,
+			'telefono': alumno.telefono,
+			'direccion': alumno.direccion,
+		} 
+
+	ctx = {
+			'form': form,
+			'mensaje': mensaje,
+			#'usuario':request.user.username,
+			'alumno': alumno,
+			'dni': alumno.dni,
+			'is_alumno': "alumno"==tipo_usuario,
+			'is_invitado': "invitado"==tipo_usuario,		
+			'extiende':extiende
+			}
+
+	ctx.update(ctx1)
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
 

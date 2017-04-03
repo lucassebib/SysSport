@@ -325,7 +325,7 @@ def crear_novedad_admin(request):
 					n.categoria.add(c.id)
 
 			n.save()			
-			return HttpResponseRedirect('/admin/novedades')
+			return HttpResponseRedirect('/administrador/novedades')
 
 	ctx = {
 		'form': form,

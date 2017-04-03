@@ -26,11 +26,11 @@
 			{% for deporte in deportes %}
 			<tbody>
 				<tr>
-					<td> <a href="">{{deporte.nombre}}</a> </td>
-					<td> <a href="">{{deporte.descripcion}}</a> </td>
-					<td> <a href="">{{deporte.ver_aptopara}}</a> </td>
-					<td> <a title="Editar" type="text" title="Modificar" href="{% url 'modificar_deporte' deporte.id %}"><span class="glyphicon glyphicon-edit"></span></a></td>
-					<td><a title="Eliminar" type="text" title="Eliminar" href="{% url 'eliminar_deporte' deporte.id %}"><span class="glyphicon glyphicon-remove"></span></a></td>
+					<td><a href="{% url 'deporte_detalle' deporte.id %}">{{deporte.nombre}}</a> </td>
+					<td>{{deporte.descripcion}}</td>
+					<td>{{deporte.ver_aptopara}}</td>
+					<td><a type="text" title="Modificar" href="{% url 'modificar_deporte' deporte.id %}"><span class="glyphicon glyphicon-edit"></span></a></td>
+					<td><a title="Eliminar" type="text" href="{% url 'eliminar_deporte' deporte.id %}"><span class="glyphicon glyphicon-remove"></span></a></td>
 				</tr>
 			</tbody>
 			{% endfor %}
