@@ -43,7 +43,6 @@ class ListarNovedades(ListView):
     def get_queryset(self):
         queryset = super(ListarNovedades, self).get_queryset()
         return queryset.filter(autor=self.request.user.id).order_by('-fecha_publicacion')
-        
 
 class DetallesNovedades(DetailView):
     model = Novedades
@@ -391,10 +390,12 @@ def ver_novedades_visibilidadTodos(request):
 	id_usuario = obtener_id(request)
 
 	extiende = extiende_de(id_usuario, request)
-
+	pag = Paginate(request, posts, 3)
+	
 	ctx = {
 		'posts': Novedades.objects.filter(visibilidad__in=[1]).order_by('-fecha_publicacion'), 
 		'extiende': extiende,
+		'paginator': pag,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
@@ -475,7 +476,7 @@ def novedades_profesores(request):
 	template = "novedades_profesores.html"
 	posts = Novedades.objects.filter(autor=request.user.id) | Novedades.objects.filter(visibilidad__in=[1,2])
 	posts.order_by('fecha_publicacion')
-	pag = Paginate(request, posts, 4)
+	pag = Paginate(request, posts, 3)
 	ctx = {
 		'posts': pag['queryset'],
      	'paginator': pag,

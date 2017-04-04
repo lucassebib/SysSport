@@ -529,6 +529,7 @@ def modificarPerfilAlumno(request):
 	template = "alumno/modificar_perfil_alumno.html"
 	form = FormularioCargarImagen()
 	mensaje= ""
+	extiende= "baseAlumno.html"
 
 	if request.method == 'POST':
 		form = FormularioCargarImagen(request.POST, request.FILES)
@@ -586,7 +587,8 @@ def modificarPerfilAlumno(request):
 			'alumno': alumno,
 			'dni': alumno.dni,
 			'is_alumno': "alumno"==tipo_usuario,
-			'is_invitado': "invitado"==tipo_usuario,		
+			'is_invitado': "invitado"==tipo_usuario,
+			'extiende': extiende		
 			}
 
 	ctx.update(ctx1)

@@ -4,16 +4,19 @@
 <div class="panel-info">
 	<div class="page-header panel-default">
 		<h1>
-			<div class="navbar-left btn-volver">
-				<button class="btn btn-primary" type="button" onclick="history.back(-1)" /><span class="glyphicon glyphicon-arrow-left"></span></button>	
-			</div>
-			<i> Mi Perfil</i>
+			<i>
+			{% if request.user.is_staff %}
+			<button class="btn btn-default" type="button" onclick="history.back(-1)" /><span class="glyphicon glyphicon-arrow-left"></span></button>
+			{% endif %}
+			 Mi Perfil</i>
+			
+
 		</h1>
 	</div>
-	<ul class="nav navbar-right nav-pills">
+	<ul class="navbar navbar-right nav-pills">
 		{% if request.user.is_staff %}
 		{% else %}
-		<li><a href="{% url 'editar_error' %}"><span class="glyphicon glyphicon-edit"></span> </span>Editar Perfil</a></li>
+			<a href="{% url 'editar_error' %}"><button class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></button></a>
 		{% endif %}
 	</ul>
 	<div class="page-content">
@@ -24,7 +27,10 @@
 				{% else %}
 					<form class="" role="form" enctype="multipart/form-data" action="" method="POST">{% csrf_token %}
 	        			{{ form.as_p }}
-	        			<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-camera"></span> Cambiar</button>
+	        			<div class="navbar-btn">
+	        				<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-camera"></span> Cambiar</button>
+	        			</div>
+	        			
 	        			<label>{{mensaje}}</label>
 	        		</form>
         		{% endif %}
@@ -64,6 +70,7 @@
 				</tr>
 			</table>
 	</div>
+
 </div>
 	
 {% endblock %}

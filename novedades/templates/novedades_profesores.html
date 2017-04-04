@@ -30,14 +30,15 @@
 		{% endfor %}
 	</div>
 
-	<div>
-    	<ul class="pagination">
+	<div class="pagination">
+    	<ul class="navbar navbar-left">
 			{% if paginator.has_prev %}
-					<li><a href="?page={{ paginator.prev_page }}"> &laquo; </a></li>
+					<li><a href="?page={{ paginator.prev_page }}"><button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button></a></li>
 			{% endif %}
-				<li><a href="">{{paginator.page}}</a></li>	
+		</ul>
+		<ul class="navbar navbar-right">		
 			{% if paginator.has_next %}
-					<li><a href="?page={{ paginator.next_page }}">&raquo; </a></li>
+					<li><a href="?page={{ paginator.next_page }}"><button class="btn btn-default"><span class="glyphicon glyphicon-chevron-right"></span></button></a></li>
 			{% endif %}
 			
 		</ul>
