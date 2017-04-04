@@ -1,6 +1,5 @@
-{% extends extiende %}
+{% extends "usuario_noLogueado.html" %}
 	{% block menu %}
-		
 		{% if user.is_staff %}
 			{% include "menuAdmin.html" %}
 		{% endif %}

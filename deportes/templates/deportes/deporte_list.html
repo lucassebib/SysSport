@@ -1,6 +1,7 @@
 {% extends "baseAdmin.html" %}
 
 {% block contenido %}
+
 <div class="panel-info">
 	<div class="page-header panel-default">
 		<h1><i>Deportes</i></h1>
@@ -9,11 +10,25 @@
 
 	<div class="page-content">
 		<form class="form-horizontal">{% csrf_token %}
-			<ul class="nav nav-pills navbar-right">
-			 	<li><a href="{% url 'crear-deporte' %}" ><span class="glyphicon glyphicon-plus"></span> </span>Nuevo Deporte</a></li>
+			<ul class="navbar nav-pills navbar-right">
+			 	<a title="Nuevo Deporte" href="{% url 'crear-deporte' %}" ><button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></a>
 			 </ul>
 		 </form>
-
+		 <!-- BUSCADOR -->
+	 	<div>
+			<form id="formBusqueda" method="POST">{% csrf_token %}
+				<div class="form-horizontal">
+					<input type="text" name="q" value="{{query|escape }}">
+    				<button class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar"><span class="glyphicon glyphicon-search"> </span> Buscar</button></br>
+					<input type="radio" id="check_nombre" name="opcion" value="nombre" checked=""> Nombre
+					
+				</div>
+			</form>
+		</div>
+		<div class="form-group">
+		 	<p>{{mensaje}}</p>
+		 </div>
+		<!-- FIN BUSCADOR -->
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -29,7 +44,7 @@
 					<td><a href="{% url 'deporte_detalle' deporte.id %}">{{deporte.nombre}}</a> </td>
 					<td>{{deporte.descripcion}}</td>
 					<td>{{deporte.ver_aptopara}}</td>
-					<td><a type="text" title="Modificar" href="{% url 'modificar_deporte' deporte.id %}"><span class="glyphicon glyphicon-edit"></span></a></td>
+					<td><a type="text" title="Editar" href="{% url 'modificar_deporte' deporte.id %}"><span class="glyphicon glyphicon-edit"></span></a></td>
 					<td><a title="Eliminar" type="text" href="{% url 'eliminar_deporte' deporte.id %}"><span class="glyphicon glyphicon-remove"></span></a></td>
 				</tr>
 			</tbody>

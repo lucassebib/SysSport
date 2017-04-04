@@ -390,12 +390,11 @@ def ver_novedades_visibilidadTodos(request):
 	id_usuario = obtener_id(request)
 
 	extiende = extiende_de(id_usuario, request)
-	pag = Paginate(request, posts, 3)
+	
 	
 	ctx = {
 		'posts': Novedades.objects.filter(visibilidad__in=[1]).order_by('-fecha_publicacion'), 
 		'extiende': extiende,
-		'paginator': pag,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 

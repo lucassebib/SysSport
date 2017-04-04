@@ -78,12 +78,35 @@ def crear_deporte(request):
 
 def detalleDeporte(request):
     template = "deportes/deporte_list.html"
-    
+    consulta = Deporte.objects.all()
+    mensaje =''
+   
+
+# BUSCADOR
+    if request.method == 'POST' and 'btn_buscar' in request.POST:
+        if request.POST.get('q', '')=='':
+            mensaje = 'No ha introducido ningun termino en la busqueda'
+            consulta= ''
+        else:
+            if not request.POST.get('opcion'):
+                mensaje = 'No ha introducido ningun parametro de busqueda'
+                consulta=''
+            else:
+                #     BUSQUEDA POR TITULO
+                if request.POST.get('opcion') == 'nombre':
+                    nombre = request.POST.get('q')
+                    consulta = Deporte.objects.filter(nombre__contains=nombre)
+                    if not consulta:
+                        mensaje = 'No se han encontrado coincidencias'
+                   
     ctx = {
-        'deportes': Deporte.objects.all(),
+        'deportes': consulta,
+        'mensaje': mensaje,
     }
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+        
 
 
 
@@ -403,5 +426,6 @@ def admin_baja_deporte(request):
     return render_to_response(templete, ctx, context_instance=RequestContext(request))
 
 
-        
+    
+
 
