@@ -37,8 +37,22 @@
 						<div class="panel-heading">
 							<h4><b>Datos Personales del Contacto:</b></h4>
 						</div>
+
 						
-							{% for field in form_contacto %}	   		
+							{% for field in form_contacto %}
+								{%if field.errors %}
+									{% for error in field.errors %}
+										<div class="alert alert-danger">
+			                				<strong>{{ error|escape }}</strong>
+			            				</div>
+									{% endfor %}
+									{% for error in form_principal.non_field_errors %}
+								        <div class="alert alert-danger">
+								            <strong>{{ error|escape }}</strong>
+								        </div>
+			    					{% endfor %}
+									
+								{% endif %}  	   		
 								{% if not field.label = 'Direccion' %}
 									<p>{{field.label}}</p>
 									<p>{{field}} </p>

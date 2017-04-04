@@ -801,7 +801,7 @@ def agregar_contactoUrgencia(request):
 			nro_departamento = request.POST.get('nro_departamento')
 			if not nro_departamento:
 				nro_departamento = ' '
-				
+
 			if not validar_nro_dpto(nro_departamento):
 				guardar = False
 				mensaje_error = 'Error al ingresar Nro de Departamento.'
@@ -951,7 +951,7 @@ def editar_contactoUrgencia(request, pk):
 				direccion.calle =calle 
 				direccion.altura=altura
 				direccion.piso=piso
-				direccion.nro_departamento=nro_departamento
+				direccion.nro_departamento=nro_departamento.upper()
 				direccion.provincia=provincia
 				direccion.localidad=localidad
 				direccion.save()
