@@ -78,8 +78,8 @@ def validar_nro_dpto(nro_dpto):
 	"""
 	alfabeto = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 	flag = False
-	if nro_dpto.isalpha() and len(nro_dpto)==1 and (nro_dpto.lower() in alfabeto):
-		#nro_dpto en el rango A..Z
+	if (nro_dpto.isalpha() and len(nro_dpto)==1 and (nro_dpto.lower() in alfabeto)) or (nro_dpto.isspace()):
+		#nro_dpto en el rango A..Z o si es solo blanco
 		flag = True
 	else:
 		#nro_dpto en el rango 1..99

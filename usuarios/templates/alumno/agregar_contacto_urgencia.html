@@ -15,7 +15,21 @@
 							<h4><b>Datos Personales del Contacto:</b></h4>
 						</div>
 						
-							{% for field in form_principal %}	   		
+							{% for field in form_principal %}
+								{%if field.errors %}
+									{% for error in field.errors %}
+										<div class="alert alert-danger">
+			                				<strong>{{ error|escape }}</strong>
+			            				</div>
+									{% endfor %}
+									{% for error in form_principal.non_field_errors %}
+								        <div class="alert alert-danger">
+								            <strong>{{ error|escape }}</strong>
+								        </div>
+			    					{% endfor %}
+									
+								{% endif %}   		
+								
 								{% if not field.label = 'Direccion' %}
 									<p>{{field.label}}</p>
 									<p>{{field}} </p>
@@ -38,8 +52,7 @@
 				<input class="btn btn-primary" type='submit' value='Agregar'>
 				<input class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />
 				{{mensaje_error}}
-			</form>
-			
+			</form>		
 		</div>
 	</div>	
 {% endblock %}

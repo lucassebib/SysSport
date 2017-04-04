@@ -46,7 +46,7 @@ class Direccion(models.Model):
 	class Meta:
 		verbose_name_plural = "Direcciones"
 
-	def __unicode__(self):
+	def __unicode__(self):		
 		return '%s %s' % (self.calle, self.altura)
 
 class ContactoDeUrgencia(models.Model):
