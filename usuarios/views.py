@@ -55,7 +55,7 @@ def alta_profesor(request):
 	form = FormularioAltaProfe()
 
 	if request.method == "POST" and 'boton_alta' in request.POST:
-		form = FormularioAltaProfe(request.POST)
+		form = FormularioAltaProfe(request.POST, request.FILES)
 		if form.is_valid():
 			nombre = form.cleaned_data['first_name']
 			apellido = form.cleaned_data['last_name']
@@ -66,6 +66,7 @@ def alta_profesor(request):
 			sexo = form.cleaned_data['sexo']
 			foto = form.cleaned_data['foto_perfil']
 			email = form.cleaned_data['email']
+			telefono = form.cleaned_data['telefono']
 			lista_deporte = form.cleaned_data['lista_deporte']
 			
 			p = Profesor()
@@ -79,6 +80,7 @@ def alta_profesor(request):
 			p.email = email
 			p.password = contrasenia
 			p.lista_deporte = lista_deporte
+			p.telefono = telefono
 			p.set_password(contrasenia)
 			p.save()
 
@@ -109,7 +111,8 @@ def actualizar_profes(request, pk):
         'fecha_nacimiento':p.fecha_nacimiento,
         'sexo':p.sexo,
         'foto_perfil':p.foto_perfil,
-        'email':p.email
+        'email':p.email,
+        'telefono':p.telefono
         #'lista_deporte' : p.lista_deporte.all()
         
     }
@@ -126,6 +129,7 @@ def actualizar_profes(request, pk):
             nuevo_sexo = form.cleaned_data['sexo']
             nuevo_foto = form.cleaned_data['foto_perfil']
             nuevo_email = form.cleaned_data['email']
+            nuevo_telefono =form.cleaned_data['telefono']
             nuevo_deporte = form.cleaned_data['lista_deporte']
             
             p.first_name = nuevo_nombre
@@ -138,6 +142,7 @@ def actualizar_profes(request, pk):
             p.email = nuevo_email
             p.password = nueva_contrasenia
             p.lista_deporte = nuevo_deporte
+            p.telefono = nuevo_telefono
             p.set_password(nueva_contrasenia) 
             p.save()
             return HttpResponseRedirect(reverse('listar_profes'))

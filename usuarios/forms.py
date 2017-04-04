@@ -1,7 +1,9 @@
 from django import forms
-from django.forms import ClearableFileInput
+from django.forms import ClearableFileInput, TextInput
+from django.contrib.admin.widgets import AdminDateWidget 
 from models import Alumno, Direccion, ContactoDeUrgencia, Persona, UsuarioInvitado, DatosMedicos, Profesor
 from django.db import models
+
 
 class FormularioAutenticacion(forms.Form):	
 	username = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'usuario', 'class':'form-control', 'required' :'True'}))
@@ -58,14 +60,20 @@ class FormularioDatosMedicos(forms.ModelForm):
 
 class FormularioAltaProfe(forms.ModelForm):
 	class Meta:
-		password = forms.CharField(widget=forms.PasswordInput())
+		#password = forms.CharField(widget=forms.PasswordInput())
 		model = Profesor
 		widgets = {
 			'password': forms.PasswordInput(),
 			'lista_deporte': forms.CheckboxSelectMultiple(),
+			'last_name':forms.TextInput(attrs={'size': 30,}),
+			'first_name':forms.TextInput(attrs={'size': 30, 'title': 'Your name',}),
+			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com'}),
+			'dni':forms.TextInput(attrs={'placeholder':'34954568'}),
+			'telefono':forms.TextInput(attrs={'placeholder':'3624-787542'}),
+			'fecha_nacimiento':AdminDateWidget()
         }
  
-  		fields = ['username', 'password', 'first_name', 'last_name', 'dni','fecha_nacimiento','sexo','foto_perfil','email','lista_deporte']
+  		fields = ['username', 'password', 'first_name', 'last_name', 'dni','fecha_nacimiento','sexo','foto_perfil','email','telefono','lista_deporte']
   	
   	def __init__(self, *args, **kwargs):
   			super(FormularioAltaProfe, self).__init__(*args, **kwargs)
@@ -84,7 +92,7 @@ class FormularioAltaProfe(forms.ModelForm):
 
 class FormularioEditarProfesor(forms.ModelForm):
 	class Meta:
-		password = forms.CharField(widget=forms.PasswordInput())
+		#password = forms.CharField(widget=forms.PasswordInput())
 		model = Profesor
 		widgets = {
             'password': forms.PasswordInput(),
@@ -113,8 +121,13 @@ class FormularioAltaAlumnoInvitado(forms.ModelForm):
 		password = forms.CharField(widget=forms.PasswordInput())
 		model = UsuarioInvitado
 		widgets = {
-            'password': forms.PasswordInput(),
-            'lista_deporte': forms.CheckboxSelectMultiple(),
+			'password': forms.PasswordInput(),
+			'lista_deporte': forms.CheckboxSelectMultiple(),
+			'last_name':forms.TextInput(attrs={'size': 30,}),
+			'first_name':forms.TextInput(attrs={'size': 30, 'title': 'Your name',}),
+			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com'}),
+			'dni':forms.TextInput(attrs={'placeholder':'34954568'}),
+			'fecha_nacimiento':AdminDateWidget()
         }
 
 		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email', 'lista_deporte' ]

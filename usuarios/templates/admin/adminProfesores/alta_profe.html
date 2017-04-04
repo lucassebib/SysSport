@@ -10,12 +10,18 @@
 						<div class="panel-heading">
 							<h4>Datos del Profesor:</h4>
 						</div>
-						<div class="panel">
-							{% for field in form %}								
-									<p>{{field.label}}</p>
-									<p>{{field}} </p>									
-							{% endfor %}									
-						</div>		
+						Usuario</br> {{form.username}}</br>
+						Contraseña </br>{{form.password}}</br>
+						Nombre</br>{{form.first_name}}</br>
+						Apellido</br>{{form.last_name}}</br>
+						DNI</br>{{form.dni}}</br>
+						Fecha de Nacimiento</br>{{form.fecha_nacimiento}}</br>
+						Sexo</br>{{form.sexo}}</br>
+						Foto de perfil</br>{{form.foto_perfil}}</br>
+						email</br>{{form.email}}</br></br>
+						telefono</br>{{form.telefono}}</br>
+						Deportes</br>{{form.lista_deporte}}</br>
+	
 					</div>
 
 							
