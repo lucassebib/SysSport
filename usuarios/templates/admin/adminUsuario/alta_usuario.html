@@ -1,0 +1,68 @@
+{% extends "baseAdmin.html" %}
+{% block contenido %}
+	<script type="text/javascript">
+
+	function showContent() {
+        alumno = document.getElementById("alumno");
+        profesor = document.getElementById("profesor");  
+        seleccion = document.getElementById("formulario");
+        rol = seleccion.options[seleccion.selectedIndex].value;
+        if (rol == '0') {
+            element.style.display='block';
+        }
+        else if (rol == '1') {
+            element.style.display='block';
+        }
+        else {
+
+        }
+	}
+	</script>
+
+
+
+	<div class="well ">
+		<div class="panel-info">
+			<h2><i>Alta Usuario</b> </h2>
+					
+			<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+				<div class="panel" > 
+					<div class=" panel-default">
+						<div class="panel-heading">
+							<h4>Datos del Usuario:</h4>
+						</div>
+						<div>
+							<select name="formulario" id="formulario" onchange="javascript:showContent()">
+						
+								<option value="0">Alumno</option>
+								<option value="1">Profesor</option>	
+						
+					    	</select>
+	
+						</div> </br>
+
+						<div class="panel">
+							<div id="alumno" style="display: none;">
+								{% for field in form_alumno %}	
+									<p>{{field.label}}</p>
+									<p>{{field}} </p>									
+								{% endfor %}
+							</div>
+							<div id="profesor" style="display: none;">
+								{% for field in form_profesor %}	
+									<p>{{field.label}}</p>
+									<p>{{field}} </p>									
+								{% endfor %}
+							</div>
+						</div>		
+					</div>
+
+							
+				</div>
+				<button  class="btn btn-primary"  type='submit' value='Aceptar' name= 'boton_alta'> Aceptar </button>
+				<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" /> Cancelar </button>
+			</form>
+			
+		</div>
+	</div>
+{% endblock %}

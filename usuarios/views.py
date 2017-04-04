@@ -29,15 +29,33 @@ from usuarios.forms import *
 
 from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccion, ContactoDeUrgencia, DatosMedicos, carreras_disponibles 
 
+################# ABM de usuario##########################################################
+"""def alta_usuario(request):
+	template = "admin/adminUsuario/alta_usuario.html"
+	form_profesor = FormularioAltaProfe()
+	form_alumno = FormularioAltaAlumnoInvitado()
+
+	if request.method == "POST" and 'boton_alta' and 'alumno' in request.POST:
+		form_alumno = FormularioAltaAlumnoInvitado()
+	 	#aca iria todo lo de alumno
+	else:
+		form_profesor = FormularioAltaProfe()
+		#aca iria todo lo del profe
+	ctx = {
+		'form_profesor':form_profesor
+		'from_alumno': form_alumno
+	}
+
+	return render_to_response(template, ctxt, context_instance = RequestContext(request))"""
+
+
 #################### AMB profeor Realizado Por el Admin ######################################
 def alta_profesor(request):
 	template = "admin/adminProfesores/alta_profe.html"
 	form = FormularioAltaProfe()
-	mensaje = request.user
-	#u = User.objects.get()
 
 	if request.method == "POST" and 'boton_alta' in request.POST:
-		form = FormularioAltaProfe(request.POST)
+		form = FormularioAltaProfe(request.POST, request.FILES)
 		if form.is_valid():
 			nombre = form.cleaned_data['first_name']
 			apellido = form.cleaned_data['last_name']
@@ -48,6 +66,8 @@ def alta_profesor(request):
 			sexo = form.cleaned_data['sexo']
 			foto = form.cleaned_data['foto_perfil']
 			email = form.cleaned_data['email']
+			telefono = form.cleaned_data['telefono']
+			lista_deporte = form.cleaned_data['lista_deporte']
 			
 			p = Profesor()
 			p.first_name = nombre
@@ -59,14 +79,21 @@ def alta_profesor(request):
 			p.foto = foto
 			p.email = email
 			p.password = contrasenia
+			p.lista_deporte = lista_deporte
+			p.telefono = telefono
 			p.set_password(contrasenia)
 			p.save()
+
+			#if lista_deporte:
+			#	for ld in lista_deporte:
+			#		ld.lista_deporte.add(ld.id)
+			#p.save()
 			
 			return HttpResponseRedirect(reverse('listar_profes'))
 
 	ctx = {
 		'form': form,
-		'mensaje': mensaje,
+		#'mensaje': mensaje,
 	}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
@@ -84,7 +111,9 @@ def actualizar_profes(request, pk):
         'fecha_nacimiento':p.fecha_nacimiento,
         'sexo':p.sexo,
         'foto_perfil':p.foto_perfil,
-        'email':p.email
+        'email':p.email,
+        'telefono':p.telefono
+        #'lista_deporte' : p.lista_deporte.all()
         
     }
     
@@ -100,6 +129,8 @@ def actualizar_profes(request, pk):
             nuevo_sexo = form.cleaned_data['sexo']
             nuevo_foto = form.cleaned_data['foto_perfil']
             nuevo_email = form.cleaned_data['email']
+            nuevo_telefono =form.cleaned_data['telefono']
+            nuevo_deporte = form.cleaned_data['lista_deporte']
             
             p.first_name = nuevo_nombre
             p.last_name = nuevo_apellido
@@ -110,6 +141,8 @@ def actualizar_profes(request, pk):
             p.foto = nuevo_foto
             p.email = nuevo_email
             p.password = nueva_contrasenia
+            p.lista_deporte = nuevo_deporte
+            p.telefono = nuevo_telefono
             p.set_password(nueva_contrasenia) 
             p.save()
             return HttpResponseRedirect(reverse('listar_profes'))
@@ -166,6 +199,7 @@ def alta_alumno(request):
 			sexo = form.cleaned_data['sexo']
 			foto = form.cleaned_data['foto_perfil']
 			email = form.cleaned_data['email']
+			lista_deporte = form.cleaned_data['lista_deporte']
             
 			a = UsuarioInvitado()
 			a.first_name = nombre
@@ -177,8 +211,13 @@ def alta_alumno(request):
 			a.foto = foto
 			a.email = email
 			a.password =contrasenia
+			a.lista_deporte = lista_deporte
 			a.set_password(contrasenia)
 			a.save()
+
+			if lista_deporte:
+				for ld in lista_deporte:
+					ld.lista_deporte.add(ld.id)
 			
 			return HttpResponseRedirect(reverse('listar_alumnos'))
 
@@ -202,7 +241,7 @@ def delete_alumno(request, pk):
 		return HttpResponseRedirect(reverse(url))
 
 	ctx = {
-		'profe': p,
+		'alumno': a,
 
 	}
 
@@ -222,6 +261,7 @@ def actualizar_alumnos(request, pk):
         'sexo':a.sexo,
         'foto_perfil':a.foto_perfil,
         'email':a.email
+       # 'lista_deporte':a.lista_deporte.all()
     }
     
     if request.method == 'POST'and 'bModificar' in request.POST:
@@ -236,6 +276,7 @@ def actualizar_alumnos(request, pk):
             nuevo_sexo = form.cleaned_data['sexo']
             nuevo_foto = form.cleaned_data['foto_perfil']
             nuevo_email = form.cleaned_data['email']
+            nuevo_deporte = form.cleaned_data['lista_deporte']
            
 
             a.first_name = nuevo_nombre
@@ -248,7 +289,8 @@ def actualizar_alumnos(request, pk):
             a.sexo = nuevo_sexo
             a.foto = nuevo_foto
             a.email = nuevo_email
-            a.email = nuevo_email           
+            a.email = nuevo_email 
+            a.lista_deporte = nuevo_deporte          
             a.save()
 
             return HttpResponseRedirect(reverse('listar_alumnos'))
