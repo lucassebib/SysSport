@@ -1,5 +1,5 @@
 import datetime
-from datetime import date
+from datetime import datetime, date, time, timedelta
 
 from django.contrib.auth import authenticate, login as loguear, logout
 from django.contrib.auth.models import User
@@ -17,6 +17,7 @@ from novedades.models import Novedades, Comentario, Notificacion
 from peticiones.models import Peticionesservidor
 from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona
 from usuarios.funciones import *
+from novedades.funciones import *
 
 from forms import FormularioComentario, FormularioNovedades, FormularioNovedadesAdmin
 from paginacion import Paginate
@@ -41,8 +42,10 @@ class ListarNovedades(ListView):
     context_object_name = 'novedades'
 
     def get_queryset(self):
-        queryset = super(ListarNovedades, self).get_queryset()
-        return queryset.filter(autor=self.request.user.id).order_by('-fecha_publicacion')
+    	queryset = super(ListarNovedades, self).get_queryset()
+        #queryset, mensaje = buscador_novedades_por_titulo(request, queryset, mensaje)
+
+    	return queryset.filter(autor=self.request.user.id).order_by('-fecha_publicacion')
 
 class DetallesNovedades(DetailView):
     model = Novedades
@@ -81,163 +84,8 @@ def ver_novedades_admin(request):
 	dia = ''
 	mes = ''
 	anio = ''
-	
 
-	# BUSCADOR
-	if request.method == 'POST' and 'btn_buscar' in request.POST:
-		if request.POST.get('q', '')=='':
-			mensaje = 'No ha introducido ningun termino en la busqueda'
-			consulta= ''
-		else:
-			if not request.POST.get('opcion'):
-				mensaje = 'No ha introducido ningun parametro de busqueda'
-				consulta=''
-			else:
-				#     BUSQUEDA POR TITULO
-				if request.POST.get('opcion') == 'titulo':
-					titulo = request.POST.get('q')
-					consulta = Novedades.objects.filter(titulo__contains=titulo)
-					if not consulta:
-						mensaje = 'No se han encontrado coincidencias'
-
-				else:
-					#   BUSQUEDA POR FECHA
-					if request.POST.get('opcion')=='fecha':
-						fecha = request.POST.get('q')
-						seleccionados = request.POST.getlist("fecha")						
-
-						#VALIDAR ENTRADA DE FECHA
-						valido = False
-						if 'dia' in seleccionados and 'mes' in seleccionados and 'anio' in seleccionados:
-							#DD/MM/YYYY
-							dia = fecha[:2]
-							separador1 = fecha[2]
-							mes = fecha[3:5]
-							separador2 = fecha[5]
-							anio = fecha[6:]
-							cadena = dia+mes+anio
-							if cadena.isdigit() and separador1==separador2 and (separador1=='/' or separador1=='-') and len(fecha) == 10:
-								valido = True								
-						else:
-							if 'dia' in seleccionados and 'mes' in seleccionados and not 'anio' in seleccionados:
-								#DD/MM
-								dia = fecha[:2]
-								separador1 = fecha[2]
-								mes = fecha[3:5]
-								cadena = dia + mes 
-								if cadena.isdigit() and (separador1=='/' or separador1=='-') and len(fecha) == 5:
-									valido = True
-
-							else:
-								if 'dia' in seleccionados and 'anio' in seleccionados and not 'mes' in seleccionados:
-									#DD/YYYY
-									dia = fecha[:2]
-									separador1 = fecha[2]
-									anio = fecha[3:8]
-									cadena = dia+anio
-									if cadena.isdigit() and (separador1=='/' or separador1=='-') and len(fecha) == 7:
-										valido = True
-								else:
-									if 'mes' in seleccionados and 'anio' in seleccionados and not 'dia' in seleccionados:
-										#MM/YYYY
-										mes = fecha[:2]
-										separador1 = fecha[2]
-										anio = fecha[3:8]
-										cadena = mes+anio
-										if cadena.isdigit() and (separador1=='/' or separador1=='-') and len(fecha) == 7:
-											valido = True
-									else:
-										if 'anio' in seleccionados and not 'dia' in seleccionados and not 'mes' in seleccionados:
-											#YYYY
-											anio = fecha[:4]
-											if anio.isdigit() and len(anio) == 4:
-												valido = True	
-										else:
-											if 'dia' in seleccionados and not 'anio' in seleccionados and not 'mes' in seleccionados:
-												#DD
-												dia = fecha[:2]
-												if dia.isdigit() and len(dia) == 2:
-													valido = True
-											else:
-												if mes and not anio and not dia:
-													#MM
-													mes = fecha[:2]
-													if mes.isdigit() and len(mes) == 2:
-														valido = True
-													
-						if valido:
-							#ENTRADA CORRECTA
-							#SE REALIZA LA BUSQUEDA POR FECHA
-							if 'dia' in seleccionados and 'mes' in seleccionados and 'anio' in seleccionados:
-								#DD/MM/YYYY
-								dia = fecha[:2]
-								mes = fecha[3:5]
-								anio = fecha[6:]
-								fecha2 = datetime.date(int(anio), int(mes), int(dia))
-								consulta = Novedades.objects.filter(fecha_publicacion__contains=fecha2)
-							else:
-								if 'dia' in seleccionados and 'mes' in seleccionados and not 'anio' in seleccionados:
-									#DD/MM
-									dia = fecha[:2]
-									mes = fecha[3:5]
-									fecha2 = datetime.date(1, int(mes), int(dia))
-									consulta = Novedades.objects.filter(fecha_publicacion__day = fecha2.day, fecha_publicacion__month = fecha2.month)
-								else:
-									if 'dia' in seleccionados and 'anio' in seleccionados and not 'mes' in seleccionados:
-										#DD/YYYY
-										dia = fecha[:2]
-										anio = fecha[3:8]
-										fecha2 = datetime.date(int(anio), 1, int(dia))
-										consulta = Novedades.objects.filter(fecha_publicacion__day = fecha2.day, fecha_publicacion__year = fecha2.year)
-									else:
-										if 'mes' in seleccionados and 'anio' in seleccionados and not 'dia' in seleccionados:
-											#MM/YYYY
-											mes = fecha[:2]
-											anio = fecha[3:8]
-											fecha2 = datetime.date(int(anio), int(mes), 1)
-											consulta = Novedades.objects.filter(fecha_publicacion__month = fecha2.month, fecha_publicacion__year = fecha2.year)
-										else:
-											if 'anio' in seleccionados and not 'dia' in seleccionados and not 'mes' in seleccionados:
-												#YYYY
-												anio = fecha[:4]
-												fecha2 = datetime.date(int(anio), 1, 1)
-												consulta = Novedades.objects.filter(fecha_publicacion__year = fecha2.year)
-											else:
-												if 'dia' in seleccionados and not 'anio' in seleccionados and not 'mes' in seleccionados:
-													#DD
-													dia = fecha[:2]
-													fecha2 = datetime.date(1, 1, int(dia))
-													consulta = Novedades.objects.filter(fecha_publicacion__day = fecha2.day)
-												else:
-													if mes and not anio and not dia:
-														#MM
-														mes = fecha[:2]
-														fecha2 = datetime.date(1, int(mes), 1)
-														consulta = Novedades.objects.filter(fecha_publicacion__month = fecha2.month)
-
-								if not consulta:
-									mensaje = 'No se han encontrado coincidencias'
-						else:
-							consulta = ''
-							mensaje = 'Por favor, introduzca una fecha con el formato DD/MM/YYYY o DD-MM-YYYY, de acuerdo a su opcion de busqueda'
-					
-					else:
-						# BUSQUEDA POR AUTOR
-						if request.POST.get('opcion')=='autor':
-							nombre_apellido = request.POST.get('q')
-							if 'opcion_autor' in request.POST:
-								if request.POST.get('opcion_autor')=='nombre':
-									usuarios = User.objects.filter(first_name__contains=nombre_apellido)
-								else:
-									usuarios = User.objects.filter(last_name__contains=nombre_apellido)
-							else:
-								consulta = ''
-								mensaje = 'No ha ingresado ningun parametro de busqueda para Autor'
-							
-							consulta = Novedades.objects.filter(autor__in = usuarios)
-							if not consulta:
-								consulta = ''
-								mensaje = 'No se han encontrado coincidencias para: ' +  request.POST.get('q')
+	consulta, mensaje = buscador_novedades(request, consulta, mensaje)
 
 	ctx = {
 		'novedades': consulta,
@@ -473,12 +321,15 @@ def ver_novedades(request, pk):
 ################################## NOVEDADES DE PROFESORES #############################################
 def novedades_profesores(request):
 	template = "novedades_profesores.html"
+	mensaje =''
 	posts = Novedades.objects.filter(autor=request.user.id) | Novedades.objects.filter(visibilidad__in=[1,2])
 	posts.order_by('fecha_publicacion')
+	posts, mensaje = buscador_novedades(request, posts, mensaje)
 	pag = Paginate(request, posts, 3)
 	ctx = {
 		'posts': pag['queryset'],
-     	'paginator': pag,
+		'paginator': pag,
+     	'mensaje': mensaje,
 	}
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
 

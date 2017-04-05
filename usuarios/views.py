@@ -16,7 +16,6 @@ from django.utils import timezone
 from django.views.generic.edit import UpdateView
 from itertools import chain
 
-
 from deportes.models import Deporte
 from novedades.models import Notificacion
 
