@@ -1,9 +1,5 @@
-{% extends "usuario_noLogueado.html" %}
-{% block menu %}
-	{% if user.is_staff %}
-		{% include "menuAdmin.html" %}
-	{% endif %}
-{% endblock %}
+{% extends extiende %}
+		
 {% block contenido %}
 <div class="panel-info">
 	<div class="page-header panel-default">

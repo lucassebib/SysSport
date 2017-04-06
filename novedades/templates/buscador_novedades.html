@@ -1,0 +1,32 @@
+<!-- BUSCADOR -->
+	 	<div >
+			<form id="formBusqueda" method="POST">{% csrf_token %}
+				<div class="form-horizontal">
+					<input type="text" name="q" value="{{query|escape }}">
+    				<button class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar"><span class="glyphicon glyphicon-search"> </span> Buscar</button>
+					<input type="radio" id="check_autor" name="opcion" value="autor" onchange="javascript:showContent()" > Autor
+					<input type="radio" name="opcion" value="titulo" onchange="javascript:showContent()"> Titulo
+					<input type="radio" id="check_fecha" name="opcion" value="fecha" id="fecha" onchange="javascript:showContent()">Fecha
+					<div class="nav" id="div_escondido_autor" style="display: none;">
+						<form method="POST">{% csrf_token %}
+							Ingrese el parametro de busqueda por Autor:</br>
+							<input type="radio" name="opcion_autor" value="nombre" checked>Nombre</br>	
+							<input type="radio" name="opcion_autor" value="apellido">Apellido
+						</form>
+					</div>
+					<div class="nav" id="div_escondido_fecha" style="display: none;">
+						
+							Ingrese la fecha con el siguiente formato: DD/MM/AAAA</br>
+							<input  type="checkbox" name="fecha" value="dia" checked> Día</br>
+							<input  type="checkbox" name="fecha" value="mes" checked> Mes</br>
+							<input  type="checkbox" name="fecha" value="anio" checked> Año
+						
+					</div>
+					
+				</div>   			
+			</form>
+		</div>
+		<div class="form-group">
+		 	<p>{{mensaje}}</p>
+		 </div>
+		<!-- FIN BUSCADOR -->

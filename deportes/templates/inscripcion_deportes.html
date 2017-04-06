@@ -5,6 +5,7 @@
 		<h1><i>Deportes</i></h1>
 	</div>
 	<div class="page-content">
+
 	<table class=" table table-striped">
 			<thead>
 				<tr>
@@ -15,15 +16,16 @@
 			{% for d in deportes %}
 			<tbody>
 				<tr>
-					<td>{{d.nombre}} </td>
+					<td><a href="{% url 'deporte_detalle' d.id %}">{{d.nombre}} </a></td>
 					<td>{{d.descripcion}}</td>
 					<td>				
 						{% if d in deportes_alumno %}
 							{% if darse_de_baja %}
 								<a title="Baja" type="text" href="{% url 'desinscribir_deporte' d.id %}"><span class="glyphicon glyphicon-remove"></span></a>
 							{% endif %}
-							{% else %}
-								<a title="Alta" type="text" href="{% url 'inscripcion_deporte' d.id %}"><span class="glyphicon glyphicon-plus"></span></a>
+						{% else %}
+							<a title="Alta" type="text" href="{% url 'inscripcion_deporte' d.id %}"><span class="glyphicon glyphicon-plus"></span></a>
+						
 						{% endif %}
 					</td>
 				</tr>

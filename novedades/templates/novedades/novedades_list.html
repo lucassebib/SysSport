@@ -1,11 +1,39 @@
 {% extends "baseProfesor.html" %}
 
 {% block contenido %}
+<!--
+<script type="text/javascript">
+
+		function showContent() {
+	        element_fecha = document.getElementById("div_escondido_fecha"); 
+	        seleccion_fecha = document.getElementById("check_fecha");
+		        if (seleccion_fecha.checked) {
+		            element_fecha.style.display='block';
+          					        }
+		        else {
+		            element_fecha.style.display='none';
+		        }
+
+		    element_autor = document.getElementById("div_escondido_autor"); 
+	        seleccion_autor = document.getElementById("check_autor");
+		        if (seleccion_autor.checked) {
+		            element_autor.style.display='block';
+
+		        }
+		        else {
+		            element_autor.style.display='none';
+		        }
+
+		}
+		
+	</script> -->
+
 <div class="panel-info">
 	<div class="page-header panel-default">
 		<h1><i>Mis Novedades</i></h1>
 	</div>
 	<div class="page-content">
+
 		<form class="form-group" method='POST'>
 		 	
 		 	<ul class=" navbar navbar-right nav-pills">
@@ -13,6 +41,7 @@
 		 	</ul>
 		
 		</form>
+		
 	 	<div id="mis_novedades">
 	 		{% for novedad in object_list %}
 				<div class="fondo_mensaje esquinas">

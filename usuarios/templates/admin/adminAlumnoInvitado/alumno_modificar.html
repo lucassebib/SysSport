@@ -2,35 +2,37 @@
 {% block contenido %}
 	<div class="well ">
 		<div class="panel-info">
-			<h2><i>Modificar Perfil Usuario Invitado </b> </h2>
-					
-			<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
-				<div class="panel" > 
-					<div class=" panel-default">
-						<div class="panel-heading">
-							<h4>Datos Personales del Usuario Invitado:</h4>
-						</div>
-						<div class="panel">
-						Usuario</br> {{form.username}}</br>
-						Contraseña </br>{{form.password}}</br>
-						Nombre</br>{{form.first_name}}</br>
-						Apellido</br>{{form.last_name}}</br>
-						DNI</br>{{form.dni}}</br>
-						Fecha de Nacimiento</br>{{form.fecha_nacimiento}}</br>
-						Sexo</br>{{form.sexo}}</br>
-						Foto de perfil</br>{{form.foto_perfil}}</br>
-						email</br>{{form.email}}</br></br>
-						telefono</br>{{form.telefono}}</br>
-						Deportes</br>{{form.lista_deporte}}</br>								
-					</div>		
-					</div>
+			<div class="page-header">
+				<h2><i>Modificar Perfil Usuario Invitado </i> </h2>
+			</div>
+			<div class="page-content">		
+				<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+					<div class="well ">
 
-					
-				</div>
-				<button class="btn btn-primary" type='submit' value='Aceptar' name= 'bModificar'> Aceptar</button>
-				<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
-			</form>
-			
+						<div class=" panel-default">
+							<div class="panel-heading">
+								<h4>Datos Personales del Usuario Invitado:</h4>
+							</div>
+
+						<div class="panel">
+							Usuario</br> {{form.username}}</br>
+							Contraseña </br>{{form.password}}</br>
+							Nombre</br>{{form.first_name}}</br>
+							Apellido</br>{{form.last_name}}</br>
+							DNI</br>{{form.dni}}</br>
+							Fecha de Nacimiento</br>{{form.fecha_nacimiento}}</br>
+							Sexo</br>{{form.sexo}}</br>
+							Foto de perfil</br>{{form.foto_perfil}}</br>
+							email</br>{{form.email}}</br></br>
+							telefono</br>{{form.telefono}}</br>
+							Deportes</br>{{form.lista_deporte}}</br>								
+						</div>		
+					</div>						
+					</div>
+					<button class="btn btn-primary" type='submit' value='Aceptar' name= 'bModificar'> Aceptar</button>
+					<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
+				</form>
+			</div>
 		</div>
 	</div>
 {% endblock %}

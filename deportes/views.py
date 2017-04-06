@@ -12,6 +12,9 @@ from entrenamiento.forms import FormularioCrearEntrenamiento
 from entrenamiento.models import Entrenamiento
 from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona
 
+from deportes.funciones import *
+from usuarios.funciones import *
+
 from forms import * 
 
 ############################## DEPORTES PARA INTERNAUTAS ########################################
@@ -19,16 +22,19 @@ from forms import *
 def deporte_detalle(request, pk):
     template = "deporte_detalle.html"
     deporte = Deporte.objects.get(id=pk)
+    id_usuario = obtener_id(request)
+    extiende = extiende_de(id_usuario, request)
     e = deporte.entrenamientos.all()
     try:
         profesor = Profesor.objects.get(lista_deporte__in=pk)
     except Exception as e:
         profesor= ''
-
+    
     ctx = {
         'deporte': deporte,
         'entrenamientos': e,
         'profesor': profesor,
+        'extiende': extiende,
     }
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))
@@ -81,24 +87,8 @@ def detalleDeporte(request):
     consulta = Deporte.objects.all()
     mensaje =''
    
+    consulta, mensaje = buscador_deportes(request, consulta, mensaje)   
 
-# BUSCADOR
-    if request.method == 'POST' and 'btn_buscar' in request.POST:
-        if request.POST.get('q', '')=='':
-            mensaje = 'No ha introducido ningun termino en la busqueda'
-            consulta= ''
-        else:
-            if not request.POST.get('opcion'):
-                mensaje = 'No ha introducido ningun parametro de busqueda'
-                consulta=''
-            else:
-                #     BUSQUEDA POR TITULO
-                if request.POST.get('opcion') == 'nombre':
-                    nombre = request.POST.get('q')
-                    consulta = Deporte.objects.filter(nombre__contains=nombre)
-                    if not consulta:
-                        mensaje = 'No se han encontrado coincidencias'
-                   
     ctx = {
         'deportes': consulta,
         'mensaje': mensaje,
@@ -162,7 +152,7 @@ def ver_deportes_personas(request):
     editar_info = False
     mensaje = ''
     g = ''
-
+    
     try:
 
         g = Alumno.objects.get(legajo=int(request.session['user']))
@@ -183,24 +173,27 @@ def ver_deportes_personas(request):
                     extiende = 'inicio.html'
                 except Exception as e:
                     if request.user.is_staff:
-                        extiende = 'baseAdmin.html'   
+                        extiende = 'baseAdmin.html' 
+    consulta = g.lista_deporte.all()
+    consulta, mensaje = buscador_deportes(request, consulta, mensaje)     
     ctx = {
-        'deportes': g.lista_deporte.all(),
         'extiende': extiende,
         'usuario': request.user.username,
         'darse_de_baja': darse_de_baja,
         'editar_info': editar_info,
         'mensaje': mensaje,
+        'deportes': consulta,
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 
 def listar_deportes(request):
     template = "listar_deportes.html"
-   
+    id_usuario = obtener_id(request)
+    extiende = extiende_de(id_usuario, request)
     ctx = {
         'deportes': Deporte.objects.all(), 
-        
+        'extiende':extiende,
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
@@ -210,6 +203,7 @@ def listar_deportes(request):
 def inscripcion_deportes(request):
     template = "inscripcion_deportes.html"
     id_usuario = request.user.id
+
     darse_de_baja = True
     try:
         g = Alumno.objects.get(legajo=int(request.session['user']))
@@ -231,10 +225,12 @@ def inscripcion_deportes(request):
                         extiende = 'baseAdmin.html'
                         darse_de_baja = True
 
+  
     ctx = {
-        'deportes': Deporte.objects.all(), 
+         'deportes': Deporte.objects.all(), 
         'deportes_alumno': g.lista_deporte.all(),
         'darse_de_baja': darse_de_baja,
+       
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 

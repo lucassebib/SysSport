@@ -1,11 +1,43 @@
 {% extends "baseProfesor.html" %}
 {% block contenido %}
+
+	<script type="text/javascript">
+
+		function showContent() {
+	        element_fecha = document.getElementById("div_escondido_fecha"); 
+	        seleccion_fecha = document.getElementById("check_fecha");
+		        if (seleccion_fecha.checked) {
+		            element_fecha.style.display='block';
+          					        }
+		        else {
+		            element_fecha.style.display='none';
+		        }
+
+		    element_autor = document.getElementById("div_escondido_autor"); 
+	        seleccion_autor = document.getElementById("check_autor");
+		        if (seleccion_autor.checked) {
+		            element_autor.style.display='block';
+
+		        }
+		        else {
+		            element_autor.style.display='none';
+		        }
+
+		}
+		
+	</script>
+
 <div class="panel-info">
 	<div class="page-header panel-default">
 		<h1><i>Novedades</i></h1>
 	</div>
 
 	<div class="page-content">
+		{% block buscador %}
+			{% include "buscador_novedades.html" %}
+		{% endblock %}
+	
+	{% if posts %}		
 		{% for post in posts %}
 			<div class="fondo_mensaje esquinas">
 				<div class="titular-comentario contenido-comentario esquinas">
@@ -28,6 +60,9 @@
 				</div>			
 			</div>
 		{% endfor %}
+	{% else %}
+		<h4>Aun no se han subido Novedades</h4>
+	{% endif %}
 	</div>
 
 	<div class="pagination">

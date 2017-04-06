@@ -2,9 +2,13 @@
 {% block contenido %}
 <div class="panel-info">	
 	<div class="page-header panel-default">
-		<h1><i>Mis Deportes</i> {{mensaje}} </h1>
+		<h1><i>Mis Deportes</i> </h1>
 	</div>
+
 	<div class="page-content">
+		{% block buscador %}
+			{% include "buscador_deportes.html" %}
+		{% endblock %}
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -16,7 +20,7 @@
 		{% for d in deportes %}
 			<tbody>
 				<tr>
-					<td>{{d.nombre}} </td>
+					<td><a href="{% url 'deporte_detalle' d.id %}" >{{d.nombre}}</a></td>
 					<td>{{d.descripcion}}</td>
 					{% if editar_info %}
 						<td><a title="Editar" type="text" href="{% url 'editar_info_deporte' d.id %}"><span class="glyphicon glyphicon-edit"></span></a></td>
