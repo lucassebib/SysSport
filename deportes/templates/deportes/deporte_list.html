@@ -11,7 +11,7 @@
 	<div class="page-content">
 		<form class="form-horizontal">{% csrf_token %}
 			<ul class="navbar nav-pills navbar-right">
-			 	<a title="Nuevo Deporte" href="{% url 'crear-deporte' %}" ><button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></a>
+			 	<a title="Nuevo Deporte" href="{% url 'crear-deporte' %}" ><span class="glyphicon glyphicon-plus"></span> Deporte</a>
 			 </ul>
 		 </form>
 		{% block buscador %}
