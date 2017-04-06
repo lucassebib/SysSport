@@ -8,11 +8,12 @@
 		</div>	
 		<div class="page-content">
 			<ul class="nav nav-tabs">
-					<li class="nav-item "><a class="nav-link" href="{% url 'novedades_alumnos' %}">Ver Todos</a></li>
+					<li class="nav-item"><a class="nav-link" href="{% url 'novedades_alumnos' %}">Ver Todos</a></li>
 					{% for d in deportes%}
+						<li class="nav-item "><a class="nav-link" href="{% url 'ver_novedad_filtrado' d.id %}"> {{d.nombre}}</a></li>
 
-					<li class="nav-item active"><a class="nav-link" href="{% url 'ver_novedad_filtrado' d.id %}"> {{d.nombre}}</a></li>
 					{% endfor %}
+
 			</ul>
 			{% if posts %}					
 				{% for post in posts %}
@@ -22,10 +23,10 @@
 								<tr>
 									<td class="td_perfil"><img class="img_perfil" src="{{post.obtener_url_imagen}}">
 									</td>
-									<td class="td_titulo"><b><h2 class="titulo_novedad"><a href="{% url 'ver_novedades' post.id %}">{{post.titulo}}</a></h2></b>
+									<td class="td_titulo"><b><a href="{% url 'ver_novedades' post.id %}"><h3 class="titulo_novedad">{{post.titulo}}</h3></a></b>
 									<p>{{post.fecha_publicacion}}</p>
 									</td>
-									<td class="td_responder"><a href="{% url 'ver_novedades' post.id %}"><span class="glyfhicon glyphicon-pencil"></span></a></td>
+									<td class="td_responder"><a href="{% url 'ver_novedades' post.id %}">Comentar</a></td>
 
 								</tr>
 							</table>
@@ -40,7 +41,7 @@
 					</div>
 				{% endfor %}
 			{% else %}
-				<h4>Aun no se han subido Novedades para este deporte</h4>
+				<p>Aun no se han subido Novedades para este deporte</p>
 			{% endif %}	
 		</div>
 	</div>

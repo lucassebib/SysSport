@@ -15,15 +15,17 @@ td{
     margin: 0px;
 }
 .td_responder{
-    width: 100px;
+    width: 8%;
 }
 
 .td_titulo{
-    
     width: 450px;
     height: auto;
     margin: 0;
     padding-top: 0;
+}
+p.fecha{
+    text-align: left;
 }
 
 table a:not(.btn), .table a:not(.btn){
@@ -106,9 +108,9 @@ textarea#id_texto{
     height: 100px;
 }
 
-.page-content.page-comentarios{
-    margin-left: 10%;
-    margin-right: 15%;
+.page-comentarios{
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .tabla-comentario{
@@ -128,3 +130,16 @@ textarea#id_texto{
 #mis_novedades{
     float: left;
 }
+
+@media only screen and (max-width: 820px) { 
+    body, p{
+        font-size: 12px ;
+    }
+    h3{
+        font-size: 20px;
+    }
+    h4{
+        font-size: 16px;
+    }
+}
+

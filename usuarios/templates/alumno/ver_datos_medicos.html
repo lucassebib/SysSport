@@ -46,6 +46,7 @@
 								{% if d.ficha_medica %}
 									<td>{{d.ficha_medica.descripcion}}</td>
 									<td><a title="Descargar" type="text" href="{{d.ficha_medica.ficha_medica.url}}"> <span class = "glyphicon glyphicon-download-alt" >  </span> </a></td>
+
 								{% else %}
 									<td>El profesor de {{d.nombre}} no ha subido aun una ficha medica.</td>
 									<td>-</td>
@@ -53,33 +54,43 @@
 							</tr>
 						</tbody>
 					{% endfor %}	
-				{% endif %} 				
+			 				
 			</table>
 
-			{% if deportes %}
+			
 
 				<form method="POST" enctype="multipart/form-data">{% csrf_token %}
-					<h1><u>Actualmente:</u></h1>
-						{% if alumno.ficha_medica %}
-							Usted ha subido la siguiente ficha medica (haga click en el nombre para descargar): 
-							</br><a id="ficha_medica" href="{{alumno.ficha_medica.url}}">{{alumno.nombre_archivo}}</a>
+					<h3>Fichas Médicas:</h3>
+					{% for d in deportes %}
+						{% if d.ficha_medica and d in alumno.lista_deporte %}
+							{% if alumno.ficha_medica %}
+								Usted ha subido la siguiente ficha médica (haga click en el nombre para descargar): 
+								</br><a id="ficha_medica" href="{{alumno.ficha_medica.url}}">{{alumno.nombre_archivo}}</a>
+							{% endif %}
 						{% else %}
-							<h3>No ha subido todavia su ficha medica</h3>
-						{% endif %} 
-					<hr style="border-color:blue;">
-					<hr style="border-color:blue;">
-		<ul class="nav navbar-right nav-pills">
-			<a  title="Info" type="text"  onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){	this.	parentNode.getElementsByTagName('div')[0].style.display = '';this.value = 'Ocultar';}else{this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Ver más';}" type="button" class="btn btn-default">
-	
-		<span class = "glyphicon glyphicon-info-sign"> </span> </a> 
-			<div class="navbar-text" style="display: none;">
-					<p>Para subir o modificar su ficha medica, seleccione la opcion 'Seleccionar archivo' y posteriormente haga click en Guardar...</p>
-					<p>Por favor, utilice el siguiente formato para el nombre de su archivo: DEPORTE_APELLIDO-NOMBRE_DNI</p>
-			</div>
-		</ul>
-					{{form.as_p}}
-					<button type='submit' class="btn btn-default" value='Guardar' name="boton_guardar_form">Guardar</button>
+							{% if not d.ficha_medica %}
+							{% else %}
+								<ul class="nav navbar-right nav-pills">
+									<a  title="Info" type="text"  onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){	this.	parentNode.getElementsByTagName('div')[0].style.display = '';this.value = 'Ocultar';}else{this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Ver más';}" type="button" class="btn btn-default">
+						
+									<span class = "glyphicon glyphicon-info-sign"> </span> </a> 
+									<div class="navbar-text" style="display: none;">
+										<i><p>Para subir o modificar su ficha medica, seleccione la opcion 'Seleccionar archivo' y posteriormente haga click en Guardar...</p>
+										<p>Por favor, utilice el siguiente formato para el nombre de su archivo: DEPORTE_APELLIDO-NOMBRE_DNI</p></i>
+									</div>
+								</ul>
+								<p>No ha subido todavía su ficha médica</p>
+								{{form.as_p}}
+								
+							<div class="navbar-btn">
+								<button type='submit' class="btn btn-primary" value='Guardar' name="boton_guardar_form">Guardar</button>
+							</div>
+							
+							{% endif %} 
+						{% endif %}
+					
 				</form>
+				{% endfor %}
 			{% endif %} 
 		</div>
 

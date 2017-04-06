@@ -18,13 +18,16 @@ def obtener_id(request):
 	
 	return id_usuario
 
-def extiende_de(id_usuario, request=None):
+def extiende_de(id_usuario, request):
 	"""
 	"""
 	extiende = ''
 	try:
-		g = Alumno.objects.get(id=id_usuario)
-		extiende = 'baseAlumno.html'
+		if request.user.is_staff:
+			extiende = 'baseAdmin.html'
+		else: 
+			g = Alumno.objects.get(id=id_usuario)
+			extiende = 'baseAlumno.html'
 	except Exception as e:
 		try:
 			g = Profesor.objects.get(id=id_usuario)
@@ -34,10 +37,7 @@ def extiende_de(id_usuario, request=None):
 				g = UsuarioInvitado.objects.get(id=id_usuario)
 				extiende = 'baseAlumno.html'
 			except Exception as e:
-				if request.user.is_staff:
-					extiende = 'baseAdmin.html'
-				else:
-					extiende = 'usuario_noLogueado.html'
+				extiende = 'usuario_noLogueado.html'
 	return extiende
 
 def mostrar_carrera(cod_carrera):
