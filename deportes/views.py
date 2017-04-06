@@ -174,15 +174,13 @@ def ver_deportes_personas(request):
                 except Exception as e:
                     if request.user.is_staff:
                         extiende = 'baseAdmin.html' 
-    consulta = g.lista_deporte.all()
-    consulta, mensaje = buscador_deportes(request, consulta, mensaje)     
+    
     ctx = {
         'extiende': extiende,
         'usuario': request.user.username,
         'darse_de_baja': darse_de_baja,
         'editar_info': editar_info,
-        'mensaje': mensaje,
-        'deportes': consulta,
+        'deportes': g.lista_deporte.all(),
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
@@ -203,6 +201,10 @@ def listar_deportes(request):
 def inscripcion_deportes(request):
     template = "inscripcion_deportes.html"
     id_usuario = request.user.id
+    consulta = Deporte.objects.all()
+    mensaje =''
+   
+    consulta, mensaje = buscador_deportes(request, consulta, mensaje)   
 
     darse_de_baja = True
     try:
@@ -227,9 +229,10 @@ def inscripcion_deportes(request):
 
   
     ctx = {
-         'deportes': Deporte.objects.all(), 
+        'deportes': consulta, 
         'deportes_alumno': g.lista_deporte.all(),
         'darse_de_baja': darse_de_baja,
+        'mensaje': mensaje,
        
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))

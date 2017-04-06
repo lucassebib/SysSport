@@ -259,8 +259,8 @@ def actualizar_alumnos(request, pk):
         'fecha_nacimiento':a.fecha_nacimiento,
         'sexo':a.sexo,
         'foto_perfil':a.foto_perfil,
-        'email':a.email
-       # 'lista_deporte':a.lista_deporte.all()
+        'email':a.email,
+       #'lista_deporte':a.lista_deporte,
     }
     
     if request.method == 'POST'and 'bModificar' in request.POST:

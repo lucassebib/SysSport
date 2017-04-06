@@ -89,6 +89,7 @@ STATICFILES_DIRS = (
 LOGIN_URL = reverse_lazy('url_login')
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 1800
 
 LOGIN_URL = reverse_lazy('url_login')
 

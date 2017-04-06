@@ -34,8 +34,9 @@ a, li, h1, h2, h3, h4, p {
 	margin:0;
 }
 .contacto-tabla{
-	width: 30%;
+	width: 40%;
 	padding-top: 30px; 
+	text-align: left;
 }
 #contacto-fila{
 	padding-left: 20px;
