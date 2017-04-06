@@ -199,6 +199,7 @@ def alta_alumno(request):
 			sexo = form.cleaned_data['sexo']
 			foto = form.cleaned_data['foto_perfil']
 			email = form.cleaned_data['email']
+			telefono = form.cleaned_data['telefono']
 			lista_deporte = form.cleaned_data['lista_deporte']
             
 			a = UsuarioInvitado()
@@ -210,6 +211,7 @@ def alta_alumno(request):
 			a.sexo = sexo
 			a.foto = foto
 			a.email = email
+			a.telefono = telefono
 			a.password =contrasenia
 			a.lista_deporte = lista_deporte
 			a.set_password(contrasenia)
@@ -260,6 +262,7 @@ def actualizar_alumnos(request, pk):
         'fecha_nacimiento':a.fecha_nacimiento,
         'sexo':a.sexo,
         'foto_perfil':a.foto_perfil,
+        'telefono':a.telefono,
         'email':a.email
        # 'lista_deporte':a.lista_deporte.all()
     }
@@ -276,6 +279,7 @@ def actualizar_alumnos(request, pk):
             nuevo_sexo = form.cleaned_data['sexo']
             nuevo_foto = form.cleaned_data['foto_perfil']
             nuevo_email = form.cleaned_data['email']
+            nuevo_telefono = form.cleaned_data['telefono']
             nuevo_deporte = form.cleaned_data['lista_deporte']
            
 
@@ -289,7 +293,7 @@ def actualizar_alumnos(request, pk):
             a.sexo = nuevo_sexo
             a.foto = nuevo_foto
             a.email = nuevo_email
-            a.email = nuevo_email 
+            a.telefono = nuevo_telefono 
             a.lista_deporte = nuevo_deporte          
             a.save()
 

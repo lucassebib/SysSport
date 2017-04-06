@@ -8,7 +8,7 @@
 	<div class="page-content">
 		<form class="form-horizontal" method='POST'>
 			 <ul class="nav nav-pills navbar-right">
-			 	<li><a href=""><span class="glyphicon glyphicon-plus"></span> </span> Nuevo Usuario </a></li>
+			 	
 			 </ul>
 		 </form>
 	
@@ -17,6 +17,7 @@
 				<tr>
 					<th>Nombre</th>
 					<th>Apellido</th>
+					<th>Deportes</th>
 				</tr>
 			</thead>
 			{% for u in usuarios %}
@@ -24,6 +25,7 @@
 					<tr>
 						<td>{{u.first_name}}</td>
 						<td>{{u.last_name}}</td>
+						<td>{{u.ver_lista_deporte}}</td>
 						<td><a title="Editar" href="#"><span class="glyphicon glyphicon-edit"></span></a></td>
 						<td><a title="Eliminar" href="#"><span class="glyphicon glyphicon-remove"></span></a></td>
 					</tr>								

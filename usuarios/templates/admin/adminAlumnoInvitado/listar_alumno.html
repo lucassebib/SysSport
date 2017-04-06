@@ -21,6 +21,7 @@
 					<th>DNI</th>
 					<th>Teléfono</th>
 					<th>Email</th>
+					<th>Deporte</th>
 					
 				</tr>
 			</thead>
@@ -32,6 +33,7 @@
 					<td>{{a.dni}}</td>
 					<td>{{a.telefono}}</td>
 					<td>{{a.email}}</td>
+					<td>{{a.ver_lista_deporte}}</td>
 					<td> <a title="Editar" type="text" title="Modificar" href="{% url 'actualizar_alumnos' a.id %}"><span class="glyphicon glyphicon-edit"></span></a></td>
 					<td><a title="Eliminar" type="text" title="Eliminar" href="{% url 'delete_alumno' a.id %}"><span class="glyphicon glyphicon-remove"></span></a></td>
 				</tr>

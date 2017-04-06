@@ -10,7 +10,7 @@
 	<div class="page-content">
 		<form class="form-horizontal">{% csrf_token %}
 			<ul class="navbar nav-pills navbar-right">
-			 	<a title="Agregar Profesor" href="{% url 'alta_profesor' %}" ><button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></a>
+			 	<a  href="{% url 'alta_profesor' %}" ><button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></a>
 			 </ul>
 		 </form>
 
@@ -20,7 +20,9 @@
 					<th>Nombre y Apellido</th>
 					<th>DNI</th>
 					<th>Teléfono</th>
-					<th>Email</th>				
+					<th>Email</th>
+					<th>Deporte</th>	
+								
 				</tr>
 			</thead>
 			<tbody>
@@ -30,6 +32,9 @@
 					<td>{{p.dni}}</td>
 					<td>{{p.telefono}}</td>
 					<td>{{p.email}}</td>
+					
+					<td>{{p.ver_lista_deporte}}</td>
+					
 					<td><a title="Editar" type="text" title="Modificar" href="{% url 'actualizar_profes' p.id %}"><span class="glyphicon glyphicon-edit"></span></a></td>
 					<td> <a title="Eliminar" type="text" title="Eliminar" href="{% url 'delete_profe' p.id %}"><span class="glyphicon glyphicon-remove"></span></a></td>
 				</tr>

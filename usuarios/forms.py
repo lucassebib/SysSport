@@ -100,7 +100,7 @@ class FormularioEditarProfesor(forms.ModelForm):
         }
 
 
-		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email','lista_deporte' ]
+		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email','telefono','lista_deporte' ]
 
 
 	def __init__(self, *args, **kwargs):
@@ -127,10 +127,11 @@ class FormularioAltaAlumnoInvitado(forms.ModelForm):
 			'first_name':forms.TextInput(attrs={'size': 30, 'title': 'Your name',}),
 			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com'}),
 			'dni':forms.TextInput(attrs={'placeholder':'34954568'}),
+			'telefono':forms.TextInput(attrs={'placeholder':'3624-787542'}),
 			'fecha_nacimiento':AdminDateWidget()
         }
 
-		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email', 'lista_deporte' ]
+		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email','telefono', 'lista_deporte' ]
 
 
 
@@ -157,7 +158,7 @@ class FormularioEditarAlumnoInvitado(forms.ModelForm):
             'lista_deporte': forms.CheckboxSelectMultiple(),
         }
 
-		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email','lista_deporte' ]
+		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email','telefono','lista_deporte' ]
 
 
 	def __init__(self, *args, **kwargs):
