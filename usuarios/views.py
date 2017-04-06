@@ -339,13 +339,15 @@ def vista_pagina_inicio(request):
 			try:			
 				#request.session.flush()
 				#request.session.cycle_key()							
+				
 				#--Intento iniciar sesion de Alumno UTN
 				alumno_utn_bd = Alumno.objects.get(legajo=int(usuario))	
+				
 				#--Resultado de la autenticacion del Sysacad	
 				#alumno_utn = autenticacion(usuario, password)
 				alumno_utn = True
 
-				if alumno_utn_bd and alumno_utn:
+				if alumno_utn_bd and alumno_utn and alumno_utn_bd.is_active:
 					#--Se inicia sesion de un alumno UTN
 					#datos = obtener_datos_iniciales(usuario, password)	
 					datos = {'nombre': 'Lucas', 'apellido': 'Perez', 'carrera': 5}				
@@ -354,7 +356,7 @@ def vista_pagina_inicio(request):
 					request.session["nombre"] = datos['nombre']
 					request.session["apellido"] = datos['apellido']
 					request.session["carrera"] = int(datos['carrera'])
-					request.session["correo"] = 'lucas@utn.com'
+					request.session["correo"] = 'lucaaaaaaaaaaas.sebiiiiiiiiiib@gmail.com'
 
 					# Tener en cuenta que: (1,"Masculino"),(2,"Femenino")
 					request.session["sexo"] = 1
