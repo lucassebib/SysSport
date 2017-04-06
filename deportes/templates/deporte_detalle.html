@@ -1,9 +1,5 @@
 {% extends extiende %}
-{% if request.user.is_staff %}
-	{% block menu %}
-			{% include "menuAdmin.html" %}
-	{% endblock %}
-{% endif %}
+		
 {% block contenido %}
 <div class="panel-info">
 	<div class="page-header panel-default">

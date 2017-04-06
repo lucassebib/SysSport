@@ -29,13 +29,12 @@ def deporte_detalle(request, pk):
         profesor = Profesor.objects.get(lista_deporte__in=pk)
     except Exception as e:
         profesor= ''
-
     
     ctx = {
         'deporte': deporte,
         'entrenamientos': e,
         'profesor': profesor,
-        'extiende': extiende
+        'extiende': extiende,
     }
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))
@@ -204,6 +203,7 @@ def listar_deportes(request):
 def inscripcion_deportes(request):
     template = "inscripcion_deportes.html"
     id_usuario = request.user.id
+
     darse_de_baja = True
     try:
         g = Alumno.objects.get(legajo=int(request.session['user']))
@@ -225,10 +225,12 @@ def inscripcion_deportes(request):
                         extiende = 'baseAdmin.html'
                         darse_de_baja = True
 
+  
     ctx = {
-        'deportes': Deporte.objects.all(), 
+         'deportes': Deporte.objects.all(), 
         'deportes_alumno': g.lista_deporte.all(),
         'darse_de_baja': darse_de_baja,
+       
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 

@@ -1,8 +1,7 @@
 {% extends "baseProfesor.html" %}
 {% block contenido %}
 
-
-<script type="text/javascript">
+	<script type="text/javascript">
 
 		function showContent() {
 	        element_fecha = document.getElementById("div_escondido_fecha"); 
@@ -38,6 +37,7 @@
 			{% include "buscador_novedades.html" %}
 		{% endblock %}
 	
+	{% if posts %}		
 		{% for post in posts %}
 			<div class="fondo_mensaje esquinas">
 				<div class="titular-comentario contenido-comentario esquinas">
@@ -60,6 +60,9 @@
 				</div>			
 			</div>
 		{% endfor %}
+	{% else %}
+		<h4>Aun no se han subido Novedades</h4>
+	{% endif %}
 	</div>
 
 	<div class="pagination">

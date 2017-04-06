@@ -32,8 +32,10 @@
 				{% else %}
 					<form enctype="multipart/form-data" action="" method="POST">{% csrf_token %}
 	        			{{ form.as_p }}
-	        			<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-camera"></span> Cambiar</button>
-	        			{{mensaje}}
+	        			<div class="navbar-btn">
+	        				<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-camera"></span> Cambiar</button>
+	        			</div>
+	        			<label>{{mensaje}}</label>
 	    			</form>
 	    		{% endif %}
 			</div>

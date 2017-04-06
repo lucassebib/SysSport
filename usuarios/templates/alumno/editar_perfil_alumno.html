@@ -1,31 +1,38 @@
 {% extends extiende %}
 
 {% block contenido %}
-
-<div class="panel-info">
-
-	<div class="page-header">
-
-		<h1><i>Mi perfil</i></h1>
-
-	</div>
-
-	<div class="page-content">
-		<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
-			{% for field in form_principal %}
-				<p>{{field.label}}</p>
-				<p>{{field}} </p>			
-			{% endfor %}
-			Direccion:
-				{% for field2 in form_direccion %}
-					<p>{{field2.label}}</p>
-					<p>{{field2}} </p>
-				{% endfor %}
-			<input type='submit' value='Guardar'>
-		</form>
-
-		<input type="button" value="Cancelar" onclick="history.back(-1)" />
-
+	<div class="panel-info">
+		<div class="page-header">
+			<h2>Modificar <i>Mi perfil</i></h2>
+		</div>
+		<div class="page-content">		
+			<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+				<div class="well ">
+					<div class=" panel-default">
+						<div class="panel-heading">
+							<h4><b>Datos Personales</b> </h4>
+						</div>
+						
+							{% for field in form_principal %}
+								<p>{{field.label}}</p>
+								<p>{{field}} </p>			
+								
+							{% endfor %}
+					</div>
+					<div class=" panel-default">	
+							<div class="panel-heading">
+								<h4><b>Direccion:</b></h4>
+							</div>
+							{% for field2 in form_direccion %}
+								<p>{{field2.label}}</p>
+								<p>{{field2}} </p>
+							{% endfor %}								
+					</div>
+				</div>
+				<button class="btn btn-primary" type='submit' value='Aceptar' name= 'bModificar'> Aceptar</button>
+				<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
+			</form>
+		</div>
 	</div>
 </div>
 

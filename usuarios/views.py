@@ -529,14 +529,12 @@ def ver_informacion_perfil_persona(request):
 					if request.user.is_staff:
 						extiende = 'baseAdmin.html'
 
-
 	ctx = {
 			'extiende': extiende,
 			'persona': persona_visitada,
 			'is_invitado': "invitado"==tipo_usuario_visitado,
 			'is_alumno': "alumno"==tipo_usuario_visitado,
 			'is_profesor': "profesor"==tipo_usuario_visitado,
-
 
 			}
 	ctx.update(ctx1)
@@ -668,7 +666,8 @@ def editar_perfil_alumno(request):
 	template = "alumno/editar_perfil_alumno.html"
 	invitado = UsuarioInvitado.objects.get(id=request.user.id)
 	mensaje = 'inicio'
-
+	id_usuario = obtener_id(request)
+	extiende = extiende_de(id_usuario, request)
 
 	form_principal = FormularioEdicionPerfilInvitado()
 	form_principal.initial = {
@@ -757,7 +756,7 @@ def editar_perfil_alumno(request):
 		'mensaje': mensaje,
 		'form_principal': form_principal,
 		'form_direccion': form_direccion,
-		
+		'extiende': extiende,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 

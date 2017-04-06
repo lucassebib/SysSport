@@ -337,23 +337,25 @@ def novedades_profesores(request):
 
 def novedades_alumnos(request):
 	template = "novedades_alumnos.html"	
-	
+	mensaje =''
 	try:
 		alumno = Persona.objects.get(id=request.user.id)
 	except Exception as e:
 		alumno = Alumno.objects.get(legajo=int(request.session['user']))
-	
-	
-	deportes = alumno.obtener_deportes()	
-	
+
 	posts = Novedades.objects.filter(visibilidad__in=[1,2]) | Novedades.objects.filter(visibilidad__in=[3], categoria__in=alumno.obtener_deportes())
 	posts.order_by('-fecha_publicacion')
-	pag = Paginate(request, posts, 4)
+	posts, mensaje = buscador_novedades(request, posts, mensaje)
+	pag = Paginate(request, posts, 3)
+
+	deportes = alumno.obtener_deportes()	
+	
 	ctx = {
 		"posts": pag['queryset'],
 		"deportes": deportes,
 		#'totPost': init_posts,
      	'paginator': pag,
+     	'mensaje': mensaje,
 	}
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
 

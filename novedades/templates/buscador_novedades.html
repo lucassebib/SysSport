@@ -10,15 +10,17 @@
 					<div class="nav" id="div_escondido_autor" style="display: none;">
 						<form method="POST">{% csrf_token %}
 							Ingrese el parametro de busqueda por Autor:</br>
-							<input type="radio" name="opcion_autor" value="nombre" checked="">Nombre</br>	
+							<input type="radio" name="opcion_autor" value="nombre" checked>Nombre</br>	
 							<input type="radio" name="opcion_autor" value="apellido">Apellido
 						</form>
 					</div>
-					<div class="form-group" id="div_escondido_fecha" style="display: none;">
-						Ingrese la fecha con el siguiente formato: DD/MM/AAAA</br>
-						<input  type="checkbox" name="fecha" value="dia" checked> Día</br>
-						<input  type="checkbox" name="fecha" value="mes" checked> Mes</br>
-						<input  type="checkbox" name="fecha" value="anio" checked> Año
+					<div class="nav" id="div_escondido_fecha" style="display: none;">
+						
+							Ingrese la fecha con el siguiente formato: DD/MM/AAAA</br>
+							<input  type="checkbox" name="fecha" value="dia" checked> Día</br>
+							<input  type="checkbox" name="fecha" value="mes" checked> Mes</br>
+							<input  type="checkbox" name="fecha" value="anio" checked> Año
+						
 					</div>
 					
 				</div>   			
