@@ -198,6 +198,7 @@ def alta_alumno(request):
 			sexo = form.cleaned_data['sexo']
 			foto = form.cleaned_data['foto_perfil']
 			email = form.cleaned_data['email']
+			telefono = form.cleaned_data['telefono']
 			lista_deporte = form.cleaned_data['lista_deporte']
             
 			a = UsuarioInvitado()
@@ -209,6 +210,7 @@ def alta_alumno(request):
 			a.sexo = sexo
 			a.foto = foto
 			a.email = email
+			a.telefono = telefono
 			a.password =contrasenia
 			a.lista_deporte = lista_deporte
 			a.set_password(contrasenia)
@@ -259,8 +261,9 @@ def actualizar_alumnos(request, pk):
         'fecha_nacimiento':a.fecha_nacimiento,
         'sexo':a.sexo,
         'foto_perfil':a.foto_perfil,
-        'email':a.email,
-       #'lista_deporte':a.lista_deporte,
+        'telefono':a.telefono,
+        'email':a.email
+       # 'lista_deporte':a.lista_deporte.all()
     }
     
     if request.method == 'POST'and 'bModificar' in request.POST:
@@ -275,6 +278,7 @@ def actualizar_alumnos(request, pk):
             nuevo_sexo = form.cleaned_data['sexo']
             nuevo_foto = form.cleaned_data['foto_perfil']
             nuevo_email = form.cleaned_data['email']
+            nuevo_telefono = form.cleaned_data['telefono']
             nuevo_deporte = form.cleaned_data['lista_deporte']
            
 
@@ -288,7 +292,7 @@ def actualizar_alumnos(request, pk):
             a.sexo = nuevo_sexo
             a.foto = nuevo_foto
             a.email = nuevo_email
-            a.email = nuevo_email 
+            a.telefono = nuevo_telefono 
             a.lista_deporte = nuevo_deporte          
             a.save()
 
@@ -335,13 +339,15 @@ def vista_pagina_inicio(request):
 			try:			
 				#request.session.flush()
 				#request.session.cycle_key()							
+				
 				#--Intento iniciar sesion de Alumno UTN
 				alumno_utn_bd = Alumno.objects.get(legajo=int(usuario))	
+				
 				#--Resultado de la autenticacion del Sysacad	
 				#alumno_utn = autenticacion(usuario, password)
 				alumno_utn = True
 
-				if alumno_utn_bd and alumno_utn:
+				if alumno_utn_bd and alumno_utn and alumno_utn_bd.is_active:
 					#--Se inicia sesion de un alumno UTN
 					#datos = obtener_datos_iniciales(usuario, password)	
 					datos = {'nombre': 'Lucas', 'apellido': 'Perez', 'carrera': 5}				
@@ -350,7 +356,7 @@ def vista_pagina_inicio(request):
 					request.session["nombre"] = datos['nombre']
 					request.session["apellido"] = datos['apellido']
 					request.session["carrera"] = int(datos['carrera'])
-					request.session["correo"] = 'lucas@utn.com'
+					request.session["correo"] = 'lucaaaaaaaaaaas.sebiiiiiiiiiib@gmail.com'
 
 					# Tener en cuenta que: (1,"Masculino"),(2,"Femenino")
 					request.session["sexo"] = 1
