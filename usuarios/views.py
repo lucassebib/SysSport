@@ -78,15 +78,15 @@ def alta_profesor(request):
 			p.foto = foto
 			p.email = email
 			p.password = contrasenia
-			p.lista_deporte = lista_deporte
 			p.telefono = telefono
 			p.set_password(contrasenia)
 			p.save()
+			p.lista_deporte = lista_deporte
 
-			#if lista_deporte:
-			#	for ld in lista_deporte:
-			#		ld.lista_deporte.add(ld.id)
-			#p.save()
+			if lista_deporte:
+				for ld in lista_deporte:
+					ld.lista_deporte.add(ld.id)
+			p.save()
 			
 			return HttpResponseRedirect(reverse('listar_profes'))
 
@@ -111,8 +111,8 @@ def actualizar_profes(request, pk):
         'sexo':p.sexo,
         'foto_perfil':p.foto_perfil,
         'email':p.email,
-        'telefono':p.telefono
-        #'lista_deporte' : p.lista_deporte.all()
+        'telefono':p.telefono,
+        'lista_deporte' : p.lista_deporte.all()
         
     }
     
@@ -193,6 +193,7 @@ def alta_alumno(request):
 			apellido = form.cleaned_data['last_name']
 			usuario = form.cleaned_data['username']
 			contrasenia = form.cleaned_data['password']
+			contrasenia2 = form.cleaned_data['password2']
 			dni = form.cleaned_data['dni']
 			fechaN = form.cleaned_data['fecha_nacimiento']
 			sexo = form.cleaned_data['sexo']
@@ -211,14 +212,21 @@ def alta_alumno(request):
 			a.foto = foto
 			a.email = email
 			a.telefono = telefono
-			a.password =contrasenia
-			a.lista_deporte = lista_deporte
-			a.set_password(contrasenia)
 			a.save()
+			#a.password =contrasenia
+			a.lista_deporte = lista_deporte
 
-			if lista_deporte:
-				for ld in lista_deporte:
-					ld.lista_deporte.add(ld.id)
+
+			#if lista_deporte:
+			#	for ld in lista_deporte:
+			#		ld.lista_deporte.add(ld.id)		
+			
+
+			if contrasenia == contrasenia2:
+				#a.password = contrasenia
+				a.set_password(contrasenia)
+			a.save()
+				
 			
 			return HttpResponseRedirect(reverse('listar_alumnos'))
 
@@ -262,8 +270,8 @@ def actualizar_alumnos(request, pk):
         'sexo':a.sexo,
         'foto_perfil':a.foto_perfil,
         'telefono':a.telefono,
-        'email':a.email
-       # 'lista_deporte':a.lista_deporte.all()
+        'email':a.email,
+        'lista_deporte':a.lista_deporte.all()
     }
     
     if request.method == 'POST'and 'bModificar' in request.POST:
