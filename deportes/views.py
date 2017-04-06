@@ -176,11 +176,12 @@ def ver_deportes_personas(request):
                         extiende = 'baseAdmin.html' 
     
     ctx = {
+        'deportes': g.lista_deporte.all(),
         'extiende': extiende,
         'usuario': request.user.username,
         'darse_de_baja': darse_de_baja,
         'editar_info': editar_info,
-        'deportes': g.lista_deporte.all(),
+       
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 

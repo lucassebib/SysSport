@@ -46,12 +46,12 @@
 	 		{% for novedad in object_list %}
 				<div class="fondo_mensaje esquinas">
 					<div class="titular-comentario contenido-comentario esquinas">
-						<table>
+						<table class="tabla_comentario">
 							<tr>
 								<td class="td_perfil"><img class="img_perfil" src="{{novedad.obtener_url_imagen}}" ></td>
-								<td class="td_titulo"><a href="{% url 'ver_novedades' novedad.id %}"><b><h2 class="titulo_novedad">{{novedad.titulo}}</h2></b></a>
+								<td class="td_titulo small"><a href="{% url 'ver_novedades' novedad.id %}"><b><h3 class="titulo_novedad">{{novedad.titulo}}</h3></b></a>
 
-								<p>{{novedad.fecha_publicacion}}</p>
+								<p class="fecha">{{novedad.fecha_publicacion}}</p>
 								</td>
 								<td class="td_responder"><a title="Editar" href="{% url 'actualizar-novedad' novedad.id %}"> <span  class="glyphicon glyphicon-edit" > </span> </a></td>
 								<td class="td_responder"><a title="Eliminar" href="{% url 'eliminar-novedad' novedad.id %}"> <span  class="glyphicon glyphicon-remove" > </span></a></td>
