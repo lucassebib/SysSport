@@ -7,15 +7,13 @@ from django.template import Context
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from models import Deporte, FichaMedica
+from deportes.models import Deporte, FichaMedica
+from deportes.forms import * 
+from deportes.funciones import *
 from entrenamiento.forms import FormularioCrearEntrenamiento
 from entrenamiento.models import Entrenamiento
-from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona
-
-from deportes.funciones import *
 from usuarios.funciones import *
-
-from forms import * 
+from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona
 
 ############################## DEPORTES PARA INTERNAUTAS ########################################
 
@@ -57,9 +55,7 @@ def deporte_detalle(request, pk):
 
 def crear_deporte(request):
     template = "deportes/deporte_form.html"
-    form_deporte = FormularioCrearDeporte()
-    #form_entrenamiento = FormularioCrearEntrenamiento()
-   
+    form_deporte = FormularioCrearDeporte()  
 
     if request.method == 'POST' and 'bAceptar' in request.POST:
         form_deporte = FormularioCrearDeporte(request.POST, request.FILES)
@@ -69,7 +65,7 @@ def crear_deporte(request):
           descripcion = form_deporte.cleaned_data['descripcion']
                   
           d = Deporte()
-          d.nombre = nombre
+          d.nombre = dar_formato(nombre)
           d.apto_para = genero
           d.descripcion = descripcion
           d.save()
@@ -77,7 +73,6 @@ def crear_deporte(request):
 
     ctx = {
         'form_deporte': form_deporte,
-       # 'form_entrenamiento': form_entrenamiento,
     }
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))
@@ -95,9 +90,6 @@ def detalleDeporte(request):
     }
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))
-
-        
-
 
 
 def modificar_deporte(request, pk):
@@ -118,13 +110,13 @@ def modificar_deporte(request, pk):
             nuevo_nombre = form_deporte.cleaned_data['nombre']
             nuevo_genero = form_deporte.cleaned_data['apto_para']
             nueva_descripcion = form_deporte.cleaned_data['descripcion']
-
             
-            d.nombre = nuevo_nombre
+            d.nombre = dar_formato(nuevo_nombre)
             d.apto_para = nuevo_genero
             d.descripcion = nueva_descripcion
             d.save()
             return HttpResponseRedirect(reverse('listar-deporte'))
+    
     ctx = {
         'form_deporte': form_deporte,
     }
@@ -245,7 +237,7 @@ def baja_deporte(request, pk):
     try:
         alumno = Alumno.objects.get(legajo=int(request.session['user']))
     except Exception as e:
-        alumno = Persona.objects.get(id=request.user.id)
+        alumno = UsuarioInvitado.objects.get(id=request.user.id)
 
     if request.method == "POST":
         alumno.lista_deporte.remove(pk)

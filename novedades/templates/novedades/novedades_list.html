@@ -34,13 +34,11 @@
 	</div>
 	<div class="page-content">
 
-		<form class="form-group" method='POST'>
-		 	
+		<div class="form-group"'>	 	
 		 	<ul class=" navbar navbar-right nav-pills">
 		 		<a title="Crear Novedad" href="{% url 'crear-novedad' %}"><button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></a>
-		 	</ul>
-		
-		</form>
+		 	</ul>		
+		</div>
 		
 	 	<div id="mis_novedades">
 	 		{% for novedad in object_list %}

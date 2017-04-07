@@ -59,122 +59,89 @@ class FormularioDatosMedicos(forms.ModelForm):
 ################## AMB usuarios##############################
 
 class FormularioAltaProfe(forms.ModelForm):
-	class Meta:
-		#password = forms.CharField(widget=forms.PasswordInput())
+	password2 = forms.CharField(label='', widget=forms.PasswordInput(render_value=False, attrs={'required':'True'}))
+	class Meta:		
 		model = Profesor
 		widgets = {
-			'password': forms.PasswordInput(),
-			'lista_deporte': forms.CheckboxSelectMultiple(),
-			'last_name':forms.TextInput(attrs={'size': 30,}),
-			'first_name':forms.TextInput(attrs={'size': 30, 'title': 'Your name',}),
-			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com'}),
+			'username':forms.TextInput(attrs={'required':'True'}),
+			'password': forms.PasswordInput(render_value=False, attrs={'required':'True'}),
+			'first_name':forms.TextInput(attrs={'size': 30,}),
+			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
+			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True'}),
+			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
+			'telefono':forms.TextInput(attrs={'placeholder':'3624787542'}),
 			'dni':forms.TextInput(attrs={'placeholder':'34954568'}),
-			'telefono':forms.TextInput(attrs={'placeholder':'3624-787542'}),
-			'fecha_nacimiento':AdminDateWidget()
+			'telefono':forms.TextInput(attrs={'placeholder':'3624787542', 'requiered':'True'}),
+			'lista_deporte': forms.CheckboxSelectMultiple(),
         }
  
   		fields = ['username', 'password', 'first_name', 'last_name', 'dni','fecha_nacimiento','sexo','foto_perfil','email','telefono','lista_deporte']
   	
-  	def __init__(self, *args, **kwargs):
-  			super(FormularioAltaProfe, self).__init__(*args, **kwargs)
-			self.fields['username'].required = True
-			self.fields['password'].required = True 
-			self.fields['first_name'].required = True 
-			self.fields['last_name'].required = True  
-			self.fields['dni'].required = False
-			self.fields['fecha_nacimiento'].required = False
-			self.fields['sexo'].required = True
-			self.fields['foto_perfil'].required = False
-			self.fields['email'].required = True
-			self.fields['lista_deporte'].required = True
 
 
 
 class FormularioEditarProfesor(forms.ModelForm):
-	class Meta:
-		#password = forms.CharField(widget=forms.PasswordInput())
+	password2 = forms.CharField(label='', widget=forms.PasswordInput(render_value=False, attrs={'required':'False'}))
+	class Meta:		
 		model = Profesor
 		widgets = {
-            'password': forms.PasswordInput(),
-            'lista_deporte': forms.CheckboxSelectMultiple(),
+			'username':forms.TextInput(attrs={'required':'True'}),
+			'password': forms.PasswordInput(render_value=False, attrs={'required':'False'}),
+			'first_name':forms.TextInput(attrs={'size': 30,}),
+			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
+			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True'}),
+			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
+			'telefono':forms.TextInput(attrs={'placeholder':'3624787542'}),
+			'dni':forms.TextInput(attrs={'placeholder':'34954568'}),
+			'telefono':forms.TextInput(attrs={'placeholder':'3624787542', 'requiered':'True'}),
+			'lista_deporte': forms.CheckboxSelectMultiple(),
         }
 
 
 		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email','telefono','lista_deporte' ]
 
 
-	def __init__(self, *args, **kwargs):
-		super(FormularioEditarProfesor, self).__init__(*args, **kwargs)
-		self.fields['username'].required = True
-		self.fields['password'].required = False 
-		self.fields['first_name'].required = True 
-		self.fields['last_name'].required = True  
-		self.fields['dni'].required = False
-		self.fields['fecha_nacimiento'].required = False
-		self.fields['sexo'].required = True
-		self.fields['foto_perfil'].required = False
-		self.fields['email'].required = True
-		self.fields['lista_deporte'].required = False
+
 
 class FormularioAltaAlumnoInvitado(forms.ModelForm):
+	password2 = forms.CharField(label='', widget=forms.PasswordInput(render_value=False, attrs={'required':'True'}))
 	class Meta:
-		password = forms.CharField(widget=forms.PasswordInput())
 		model = UsuarioInvitado
 		widgets = {
-			'password': forms.PasswordInput(),
-			'lista_deporte': forms.CheckboxSelectMultiple(),
-			'last_name':forms.TextInput(attrs={'size': 30,}),
-			'first_name':forms.TextInput(attrs={'size': 30, 'title': 'Your name',}),
-			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com'}),
+			'username':forms.TextInput(attrs={'required':'True'}),
+			'password': forms.PasswordInput(render_value=False, attrs={'required':'True'}),
+			'first_name':forms.TextInput(attrs={'size': 30,}),
+			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
+			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True'}),
+			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
+			'telefono':forms.TextInput(attrs={'placeholder':'3624787542'}),
 			'dni':forms.TextInput(attrs={'placeholder':'34954568'}),
-			'telefono':forms.TextInput(attrs={'placeholder':'3624-787542'}),
-			'fecha_nacimiento':AdminDateWidget()
+			'telefono':forms.TextInput(attrs={'placeholder':'3624787542', 'requiered':'True'}),
+			'lista_deporte': forms.CheckboxSelectMultiple(),
+			
         }
 
 		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email','telefono', 'lista_deporte' ]
 
 
 
-	def __init__(self, *args, **kwargs):
-		super(FormularioAltaAlumnoInvitado, self).__init__(*args, **kwargs)
-		self.fields['username'].required = True
-		self.fields['password'].required = True 
-		self.fields['first_name'].required = True 
-		self.fields['last_name'].required = True  
-		self.fields['dni'].required = False
-		self.fields['fecha_nacimiento'].required = False
-		self.fields['sexo'].required = True
-		self.fields['foto_perfil'].required = False
-		self.fields['email'].required = True
-		self.fields['lista_deporte'].required = True
 
-
-class FormularioEditarAlumnoInvitado(forms.ModelForm):
+class FormularioEditarAlumnoInvitado(forms.ModelForm):	
+	password2 = forms.CharField(label='', widget=forms.PasswordInput(render_value=False, attrs={'required':'False'}))
 	class Meta:
-		password = forms.CharField(widget=forms.PasswordInput())
-		model = UsuarioInvitado
+		model = Profesor
 		widgets = {
-            'password': forms.PasswordInput(),
-            'lista_deporte': forms.CheckboxSelectMultiple(),
+			'username':forms.TextInput(attrs={'required':'True'}),
+			'password': forms.PasswordInput(render_value=False, attrs={'required':'False'}),
+			'first_name':forms.TextInput(attrs={'size': 30,}),
+			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
+			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True'}),
+			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
+			'telefono':forms.TextInput(attrs={'placeholder':'3624787542'}),
+			'dni':forms.TextInput(attrs={'placeholder':'34954568'}),
+			'telefono':forms.TextInput(attrs={'placeholder':'3624787542', 'requiered':'True'}),
+			'lista_deporte': forms.CheckboxSelectMultiple(),
         }
 
+
 		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email','telefono','lista_deporte' ]
-
-
-	def __init__(self, *args, **kwargs):
-		super(FormularioEditarProfesor, self).__init__(*args, **kwargs)
-		self.fields['username'].required = True
-		self.fields['password'].required = False 
-		self.fields['first_name'].required = True 
-		self.fields['last_name'].required = True  
-		self.fields['dni'].required = False
-		self.fields['fecha_nacimiento'].required = False
-		self.fields['sexo'].required = True
-		self.fields['foto_perfil'].required = False
-		self.fields['email'].required = True
-		self.fields['lista_deporte'].required = False
-
-
-
-
-

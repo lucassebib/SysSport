@@ -1,27 +1,14 @@
 
 {% extends "baseAlumno.html" %}
 {% block contenido %}
-<script language='JavaScript'>
-	function CambiarUrl(formulario){
-		if (formulario.deportes.selectedIndex != 0)
-			if (formulario.deportes.selectedIndex == 1)
-				{location.href = "{% url 'novedades_alumnos' %}"}}
-</script>
+
 	<div class="panel-info">
 		<div class="page-header panel-default">
 			<h1><i>Novedades</i></h1>
 				
 		</div>	
 		<div class="page-content">
-			
-			
-					<!--<select name="deportes" size="1" onChange='CambiarUrl(this.form)' class="form-control" id="sel1">
-					<option value="1">Ver Todos</option>
-					{% for d in deportes %}
-					<option value="d.id">{{d.nombre}}</option>}
-					{% endfor %}
-					
-				</select>	-->
+
 				<div class="btn-group">
 					  <button class="btn dropdown-toggle btn-default" type="button"
 					          id="dropdownMenu1" data-toggle="dropdown">

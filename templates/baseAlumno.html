@@ -41,9 +41,9 @@
   
     <!--Menu de Novedades -->
     <div class=" sidebar-nav menu">
-          <div class="navbar navbar-default menu" role="navigation">
+        <div class="navbar navbar-default menu" role="navigation">
             <div class="navbar-header menu">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navegacion-alum">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#adm-usuarios">
                     <span class="sr-only">Desplegar/ocultar menu</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -51,50 +51,29 @@
                 </button>
                 <span class="navbar-header menu">
                     <div class="visible-xs panel-heading" align="center">
-                         <h3 class="panel-title">Novedades</h3>
+                         <h3 class="panel-title">Administración</h3>
                     </div>
                 </span>
             </div>
-            <div class="navbar-collapse collapse" id="navegacion-alum">
-                <div class=" visible-lg visible-md visible-sm  panel-heading" align="center">
-                         <h3 class="panel-title">Novedades</h3>
+            <div class="navbar-collapse collapse" id="adm-usuarios">
+                <div class="visible-lg visible-md visible-sm  panel-heading" align="center">
+                         <h3 class="panel-title">Administración</h3>
                 </div>
+
                 <ul class="nav nav-pills nav-stacked">
-                   <li class="{% if 'novedades_alumnos' == request.resolver_match.view_name %}active{% endif %}">
-                        <a href="{% url 'novedades_alumnos' %}#contenido">Novedades</a></li>
-                </ul> 
-            </div>
-        </div>
-    </div>     
+                    <li class="{% if 'novedades_alumnos' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'novedades_alumnos' %}#contenido">Novedades</a></li>
+                    <!--<li class="{% if 'listar-canchas' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar-canchas' %}#contenido">Canchas</a></li>-->
+                    <li class="{% if 'inscribir_deportes' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'inscribir_deportes' %}#contenido">Deportes</a></li>
+                                     
+                </ul>
+
             
-     <!--Menu de deportes -->
-     <div class=" sidebar-nav menu">
-          <div class="navbar navbar-default menu" role="navigation">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navegacion-alum">
-                    <span class="sr-only">Desplegar/ocultar menu</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <span class="navbar-header menu">
-                    <div class="visible-xs panel-heading" align="center">
-                         <h3 class="panel-title">Deportes</h3>
-                    </div>
-                </span>
-            </div>
-            <div class="navbar-collapse collapse" id="navegacion-alum">
-                <div class=" visible-lg visible-md visible-sm  panel-heading" align="center">
-                         <h3 class="panel-title">Deportes</h3>
-                </div>
-                <ul class="nav nav-pills nav-stacked" >
-                    <li class="{% if 'ver_deportes_personas' ==  request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_deportes_personas' %}#contenido">Mis Deportes</a></li>
-                    <li class="{% if 'inscribir_deportes' ==  request.resolver_match.view_name %}active{% endif %}">
-                        <a href="{% url 'inscribir_deportes' %}#contenido">Ver mas Deporte</a></li>
-                </ul>  
-            </div>
+        </div> 
         </div>
-    </div>     
+    </div>
+
+            
+   
    
     {% endblock %}
 

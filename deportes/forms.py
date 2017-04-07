@@ -4,6 +4,7 @@ from models import Deporte, FichaMedica
 class FormularioCrearDeporte(forms.ModelForm):
 	class Meta:
 		model = Deporte
+		exclude=['ficha_medica']
 
 class FormularioSubirFichaMedica(forms.ModelForm):
 	class Meta:

@@ -18,7 +18,6 @@ DATABASES = {
                     'use_mars': 'DataTypeCompatibility=80;MARS Connection=True;'
         }
     }
-    #aqui debe ir la coneccion con la base de datos del SYSACAD
 
 }
 
