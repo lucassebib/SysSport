@@ -1,23 +1,50 @@
 
 {% extends "baseAlumno.html" %}
 {% block contenido %}
+<script language='JavaScript'>
+	function CambiarUrl(formulario){
+		if (formulario.deportes.selectedIndex != 0)
+			if (formulario.deportes.selectedIndex == 1)
+				{location.href = "{% url 'novedades_alumnos' %}"}}
+</script>
 	<div class="panel-info">
 		<div class="page-header panel-default">
 			<h1><i>Novedades</i></h1>
 				
 		</div>	
 		<div class="page-content">
-			<ul class="nav nav-tabs">
-					<li class="nav-item"><a class="nav-link" href="{% url 'novedades_alumnos' %}">Ver Todos</a></li>
-					{% for d in deportes%}
-						<li class="nav-item "><a class="nav-link" href="{% url 'ver_novedad_filtrado' d.id %}"> {{d.nombre}}</a></li>
-
+			
+			
+					<!--<select name="deportes" size="1" onChange='CambiarUrl(this.form)' class="form-control" id="sel1">
+					<option value="1">Ver Todos</option>
+					{% for d in deportes %}
+					<option value="d.id">{{d.nombre}}</option>}
 					{% endfor %}
+					
+				</select>	-->
+				<div class="btn-group">
+					  <button class="btn dropdown-toggle btn-default" type="button"
+					          id="dropdownMenu1" data-toggle="dropdown">
+					     
+					    	Deportes
+					  
+					    <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+					    <li role="presentation">
+					        <a role="menuitem" tabindex="-1" class="nav-link" href="{% url 'novedades_alumnos' %}">Ver Todos</a>
+					    </li>
+					    <li role="presentation">
+					        {% for d in deportes %}
+							<a role="menuitem" tabindex="-1" class="nav-link" href="{% url 'ver_novedad_filtrado' d.id %}"> {{d.nombre}}</a>
+							{% endfor %}
+					    </li>
+					  </ul>
+				</div>
 
-			</ul>
 			{% if posts %}					
-				{% for post in posts %}
-					<div class="fondo_mensaje esquinas">
+					{% for post in posts %}
+						<div class="fondo_mensaje esquinas">
 						<div class="titular-comentario contenido-comentario esquinas">
 							<table class="tabla_comentario">
 								<tr>
@@ -26,7 +53,7 @@
 									<td class="td_titulo"><b><a href="{% url 'ver_novedades' post.id %}"><h3 class="titulo_novedad">{{post.titulo}}</h3></a></b>
 									<p>{{post.fecha_publicacion}}</p>
 									</td>
-									<td class="td_responder"><a href="{% url 'ver_novedades' post.id %}">Comentar</a></td>
+									
 
 								</tr>
 							</table>
