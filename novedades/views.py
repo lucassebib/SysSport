@@ -364,7 +364,7 @@ def novedades_alumnos(request):
 
 def ver_novedad_filtrado(request, pk):
 	template = "ver_novedad_filtrado.html"	
-		
+	mensaje = ''
 	try:
 		alumno = Persona.objects.get(id=request.user.id)
 	except Exception as e:
@@ -373,12 +373,13 @@ def ver_novedad_filtrado(request, pk):
 	posts = Novedades.objects.filter(categoria__in=pk)
 	deportes = alumno.obtener_deportes()
 
+	posts, mensaje = buscador_novedades(request, posts, mensaje)
 
 	ctx = {
 
 		'posts': posts.order_by('-fecha_publicacion'),
 		'deportes': deportes,
-
+		'mensaje': mensaje,
 	}
 
 	return render_to_response(template, ctx ,  context_instance=RequestContext(request))
