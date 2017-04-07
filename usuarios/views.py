@@ -83,9 +83,6 @@ def alta_profesor(request):
 			p.save()
 			p.lista_deporte = lista_deporte
 
-			if lista_deporte:
-				for ld in lista_deporte:
-					ld.lista_deporte.add(ld.id)
 			p.save()
 			
 			return HttpResponseRedirect(reverse('listar_profes'))
@@ -144,6 +141,7 @@ def actualizar_profes(request, pk):
             p.telefono = nuevo_telefono
             p.set_password(nueva_contrasenia) 
             p.save()
+
             return HttpResponseRedirect(reverse('listar_profes'))
     ctx = {
         'form': form,
@@ -183,7 +181,7 @@ def delete_profe(request, pk):
 def alta_alumno(request):
 	template = "admin/adminAlumnoInvitado/alta_alumno.html"
 	form = FormularioAltaAlumnoInvitado()
-	mensaje = request.user
+	mensaje = ''
 	#u = User.objects.get()
 
 	if request.method == "POST" and 'boton_alta' in request.POST:
@@ -216,10 +214,13 @@ def alta_alumno(request):
 			#a.password =contrasenia
 			a.lista_deporte = lista_deporte
 
+			if lista_deporte:
+				for ld in lista_deporte:
+					if d.apto_para == sexo or d.apto_para == 3:
+						a.lista_deporte.add(ld.id)
+            		else:
+            			mensaje = 'usted no se puede incribir a este deporte'	
 
-			#if lista_deporte:
-			#	for ld in lista_deporte:
-			#		ld.lista_deporte.add(ld.id)		
 			
 
 			if contrasenia == contrasenia2:
@@ -259,7 +260,7 @@ def delete_alumno(request, pk):
 def actualizar_alumnos(request, pk):
     template = "admin/adminAlumnoInvitado/alumno_modificar.html"
     a = UsuarioInvitado.objects.get(id=pk)
-    form = FormularioAltaAlumnoInvitado()
+    form = FormularioEditarAlumnoInvitado()
 
     form.initial = {
         'first_name': a.first_name,
@@ -269,13 +270,14 @@ def actualizar_alumnos(request, pk):
         'fecha_nacimiento':a.fecha_nacimiento,
         'sexo':a.sexo,
         'foto_perfil':a.foto_perfil,
-        'telefono':a.telefono,
         'email':a.email,
-        'lista_deporte':a.lista_deporte.all()
+        'telefono':a.telefono,
+        'lista_deporte' : a.lista_deporte.all()
+        
     }
     
     if request.method == 'POST'and 'bModificar' in request.POST:
-        form = FormularioAltaAlumnoInvitado(request.POST)
+        form = FormularioEditarAlumnoInvitado(request.POST)
         if form.is_valid():
             nuevo_nombre = form.cleaned_data['first_name']
             nuevo_apellido = form.cleaned_data['last_name']
@@ -286,22 +288,21 @@ def actualizar_alumnos(request, pk):
             nuevo_sexo = form.cleaned_data['sexo']
             nuevo_foto = form.cleaned_data['foto_perfil']
             nuevo_email = form.cleaned_data['email']
-            nuevo_telefono = form.cleaned_data['telefono']
+            nuevo_telefono =form.cleaned_data['telefono']
             nuevo_deporte = form.cleaned_data['lista_deporte']
-           
-
+            
             a.first_name = nuevo_nombre
             a.last_name = nuevo_apellido
             a.username = nueva_usuario
-            a.password = nueva_contrasenia
-            a.set_password(nueva_contrasenia)
             a.dni = nuevo_dni
-            a.fechaN = nuevo_fechaN
+            a.fecha_nacimiento = nuevo_fechaN
             a.sexo = nuevo_sexo
             a.foto = nuevo_foto
             a.email = nuevo_email
-            a.telefono = nuevo_telefono 
-            a.lista_deporte = nuevo_deporte          
+            a.password = nueva_contrasenia
+            a.lista_deporte = nuevo_deporte
+            a.telefono = nuevo_telefono
+            a.set_password(nueva_contrasenia) 
             a.save()
 
             return HttpResponseRedirect(reverse('listar_alumnos'))

@@ -245,7 +245,7 @@ def baja_deporte(request, pk):
     try:
         alumno = Alumno.objects.get(legajo=int(request.session['user']))
     except Exception as e:
-        alumno = Persona.objects.get(id=request.user.id)
+        alumno = UsuarioInvitado.objects.get(id=request.user.id)
 
     if request.method == "POST":
         alumno.lista_deporte.remove(pk)

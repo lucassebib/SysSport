@@ -15,16 +15,15 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Nombre</th>
-					<th>Apellido</th>
+					<th>Nombre y Apellido</th>
+					<th>Email</th>
 					<th>Deportes</th>
 				</tr>
 			</thead>
 			{% for u in usuarios %}
 				<tbody>				
 					<tr>
-						<td>{{u.first_name}}</td>
-						<td>{{u.last_name}}</td>
+						<td>{{u.first_name}}&nbsp{{u.last_name}}</td>
 						<td>{{u.ver_lista_deporte}}</td>
 						<td><a title="Editar" href="#"><span class="glyphicon glyphicon-edit"></span></a></td>
 						<td><a title="Eliminar" href="#"><span class="glyphicon glyphicon-remove"></span></a></td>

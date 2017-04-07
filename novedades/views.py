@@ -22,6 +22,8 @@ from novedades.funciones import *
 from forms import FormularioComentario, FormularioNovedades, FormularioNovedadesAdmin
 from paginacion import Paginate
 
+
+
 def vista_index_alumnos(request):
 
 	template = "inicial_alumnos.html"
@@ -362,7 +364,7 @@ def novedades_alumnos(request):
 
 def ver_novedad_filtrado(request, pk):
 	template = "ver_novedad_filtrado.html"	
-	
+		
 	try:
 		alumno = Persona.objects.get(id=request.user.id)
 	except Exception as e:
@@ -375,9 +377,10 @@ def ver_novedad_filtrado(request, pk):
 	ctx = {
 		"posts": posts.order_by('-fecha_publicacion'),
 		"deportes": deportes,
+		# 'clave':clave
 	}
 
-	return render_to_response(template, ctx , context_instance=RequestContext(request))
+	return render_to_response(template, ctx ,  context_instance=RequestContext(request))
 
 
 
