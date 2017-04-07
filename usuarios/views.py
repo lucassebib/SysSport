@@ -69,8 +69,8 @@ def alta_profesor(request):
 			lista_deporte = form.cleaned_data['lista_deporte']
 			
 			p = Profesor()
-			p.first_name = nombre
-			p.last_name = apellido
+			p.first_name = dar_formato(nombre)
+			p.last_name = dar_formato(apellido)
 			p.username = usuario
 			p.dni = dni
 			p.fecha_nacimiento = fechaN
