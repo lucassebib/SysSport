@@ -115,6 +115,9 @@ a, li, h1, h2, h3, h4, p {
 }
 .nav-pills>li>a:hover, .nav-pills>li>a:focus{
 	background-color: transparent;
+}
+.dropdown>li>a{
+	margin-left: 25px;
 
 }
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus,.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus{

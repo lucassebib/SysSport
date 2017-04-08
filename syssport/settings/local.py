@@ -9,7 +9,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'sqlserver_ado',
         'NAME': 'syssport',
-        'HOST': 'localhost',
+        'HOST': 'JAZMIN\SQLEXPRESS',
         'USER': 'proyecto',
         'PASSWORD': 'proyecto2017',
 

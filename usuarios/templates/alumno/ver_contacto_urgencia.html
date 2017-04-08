@@ -29,10 +29,10 @@
 						<table class="table table-condensed contacto-tabla">
 							<tr>
 								<td id="contacto-fila"><h3 class= "panel-default"><i>Contacto  {{ forloop.counter }}</i></h3></td>
-								<td><ul class="nav nav-pills">
-										<li><a title="Editar" href="{% url 'editar_contactoUrgencia' c.id %}"><span class="glyphicon glyphicon-edit"></span> </span></a></li>
-										<li><a title="Eliminar" href="{% url 'eliminar_contactoUrgencia' c.id %}"><span class="glyphicon glyphicon-remove"></span> </span></a></li> 
-									</ul></td>
+								<td>
+									<a title="Editar" href="{% url 'editar_contactoUrgencia' c.id %}"><span class="glyphicon glyphicon-edit"></span></a>
+									<a title="Eliminar" href="{% url 'eliminar_contactoUrgencia' c.id %}"><span class="glyphicon glyphicon-remove"></span></a>
+								</td>
 							</tr>
 							<tr>
 								<td><label class=" control-label">Nombre: </label></td>

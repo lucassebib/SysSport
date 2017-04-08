@@ -24,6 +24,7 @@
 
 		}
 		
+	
 	</script>
 
 	<div class="panel-info">
@@ -36,12 +37,26 @@
 	 			{% include "buscador_novedades.html" %}
 	 		{% endblock %}
 
-			<ul class="nav nav-tabs">
-				<li class="nav-item active"><a class="nav-link" href="{% url 'novedades_alumnos' %}">Ver Todos</a></li>
-				{% for d in deportes%}
-					<li class="nav-item {% if 'ver_novedad_filtrado' == request.resolver_match.view_name  %}active{% endif %}"><a class="nav-link" href="{% url 'ver_novedad_filtrado' d.id %}">{{d.nombre}}</a></li>
-				{% endfor %}
-			</ul>
+				<div class="btn-group">
+					  <button class="btn dropdown-toggle btn-default" type="button"
+					          id="dropdownMenu1" data-toggle="dropdown">
+					    Ver todos
+					    <span class="caret"></span>
+					  </button>
+					 
+					  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+					    <li role="presentation">
+					        <a role="menuitem" tabindex="-1" class="nav-link" href="{% url 'novedades_alumnos' %}">Ver Todos</a>
+					    </li>
+					    <li role="presentation">
+					        {% for d in deportes %}
+							<a role="menuitem" tabindex="-1" class="nav-link" href="{% url 'ver_novedad_filtrado' d.id %}"> {{d.nombre}}</a>
+							{% endfor %}
+					    </li>
+					  </ul>
+				</div>	
+			
+
 			{% if posts %}	
 				{% for post in posts %}
 					<div class="fondo_mensaje esquinas">
