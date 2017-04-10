@@ -13,6 +13,7 @@
 				<tr>
 					<th>Nombre</th>
 					<th>Descripción</th>
+					<th>Genero</th>
 				</tr>
 			</thead>		
 			{% for d in deportes %}
@@ -30,6 +31,7 @@
 						
 						{% endif %}
 					</td>
+					<td>{{d.ver_aptopara}}</td>
 				</tr>
 			</tbody>
 			{% endfor %}

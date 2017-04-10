@@ -24,10 +24,10 @@ def deporte_detalle(request, pk):
     extiende = extiende_de(id_usuario, request)
     e = deporte.entrenamientos.all()
     try:
-        profesor = Profesor.objects.get(lista_deporte__in=pk)
+        profesor = Profesor.objects.filter(lista_deporte__in=pk)
     except Exception as e:
         profesor= ''
-    
+    print(profesor)
     ctx = {
         'deporte': deporte,
         'entrenamientos': e,

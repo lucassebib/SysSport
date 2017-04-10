@@ -503,7 +503,7 @@ def vista_inicial_admin(request):
 	return render_to_response(template, context_instance=RequestContext(request))
 
 
-def ver_informacion_perfil_persona(request):
+def ver_informacion_perfil_persona(request, pk):
 	template = "ver_informacion_perfil_persona.html"
 	
 	id_usuario = obtener_id(request)

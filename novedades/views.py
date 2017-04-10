@@ -15,7 +15,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from deportes.models import Deporte
 from novedades.models import Novedades, Comentario, Notificacion
 from peticiones.models import Peticionesservidor
-from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona
+from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona, perfil_admin
 from usuarios.funciones import *
 from novedades.funciones import *
 
@@ -27,9 +27,7 @@ from paginacion import Paginate
 def vista_index_alumnos(request):
 
 	template = "inicial_alumnos.html"
-	#p = Peticionesservidor.objects.using('sysacad').all()[1]
-	#n = Novedades.objects.using('default22').all()
-	#print(p)
+
 	return render_to_response(template, context_instance=RequestContext(request))
 
 @login_required	
@@ -197,14 +195,14 @@ def ver_novedad_admin(request, pk):
 		form = FormularioComentario(request.POST)
 		if form.is_valid():
 			texto = form.cleaned_data['texto']
-			autor = Persona.objects.get(id=request.user.id)
-			comentario = Comentario(texto=texto, autor=autor)
+			autor = User.objects.get(id=request.user.id)
+			comentario = Comentario(texto=texto, autor=autor.id)
 			comentario.save()
 			novedad.lista_comentarios.add(comentario)
 			novedad.save()
 			#form = FormularioComentario() 
 
-			if not autor.id == novedad.autor.id and not novedad.autor.is_staff:
+			if not autor.id == novedad.autor.id and not autor.is_staff:
 				n = Notificacion()
 				n.id_autor_comentario = autor.id
 				n.autor_comentario = autor.obtenerNombreCompleto()
@@ -227,7 +225,7 @@ def ver_novedad_admin(request, pk):
 		'comentarios':novedad.lista_comentarios.all().order_by('-id'),
 		'extiende': extiende,
 		'puede_editar_comentarios': puede_editar_comentarios,
-		'mensaje': mensaje
+		'mensaje': mensaje,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 ########################################################################################################
@@ -277,8 +275,13 @@ def ver_novedades(request, pk):
 		form = FormularioComentario(request.POST)
 		if form.is_valid():
 			texto = form.cleaned_data['texto']
-			autor = g.id 
-			comentario = Comentario(texto=texto, autor=autor)
+			autor = g.id
+			try:
+				nombre_completo = request.session['nombre'] + ' ' + request.session['apellido'] 
+			except Exception as e:
+				nombre_completo = Persona.objects.get(id=request.user.id).obtenerNombreCompleto 
+			
+			comentario = Comentario(texto=texto, autor=autor, nombre_autor=nombre_completo)
 			comentario.save()
 			novedad.lista_comentarios.add(comentario)
 			novedad.save()
@@ -308,7 +311,10 @@ def ver_novedades(request, pk):
 	#if request.method == "POST" and 'boton_editar' in request.POST:
 		#mensaje='apretaste boton editar'
 		#edicion = True
-	 
+	
+	a = perfil_admin
+
+	#string() 
 	ctx = {
 		'novedad': novedad,
 		'formulario':form,
@@ -317,6 +323,7 @@ def ver_novedades(request, pk):
 		'puede_editar_comentarios': puede_editar_comentarios,
 		'mensaje': mensaje,
 		'usuario': g,
+		'foto_admin': a,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
@@ -350,7 +357,8 @@ def novedades_alumnos(request):
 	posts, mensaje = buscador_novedades(request, posts, mensaje)
 	pag = Paginate(request, posts, 3)
 
-	deportes = alumno.obtener_deportes()	
+	deportes = alumno.obtener_deportes()
+	a = perfil_admin	
 	
 	ctx = {
 		"posts": pag['queryset'],
@@ -358,6 +366,7 @@ def novedades_alumnos(request):
 		#'totPost': init_posts,
      	'paginator': pag,
      	'mensaje': mensaje,
+     	'foto_admin': a,
 	}
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
 

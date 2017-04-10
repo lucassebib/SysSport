@@ -30,9 +30,21 @@
 				<div class="titular-comenatrio contenido-comentario esquinas">
 					<table>
 						<tr>
-							<td class="td_perfil"><a href="{% url 'ver_informacion_perfil_persona' c.obtener_idAutor %}"><img class="img_perfil" src="{{c.obtener_url_imagen}}" ></a></td>
+							<td class="td_perfil">
+								{% if c.es_admin %}
+									<a href='#'></a>
+								{% else %}
+									<a href="{% url 'ver_informacion_perfil_persona' c.obtener_idAutor %}">
+										<img class="img_perfil" src="{% if c.es_admin %}
+																		/media/usuarios/foto_de_perfil/None/admin.jpg
+																	{% else %}
+																		{{c.obtener_url_imagen}}
+																		{% endif %}" >
+									</a>
+								{% endif %}
+							</td>
 							<td class="td_titulo">
-								<h4>{{ c.autor }}</h4>
+								<h4>{{ c.nombre_autor }}</h4>
 								<p2>{{c.fecha_publicacion}}</p2>
 							</td>
 						</tr>

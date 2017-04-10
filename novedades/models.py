@@ -12,6 +12,7 @@ from usuarios.models import Persona, Alumno
 class Comentario(models.Model):
 	texto = models.TextField( verbose_name ='comentario')
 	autor = models.IntegerField()
+	nombre_autor = models.CharField(max_length=150, blank=True, null=True)
 
 	def obtener_url_imagen(self):
 		id_autor = self.autor
@@ -24,6 +25,15 @@ class Comentario(models.Model):
 		
 	def obtener_idAutor(self):
 		return self.autor
+
+	def es_admin(self):
+		a=False
+		try:
+			a = User.objects.get(id=self.autor).is_staff
+		except Exception as e:
+			print(e)
+		print(a)
+		return a
 
 class Novedades(models.Model):
 	pueden_ver = ((1,"Todas las personas"),(2,"Todos los Usuarios Registrados"), (3, "Solo los Usuarios del Deporte"))
@@ -63,6 +73,15 @@ class Novedades(models.Model):
 
 	def ver_visibilidad(self):
 		return self.get_visibilidad_display()
+
+	def es_admin(self):
+		a=False
+		try:
+			a = User.objects.get(id=self.autor.id).is_staff
+		except Exception as e:
+			print(e)
+		print(a)
+		return a
 
 class Notificacion(models.Model):
 	id_autor_comentario = models.IntegerField()

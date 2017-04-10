@@ -10,6 +10,8 @@ from django.db import models
 from deportes.models import Deporte
 from .validators import valid_extension
 
+perfil_admin = '/media/usuarios/fotos_de_perfil/None/admin.jpg'
+
 class DatosMedicos(models.Model):
 	lista_gsanguineo = ((1, "0-"), (2, "0+"), (3, "A-"), (4, "A+"), (5, "B-"), (6, "B+"), (7, "AB-"), (8, "AB+"))
 	lista_sn = ((1, "NO"), (2, "SI"), (3, "NS/NC"))
