@@ -16,17 +16,29 @@
 
             <div class="navbar-collapse collapse" id="adm-usuarios">
                 <div class="visible-lg visible-md visible-sm  panel-heading" align="center">
-                         <h3 class="panel-title">Administración</h3>
+                    <h3 class="panel-title">Administración</h3>
                 </div>
 
                 <ul class="nav nav-pills nav-stacked">
                     <li class="{% if 'ver_novedades_admin' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_novedades_admin' %}#contenido">Novedades</a></li>
                     <!--<li class="{% if 'listar-canchas' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar-canchas' %}#contenido">Canchas</a></li>-->
                     <li class="{% if 'listar-deporte' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar-deporte' %}#contenido">Deportes</a></li>
-                    <li class="{% if 'ver_usuarios' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_usuarios' %}#contenido">Usuarios</a></li>
-                    <li class="{% if 'listar_profes' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar_profes' %}#contenido">Profesores</a></li>
-                     <li class="{% if 'listar_alumnos' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar_alumnos' %}#contenido">Alumnos Invitados</a></li>
-                   
+                    <li class="navbar-default">
+                        <a class="dropdown-toggle collapsed" data-toggle="collapse" data-target="#adm-sub-usuarios" >Usuarios
+                        <span class="caret"></span></a>
+                    </li>
+                    <li class="divider"></li> 
+                        <div class=" collapse" id="adm-sub-usuarios">
+                            <ul class="nav nav-pills nav-stacked dropdown">
+                                                       
+                                <li class="{% if 'ver_usuarios' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_usuarios' %}#contenido">Todos</a></li>
+                                <li class="{% if 'listar_profes' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar_profes' %}#contenido">Profesores</a></li>
+                                <li class="{% if 'listar_alumnos' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar_alumnos' %}#contenido">Alumnos Invitados</a></li>
+                            </ul> 
+                        </div>   
+                
+
+
                 </ul>
 
             </div> 

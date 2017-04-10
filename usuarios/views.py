@@ -52,6 +52,8 @@ from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccio
 def alta_profesor(request):
 	template = "admin/adminProfesores/alta_profe.html"
 	form = FormularioAltaProfe()
+	mensaje = ''
+	rechazo = False
 
 	if request.method == "POST" and 'boton_alta' in request.POST:
 		form = FormularioAltaProfe(request.POST, request.FILES)
@@ -60,6 +62,7 @@ def alta_profesor(request):
 			apellido = form.cleaned_data['last_name']
 			usuario = form.cleaned_data['username']
 			contrasenia = form.cleaned_data['password']
+			contrasenia2 = form.cleaned_data['password2']
 			dni = form.cleaned_data['dni']
 			fechaN = form.cleaned_data['fecha_nacimiento']
 			sexo = form.cleaned_data['sexo']
@@ -77,19 +80,31 @@ def alta_profesor(request):
 			p.sexo = sexo
 			p.foto = foto
 			p.email = email
-			p.password = contrasenia
+			#p.password = contrasenia
 			p.telefono = telefono
-			p.set_password(contrasenia)
-			p.save()
-			p.lista_deporte = lista_deporte
-
-			p.save()
+			#p.set_password(contrasenia)
+			#p.save()
 			
-			return HttpResponseRedirect(reverse('listar_profes'))
+
+			if contrasenia == contrasenia2:
+				p.save()
+				p.lista_deporte = lista_deporte
+				p.set_password(contrasenia)
+				rechazo = True
+				p.save()
+			else:
+				mensaje = '***Passwords no coinciden***'
+				
+
+			
+			if rechazo:
+				return HttpResponseRedirect(reverse('listar_profes'))
+
 
 	ctx = {
 		'form': form,
-		#'mensaje': mensaje,
+		'mensaje': mensaje,
+		'rechazo': rechazo,
 	}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
@@ -97,7 +112,9 @@ def alta_profesor(request):
 def actualizar_profes(request, pk):
     template = "admin/adminProfesores/profes_modificar.html"
     p = Profesor.objects.get(id=pk)
-    form = FormularioAltaProfe()
+    form = FormularioEditarProfesor()
+    mensaje =''
+    rechazo = False
 
     form.initial = {
         'first_name': p.first_name,
@@ -114,12 +131,13 @@ def actualizar_profes(request, pk):
     }
     
     if request.method == 'POST'and 'bModificar' in request.POST:
-        form = FormularioAltaProfe(request.POST)
+        form = FormularioEditarProfesor(request.POST)
         if form.is_valid():
             nuevo_nombre = form.cleaned_data['first_name']
             nuevo_apellido = form.cleaned_data['last_name']
             nueva_usuario = form.cleaned_data['username']
             nueva_contrasenia = form.cleaned_data['password']
+            contrasenia2 = form.cleaned_data['password2']
             nuevo_dni = form.cleaned_data['dni']
             nuevo_fechaN = form.cleaned_data['fecha_nacimiento']
             nuevo_sexo = form.cleaned_data['sexo']
@@ -128,23 +146,35 @@ def actualizar_profes(request, pk):
             nuevo_telefono =form.cleaned_data['telefono']
             nuevo_deporte = form.cleaned_data['lista_deporte']
             
-            p.first_name = nuevo_nombre
-            p.last_name = nuevo_apellido
+            p.first_name = dar_formato(nuevo_nombre)
+            p.last_name = dar_formato(nuevo_apellido)
             p.username = nueva_usuario
             p.dni = nuevo_dni
             p.fecha_nacimiento = nuevo_fechaN
             p.sexo = nuevo_sexo
             p.foto = nuevo_foto
             p.email = nuevo_email
-            p.password = nueva_contrasenia
-            p.lista_deporte = nuevo_deporte
             p.telefono = nuevo_telefono
-            p.set_password(nueva_contrasenia) 
-            p.save()
 
-            return HttpResponseRedirect(reverse('listar_profes'))
+            if nueva_contrasenia==contrasenia2:
+            	p.save()
+            	p.lista_deporte = nuevo_deporte
+            	p.set_password(nueva_contrasenia)
+            	rechazo = True
+            	p.save()
+
+            else:
+            	mensaje = '***Passwords no coinciden***'
+
+            if rechazo:
+            	return HttpResponseRedirect(reverse('listar_profes'))
+
+       
+
     ctx = {
         'form': form,
+        'mensaje':mensaje,
+        'rechazo':rechazo,
     }
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))
@@ -182,6 +212,7 @@ def alta_alumno(request):
 	template = "admin/adminAlumnoInvitado/alta_alumno.html"
 	form = FormularioAltaAlumnoInvitado()
 	mensaje = ''
+	rechazo = False
 	#u = User.objects.get()
 
 	if request.method == "POST" and 'boton_alta' in request.POST:
@@ -204,36 +235,31 @@ def alta_alumno(request):
 			a.first_name = nombre
 			a.last_name = apellido
 			a.username = usuario
-			a.password = contrasenia
 			a.fecha_nacimiento =fechaN
 			a.sexo = sexo
 			a.foto = foto
 			a.email = email
 			a.telefono = telefono
-			a.save()
-			#a.password =contrasenia
-			a.lista_deporte = lista_deporte
 
-			if lista_deporte:
-				for ld in lista_deporte:
-					if d.apto_para == sexo or d.apto_para == 3:
-						a.lista_deporte.add(ld.id)
-            		else:
-            			mensaje = 'usted no se puede incribir a este deporte'	
-
-			
-
-			if contrasenia == contrasenia2:
-				#a.password = contrasenia
+			if contrasenia==contrasenia2:
+				a.save()
+				a.lista_deporte = lista_deporte
 				a.set_password(contrasenia)
-			a.save()
-				
-			
-			return HttpResponseRedirect(reverse('listar_alumnos'))
+				rechazo = True
+				a.save()
+			else:
+				mensaje = '***Password no coinciden***'
+
+			if rechazo:
+				return HttpResponseRedirect(reverse('listar_alumnos'))
+
+
+
 
 	ctx = {
 		'form': form,
 		'mensaje': mensaje,
+		'rechazo':rechazo,
 	}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
@@ -261,6 +287,8 @@ def actualizar_alumnos(request, pk):
     template = "admin/adminAlumnoInvitado/alumno_modificar.html"
     a = UsuarioInvitado.objects.get(id=pk)
     form = FormularioEditarAlumnoInvitado()
+    mensaje = ''
+    rechazo = False
 
     form.initial = {
         'first_name': a.first_name,
@@ -283,6 +311,7 @@ def actualizar_alumnos(request, pk):
             nuevo_apellido = form.cleaned_data['last_name']
             nueva_usuario = form.cleaned_data['username']
             nueva_contrasenia = form.cleaned_data['password']
+            contrasenia2 = form.cleaned_data['password2']
             nuevo_dni = form.cleaned_data['dni']
             nuevo_fechaN = form.cleaned_data['fecha_nacimiento']
             nuevo_sexo = form.cleaned_data['sexo']
@@ -299,15 +328,28 @@ def actualizar_alumnos(request, pk):
             a.sexo = nuevo_sexo
             a.foto = nuevo_foto
             a.email = nuevo_email
-            a.password = nueva_contrasenia
-            a.lista_deporte = nuevo_deporte
+            #a.password = nueva_contrasenia
+            #a.lista_deporte = nuevo_deporte
             a.telefono = nuevo_telefono
-            a.set_password(nueva_contrasenia) 
-            a.save()
+            #a.set_password(nueva_contrasenia) 
+            #a.save()
+            if nueva_contrasenia==contrasenia2:
+            	a.save()
+            	a.lista_deporte = nuevo_deporte
+            	a.set_password(nueva_contrasenia)
+            	rechazo = True
+            	a.save()
+            else:
+            	mensaje = '***Password no coinciden***'
 
-            return HttpResponseRedirect(reverse('listar_alumnos'))
+            if rechazo:
+            	return HttpResponseRedirect(reverse('listar_alumnos'))
+           
     ctx = {
         'form': form,
+        'mensaje':mensaje,
+        'rechazo': rechazo,
+
     }
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))

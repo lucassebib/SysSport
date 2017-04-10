@@ -59,7 +59,7 @@ class FormularioDatosMedicos(forms.ModelForm):
 ################## AMB usuarios##############################
 
 class FormularioAltaProfe(forms.ModelForm):
-	password2 = forms.CharField(label='', widget=forms.PasswordInput(render_value=False, attrs={'required':'True'}))
+	password2 = forms.CharField(label='confirmar password:', widget=forms.PasswordInput(render_value=False, attrs={'required':'True'}))
 	class Meta:		
 		model = Profesor
 		widgets = {
@@ -81,7 +81,7 @@ class FormularioAltaProfe(forms.ModelForm):
 
 
 class FormularioEditarProfesor(forms.ModelForm):
-	password2 = forms.CharField(label='', widget=forms.PasswordInput(render_value=False, attrs={'required':'False'}))
+	password2 = forms.CharField(label='confirmar password', widget=forms.PasswordInput(render_value=False, attrs={'required':'False'}))
 	class Meta:		
 		model = Profesor
 		widgets = {
