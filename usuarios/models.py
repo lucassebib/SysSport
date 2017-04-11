@@ -51,6 +51,7 @@ class Direccion(models.Model):
 	def __unicode__(self):		
 		return '%s %s' % (self.calle, self.altura)
 
+MAX_CONTACTO_URGENCIA = 2
 class ContactoDeUrgencia(models.Model):
 	nombre = models.CharField(max_length=100, blank=True, null=True)
 	apellido = models.CharField(max_length=100, blank=True, null=True)

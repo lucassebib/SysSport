@@ -23,7 +23,7 @@
 					<td>{{d.descripcion}}</td>
 					<td>				
 						{% if d in deportes_alumno %}
-							{% if not darse_de_baja %}
+							{% if darse_de_baja %}
 								<a title="Baja" type="text" href="{% url 'desinscribir_deporte' d.id %}"><span class="glyphicon glyphicon-remove"></span></a>
 							{% endif %}
 							{% else %}
