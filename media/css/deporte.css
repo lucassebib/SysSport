@@ -75,20 +75,26 @@
   
 }
 .img-deporte{
-    height: 200px;
+    height: 180px;
     border-radius: 7px;
+
+
 }
 .info-profesor{
     width: 100%;
-    padding: 20px;
+    padding: 10px;
+    display: inline;
+    float: left;
 }
 .info-deporte{
     width: 100%;
     padding: 20px;
+    float: left;
  }
 .img-circle.perfil-profesor{
     width: 100px;
     height: 100px;
+    padding: 5px;
 }
 .footer{
     margin-top: 30px;
