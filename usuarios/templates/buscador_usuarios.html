@@ -1,0 +1,17 @@
+<!-- BUSCADOR -->
+ 	<div>
+		<form id="formBusqueda" method="POST">{% csrf_token %}
+			<div class="form-horizontal">
+				<input type="text" name="q" value="{{query|escape }}">
+				<button class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar"><span class="glyphicon glyphicon-search"> </span> Buscar</button></br>
+				<input type="radio" id="check_nombre" name="opcion" value="nombre" checked> Nombre
+				<input type="radio" name="opcion" value="apellido"> Apellido
+				<input type="radio" name="opcion" value="deporte"> Deporte
+				
+			</div>
+		</form>
+	</div>
+	<div class="form-group">
+	 	<p>{{mensaje}}</p>
+	 </div>
+<!-- FIN BUSCADOR -->

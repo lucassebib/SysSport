@@ -6,6 +6,9 @@
 		<h1><i>Usuarios</i></h1>
 	</div>
 	<div class="page-content">
+		{% block buscador %}
+			{% include "buscador_usuarios.html" %}
+		{% endblock %}
 		<form class="form-horizontal" method='POST'>
 			 <ul class="nav nav-pills navbar-right">
 			 	
@@ -23,7 +26,8 @@
 			{% for u in usuarios %}
 				<tbody>				
 					<tr>
-						<td>{{u.first_name}}&nbsp{{u.last_name}}</td>
+						<td><a href="#">{{u.first_name}}&nbsp{{u.last_name}}</a></td>
+						<td>{{u.email}}</td>
 						<td>{{u.ver_lista_deporte}}</td>
 						<td><a title="Editar" href="#"><span class="glyphicon glyphicon-edit"></span></a></td>
 						<td><a title="Eliminar" href="#"><span class="glyphicon glyphicon-remove"></span></a></td>

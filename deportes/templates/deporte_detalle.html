@@ -21,19 +21,26 @@
 				INFORMACION DEL PROFESOR
 			-->
 			{% if profesor %}
-				<div class="info-profesor">
-					{% for p in profesor %}	
-						<div class="form-group">
-							<img src="{{p.foto_perfil.url}}" class=" img-circle perfil-profesor">
-						</div>
-						<div class="form-group">
-							<li><label class="control-label">Prof.</label>
-							 {{p.obtenerNombreCompleto}}					
-							 </li>
-							<li><label class="control-label">{{p.email}}</label></li>
-						</div>
+				
+				<table>
+						
+					{% for p in profesor %}
+						<tr class="info-profesor">
+							<td class="form-group">
+								<img src="{{p.foto_perfil.url}}" class=" img-circle perfil-profesor">
+							</td>
+							<td class="form-group">
+								<li><label class="control-label">Prof.</label>
+								 {{p.obtenerNombreCompleto}}					
+								 </li>
+								<li><label class="control-label">{{p.email}}</label></li>
+							</td>
+						</tr>
 					{% endfor %}
-				</div>
+					
+
+					</table>
+				
 			{% else %}
 			 <p>--</p>
 			{% endif %}
