@@ -14,7 +14,7 @@ class FormularioComentario(forms.ModelForm):
 		model = Comentario
 		fields = ['texto']
 		widgets={
-			'texto': forms.Textarea(attrs={'cols':'60', 'rows':'20'})
+			'texto': forms.Textarea(attrs={'cols':'60', 'rows':'20', 'onKeyDown':"contador(this.form.texto,this.form.remLen,125);", 'onKeyUp':"contador(this.form.mensaje,this.form.remLen,125);"})
 		}
 
 class FormularioNovedades(forms.ModelForm):

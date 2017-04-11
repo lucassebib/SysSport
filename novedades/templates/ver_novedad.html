@@ -70,10 +70,19 @@
 				{% endfor %}
 					<div class="comentario">
 						<form class="form-horizontal" role="form" action='' method='POST'>{% csrf_token %}
+							<script> 
+								function contador (campo, cuentacampo, limite) { 
+									if (campo.value.length > limite) campo.value = campo.value.substring(0, limite); 
+									else cuentacampo.value = limite - campo.value.length; 
+									}
+							</script>
 							{{ formulario.as_p }}
+							
+							<input type="text" name="remLen" size="3" maxlength="3" value="125" readonly>
 							<div class="navbar-btn">
 								<button type="submit" class="btn btn-primary" name="boton_agregar">Comentar</button>
 							</div>
+					
 						</form>
 					</div>
 			</div>
