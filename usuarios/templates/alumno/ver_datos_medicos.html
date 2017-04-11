@@ -7,72 +7,63 @@
 
 		<div class="page-content">
 			<ul class="nav nav-tabs" role="tablist">
-				<li class="nav-item active"><a class="nav-link" href="#ficha_medica" data-toggle="tab" >Ficha Médica</a></li>
-				<li class="nav-item"><a class="nav-link" href="#informacion_medica" data-toggle="tab" >Información Médica</a></li>
+				<li class="active" ><a href="#ficha_medica" data-toggle="tab" >Ficha Médica</a></li>
+				<li><a href="#informacion_medica" data-toggle="tab" >Información Médica</a></li>
 			</ul>
-		<div class="tab-content">
-
-	<!-- ################ PANEL FICHA MEDICA ####################################-->
-			<ul class="nav navbar-right nav-pills">
-				<a  title="Info" type="text"  onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){	this.	parentNode.getElementsByTagName('div')[0].style.display = '';this.value = 'Ocultar';}else{this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Ver más';}" type="button" class="btn btn-default ">
-	
-				<span class = "glyphicon glyphicon-info-sign"> </span></a> 
-				<div class="navbar-text" style="display: none;">
-					<div role="tabpanel" class="tab-pane fade in active" id="ficha_medica">
-					<i><p>En este espacio usted podra subir su ficha medica.</p>
-					<p>La ficha medica es un documento que sera suministrado por los profes de los distintos deportes, y la que usted como alumno debera rellenar junto con su medico de confianza.</p>
-					<p>Una vez rellenada, podra subir una copia de la misma para que sea visible por los profes de manera digital.</p>
-					<p>A continuacion le mostraremos la lista de deportes en los cuales se encuentra inscripto, como asi tambien el enlce para descargar la ficha medica y una nota del profesor.</p>
-					<p>Usted esta inscripto en los siguientes deportes:</p></i>
+			<div class="tab-content">
+			<!-- ################ PANEL FICHA MEDICA ####################################-->
+			<div role="tabpanel" class="tab-pane fade in active" id="ficha_medica" >
+				<ul class="nav navbar-right nav-pills">
+					<a  title="Info" type="text"  onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){	this.	parentNode.getElementsByTagName('div')[0].style.display = '';this.value = 'Ocultar';}else{this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Ver más';}" type="button" class="btn btn-default ">
+					<span class = "glyphicon glyphicon-info-sign"> </span></a> 
+					<div class="navbar-text" style="display: none;">
+						<div role="tabpanel" class="tab-pane fade in active" id="ficha_medica">
+							<i><p>En este espacio usted podra subir su ficha medica.</p>
+								<p>La ficha medica es un documento que sera suministrado por los profes de los distintos deportes, y la que usted como alumno debera rellenar junto con su medico de confianza.</p>
+								<p>Una vez rellenada, podra subir una copia de la misma para que sea visible por los profes de manera digital.</p>
+								<p>A continuacion le mostraremos la lista de deportes en los cuales se encuentra inscripto, como asi tambien el enlce para descargar la ficha medica y una nota del profesor.</p>
+								<p>Usted esta inscripto en los siguientes deportes:</p></i>
+						</div>
 					</div>
-				</div>
-			</ul>
-			
+				</ul>
+			{% if deportes %}
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Nota Profesor</th>
+							<th>Archivo</th>
+						</tr>
+					</thead>
+				{% for d in deportes %}
+					<tbody>
+						<tr>
+							<td>{{d.nombre}} </td>
+							{% if d.ficha_medica %}
+								<td>{{d.ficha_medica.descripcion}}</td>
+								<td><a title="Descargar" type="text" href="{{d.ficha_medica.ficha_medica.url}}"> <span class = "glyphicon glyphicon-download-alt" >  </span> </a></td>
 
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>Nombre</th>
-						<th>Nota Profesor</th>
-						<th>Archivo</th>
-					</tr>
-				</thead>
-			
-				{% if deportes %}
-					{% for d in deportes %}
-						<tbody>
-							<tr>
-								<td>{{d.nombre}} </td>
-								{% if d.ficha_medica %}
-									<td>{{d.ficha_medica.descripcion}}</td>
-									<td><a title="Descargar" type="text" href="{{d.ficha_medica.ficha_medica.url}}"> <span class = "glyphicon glyphicon-download-alt" >  </span> </a></td>
-
-								{% else %}
-									<td>El profesor de {{d.nombre}} no ha subido aun una ficha medica.</td>
-									<td>-</td>
-								{% endif %}
-							</tr>
-						</tbody>
-					{% endfor %}	
-			 				
-			</table>
-
-			
-
+							{% else %}
+								<td>El profesor de {{d.nombre}} no ha subido aun una ficha medica.</td>
+								<td>-</td>
+							{% endif %}
+						</tr>
+					</tbody>
+				{% endfor %}
+				</table>
 				<form method="POST" enctype="multipart/form-data">{% csrf_token %}
 					<h3>Fichas Médicas:</h3>
 					{% for d in deportes %}
 						{% if d.ficha_medica and d in alumno.lista_deporte %}
 							{% if alumno.ficha_medica %}
-								Usted ha subido la siguiente ficha médica (haga click en el nombre para descargar): 
-								</br><a id="ficha_medica" href="{{alumno.ficha_medica.url}}">{{alumno.nombre_archivo}}</a>
-							{% endif %}
+							Usted ha subido la siguiente ficha médica (haga click en el nombre para descargar): 
+							</br><a id="ficha_medica" href="{{alumno.ficha_medica.url}}">{{alumno.nombre_archivo}}</a>
+						{% endif %}
 						{% else %}
 							{% if not d.ficha_medica %}
 							{% else %}
 								<ul class="nav navbar-right nav-pills">
 									<a  title="Info" type="text"  onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){	this.	parentNode.getElementsByTagName('div')[0].style.display = '';this.value = 'Ocultar';}else{this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Ver más';}" type="button" class="btn btn-default">
-						
 									<span class = "glyphicon glyphicon-info-sign"> </span> </a> 
 									<div class="navbar-text" style="display: none;">
 										<i><p>Para subir o modificar su ficha medica, seleccione la opcion 'Seleccionar archivo' y posteriormente haga click en Guardar...</p>
@@ -81,21 +72,16 @@
 								</ul>
 								<p>No ha subido todavía su ficha médica</p>
 								{{form.as_p}}
-								
-							<div class="navbar-btn">
-								<button type='submit' class="btn btn-primary" value='Guardar' name="boton_guardar_form">Guardar</button>
-							</div>
-							
+								<div class="navbar-btn">
+									<button type='submit' class="btn btn-primary" value='Guardar' name="boton_guardar_form">Guardar</button>
+								</div>
 							{% endif %} 
 						{% endif %}
-					
+					{% endfor %}
 				</form>
-				{% endfor %}
 			{% endif %} 
 		</div>
-
 	<!-- ################ PANEL INFORMACION MEDICA ####################################-->
-
 		<div role="tabpanel" class="tab-pane fade" id="informacion_medica" >
 			<i><p>A continuacion, nos gustaria que nos suministres los siguientes datos.</p> 
 				<p>Al finalizar, seleccione la opcion "Guardar". Podra dirigirse a esta seccion cada vez que quiera realizar alguna modificacion.</p></i> 	
@@ -112,9 +98,10 @@
 					</div>
 				</div>
 				<button class="btn btn-primary" type="submit" value="Guardar" name="boton_guardar_form_dm">Guardar</button>
-		
 			</form>	
-   			
    		</div>
-	</div>
+   		</div>
+   </div>
+ </div>
+
 {% endblock %}
