@@ -184,3 +184,4 @@ def buscador_novedades(request, consulta, mensaje):
 	return consulta, mensaje
 	#finBUSCADOR
 
+#*************************************************************************************

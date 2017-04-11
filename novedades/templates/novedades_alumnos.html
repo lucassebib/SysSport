@@ -86,8 +86,11 @@
 							</table>
 						</div>
 						<div class="texto_mensaje">
-							<p>{{post.contenido|safe}}</p>
-							<strong><b>Deporte: </b></strong>{{post.obtener_categorias}}
+							<p>{{post.reducir_texto|safe}}</p>
+							<br>
+							<p align="right"><u><a href="{% url 'ver_novedades' post.id %}">Leer mas...</a></u></p>
+							<br>
+							<br><strong><b>Deporte: </b></strong>{{post.obtener_categorias}}
 						</div>
 						
 						<div class="texto">

@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.utils.html import strip_tags
 from tinymce import  models as tinymce_models
 
 from usuarios.models import Profesor
@@ -35,6 +36,7 @@ class Comentario(models.Model):
 		print(a)
 		return a
 
+LIMITE_CARACTERES_NOVEDAD = 250
 class Novedades(models.Model):
 	pueden_ver = ((1,"Todas las personas"),(2,"Todos los Usuarios Registrados"), (3, "Solo los Usuarios del Deporte"))
 
@@ -82,6 +84,9 @@ class Novedades(models.Model):
 			print(e)
 		print(a)
 		return a
+
+	def reducir_texto(self):
+		return strip_tags(self.contenido)[:LIMITE_CARACTERES_NOVEDAD]
 
 class Notificacion(models.Model):
 	id_autor_comentario = models.IntegerField()
