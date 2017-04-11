@@ -6,27 +6,23 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
 from django.core.mail import send_mail
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
 from django.template import Context
 from django.utils import timezone
-from django.views.generic.edit import UpdateView
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from itertools import chain
 
 from deportes.models import Deporte
 from novedades.models import Notificacion
-
-from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.core.urlresolvers import reverse_lazy
 from peticiones.funciones import *
 from usuarios.funciones import *
 from usuarios.forms import *
-
-from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccion, ContactoDeUrgencia, DatosMedicos, carreras_disponibles 
+from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccion, ContactoDeUrgencia, DatosMedicos, carreras_disponibles, MAX_CONTACTO_URGENCIA 
 
 ################# ABM de usuario##########################################################
 """def alta_usuario(request):
@@ -867,6 +863,21 @@ def agregar_contactoUrgencia(request):
 			localidad = request.POST.get('localidad')
 			localidad = dar_formato(localidad)
 
+			#Se verifica que no se excedan la cantidad max de contactos
+			try:
+				alumno = Alumno.objects.get(legajo=int(request.session['user']))
+			except Exception as e:
+				alumno = UsuarioInvitado.objects.get(id=request.user.id)
+
+			contactos = alumno.contactos_de_urgencia.all()
+			contador = 0
+			for c in contactos:
+				contador = contador + 1
+
+			if contador >=MAX_CONTACTO_URGENCIA:
+				guardar = False
+				mensaje_error = 'Solo es posible agregar como maximo: ' + str(MAX_CONTACTO_URGENCIA) + ' contacto/s'
+			
 			if guardar:
 				direccion = Direccion(calle=calle, altura=altura, piso=piso, nro_departamento=nro_departamento, provincia=provincia, localidad=localidad)
 				direccion.save()
@@ -874,10 +885,7 @@ def agregar_contactoUrgencia(request):
 				contacto = ContactoDeUrgencia(nombre=nombre, apellido=apellido, parentezco=parentezco, telefono=telefono, direccion=direccion)
 				contacto.save()
 
-				try:
-					alumno = Alumno.objects.get(legajo=int(request.session['user']))
-				except Exception as e:
-					alumno = UsuarioInvitado.objects.get(id=request.user.id)
+				
 				
 				alumno.contactos_de_urgencia.add(contacto)
 				alumno.save()
