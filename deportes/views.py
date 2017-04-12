@@ -196,6 +196,7 @@ def inscripcion_deportes(request):
     id_usuario = request.user.id
     consulta = Deporte.objects.all()
     mensaje =''
+    usuario = ''
    
     consulta, mensaje = buscador_deportes(request, consulta, mensaje)   
 
@@ -210,7 +211,9 @@ def inscripcion_deportes(request):
         except Exception as e:
             try:
                 g = UsuarioInvitado.objects.get(id=id_usuario)
-                darse_de_baja = False   
+                darse_de_baja = False
+                usuario = 'invitado'
+
             except Exception as e:
                 try:
                     extiende = 'inicio.html'
@@ -226,6 +229,7 @@ def inscripcion_deportes(request):
         'deportes_alumno': g.lista_deporte.all(),
         'darse_de_baja': darse_de_baja,
         'mensaje': mensaje,
+        'is_invitado': usuario=='invitado'
        
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))

@@ -27,8 +27,13 @@
 							{% if darse_de_baja %}
 								<a title="Baja" type="text" href="{% url 'desinscribir_deporte' d.id %}"><span class="glyphicon glyphicon-remove"></span></a>
 							{% endif %}
+							{% if is_invitado %}
+								Inscripto
+							{% endif %}
 						{% else %}
-							<a title="Alta" type="text" href="{% url 'inscripcion_deporte' d.id %}"><span class="glyphicon glyphicon-plus"></span></a>
+							{% if not is_invitado %}
+								<a title="Alta" type="text" href="{% url 'inscripcion_deporte' d.id %}"><span class="glyphicon glyphicon-plus"></span></a>
+							{% endif %}
 						
 						{% endif %}
 					</td>
