@@ -50,7 +50,7 @@ class FormularioEdicionPerfilInvitado(forms.ModelForm):
 		model = UsuarioInvitado
 		exclude = ['username', 'password', 'groups','user_permissions', 'is_staff', 'is_active', 'is_superuser', 
 		'last_login', 'date_joined', 'foto_perfil', 'lista_deporte', 'sexo', 'direccion', 'institucion', 
-		'ficha_medica', 'contactos_de_urgencia']
+		'ficha_medica', 'contactos_de_urgencia', 'datos_medicos']
 
 class FormularioDatosMedicos(forms.ModelForm):
 	class Meta:

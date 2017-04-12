@@ -197,7 +197,7 @@ def ver_novedad_admin(request, pk):
 		if form.is_valid():
 			texto = form.cleaned_data['texto']
 			autor = User.objects.get(id=request.user.id)
-			comentario = Comentario(texto=texto, autor=autor.id)
+			comentario = Comentario(texto=texto, autor=autor.id, nombre_autor='Admin')
 			comentario.save()
 			novedad.lista_comentarios.add(comentario)
 			novedad.save()

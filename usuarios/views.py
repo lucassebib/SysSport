@@ -910,11 +910,7 @@ def ver_contacto_urgencia(request):
 	except Exception as e:
 		contactos = UsuarioInvitado.objects.get(id=request.user.id).contactos_de_urgencia.all()
 
-	# pag = Paginate(request, contactos, 1)
-
 	ctx = {
-	#	'contactos': pag['queryset'],
-    #	'paginator': pag,
     	'contactos': contactos,
 
 	}
