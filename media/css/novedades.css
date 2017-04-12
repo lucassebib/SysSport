@@ -41,6 +41,7 @@ table a:not(.btn), .table a:not(.btn){
 }
 table.tr_comentario{
     margin-top: 30px;
+
 }
 .titular-comentario {
     padding-bottom: 4px;
@@ -72,6 +73,7 @@ table.tr_comentario{
     border: 1px solid #191919; */
     color: #EEEEEE;
     font-weight: bold;
+
 }
 
 .fondo_mensaje {
@@ -96,7 +98,7 @@ table.tr_comentario{
     border: 1px solid #e1e1e1;
     border-radius: 5px;
     color: #000;
-    
+    text-align: left;
 }
 
 .comentario{

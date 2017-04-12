@@ -68,7 +68,8 @@ class CrearNovedades(CreateView):
 
 class ActualizarNovedades(UpdateView):
     model = Novedades
-    fields = ['titulo', 'contenido', 'imagen','visibilidad', 'categoria']
+   
+
   
 class EliminarNovedades(DeleteView):
     model = Novedades
@@ -113,7 +114,7 @@ def editar_novedades_admin(request, pk):
 
 	template = "admin/editar_novedad_admin.html"
 	novedad = Novedades.objects.get(id=pk)
-	mensaje = 'ss'
+	
 
 	form = FormularioNovedadesAdmin()
 	form.initial = {
@@ -139,7 +140,7 @@ def editar_novedades_admin(request, pk):
 
 	ctx = {
 		'form': form,
-		'mensaje': mensaje,
+		
 	}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
