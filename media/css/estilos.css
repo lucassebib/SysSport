@@ -57,7 +57,7 @@ a, li, h1, h2, h3, h4, p {
 }
 .navbar-right{
 	list-style-type: none;
-	padding-right:30px: 
+	padding-right:15px; 
 }
 
 .jumbotron{
@@ -235,7 +235,9 @@ a:hover, a:focus{
 }
 /*Para 800*/
 @media only screen and (max-width: 820px) and (min-width: 621px){ 
-	
+	html, body, p{
+ 		font-size: 20px;
+ 	}
 	.jumbotron{
 				
 		color: #fff;
@@ -251,6 +253,9 @@ a:hover, a:focus{
  }
 /*Para 600*/
 @media only screen and (max-width: 620px) and (min-width: 501px) {
+	html, body, p{
+ 		font-size: 20px;
+ 	}
 	.jumbotron{
 	
 	background-repeat:no-repeat;
