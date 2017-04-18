@@ -57,7 +57,10 @@
     text-decoration: none;
     font-size: 18px;
 }
-
+#boton-atras-deporte{
+    float: left;
+    margin-right: 10px;
+}
 /* Change the width of the three columns to 100% 
 (to stack horizontally on small screens) @media only screen and (max-width: 600px) {
     .columns {
@@ -66,29 +69,29 @@
     }
 }*/
 
-
-.portada-deporte{
-    height: 240px;
-    width: 50%;
-    float: left;
-    padding: 20px;
-  
-}
 .img-deporte{
+    width: 100%;
     height: 180px;
     border-radius: 7px;
-
-
 }
-.info-profesor{
+
+#contenido-deporte{
+    width: 70%;
+    float: left;
+}
+#deporte-portada{
     width: 100%;
+    padding: 10px;
+}
+#info-profesor{
+    width: 30%;
     padding: 10px;
     display: inline;
     float: left;
 }
-.info-deporte{
-    width: 100%;
-    padding: 20px;
+#info-deporte{
+    height: 100%;
+    padding: 15px;
     float: left;
  }
 .img-circle.perfil-profesor{

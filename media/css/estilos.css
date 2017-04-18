@@ -11,7 +11,7 @@
 	padding-left: 0;
 	
 }
-.sidebar-nav.menu, .region-principal{
+.sidebar-nav.menu{
 	margin-left: 10px;
 	margin-bottom: 10px;
 }
@@ -32,6 +32,7 @@ a, li, h1, h2, h3, h4, p {
 	color: #000;
 	list-style: none;
 	margin:0;
+	
 }
 .contacto-tabla{
 	width: 40%;
@@ -50,7 +51,7 @@ a, li, h1, h2, h3, h4, p {
 .region-principal{
 	float: left;
 	min-width: 340px;
-	margin-left: 10px;
+	
 }
 .panel-info{
 	margin-left: 10px;
@@ -168,6 +169,7 @@ a:hover, a:focus{
 }
 .page-content{
 	margin: 10px;
+	width: 100%;
 }
 #ficha_medica{
 	color: #444;
@@ -239,13 +241,12 @@ a:hover, a:focus{
  		font-size: 20px;
  	}
 	.jumbotron{
-				
 		color: #fff;
 		padding: 0px;
-		height: 190px;
+		height: 180px;
 	}
 	.region-principal{
-    	width: 20%;
+    	width: 40%;
     }
 	.navbar-header.menu, .navbar-default.menu{
     	width: 290px;
@@ -265,7 +266,7 @@ a:hover, a:focus{
 	height: 230px;
 	}
 	.region-principal{
-    	width: 9%;
+    	width: 15%;
     }
  	.navbar-header.menu, .navbar-default.menu{
     	width: 290px;

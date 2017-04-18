@@ -20,18 +20,16 @@ class FormularioComentario(forms.ModelForm):
 class FormularioNovedades(forms.ModelForm):
 	class Meta:
 		model = Novedades
-		fields = ['titulo', 'contenido', 'imagen','visibilidad']
+		fields = ['titulo', 'contenido', 'imagen','visibilidad', 'categoria']
 		contenido =forms.CharField(widget=forms.Textarea(attrs={'cols': '80', 'rows':'20'}))
 		#categoria= forms.MultipleChoiceField( widget=forms.CheckboxSelectMultiple())
-		widgets = {
-           'categoria': forms.CheckboxSelectMultiple,
-        }
+		
 
 	def __init__(self, user, *args, **kwargs):
 		super(FormularioNovedades, self).__init__(*args, **kwargs)
 		deportes = Profesor.objects.get(id = user.id).lista_deporte.all()
 		#self.fields["categoria"].widget = forms.CheckboxSelectMultiple()
-        	self.CheckboxSelectMultiple["categoria"].queryset = Deporte.objects.filter(id__in=deportes)
+        	self.fields["categoria"].queryset = Deporte.objects.filter(id__in=deportes)
 
 
 class FormularioNovedadesAdmin(forms.ModelForm):

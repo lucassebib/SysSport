@@ -3,73 +3,58 @@
 {% block contenido %}
 <div class="panel-info">
 	<div class="page-header panel-default">
-		<h1>
-			<button class="btn btn-default" type="button" onclick="history.back(-1)" /><span class="glyphicon glyphicon-arrow-left"></span></button>
-			<i>{{deporte.nombre}} </i>
-		</h1>
+		<button id="boton-atras-deporte" class="btn btn-default" type="button" onclick="history.back(-1)" /><span class="glyphicon glyphicon-arrow-left"></span></button>
+		<h1><i>{{deporte.nombre}} </i></h1>
 	</div>
 	<div class="page-content">
-		<!-- 
-			ESTA SERIA LA FOTO DE PORTADA DEL DEPORTE. 
-			LA IDEA JUSTAMENTE ES QUE SE VEA COMO FOTO DE PORTADA TIPO FACEBOOK ASI COMO TE MOSTRE EN LA IMAGEN 
-		-->
-		<div class=" panel-heading">
-			<div class="img-perfil">
+		<!-- PORTADA DEL DEPORTE -->
+		<div id="contenido-deporte">
+			<div id="deporte-portada">
 				<img src="{{deporte.foto.url}}" class="img-responsive img-deporte" >
 			</div>
-			<!-- 
-				INFORMACION DEL PROFESOR
-			-->
-			{% if profesor %}
-				
-				<table>
-						
-					{% for p in profesor %}
-						<tr class="info-profesor">
-							<td class="form-group">
-								<img src="{{p.foto_perfil.url}}" class=" img-circle perfil-profesor">
-							</td>
-							<td class="form-group">
-								<li><label class="control-label">Prof.</label>
-								 {{p.obtenerNombreCompleto}}					
-								 </li>
-								<li><label class="control-label">{{p.email}}</label></li>
-							</td>
-						</tr>
-					{% endfor %}
-					
-
-					</table>
-				
-			{% else %}
-			 <p>--</p>
-			{% endif %}
-		</div>
-		
-		<!-- 
-			ACA ESTA LA INFO DEL DEPORTE
-		-->
-		<div class="info-deporte">
-			<div class="form-group">
-				<label class="control-label"> Descripcion:</label> {{deporte.descripcion}}
-			</div>
-			<div class="form-group">
-				<label class="control-label">Generos aptos para el deporte:</label> {{deporte.ver_aptopara}}
-			</div>
-			<div class="form-group">
-				<label class="control-label">Horarios de entrenamientos:</label>
-				{% if entrenamientos %}
-					{% for e in entrenamientos %}
-						{{e.dia}}
-						{{e.horario_inicio}}
-						{{e.horario_fin}}
-					{% endfor %}
-				{% else %}
-					<p2>Todavia no se han cargado los horarios de entrenamiento.</p2>
-				{% endif %}
+			<!-- ACA ESTA LA INFO DEL DEPORTE	-->
+			<div id="info-deporte">
+				<div class="form-group">
+					<label class="control-label"> Descripcion:</label> {{deporte.descripcion}}
+				</div>
+				<div class="form-group">
+					<label class="control-label">Generos aptos para el deporte:</label> {{deporte.ver_aptopara}}
+				</div>
+				<div class="form-group">
+					<label class="control-label">Horarios de entrenamientos:</label>
+					{% if entrenamientos %}
+						{% for e in entrenamientos %}
+							{{e.dia}}
+							{{e.horario_inicio}}
+							{{e.horario_fin}}
+						{% endfor %}
+					{% else %}
+						<p2>Todavia no se han cargado los horarios de entrenamiento.</p2>
+					{% endif %}
+				</div>
 			</div>
 		</div>
+		<!--INFORMACION DEL PROFESOR-->
 		
+		{% if profesor %}
+			<table  id="info-profesor" >
+				{% for p in profesor %}
+					<tr>
+						<td class="form-group">
+							<img src="{{p.foto_perfil.url}}" class=" img-circle perfil-profesor">
+						</td>
+						<td class="form-group">
+							<li><label class="control-label">Prof.</label>
+							 {{p.obtenerNombreCompleto}}					
+							 </li>
+							<li><label class="control-label">{{p.email}}</label></li>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		{% else %}
+		 <p>--</p>
+		{% endif %}
 	</div>
 </div>
 {% endblock %}
