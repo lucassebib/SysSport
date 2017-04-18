@@ -1,5 +1,21 @@
 {% extends "baseAlumno.html" %}
 {% block contenido %}
+	<script type="text/javascript">
+		function showContent(div_escondido, visibilidad) {
+	        //element = document.getElementById("div_escondido"); 	        
+	        element = document.getElementById(div_escondido); 
+	        //seleccion = document.getElementById("visibilidad");
+	        seleccion = document.getElementById(visibilidad);
+	        valor = seleccion.options[seleccion.selectedIndex].value;
+	        if (valor == '2') {
+	            element.style.display='block';
+	        }
+	        else {
+	            element.style.display='none';
+	        }
+		}
+	</script>
+
 	<div class="panel-info">
 		<div class="page-header panel-default">
 			<h1><i>Datos médicos</i></h1>
@@ -93,10 +109,49 @@
 							<div class="panel-heading">
 								<h4><i><b>Información médica: </b></i></h4>
 							</div>
-							{% for field in form_dm %}
-								<p>{{field.label}}:</p>
-								<p>{{field}}</p>
-							{% endfor %}
+							<p>Grupo Sanguineo:</p> 
+							{{form_dm.grupo_sanguineo}}
+							<p>Alergias:</p> 
+							{{form_dm.alergias}}
+							<p>Toma Medicamentos:</p> 
+							<select name="visibilidad" id="visibilidad_medicamento" onchange="javascript:showContent('esconder_medicamentos', 'visibilidad_medicamento')">
+								{% for valor, opcion in form_dm.toma_medicamentos.field.choices %}
+					   				<option value="{{valor}}">
+					   					{{opcion}}
+					   				</option> 
+								{% endfor %}
+							</select>
+							<div class="form-group" id="esconder_medicamentos" style="display: none;">
+								<p>Cuales Medicamentos:</p> 
+								{{form_dm.medicamentos_cuales}}
+							</div>
+							
+							<p>Tuvo operaciones:</p> 
+							<select id="visibilidad_operaciones" onchange="javascript:showContent('esconder_operaciones', 'visibilidad_operaciones')">
+								{% for valor, opcion in form_dm.tuvo_operaciones.field.choices %}
+					   				<option value="{{valor}}">
+					   					{{opcion}}
+					   				</option> 
+								{% endfor %}
+							</select>
+							<div class="form-group" id="esconder_operaciones" style="display: none;">
+								<p>Tipo de Operacion:</p> 
+								{{form_dm.operaciones_cuales}}
+							</div>
+
+							<p>Tiene Obra Social:</p> 
+							<select id="visibilidad_osocial" onchange="javascript:showContent('esconder_osocial', 'visibilidad_osocial')">
+								{% for valor, opcion in form_dm.tiene_osocial.field.choices %}
+					   				<option value="{{valor}}">
+					   					{{opcion}}
+					   				</option> 
+								{% endfor %}
+							</select>
+							<div class="form-group" id="esconder_osocial" style="display: none;">
+								<p>Que Obra Social:</p> 
+								{{form_dm.osocial_cual}}
+							</div>
+
 						</div>
 					</div>
 					
