@@ -28,8 +28,8 @@ class FormularioNovedades(forms.ModelForm):
 	def __init__(self, user, *args, **kwargs):
 		super(FormularioNovedades, self).__init__(*args, **kwargs)
 		deportes = Profesor.objects.get(id = user.id).lista_deporte.all()
-		#self.fields["categoria"].widget = forms.CheckboxSelectMultiple()
-        	self.fields["categoria"].queryset = Deporte.objects.filter(id__in=deportes)
+		self.fields["categoria"].widget = forms.CheckboxSelectMultiple()
+		self.fields["categoria"].queryset = Deporte.objects.filter(id__in=deportes)
 
 
 class FormularioNovedadesAdmin(forms.ModelForm):

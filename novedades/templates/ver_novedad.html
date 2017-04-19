@@ -12,7 +12,7 @@
 			<div class="titular-comentario contenido-comentario esquinas">
 				<table class="tabla_comentario" >
 					<tr>
-						<td class="td_perfil" ><a href="{% url 'ver_informacion_perfil_persona' novedad.obtener_idAutor %}"><img class="img_perfil" src="{% if c.es_admin %}{{foto_admin}}{% else %}{{foto_admin}}{% endif %}" ></a></td>
+						<td class="td_perfil" ><a href="{% url 'ver_informacion_perfil_persona' novedad.obtener_idAutor %}"><img class="img_perfil" src="{% if novedad.es_admin %}{{foto_admin}}{% else %}{{novedad.obtener_url_imagen}}{% endif %}" ></a></td>
 						<td class="td_titulo"><b><h3 class="titulo_novedad">{{novedad.titulo}}</h3></b>
 						<p>{{novedad.fecha_publicacion}}</p></td> 
 					</tr>
