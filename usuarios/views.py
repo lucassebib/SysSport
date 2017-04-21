@@ -455,6 +455,7 @@ def vista_registrarse(request):
 	template = 'registro.html'
 	form = FormularioRegistracion()
 	mensaje_error = ''
+	error_mail = False
 
 	if request.method == 'POST' and 'boton_enviar' in request.POST:
 		#form = FormularioRegistracion(request.POST)		
@@ -466,36 +467,50 @@ def vista_registrarse(request):
 		datos_validos = True
 
 		#validacion con el sysacad
-		#validacion = True
-		validacion = establecer_conexion(int(legajo), password)
+		validacion = True
+		#validacion = establecer_conexion(int(legajo), password)
 		print(validacion)
 
 		#datos sysacad
-		email = 'el_lucas992@hotmail.com'
-		dni = 36206924
+		email = 'juanmartin_796@hotmail.com'
+		dni = 366366636
 		nombre = 'Lucas'
 
 		#Creamos el alumno
 		if validacion and datos_validos:
-			a = Alumno(legajo=legajo, dni=dni)
-			a.save()
-			a.lista_deporte.add(lista_deporte)
-			a.save()
+			#Enviar mail de confirmacion
 			salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
 			activation_key = hashlib.sha1(salt+email).hexdigest()
 			key_expires = datetime.today() + timedelta(2)
-			a.activation_key = activation_key
-			a.key_expires = key_expires
-			a.save()
-
-			#Enviar mail de confirmacion
 			asunto = 'Confirmacion de cuenta en Sysport'
 			direccion_servidor = 'http://127.0.0.1:8000/cuenta/confirmar'
 			cuerpo = "Hola %s, Gracias por registrarte. Para activar tu cuenta da click en este link en menos de 48 horas: %s/%s" % (nombre, direccion_servidor, activation_key)
-			send_mail(asunto, cuerpo, 'ver_cuenta@example.com', [email], fail_silently=False)
+			
+			try:
+				print('esta por mandar')
+				send_mail(
+					asunto, 
+					cuerpo, 
+					'ver_cuenta@example.com', 
+					[email], 
+					fail_silently=True
+				)
+			except Exception as e:
+				print('no mando')
+				print(e)
+				error_mail = True
+				mensaje_error = e
 
-			url = 'vista_registracion_exitosa'
-			return HttpResponseRedirect(reverse(url))
+			if not error_mail:
+				a = Alumno(legajo=legajo, dni=dni)
+				a.save()
+				a.lista_deporte.add(lista_deporte)
+				a.save()
+				a.activation_key = activation_key
+				a.key_expires = key_expires
+				a.save()
+				url = 'vista_registracion_exitosa'
+				return HttpResponseRedirect(reverse(url))
 	
 	ctx = {
 		'form': form,
