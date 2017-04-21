@@ -10,8 +10,9 @@
 	font: bold 16px 'Tahoma';
 	text-align: left;
 	padding:1em;
-	overflow: hidden;
-	position: absolute;
+	/*overflow: hidden;*/
+	position: relative;
+	min-height:83px;
 	
 }
 /* Footer left */

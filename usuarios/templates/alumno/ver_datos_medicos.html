@@ -1,21 +1,27 @@
 {% extends "baseAlumno.html" %}
 {% block contenido %}
-	<script type="text/javascript">
-		function showContent(div_escondido, visibilidad) {
-	        //element = document.getElementById("div_escondido"); 	        
-	        element = document.getElementById(div_escondido); 
-	        //seleccion = document.getElementById("visibilidad");
-	        seleccion = document.getElementById(visibilidad);
-	        valor = seleccion.options[seleccion.selectedIndex].value;
-	        if (valor == '2') {
-	            element.style.display='block';
-	        }
-	        else {
-	            element.style.display='none';
-	        }
-		}
+	<script>window.jQuery || document.write('<script src="{% static "js/jquery.min.js" type="text/javascript"}""><\/script>')</script>
+	<script>
+	    $(document).ready(function(){ 
+	      $('#ver-info-datosMedicos').on('click',function(){
+	       $('#info-datosMedicos').slideToggle('slow');
+	      });
+	    });
 	</script>
-
+	<script>
+	    $(document).ready(function(){ 
+	      $('#ver-info-fichaMedica').on('click',function(){
+	       $('#info-fichaMedica').slideToggle('slow');
+	      });
+	    });
+	</script>
+	<script>
+	    $(document).ready(function(){ 
+	      $('#ver-info-infoMedica').on('click',function(){
+	       $('#info-infoMedica').slideToggle('slow');
+	      });
+	    });
+	</script>
 	<div class="panel-info">
 		<div class="page-header panel-default">
 			<h1><i>Datos médicos</i></h1>
@@ -27,17 +33,17 @@
 		<div class="tab-content">
 		<!-- ################ PANEL FICHA MEDICA ####################################-->
 			<div role="tabpanel" class="tab-pane fade in active" id="ficha_medica" >
-				<ul class="nav navbar-right nav-pills">
-					<a  title="Info" type="text"  onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){	this.	parentNode.getElementsByTagName('div')[0].style.display = '';this.value = 'Ocultar';}else{this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Ver más';}" type="button" class="btn btn-default ">
+				<ul class="nav navbar-right">
+					<a id="ver-info-datosMedicos" title="Info" type="text" type="button" class="btn">
 					<span class = "glyphicon glyphicon-info-sign"> </span></a> 
-					<div class="navbar-text" style="display: none;">
-						<i><p>En este espacio usted podra subir su ficha medica.</p>
-							<p>La ficha medica es un documento que sera suministrado por los profes de los distintos deportes, y la que usted como alumno debera rellenar junto con su medico de confianza.</p>
-							<p>Una vez rellenada, podra subir una copia de la misma para que sea visible por los profes de manera digital.</p>
-							<p>A continuacion le mostraremos la lista de deportes en los cuales se encuentra inscripto, como asi tambien el enlce para descargar la ficha medica y una nota del profesor.</p>
-							<p>Usted esta inscripto en los siguientes deportes:</p></i>
-					</div>
 				</ul>
+				<div id="info-datosMedicos" class="navbar-text" style="display: none;">
+					<i><p>En este espacio usted podra subir su ficha medica.</p>
+					<p>La ficha medica es un documento que sera suministrado por los profes de los distintos deportes, y la que usted como alumno debera rellenar junto con su medico de confianza.</p>
+					<p>Una vez rellenada, podra subir una copia de la misma para que sea visible por los profes de manera digital.</p>
+					<p>A continuacion le mostraremos la lista de deportes en los cuales se encuentra inscripto, como asi tambien el enlce para descargar la ficha medica y una nota del profesor.</p>
+					<p>Usted esta inscripto en los siguientes deportes:</p></i>
+				</div>
 				{% if deportes %}
 				<table class="table table-striped">
 					<thead>
@@ -65,44 +71,48 @@
 				</table>
 				<form method="POST" enctype="multipart/form-data">{% csrf_token %}
 					<h3>Fichas Médicas:</h3>
+					<ul class="nav navbar-right">
+						<a  title="Info" type="text" id="ver-info-fichaMedica" type="button" class="btn">
+						<span class = "glyphicon glyphicon-info-sign"> </span> </a> 
+					</ul>
+					<div id="info-fichaMedica" class="navbar-text" style="display: none;">
+						<i><p>Para subir o modificar su ficha medica, seleccione la opcion 'Seleccionar archivo' y posteriormente haga click en Guardar...</p>
+						<p>Por favor, utilice el siguiente formato para el nombre de su archivo: DEPORTE_APELLIDO-NOMBRE_DNI</p></i>
+					</div>
 					{% for d in deportes %}
 						{% if d.ficha_medica and d in alumno.lista_deporte %}
 							{% if alumno.ficha_medica %}
 							Usted ha subido la siguiente ficha médica (haga click en el nombre para descargar): 
 							</br><a id="ficha_medica" href="{{alumno.ficha_medica.url}}">{{alumno.nombre_archivo}}</a>
-						{% endif %}
+							{% endif %}
 						{% else %}
 							{% if not d.ficha_medica %}
+								<li>Todavia no fue cargada la ficha medica de {{d.nombre}} </li>
 							{% else %}
-								<ul class="nav navbar-right nav-pills">
-									<a  title="Info" type="text"  onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){	this.	parentNode.getElementsByTagName('div')[0].style.display = '';this.value = 'Ocultar';}else{this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Ver más';}" type="button" class="btn btn-default">
-									<span class = "glyphicon glyphicon-info-sign"> </span> </a> 
-									<div class="navbar-text" style="display: none;">
-										<i><p>Para subir o modificar su ficha medica, seleccione la opcion 'Seleccionar archivo' y posteriormente haga click en Guardar...</p>
-										<p>Por favor, utilice el siguiente formato para el nombre de su archivo: DEPORTE_APELLIDO-NOMBRE_DNI</p></i>
-									</div>
-								</ul>
-								<p>No ha subido todavía su ficha médica</p>
-								{{form.as_p}}
-								<div class="navbar-btn">
-									<button type='submit' class="btn btn-primary" value='Guardar' name="boton_guardar_form">Guardar</button>
-								</div>
+								<li>No ha subido todavía su ficha médica de {{d.nombre}}</li>
+									
 							{% endif %} 
 						{% endif %}
 					{% endfor %}
+					{{form.as_p}}
+					<div class="navbar-btn">
+						<button type='submit' class="btn btn-primary" value='Guardar' name="boton_guardar_form">Guardar</button>
+					</div>
+					
 				</form>
 				{% endif %} 
 			</div>
 			<!-- ################ PANEL INFORMACION MEDICA ####################################-->
 			<div role="tabpanel" class="tab-pane fade" id="informacion_medica" >
-				<ul class="nav navbar-right nav-pills">
-					<a  title="Info" type="text"  onclick="if(this.parentNode.getElementsByTagName('div')[0].style.display != ''){	this.	parentNode.getElementsByTagName('div')[0].style.display = '';this.value = 'Ocultar';}else{this.parentNode.getElementsByTagName('div')[0].style.display = 'none'; this.value = 'Ver más';}" type="button" class="btn btn-default ">
+				<ul class="nav navbar-right ">
+					<a  title="Info" type="text" id="ver-info-infoMedica" type="button" class="btn  ">
 					<span class = "glyphicon glyphicon-info-sign"> </span></a> 
-					<div class="navbar-text" style="display: none;">
-						<i><p>A continuacion, nos gustaria que nos suministres los siguientes datos.</p> 
-						<p>Al finalizar, seleccione la opcion "Guardar". Podra dirigirse a esta seccion cada vez que quiera realizar alguna modificacion.</p></i> 	
-					</div>
+					
 				</ul>
+				<div id="info-infoMedica" class="navbar-text" style="display: none;">
+					<i>A continuacion, nos gustaria que nos suministres los siguientes datos.</p> 
+					Al finalizar, seleccione la opcion "Guardar". Podra dirigirse a esta seccion cada vez que quiera realizar alguna modificacion.</i> 	
+				</div>
 				<form class="form-horizontal" role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
 					<div class="well">
 						<div class=" panel-default">

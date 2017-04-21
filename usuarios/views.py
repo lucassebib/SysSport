@@ -1041,6 +1041,7 @@ def ver_datos_medicos(request):
 	form_datosMedicos = FormularioDatosMedicos()
 
 	mensaje=''
+	bandera = False
 
 	try:
 		alumno = Alumno.objects.get(legajo=request.session['user'])
@@ -1116,6 +1117,7 @@ def ver_datos_medicos(request):
 		'mensaje': mensaje,
 		'alumno': alumno,
 		'form_dm': form_datosMedicos,
+		'bandera': bandera,
 	}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))

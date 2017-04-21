@@ -8,13 +8,16 @@
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0 maximum-scale=1.0, minimum-scale=1.0"> 
             <link href="{% static "tinymce/tinymce/js/tinymce/skins/lightgray/content.min.css" %}" rel="stylesheet" type="text/css">
-            <link rel="stylesheet" type="text/css" href="{% static "bootstrap/css/bootstrap.min.css" %} "> 
+            <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %} ">
             <link rel="stylesheet" type="text/css" href="{% static "css/estilos.css" %} ">
             <link rel="stylesheet" type="text/css" href="{% static "css/footer.css" %} ">
             <link rel="stylesheet" type="text/css" href="{% static "css/novedades.css" %} ">
             <link rel="stylesheet" type="text/css" href="{% static "css/deporte.css" %} ">
             <link rel="stylesheet" type="text/css" href="{% static "css/formularios.css" %} ">
-             <script src="{% static "tinymce/tinymce/js/tinymce/tinymce.min.js" %}"></script>
+            
+            <script src="{% static "js/jquery.js" %}"></script>
+            <script src="{% static "js/bootstrap.min.js" %}"></script>
+            <script src="{% static "tinymce/tinymce/js/tinymce/tinymce.min.js" %}"></script>
             <script type="text/javascript">
                 tinymce.init({
                   selector: 'textarea#id_contenido',
@@ -33,32 +36,27 @@
             </script>
         </head>
         <body>
-          <div id= "global">
-            
         <!--MENU DE ARRIBA CON Registrarse e Ingresar-->
             <header>
                 <nav role="navigation" class=" navbar navbar-default">
                   	<div class="container-fluid">
                   		<div class="navbar-header">
-                  			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navegacion-dep">
+                  			<button type="button" class="navbar-toggle collapsed " data-toggle="collapse" data-target="#navegacion-dep">
                   				<span class="sr-only">Desplegar/ocultar menu</span>
                   				<span class="icon-bar"></span>
                   				<span class="icon-bar"></span>
                   				<span class="icon-bar"></span>
                   			</button>
-                        <span class="navbar-header menu">
-                          <div class="visible-xs " align="center">
+                        <span class="visible-xs navbar-header menu">
+                          <div align="center">
                             <p class="panel-title" id="hola_usuario">Hola, <b>{{ user.username }} </b></p>
                           </div>
-                      </span>
-                  			
+                        </span>
                   		</div>
-                  		
-                  		<div class="collapse navbar-collapse" id="navegacion-dep">
-                                              
-                  			<ul class="nav navbar-nav navbar-right">
+                  		<div class="navbar-collapse collapse" id="navegacion-dep">
+                  			<ul class="nav navbar-nav navbar-right ">
                   				{% if user.is_authenticated or request.session.user %}
-                            <li><p class="panel-title visible-lg visible-md visible-sm visible-xs " align="center" id="hola_usuario">Hola, <b>{% if request.session.user %}{{request.session.nombre}} {% else %} {{user.username}} {% endif %} </b></p></li>
+                            <li><p class="panel-title visible-lg visible-md visible-sm visible-xs " id="hola_usuario">Hola, <b>{% if request.session.user %}{{request.session.nombre}} {% else %} {{user.username}} {% endif %} </b></p></li>
                             <li><a href="{% url 'url_logout'%}" >Salir</a></li> 
 	                    		{% else %}
                               <li><a href="registrarse" >Registrarse</a></li>
@@ -70,7 +68,6 @@
                 </nav>
             </header> 
             <!--Fin MENU ARRIBA-->      
-                  
            <!-- JUMBOTRON -->
             <section class="jumbotron">
             	<div class="container-fluid cabecera">
@@ -79,37 +76,28 @@
             <!--fin JUMBOTRON-->
             <!--CONTENIDO PRINCIPAL-->
             <section class="main container-fluid">
-            	
-    				    <aside class="region-izquierda ">
-        					{% block menu_izq %}
-        					{% endblock %}
-
-    				    </aside>
-        				<section class="region-principal" id="contenido">
-        					{% block contenido %}
-            				{% endblock %}  
-        				</section>
-				      
+   				    <aside class="region-izquierda ">
+       					{% block menu_izq %}
+       					{% endblock %}
+   				    </aside>
+       				<section class="region-principal" id="contenido">
+       					{% block contenido %}
+         				{% endblock %}  
+       				</section>
             </section>
 	        <!-- fin CONTENIDO PRINCIPAL -->
-            <!-- FOOTER -->
-            <footer class="footer-distributed">
-                <div class="footer-left">
-                    <h2 id="utn-footer">UTN-FRRE <span><small>Área de Deportes</small></span></h2>
-                    <p class="footer-company-name">Derechos reservados @<b>2017</b> UTN-FRRE</p>
-
-                </div>
-                <div class="footer-right">
-                    <a href="http://www.facebook.com/saufrre" target="_blank"><img alt="Siguenos en Facebook" src="https://lh6.googleusercontent.com/-CYt37hfDnQ8/T3nNydojf_I/AAAAAAAAAr0/P5OtlZxV4rk/s32/facebook32.png" width=32 height=32  /></a>
-
-                </div>
+          <!-- FOOTER -->
+          <footer class="footer-distributed">
+            <div class="footer-left">
+              <h2 id="utn-footer">UTN-FRRE <span><small>Área de Deportes</small></span></h2>
+              <p class="footer-company-name">Derechos reservados @<b>2017</b> UTN-FRRE</p>
+            </div>
+            <div class="footer-right">
+              <a href="http://www.facebook.com/saufrre" target="_blank"><img alt="Siguenos en Facebook" src="https://lh6.googleusercontent.com/-CYt37hfDnQ8/T3nNydojf_I/AAAAAAAAAr0/P5OtlZxV4rk/s32/facebook32.png" width=32 height=32  /></a>
+            </div>
 	        </footer> 
 	        <!--fin FOOTER -->
-	       <script src="{% static "bootstrap/js/jquery.js" %}"></script>
-	       <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
-        
-
-           </div>
+          
         </body>
     </html>
                     
