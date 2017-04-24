@@ -136,10 +136,8 @@ html, body{
 	list-style-type: none;
 	padding-right:15px; 
 }
-.nav>li>a{
-	padding: 7px 25px;
-}
-..nav-tabs>li:active>a:hover, .pagination>li:active>a:hover {
+
+.nav-tabs>li:active>a:hover, .pagination>li:active>a:hover {
 	border-color: #ffffff;
 	background-color: #fff;
 	color: #000000;
@@ -158,7 +156,8 @@ html, body{
 	text-align: left; 
 }
 .panel-info{
-	margin-left: 10px;
+	
+	margin: 10px;
 }
 .perfil-tabla, .contacto-tabla{
 	padding-top: 30px; 
@@ -337,4 +336,10 @@ html, body{
 		margin: 0;
 		width: 310px;
     }
+}
+
+@media (max-width: 768px) and (min-width: 5px){
+	.nav>li>a{
+		padding: 7px 25px;
+	}
 }

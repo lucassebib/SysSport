@@ -235,15 +235,17 @@ def ver_novedad_admin(request, pk):
 	
 def ver_novedades_visibilidadTodos(request):
 	template = "novedades_visibilidad_todos.html"
-	
+	mensaje = ''
 	id_usuario = obtener_id(request)
 
 	extiende = extiende_de(id_usuario, request)
-	
+	posts = Novedades.objects.filter(visibilidad__in=[1]).order_by('-fecha_publicacion')
+	posts, mensaje = buscador_novedades(request, posts, mensaje)
 	
 	ctx = {
-		'posts': Novedades.objects.filter(visibilidad__in=[1]).order_by('-fecha_publicacion'), 
+		'posts': posts, 
 		'extiende': extiende,
+		'mensaje': mensaje,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 

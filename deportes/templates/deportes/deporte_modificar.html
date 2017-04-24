@@ -1,24 +1,21 @@
 {% extends "baseAdmin.html" %}
 {% block contenido %}
-	<div class="well ">
-		<div class="panel-info">
-			<h2><i>Modificar Deporte </b> </h2>
+	<div class="panel-info">
+		<div class="page-header">
+			<h1><i>Modificar Deporte </i> </h1>
+		</div>		
+		<div class="page-content">
+			<form role="form" method="POST" accept-charset="utf-8" enctype="multipart/form-data">{% csrf_token %}
+				<div class=" panel-info">
+					{% for field in form_deporte %}	   		
+					{% if not field.label = 'Entrenamientos' %}
+						{{field.label}}
+						<p>{{field}} </p>
+					{% endif %}	
+					{% endfor %}		
+				</div>
+											
 					
-			<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
-				<div class="panel" > 
-					<div class=" panel-default">
-						<div class="panel-heading">
-							<h4>Información del Deporte:</h4>
-						</div>
-						<div class="panel">
-							{% for field in form_deporte %}	   		
-								{% if not field.label = 'Entrenamientos' %}
-									<p>{{field.label}}</p>
-									<p>{{field}} </p>
-								{% endif %}	
-							{% endfor %}									
-						</div>		
-					</div>
 
 				 <!--  <div class=" panel-default">
 						<div class="panel-heading">
@@ -31,7 +28,7 @@
 							{% endfor %}									
 						</div>		
 					</div>	-->							
-				</div>
+				
 				<button class="btn btn-primary" type='submit' value='Aceptar' name= 'bModificar'> Aceptar</button>
 				<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
 			</form>

@@ -10,6 +10,9 @@
 			<h1><i>Novedades</i></h1>
 		</div>
 		<div class="page-content">
+			{% block buscador %}
+		 			{% include "buscador_novedades.html" %}
+		 	{% endblock %}
 			{% for post in posts %}
 				<div class="fondo_mensaje esquinas">
 					<div class="titular-comentario contenido-comentario esquinas">
