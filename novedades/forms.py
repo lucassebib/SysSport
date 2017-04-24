@@ -21,7 +21,7 @@ class FormularioNovedades(forms.ModelForm):
 	class Meta:
 		model = Novedades
 		fields = ['titulo', 'contenido', 'imagen','visibilidad', 'categoria']
-		contenido =forms.CharField(widget=forms.Textarea(attrs={'cols': '80', 'rows':'20'}))
+		contenido = forms.CharField(widget=forms.Textarea(attrs={'cols': '80', 'rows':'20'}))
 		#categoria= forms.MultipleChoiceField( widget=forms.CheckboxSelectMultiple())
 		
 
