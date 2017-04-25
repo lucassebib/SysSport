@@ -1,5 +1,21 @@
 {% extends "baseAlumno.html" %}
 {% block contenido %}
+
+	<script type="text/javascript">
+		function showContent(div_escondido, visibilidad) {
+	        //element = document.getElementById("div_escondido"); 	        
+	        element = document.getElementById(div_escondido); 
+	        //seleccion = document.getElementById("visibilidad");
+	        seleccion = document.getElementById(visibilidad);
+	        valor = seleccion.options[seleccion.selectedIndex].value;
+	        if (valor == '2') {
+	            element.style.display='block';
+	        }
+	        else {
+	            element.style.display='none';
+	        }
+		}
+	</script>
 	<script>window.jQuery || document.write('<script src="{% static "js/jquery.min.js" type="text/javascript"}""><\/script>')</script>
 	<script>
 	    $(document).ready(function(){ 

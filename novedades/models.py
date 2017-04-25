@@ -71,6 +71,7 @@ class Novedades(models.Model):
 		return url_foto
 
 	def obtener_idAutor(self):
+		a = self.autor
 		return self.autor.id
 
 	def ver_visibilidad(self):
