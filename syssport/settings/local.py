@@ -9,7 +9,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'sqlserver_ado',
         'NAME': 'syssport',
-        'HOST': 'localhost',
+        'HOST': 'LAILA\SQLEXPRESS',
         'USER': 'proyecto',
         'PASSWORD': 'proyecto2016',
 
