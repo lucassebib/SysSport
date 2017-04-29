@@ -4,7 +4,7 @@
 		<div class="panel-info">
 			<h2><i>Alta Profesor</b> </h2>
 					
-			<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+			<form role="form" method="POST" enctype="multipart/form-data" accept-charset="utf-8">{% csrf_token %}
 				<div class="panel" > 
 					<div class=" panel-default">
 						<div class="panel-heading">
@@ -25,9 +25,16 @@
 								Fecha de Nacimiento</br>{{form.fecha_nacimiento}}</br>
 								Sexo</br>{{form.sexo}}</br>
 								Foto de perfil</br>{{form.foto_perfil}}</br>
-								email</br>{{form.email}}</br></br>
-								telefono</br>{{form.telefono}}</br>
-								Deportes</br>{{form.lista_deporte}}</br>
+								Email</br>{{form.email}}</br></br>
+								Telefono</br>{{form.telefono}}</br>
+								Deportes</br>
+
+								{% if form.lista_deporte %}
+									{{form.lista_deporte}}</br>
+								{% else %}
+									<p style = " color: red; ">Aún no se han cargado deportes, haz click <a href="{% url 'crear_deporte' %}"> aquí</a> </p>  
+									
+								{% endif %}
 
 					</div>
 							

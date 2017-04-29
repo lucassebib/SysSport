@@ -135,6 +135,7 @@ def editar_novedades_admin(request, pk):
 		'visibilidad' : novedad.visibilidad,
 		'categoria' : novedad.categoria.all(),
 	}
+	
 
 	if request.method == "POST" and 'boton_guardar' in request.POST:
 		form = FormularioNovedadesAdmin(request.POST, request.FILES)
@@ -150,6 +151,7 @@ def editar_novedades_admin(request, pk):
 
 	ctx = {
 		'form': form,
+	
 		
 	}
 
