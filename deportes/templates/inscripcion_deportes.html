@@ -31,7 +31,7 @@
 								Inscripto
 							{% endif %}
 						{% else %}
-							{% if not is_invitado %}
+							{% if  is_invitado %}
 								<a title="Alta" type="text" href="{% url 'inscripcion_deporte' d.id %}"><span class="glyphicon glyphicon-plus"></span></a>
 							{% endif %}
 						
