@@ -1,5 +1,13 @@
 {% extends "baseAdmin.html" %}
 {% block contenido %}
+<script language="javascript" type="text/javascript">
+
+	function popitup(url) {
+	    newwindow=window.open(url,'{{title}}','height=200,width=150');
+	    if (window.focus) {newwindow.focus()}
+	    return false;
+	}
+</script>
 	<div class="well ">
 		<div class="panel-info">
 			<h2><i>Alta Profesor</b> </h2>
@@ -31,8 +39,11 @@
 
 								{% if form.lista_deporte %}
 									{{form.lista_deporte}}</br>
+									<p style = " color: red; "> Para cargar un nuevo deporte haz click<a href="{% url 'crear_deporte' %}"> Aquí</a></p>
 								{% else %}
-									<p style = " color: red; ">Aún no se han cargado deportes, haz click <a href="{% url 'crear_deporte' %}"> aquí</a> </p>  
+
+									<p style = " color: red; ">Aún no se han cargado deportes, haz click
+									<a href="{% url 'crear_deporte' %}" onclick="return popitup('/cantidad/'+)">aquí</a> </p>  
 									
 								{% endif %}
 
