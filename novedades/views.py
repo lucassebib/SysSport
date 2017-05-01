@@ -95,7 +95,6 @@ def ver_novedades_admin(request):
 	dia = ''
 	mes = ''
 	anio = ''
-
 	consulta, mensaje = buscador_novedades(request, consulta, mensaje)
 
 	ctx = {
@@ -147,7 +146,7 @@ def editar_novedades_admin(request, pk):
 			novedad.save()
 			return HttpResponseRedirect(reverse('ver_novedades_admin'))
 
-
+	
 	ctx = {
 		'form': form,
 		

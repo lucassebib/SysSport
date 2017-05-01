@@ -39,84 +39,82 @@
 	    			</form>
 	    		{% endif %}
 			</div>
-
-			
 			<table class="table table-condensed perfil-tabla">
-					<tr class="form-group">
+				<tr class="form-group">
 					<td><label class=" control-label">Nombre:  </label></td>
 					{% if nombre %}
-						<td><label class=" control-label"> {{nombre}} </label></td>
+						<td><p> {{nombre}} </p></td>
 					{% else %}
 						<td><label class=" control-label">  </label></td>
 					{% endif %}
 				</tr>
 				<tr class="form-group">
-					<td><label class="control-label">Apellido:  </label></td>
+					<td><label class=" control-label">Apellido:  </label></td>
 					{% if apellido %}
-						<td><label class=" control-label"> {{apellido}} </label></td>
+						<td><p>{{apellido}} </p></td>
 					{% else %}
-						<td><label class=" control-label">  </label></td>
+						<td><p>  </p></td>
 					{% endif %}
 				</tr>
 				<tr class="form-group">
 					<td><label class=" control-label">Sexo:  </label></td>
-					<td><label class=" control-label">{{sexo}}</label></td>
+					<td><p>{{sexo}}</p></td>
 				</tr>
 				<tr class="form-group">
 					<td><label class=" control-label">DNI:  </label></td>
 					{% if dni %}
-						<td><label class=" control-label"> {{dni}}</label></td>
+						<td><p> {{dni}}</p></td>
 					{% else %}
-						<td><label class=" control-label">  </label></td>
+						<td><p>  </p></td>
 					{% endif %}
 				</tr>
 				<tr class="form-group">
 					<td> <label class=" control-label">E-MAIL:  </label></td>
 					{% if email %}
-						<td> <label class=" control-label"> {{email}}</label></td>
+						<td> <p> {{email}}</p></td>
 					{% else %}
-						<td><label class=" control-label">  </label></td>
+						<td><p>  </p></td>
 					{% endif %}
 				</tr>
 				<tr class="form-group">
 					{% if is_alumno %}
 						<td><label class=" control-label">Legajo:  </label></td>
-						<td><label class=" control-label">{{legajo}}</label></td>
+						<td><p>{{legajo}}</p></td>
 					{% endif %}
 
 					{% if is_invitado %}
 						<td><label class=" control-label">Institución:  </label></td>
-						<td><label class=" control-label">{{institucion}}</label></td>
+						<td><p>{{institucion}}</p></td>
 					{% endif %}
 				</tr>
 				{% if is_alumno %}
 					<tr class="form-group">
 						<td><label class=" control-label">Carrera:  </label></td>
-						<td><label class=" control-label">{{carrera}}</label></td>
+						<td><p>{{carrera}}</p></td>
 					</tr>
 				{% endif %}
 				<tr class="form-group">
 					<td><label class="control-label">Fecha de Nacimiento:  </label></td>
 					{% if fecha_nacimiento %}
-						<td><label class="control-label">{{fecha_nacimiento}}</label></td>
+						<td><p>{{fecha_nacimiento}}</p></td>
 					{% else %}
-						<td><label class=" control-label">  </label></td>
+						<td><p>  </p></td>
 					{% endif %}
 				</tr>
 				<tr class="form-group">
 					<td><label class="control-label">Teléfono:  </label></td>
 					{% if telefono %}
-						<td><label class=" control-label">{{telefono}}</label></td>
+						<td><p>{{telefono}}</p</td>
 					{% else %}
-						<td><label class=" control-label">  </label></td>
+						<td><p>  </p></td>
 					{% endif %}
 				</tr>
 				<tr class="form-group">
 					<td><label class=" control-label">Dirección:  </label></td>
 					{% if legajo %}
-						<td><label class=" control-label">{{direccion}}</label></td>
+						<td><p>{{direccion}}</p></td>
 					{% else %}
-						<td><label class=" control-label">  </label></td>
+						<td><p>  </p></td>
 					{% endif %}
 				</tr>
 			</table>

@@ -30,33 +30,31 @@
 	<div class="panel-info">
 		<div class="page-header panel-default">
 			<h1><i>Novedades</i></h1>
-
 		</div>
-		<div class="page-content">
-			{% block buscador %}
-	 			{% include "buscador_novedades.html" %}
-	 		{% endblock %}
-
-				<div class="btn-group">
-					  <button class="btn dropdown-toggle btn-default" type="button"
-					          id="dropdownMenu1" data-toggle="dropdown">
-					    Ver todos
-					    <span class="caret"></span>
-					  </button>
-					 
-					  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-					    <li role="presentation">
-					        <a role="menuitem" tabindex="-1" class="nav-link" href="{% url 'novedades_alumnos' %}">Ver Todos</a>
-					    </li>
-					    <li role="presentation">
-					        {% for d in deportes %}
-							<a role="menuitem" tabindex="-1" class="nav-link" href="{% url 'ver_novedad_filtrado' d.id %}"> {{d.nombre}}</a>
-							{% endfor %}
-					    </li>
-					  </ul>
-				</div>	
+		<div>
+		{% block buscador %}
+ 			{% include "buscador_novedades.html" %}
+ 		{% endblock %}	
+ 		<div class="form-horizontal">
+ 			<label id="filtradoNovedades">Filtrar por: </label>
+ 			<div class="btn-group">
+				<button class="btn dropdown-toggle btn-default" type="button" id="dropdownMenu1" data-toggle="dropdown">Ver todos <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+				    <li role="presentation">
+				        <a role="menuitem" tabindex="-1" class="nav-link" href="{% url 'novedades_alumnos' %}">Ver Todos</a>
+				    </li>
+				    <li role="presentation">
+				        {% for d in deportes %}
+						<a role="menuitem" tabindex="-1" class="nav-link" href="{% url 'ver_novedad_filtrado' d.id %}"> {{d.nombre}}</a>
+						{% endfor %}
+				    </li>
+				  </ul>
+			</div>
+		</div>	
+		</div>		
+ 		<div class="page-content">
 			
-
 			{% if posts %}	
 				{% for post in posts %}
 					<div class="fondo_mensaje esquinas">

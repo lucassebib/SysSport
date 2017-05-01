@@ -850,7 +850,7 @@ def agregar_contactoUrgencia(request):
 			telefono = form_principal.cleaned_data['telefono']
 			if not telefono.isdigit():
 				guardar = False
-				mensaje_error = 'Error, solo se permiten numeros en el Telefono'
+				mensaje_error = 'Error: solo se permiten numeros en el Telefono'
 
 			form_direccion = FormularioDireccion(request.POST)
 
@@ -870,7 +870,7 @@ def agregar_contactoUrgencia(request):
 
 			if not validar_nro_dpto(nro_departamento):
 				guardar = False
-				mensaje_error = 'Error al ingresar Nro de Departamento.'
+				mensaje_error = 'Error: ingresar Nro de Departamento.'
 
 			provincia = request.POST.get('provincia')
 			provincia = dar_formato(provincia)
@@ -891,7 +891,7 @@ def agregar_contactoUrgencia(request):
 
 			if contador >=MAX_CONTACTO_URGENCIA:
 				guardar = False
-				mensaje_error = 'Solo es posible agregar como maximo: ' + str(MAX_CONTACTO_URGENCIA) + ' contacto/s'
+				mensaje_error = 'Error: solo es posible agregar como maximo: ' + str(MAX_CONTACTO_URGENCIA) + ' contacto/s'
 			
 			if guardar:
 				direccion = Direccion(calle=calle, altura=altura, piso=piso, nro_departamento=nro_departamento, provincia=provincia, localidad=localidad)
@@ -908,7 +908,7 @@ def agregar_contactoUrgencia(request):
 				url = 'ver_contacto_urgencia'
 				return HttpResponseRedirect(reverse(url))
 		else:
-			mensaje_error = 'Faltan datos obligatorios'
+			mensaje_error = 'Error: faltan datos obligatorios'
 	ctx = {
 		'form_principal': form_principal,
 		'form_direccion': form_direccion,
@@ -988,11 +988,10 @@ def editar_contactoUrgencia(request, pk):
 			apellido = dar_formato(apellido)
 			parentezco = form_contacto.cleaned_data['parentezco']
 			parentezco = dar_formato(parentezco)
-
 			telefono = form_contacto.cleaned_data['telefono']
 			if not telefono.isdigit():
 				guardar = False
-				mensaje_error = 'Error, solo se permiten numeros en el Telefono'
+				mensaje_error = 'Error: solo se permiten numeros en el Telefono.'
 
 			form_direccion = FormularioDireccion(request.POST)
 
@@ -1014,7 +1013,7 @@ def editar_contactoUrgencia(request, pk):
 				
 			if not validar_nro_dpto(nro_departamento):
 				guardar = False
-				mensaje_error = 'Error al ingresar Nro de Departamento.'
+				mensaje_error = 'Error: ingresar Nro de Departamento.'
 
 			provincia = request.POST.get('provincia')
 			provincia = dar_formato(provincia)

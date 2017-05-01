@@ -39,16 +39,18 @@
 	    });
 	</script>
 	<div class="panel-info">
-		<div class="page-header panel-default">
-			<h1><i>Datos médicos</i></h1>
-		</div>
+		
 		<ul class="nav nav-tabs" role="tablist">
 			<li class="active" ><a href="#ficha_medica" data-toggle="tab" >Ficha Médica</a></li>
 			<li><a href="#informacion_medica" data-toggle="tab" >Información Médica</a></li>
 		</ul>
 		<div class="tab-content">
 		<!-- ################ PANEL FICHA MEDICA ####################################-->
+			
 			<div role="tabpanel" class="tab-pane fade in active" id="ficha_medica" >
+				<div class="page-header panel-default ">
+					<h3><i> Ficha Médica </i></h3>
+				</div>
 				<ul class="nav navbar-right">
 					<a id="ver-info-datosMedicos" title="Info" type="text" type="button" class="btn">
 					<span class = "glyphicon glyphicon-info-sign"> </span></a> 
@@ -67,6 +69,7 @@
 							<th>Nombre</th>
 							<th>Nota Profesor</th>
 							<th>Archivo</th>
+							
 						</tr>
 					</thead>
 				{% for d in deportes %}
@@ -81,12 +84,13 @@
 								<td>El profesor de {{d.nombre}} no ha subido aun una ficha medica.</td>
 								<td>-</td>
 							{% endif %}
+							
 						</tr>
 					</tbody>
 				{% endfor %}
 				</table>
 				<form method="POST" enctype="multipart/form-data">{% csrf_token %}
-					<h3>Fichas Médicas:</h3>
+					
 					<ul class="nav navbar-right">
 						<a  title="Info" type="text" id="ver-info-fichaMedica" type="button" class="btn">
 						<span class = "glyphicon glyphicon-info-sign"> </span> </a> 
@@ -103,23 +107,26 @@
 							{% endif %}
 						{% else %}
 							{% if not d.ficha_medica %}
-								<li>Todavia no fue cargada la ficha medica de {{d.nombre}} </li>
+								
 							{% else %}
-								<li>No ha subido todavía su ficha médica de {{d.nombre}}</li>
-									
+								{{form.as_p}}
+								<div class="navbar-btn">
+									<button type='submit' class="btn btn-primary" value='Guardar' name="boton_guardar_form">Guardar</button>
+								</div>	
 							{% endif %} 
 						{% endif %}
 					{% endfor %}
-					{{form.as_p}}
-					<div class="navbar-btn">
-						<button type='submit' class="btn btn-primary" value='Guardar' name="boton_guardar_form">Guardar</button>
-					</div>
+
+					
 					
 				</form>
 				{% endif %} 
 			</div>
 			<!-- ################ PANEL INFORMACION MEDICA ####################################-->
 			<div role="tabpanel" class="tab-pane fade" id="informacion_medica" >
+				<div class="page-header panel-default ">
+					<h3><i> Información Médica </i></h3>
+				</div>
 				<ul class="nav navbar-right ">
 					<a  title="Info" type="text" id="ver-info-infoMedica" type="button" class="btn  ">
 					<span class = "glyphicon glyphicon-info-sign"> </span></a> 
@@ -132,9 +139,7 @@
 				<form class="form-horizontal" role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
 					<div class="well">
 						<div class=" panel-default">
-							<div class="panel-heading">
-								<h4><i><b>Información médica: </b></i></h4>
-							</div>
+							
 							<p>Grupo Sanguineo:</p> 
 							{{form_dm.grupo_sanguineo}}
 							<p>Alergias:</p> 

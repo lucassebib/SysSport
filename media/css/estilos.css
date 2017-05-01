@@ -25,9 +25,7 @@ a, li, h1, h2, h3, h4, p {
 	margin:0;
 	
 }
-label{
-	font-weight: normal;
-}
+
 a:hover, a:focus{
 	color: #555;
 }
@@ -41,6 +39,7 @@ html, body, .main.container-fluid, .container{
 html, body{
 	height: 100%;
 }
+
 .caja{
   padding: 10px;
   border: solid 1px #fff;
@@ -52,6 +51,15 @@ html, body{
 }
 .dropdown>li>a{
 	margin-left: 25px;
+}
+#filtradoNovedades{
+	margin-left: 15px;
+}
+#formBusqueda{
+	margin-left: 15px;
+}
+#div_escondido_autor, #div_escondido_fecha{
+	margin-left: 15px;
 }
 .form-control{
 	color: #808080;
@@ -67,6 +75,9 @@ html, body{
 	margin: 0;
 	height: 50px;
 	min-width: 340px;
+}
+.has-feedback label ~ .form-control-feedback{
+	top: 10px;
 }
 .img-circle.perfil{
 	width: 260px;
