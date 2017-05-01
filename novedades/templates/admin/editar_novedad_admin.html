@@ -1,19 +1,50 @@
 {% extends "baseAdmin.html" %}
 
 {% block contenido %}
-<div class="panel-info">
-	<div class="page-header">
+<script type="text/javascript">
+
+		function showContent() {
+	        element = document.getElementById("div_escondido"); 
+	        seleccion = document.getElementById("visibilidad");
+	        valor = seleccion.options[seleccion.selectedIndex].value;
+	        if (valor == '3') {
+	            element.style.display='block';
+	        }
+	        else {
+	            element.style.display='none';
+	        }
+    	}
+	</script>
+	<div class="panel-info">
+	<div class="page-header panel-default">
 		<h1><i>Editar Novedad </i></h1>
 	</div>
 
 	<div class="page-content">
-		<form role="form" method="POST" accept-charset="utf-8" enctype="multipart/form-data">{% csrf_token %}
-			<div class=" panel-info">
-				{% for field in form %}
-					<p>{{field.label}}</p>
-					{{field}}
+
+		<form action='' method='POST' enctype="multipart/form-data">{% csrf_token %}
+			<label  class="form-group">Titulo:</label>
+			{{form.titulo}}<br>
+			<label class="form-group">Contenido:</label><br>
+			{{form.contenido}}<br>
+			<label class="form-group">Imagen:</label>
+			{{form.imagen}}<br>
+			
+			<label class="form-group">Visibilidad:</label>
+			<select name="visibilidad" id="visibilidad" onchange="javascript:showContent()">
+				{% for valor, opcion in form.visibilidad.field.choices %}
+			   		<option value="{{valor}}">
+			   			{{opcion}}
+			   		</option> 
 				{% endfor %}
+			</select>	
+
+			<div id="div_escondido" style="display: none;">
+				<label class="form-group">Categoria:</label>
+				{{form.categoria}}<br>
 			</div>
+			
+	<br>
 			<button class="btn btn-primary" type='submit' value='Guardar' name="boton_guardar">Guardar</button>
 			<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
 		</form>

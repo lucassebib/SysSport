@@ -129,7 +129,7 @@ def actualizar_profes(request, pk):
     }
     
     if request.method == 'POST'and 'bModificar' in request.POST:
-        form = FormularioEditarProfesor(request.POST)
+        form = FormularioEditarProfesor(request.POST, request.FILES)
         if form.is_valid():
             nuevo_nombre = form.cleaned_data['first_name']
             nuevo_apellido = form.cleaned_data['last_name']
@@ -214,7 +214,7 @@ def alta_alumno(request):
 	#u = User.objects.get()
 
 	if request.method == "POST" and 'boton_alta' in request.POST:
-		form = FormularioAltaAlumnoInvitado(request.POST)
+		form = FormularioAltaAlumnoInvitado(request.POST , request.FILES)
 		if form.is_valid():
 			nombre = form.cleaned_data['first_name']
 			apellido = form.cleaned_data['last_name']
@@ -303,7 +303,7 @@ def actualizar_alumnos(request, pk):
     }
     
     if request.method == 'POST'and 'bModificar' in request.POST:
-        form = FormularioEditarAlumnoInvitado(request.POST)
+        form = FormularioEditarAlumnoInvitado(request.POST, request.FILES)
         if form.is_valid():
             nuevo_nombre = form.cleaned_data['first_name']
             nuevo_apellido = form.cleaned_data['last_name']
