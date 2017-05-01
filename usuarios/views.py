@@ -3,8 +3,10 @@ import time
 from datetime import datetime, date, time, timedelta
 
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
+
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.models import User
@@ -836,6 +838,7 @@ def agregar_contactoUrgencia(request):
 	form_direccion = FormularioDireccion()
 	guardar = True
 	mensaje_error = ''
+	mostrar_mensaje = False
 
 	if request.method == "POST":
 		form_principal = FormularioContactoDeUrgencia(request.POST)
@@ -891,6 +894,7 @@ def agregar_contactoUrgencia(request):
 
 			if contador >=MAX_CONTACTO_URGENCIA:
 				guardar = False
+				mostrar_mensaje = True
 				mensaje_error = 'Solo es posible agregar como maximo: ' + str(MAX_CONTACTO_URGENCIA) + ' contacto/s'
 			
 			if guardar:
@@ -913,6 +917,7 @@ def agregar_contactoUrgencia(request):
 		'form_principal': form_principal,
 		'form_direccion': form_direccion,
 		'mensaje_error': mensaje_error,
+		'mostrar_mensaje': mostrar_mensaje,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
