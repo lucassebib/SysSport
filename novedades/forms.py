@@ -33,7 +33,7 @@ class FormularioNovedades(forms.ModelForm):
 		deportes = Profesor.objects.get(id = user.id).lista_deporte.all()
 		self.fields["categoria"].widget = forms.CheckboxSelectMultiple()
 		self.fields["categoria"].queryset = Deporte.objects.filter(id__in=deportes)
-
+		#self.fields["visibilidad"] = 2
 
 class FormularioNovedadesAdmin(forms.ModelForm):
 	class Meta:

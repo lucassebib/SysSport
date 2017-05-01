@@ -11,11 +11,11 @@ DATABASES = {
         'NAME': 'syssport',
         'HOST': 'JAZMIN\SQLEXPRESS',
         'USER': 'proyecto',
-        'PASSWORD': 'proyecto2016',
+        'PASSWORD': 'proyecto2017',
 
         'OPTIONS': {
                     'uncicode_result': 'True',
-                    'provider': 'SQLNCLI10',
+                    'provider': 'SQLNCLI11',
                     'use_mars': 'DataTypeCompatibility=80;MARS Connection=True;'
         }
     },

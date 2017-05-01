@@ -200,7 +200,7 @@ def inscripcion_deportes(request):
    
     consulta, mensaje = buscador_deportes(request, consulta, mensaje)   
 
-    darse_de_baja = True
+    darse_de_baja = False
     try:
         g = Alumno.objects.get(legajo=int(request.session['user']))
         darse_de_baja = True

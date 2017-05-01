@@ -1,10 +1,18 @@
 {% extends "baseAdmin.html" %}
 {% block contenido %}
+<script language="javascript" type="text/javascript">
+
+	function popitup(url) {
+	    newwindow=window.open(url,'{{title}}','height=200,width=150');
+	    if (window.focus) {newwindow.focus()}
+	    return false;
+	}
+</script>
 	<div class="well ">
 		<div class="panel-info">
 			<h2><i>Alta Profesor</b> </h2>
 					
-			<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+			<form role="form" method="POST" enctype="multipart/form-data" accept-charset="utf-8">{% csrf_token %}
 				<div class="panel" > 
 					<div class=" panel-default">
 						<div class="panel-heading">
@@ -25,9 +33,19 @@
 								Fecha de Nacimiento</br>{{form.fecha_nacimiento}}</br>
 								Sexo</br>{{form.sexo}}</br>
 								Foto de perfil</br>{{form.foto_perfil}}</br>
-								email</br>{{form.email}}</br></br>
-								telefono</br>{{form.telefono}}</br>
-								Deportes</br>{{form.lista_deporte}}</br>
+								Email</br>{{form.email}}</br></br>
+								Telefono</br>{{form.telefono}}</br>
+								Deportes</br>
+
+								{% if form.lista_deporte %}
+									{{form.lista_deporte}}</br>
+									<p style = " color: red; "> Para cargar un nuevo deporte haz click<a href="{% url 'crear_deporte' %}"> Aquí</a></p>
+								{% else %}
+
+									<p style = " color: red; ">Aún no se han cargado deportes, haz click
+									<a href="{% url 'crear_deporte' %}" onclick="return popitup('/cantidad/'+)">aquí</a> </p>  
+									
+								{% endif %}
 
 					</div>
 							

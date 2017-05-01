@@ -3,8 +3,10 @@ import time
 from datetime import datetime, date, time, timedelta
 
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
+
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.models import User
@@ -127,7 +129,7 @@ def actualizar_profes(request, pk):
     }
     
     if request.method == 'POST'and 'bModificar' in request.POST:
-        form = FormularioEditarProfesor(request.POST)
+        form = FormularioEditarProfesor(request.POST, request.FILES)
         if form.is_valid():
             nuevo_nombre = form.cleaned_data['first_name']
             nuevo_apellido = form.cleaned_data['last_name']
@@ -212,7 +214,7 @@ def alta_alumno(request):
 	#u = User.objects.get()
 
 	if request.method == "POST" and 'boton_alta' in request.POST:
-		form = FormularioAltaAlumnoInvitado(request.POST)
+		form = FormularioAltaAlumnoInvitado(request.POST , request.FILES)
 		if form.is_valid():
 			nombre = form.cleaned_data['first_name']
 			apellido = form.cleaned_data['last_name']
@@ -301,7 +303,7 @@ def actualizar_alumnos(request, pk):
     }
     
     if request.method == 'POST'and 'bModificar' in request.POST:
-        form = FormularioEditarAlumnoInvitado(request.POST)
+        form = FormularioEditarAlumnoInvitado(request.POST, request.FILES)
         if form.is_valid():
             nuevo_nombre = form.cleaned_data['first_name']
             nuevo_apellido = form.cleaned_data['last_name']
@@ -836,6 +838,7 @@ def agregar_contactoUrgencia(request):
 	form_direccion = FormularioDireccion()
 	guardar = True
 	mensaje_error = ''
+	mostrar_mensaje = False
 
 	if request.method == "POST":
 		form_principal = FormularioContactoDeUrgencia(request.POST)
@@ -891,8 +894,10 @@ def agregar_contactoUrgencia(request):
 
 			if contador >=MAX_CONTACTO_URGENCIA:
 				guardar = False
-				mensaje_error = 'Error: solo es posible agregar como maximo: ' + str(MAX_CONTACTO_URGENCIA) + ' contacto/s'
-			
+
+				mostrar_mensaje = True
+				mensaje_error = 'Solo es posible agregar como maximo: ' + str(MAX_CONTACTO_URGENCIA) + ' contacto/s'
+
 			if guardar:
 				direccion = Direccion(calle=calle, altura=altura, piso=piso, nro_departamento=nro_departamento, provincia=provincia, localidad=localidad)
 				direccion.save()
@@ -913,6 +918,7 @@ def agregar_contactoUrgencia(request):
 		'form_principal': form_principal,
 		'form_direccion': form_direccion,
 		'mensaje_error': mensaje_error,
+		'mostrar_mensaje': mostrar_mensaje,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 

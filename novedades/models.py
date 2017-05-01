@@ -37,6 +37,7 @@ class Comentario(models.Model):
 		return a
 
 LIMITE_CARACTERES_NOVEDAD = 250
+
 class Novedades(models.Model):
 	pueden_ver = ((1,"Todas las personas"),(2,"Todos los Usuarios Registrados"), (3, "Solo los Usuarios del Deporte"))
 	titulo = models.CharField(max_length=100)
