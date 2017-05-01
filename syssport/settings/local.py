@@ -9,13 +9,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'sqlserver_ado',
         'NAME': 'syssport',
-        'HOST': 'LAILA\SQLEXPRESS',
+        'HOST': 'localhost',
         'USER': 'proyecto',
-        'PASSWORD': 'proyecto2017',
+        'PASSWORD': 'proyecto2016',
 
         'OPTIONS': {
                     'uncicode_result': 'True',
-                    'provider': 'SQLNCLI11',
+                    'provider': 'SQLNCLI10',
                     'use_mars': 'DataTypeCompatibility=80;MARS Connection=True;'
         }
     },
