@@ -18,8 +18,8 @@ from peticiones.models import Peticionesservidor
 from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona, perfil_admin
 from usuarios.funciones import *
 from novedades.funciones import *
+from novedades.forms import FormularioComentario, FormularioNovedades, FormularioNovedadesAdmin
 
-from forms import FormularioComentario, FormularioNovedades, FormularioNovedadesAdmin
 from paginacion import Paginate
 
 
@@ -35,7 +35,7 @@ def vista_index_profesores(request):
 	template = "inicial_profesores.html"	
 	return render_to_response(template, context_instance=RequestContext(request))
 
-##################################CRUD NOVEDADES########################################	
+##################################CRUD NOVEDADES PROFESOR########################################	
 
 class ListarNovedades(ListView):
     model = Novedades
@@ -66,6 +66,41 @@ class CrearNovedades(CreateView):
 		a.autor = self.request.user
 		return super(CrearNovedades, self).form_valid(form)
 
+"""
+def editar_novedad(request, pk):
+
+	template = "novedades/novedades_form.html"
+	novedad = Novedades.objects.get(id=pk)
+	form = FormularioNovedades(user=request.user)
+	visibilidad_default = novedad.visibilidad
+	form.initial = {
+		'titulo' : novedad.titulo, 
+		'contenido' : novedad.contenido,
+		'fecha_publicacion' : novedad.fecha_publicacion,
+		'imagen' : novedad.imagen,
+		'categoria' : novedad.categoria.all(),
+		'visibilidad': novedad.visibilidad,
+	}
+
+	if request.method == "POST" and 'boton_guardar' in request.POST:
+		form = FormularioNovedadesAdmin(request.POST, request.FILES)
+		if form.is_valid():
+			novedad.titulo = form.cleaned_data['titulo']
+			novedad.contenido = form.cleaned_data['contenido']
+			novedad.imagen = form.cleaned_data['imagen']
+			novedad.visibilidad = form.cleaned_data['visibilidad']
+			novedad.categoria = form.cleaned_data['categoria']
+			novedad.save()
+			return HttpResponseRedirect(reverse('listar-novedades'))
+
+
+	ctx = {
+		'form': form,
+		'visibilidad_default': visibilidad_default,		
+	}
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+"""
 class ActualizarNovedades(UpdateView):
     model = Novedades
     form_class = FormularioNovedades
@@ -80,7 +115,7 @@ class ActualizarNovedades(UpdateView):
 		#a.autor = Profesor.objects.get(id = self.request.user.id)
 		a.autor = self.request.user
 		return super(CrearNovedades, self).form_valid(form)
-  
+ 
 class EliminarNovedades(DeleteView):
     model = Novedades
     context_object_name = 'novedades'
@@ -149,8 +184,7 @@ def editar_novedades_admin(request, pk):
 
 
 	ctx = {
-		'form': form,
-		
+		'form': form,		
 	}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
