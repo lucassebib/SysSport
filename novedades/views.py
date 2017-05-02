@@ -300,6 +300,7 @@ def ver_novedades(request, pk):
 	novedad = Novedades.objects.get(id=pk)
 	puede_editar_comentarios = False
 	mensaje = ''
+	g = ''
 	
 	try:
 		g = Alumno.objects.get(legajo=int(request.session['user']))
@@ -317,6 +318,8 @@ def ver_novedades(request, pk):
 			except Exception as e:
 				if request.user.is_staff:
 					extiende = 'baseAdmin.html'
+				else:
+					extiende = 'usuario_noLogueado.html'
 
 	if request.method == "POST" and 'boton_agregar' in request.POST:
 		form = FormularioComentario(request.POST)
@@ -360,7 +363,6 @@ def ver_novedades(request, pk):
 		#edicion = True
 	
 	a = perfil_admin
-
 	#string() 
 	ctx = {
 		'novedad': novedad,

@@ -68,6 +68,7 @@
 						
 					</div>
 				{% endfor %}
+
 					<div class="comentario">
 						<form class="form-horizontal" role="form" action='' method='POST'>{% csrf_token %}
 							<script> 
@@ -76,12 +77,15 @@
 									else cuentacampo.value = limite - campo.value.length; 
 									}
 							</script>
-							{{ formulario.as_p }}
-							
-							<input type="text" name="remLen" size="3" maxlength="3" value="125" readonly>
-							<div class="navbar-btn">
-								<button type="submit" class="btn btn-primary" name="boton_agregar">Comentar</button>
-							</div>
+
+							{% if usuario %}
+								{{ formulario.as_p }}
+								
+								<input type="text" name="remLen" size="3" maxlength="3" value="125" readonly>
+								<div class="navbar-btn">
+									<button type="submit" class="btn btn-primary" name="boton_agregar">Comentar</button>
+								</div>
+							{% endif %}
 					
 						</form>
 					</div>
