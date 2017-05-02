@@ -202,11 +202,9 @@ html, body{
 #ficha_medica{
 	color: #444;
 }
-#link-Publicacion:hover{
-	color :#800080;
-}
+
 #link-Publicacion:link{
-	color :#00FF00;
+	
 	text-decoration:underline;
 }
 #syssport{

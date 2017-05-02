@@ -340,7 +340,7 @@ def ver_novedades(request, pk):
 				try:
 					nombre_completo = request.session['nombre'] + ' ' + request.session['apellido'] 
 				except Exception as e:
-					nombre_completo = Persona.objects.get(id=request.user.id).obtenerNombreCompleto
+					nombre_completo = Persona.objects.get(id=request.user.id).obtenerNombreCompleto()
 				n.autor_comentario = nombre_completo
 				n.notificar_a = novedad.autor
 				n.novedad = novedad
