@@ -38,9 +38,11 @@
 						</table>
 					</div>
 					<div class="texto_mensaje">
-						<p>{{post.contenido|safe}}</p>
-						<p>{{post.imagen}}</p>
-						<p><strong>Deporte: </strong>Todos</p>
+						<p>{{post.reducir_texto|safe}}</p>
+						
+						<p align="right"><u><a href="{% url 'ver_novedades' post.id %}">Leer mas...</a></u></p>
+						
+						<strong><b>Deporte: </b></strong>{{post.obtener_categorias}}
 					</div>
 
 				</div>
