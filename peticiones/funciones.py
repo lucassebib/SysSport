@@ -79,7 +79,7 @@ def obtener_datos_academicos(username, f_desde, f_hasta):
 	}
 	
 	legajo = username 
-	
+	"""
 	fecha = datetime.now().strftime('%Y%m%d%H%M%S')
 	IDEXTERNA = str(fecha) + str(username) + 'D'
 	peticion = Peticionesservidor()
@@ -100,9 +100,9 @@ def obtener_datos_academicos(username, f_desde, f_hasta):
 		return a
 
 	paramXML = ET.fromstring(newPeticion.parametro2.encode('ISO-8859-1'))
-	
-	#paramXML = '<?xml version = "1.0" encoding="Windows-1252" standalone="yes"?><VFPData><_parametro2><fecha>2010-07-28</fecha><nombre>Algebra y Geometria Analitica</nombre><nota>seis</nota><especialidad>5</especialidad><abreviaturaespecialidad>Ing. Sist. Inf.</abreviaturaespecialidad><plan>2008</plan><materia>101</materia></_parametro2><_parametro2><fecha>2010-10-08</fecha><nombre>Matematica Discreta</nombre><nota>seis</nota><especialidad>5</especialidad><abreviaturaespecialidad>Ing. Sist. Inf.</abreviaturaespecialidad><plan>2008</plan><materia>121</materia></_parametro2></VFPData>'
-	#paramXML = ET.fromstring(paramXML.encode('ISO-8859-1'))
+	"""
+	paramXML = '<?xml version = "1.0" encoding="Windows-1252" standalone="yes"?><VFPData><_parametro2><fecha>2010-07-28</fecha><nombre>Algebra y Geometria Analitica</nombre><nota>seis</nota><especialidad>5</especialidad><abreviaturaespecialidad>Ing. Sist. Inf.</abreviaturaespecialidad><plan>2008</plan><materia>101</materia></_parametro2><_parametro2><fecha>2010-10-08</fecha><nombre>Matematica Discreta</nombre><nota>seis</nota><especialidad>5</especialidad><abreviaturaespecialidad>Ing. Sist. Inf.</abreviaturaespecialidad><plan>2008</plan><materia>121</materia></_parametro2></VFPData>'
+	paramXML = ET.fromstring(paramXML.encode('ISO-8859-1'))
 	#flag = False
 	for x in paramXML:
 		for z in x:

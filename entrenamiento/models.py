@@ -22,6 +22,11 @@ class Entrenamiento(models.Model):
 
 	def ver_horario_fin(self):
 		return self.get_horario_fin_display()
+
+	def ver_horario_completo(self):
+		return self.get_dia_display() + ' de ' + self.get_horario_inicio_display() + ' hs. ' + 'a ' + self.get_horario_fin_display() + ' hs.'
+
+
 		
 		
 
