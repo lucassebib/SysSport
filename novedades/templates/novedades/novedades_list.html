@@ -30,36 +30,30 @@
 
 <div class="panel-info">
 	<div class="page-header panel-default">
-		<h1><i>Mis Novedades</i></h1>
+		<h1><i>Mis Novedades</i>
+		<ul class=" navbar navbar-right nav-pills">
+	 		<a title="Crear Novedad" href="{% url 'crear-novedad' %}"><button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></a>
+	 	</ul></h1>
 	</div>
 	<div class="page-content">
+ 		{% for novedad in object_list %}
+			<div class="fondo_mensaje esquinas">
+				<div class="titular-comentario contenido-comentario esquinas">
+					<table class="tabla_comentario">
+						<tr>
+							<td class="td_perfil"><img class="img_perfil" src="{{novedad.obtener_url_imagen}}" ></td>
+							<td class="td_titulo small"><a href="{% url 'ver_novedades' novedad.id %}"><b><h3 class="titulo_novedad">{{novedad.titulo}}</h3></b></a>
 
-		<div class="form-group"'>	 	
-		 	<ul class=" navbar navbar-right nav-pills">
-		 		<a title="Crear Novedad" href="{% url 'crear-novedad' %}"><button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></a>
-		 	</ul>		
-		</div>
-		
-	 	<div id="mis_novedades">
-	 		{% for novedad in object_list %}
-				<div class="fondo_mensaje esquinas">
-					<div class="titular-comentario contenido-comentario esquinas">
-						<table class="tabla_comentario">
-							<tr>
-								<td class="td_perfil"><img class="img_perfil" src="{{novedad.obtener_url_imagen}}" ></td>
-								<td class="td_titulo small"><a href="{% url 'ver_novedades' novedad.id %}"><b><h3 class="titulo_novedad">{{novedad.titulo}}</h3></b></a>
+							<p class="fecha">{{novedad.fecha_publicacion}}</p>
+							</td>
+							<td class="td_responder"><a title="Editar" href="{% url 'actualizar-novedad' novedad.id %}"> <span  class="glyphicon glyphicon-edit" > </span> </a></td>
+							<td class="td_responder"><a title="Eliminar" href="{% url 'eliminar-novedad' novedad.id %}"> <span  class="glyphicon glyphicon-remove" > </span></a></td>
 
-								<p class="fecha">{{novedad.fecha_publicacion}}</p>
-								</td>
-								<td class="td_responder"><a title="Editar" href="{% url 'actualizar-novedad' novedad.id %}"> <span  class="glyphicon glyphicon-edit" > </span> </a></td>
-								<td class="td_responder"><a title="Eliminar" href="{% url 'eliminar-novedad' novedad.id %}"> <span  class="glyphicon glyphicon-remove" > </span></a></td>
-
-							</tr>
-						</table>
-					</div>		
-				</div>	
-			{% endfor %}
-	 	</div>
+						</tr>
+					</table>
+				</div>		
+			</div>	
+		{% endfor %}
 	</div>
 	<div class="pagination">
     	<ul class="navbar navbar-left">

@@ -474,7 +474,7 @@ def vista_registrarse(request):
 		print(validacion)
 
 		#datos sysacad
-		email = 'juanmartin_796@hotmail.com'
+		email = 'lucas.sebib@gmail.com'
 		dni = 366366636
 		nombre = 'Lucas'
 

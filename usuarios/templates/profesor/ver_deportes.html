@@ -2,32 +2,36 @@
 {% block contenido %}
 	<div class="panel-info">
 		<div class="page-header panel-default">
-			<h1><i>Deportes:</i></h1>
+			<h1><i>Participantes</i></h1>
 		</div>
 		<div class="page-content">
-		<table class="table table-striped">
-        <thead>
-        	<tr>
-        		<th>
-        			Deportes
-        		</th>
-        	</tr>
-        </thead>
-         
-        <tbody>
-         
-         <!--Deportes de {{user.first_name}}-->
-			 {% for d in deportes %}
-				<tr><td><a href="{% url 'ver-alumnos' d.id %}">{{d.nombre}}</a></td></tr>
-			{% endfor %}
-				<!--Otros deportes-->
-			{% for d in otrosDeportes %}
-				<tr><td><a href="{% url 'ver-alumnos' d.id %}">{{d.nombre}}</a></td></tr>
-	        {% endfor %}
-	    </tbody>        
-		</table>
-			</tbody>
-
+		<p>Elegir el deporte que desea visualizar los participantes</p></br>
+			<table id="deportes-tabla" class="table table-hover">
+		        <!--Deportes de {{user.first_name}}-->
+		        <thead>
+		        	<tr>
+		        		<th id="cabecera-tabla"> Mis Deportes</th>
+		        	</tr>
+		        </thead>
+				 {% for d in deportes %}
+				<tbody>
+					<tr><td><a href="{% url 'ver-alumnos' d.id %}">{{d.nombre}}</a></td></tr>
+				</tbody> 
+				{% endfor %}
+			</table>
+			<table id="deportes-tabla" class="table table-hover">
+					<!--Otros deportes-->
+				<thead>
+		        	<tr>
+		        		<th id="cabecera-tabla"> Otros Deportes</th>
+		        	</tr>
+		        </thead>
+				{% for d in otrosDeportes %}
+				<tbody>
+					<tr><td><a href="{% url 'ver-alumnos' d.id %}">{{d.nombre}}</a></td></tr>
+				</tbody> 
+		        {% endfor %}
+			</table>
        </div>
 	</div>
 	

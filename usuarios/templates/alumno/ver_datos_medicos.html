@@ -49,12 +49,13 @@
 			
 			<div role="tabpanel" class="tab-pane fade in active" id="ficha_medica" >
 				<div class="page-header panel-default ">
-					<h3><i> Ficha Médica </i></h3>
-				</div>
-				<ul class="nav navbar-right">
+					<h3><i> Ficha Médica </i>
+					<ul class="nav navbar-right">
 					<a id="ver-info-datosMedicos" title="Info" type="text" type="button" class="btn">
 					<span class = "glyphicon glyphicon-info-sign"> </span></a> 
-				</ul>
+				</ul></h3>
+				</div>
+				
 				<div id="info-datosMedicos" class="navbar-text" style="display: none;">
 					<i><p>En este espacio usted podra subir su ficha medica.</p>
 					<p>La ficha medica es un documento que sera suministrado por los profes de los distintos deportes, y la que usted como alumno debera rellenar junto con su medico de confianza.</p>
@@ -65,7 +66,7 @@
 				{% if deportes %}
 				<table class="table table-striped">
 					<thead>
-						<tr>
+						<tr id="cabecera-tabla">
 							<th>Nombre</th>
 							<th>Nota Profesor</th>
 							<th>Archivo</th>
@@ -81,7 +82,7 @@
 								<td><a title="Descargar" type="text" href="{{d.ficha_medica.ficha_medica.url}}"> <span class = "glyphicon glyphicon-download-alt" >  </span> </a></td>
 
 							{% else %}
-								<td>El profesor de {{d.nombre}} no ha subido aun una ficha medica.</td>
+								<td>El profesor de {{d.nombre}} no ha subido aun una ficha médica.</td>
 								<td>-</td>
 							{% endif %}
 							
@@ -96,7 +97,7 @@
 						<span class = "glyphicon glyphicon-info-sign"> </span> </a> 
 					</ul>
 					<div id="info-fichaMedica" class="navbar-text" style="display: none;">
-						<i><p>Para subir o modificar su ficha medica, seleccione la opcion 'Seleccionar archivo' y posteriormente haga click en Guardar...</p>
+						<i><p>Para subir o modificar su ficha médica, seleccione la opción 'Seleccionar archivo' y posteriormente haga click en Guardar...</p>
 						<p>Por favor, utilice el siguiente formato para el nombre de su archivo: DEPORTE_APELLIDO-NOMBRE_DNI</p></i>
 					</div>
 					{% for d in deportes %}
@@ -125,13 +126,12 @@
 			<!-- ################ PANEL INFORMACION MEDICA ####################################-->
 			<div role="tabpanel" class="tab-pane fade" id="informacion_medica" >
 				<div class="page-header panel-default ">
-					<h3><i> Información Médica </i></h3>
-				</div>
-				<ul class="nav navbar-right ">
+					<h3><i> Información Médica </i>
+					<ul class="nav navbar-right ">
 					<a  title="Info" type="text" id="ver-info-infoMedica" type="button" class="btn  ">
 					<span class = "glyphicon glyphicon-info-sign"> </span></a> 
-					
-				</ul>
+				</ul></h3>
+				</div>
 				<div id="info-infoMedica" class="navbar-text" style="display: none;">
 					<i>A continuacion, nos gustaria que nos suministres los siguientes datos.</p> 
 					Al finalizar, seleccione la opcion "Guardar". Podra dirigirse a esta seccion cada vez que quiera realizar alguna modificacion.</i> 	
