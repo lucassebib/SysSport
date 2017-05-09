@@ -399,20 +399,20 @@ def vista_pagina_inicio(request):
 				if alumno_utn_bd and alumno_utn and alumno_utn_bd.is_active:
 					#--Se inicia sesion de un alumno UTN
 					#datos = obtener_datos_iniciales(usuario, password)	
-					datos = {'nombre': 'Lucas', 'apellido': 'Perez', 'carrera': 5}				
+					datos = {'nombre': 'Tahiel', 'apellido': 'Bastiani', 'carrera': 5}				
 					request.session["user"] = usuario
 					request.session['id_user']= alumno_utn_bd.id
 					request.session["nombre"] = datos['nombre']
 					request.session["apellido"] = datos['apellido']
 					request.session["carrera"] = int(datos['carrera'])
-					request.session["correo"] = 'lucaaaaaaaaaaas.sebiiiiiiiiiib@gmail.com'
+					request.session["correo"] = 'elduendeloco@hotmail.com'
 
 					# Tener en cuenta que: (1,"Masculino"),(2,"Femenino")
 					request.session["sexo"] = 1
 					
-					request.session["fecha_nacimiento"] = '22/03/1992'
-					request.session["telefono"] = '3704217140'
-					request.session["direccion"] = 'Av 9 de Julio 1487'
+					request.session["fecha_nacimiento"] = 'DD/MM/AAAA'
+					request.session["telefono"] = '37042171212'
+					request.session["direccion"] = 'Lestani 123'
 					url = 'inicial_alumnos'
 					return HttpResponseRedirect(reverse(url))
 			except Exception as e:
@@ -474,7 +474,8 @@ def vista_registrarse(request):
 		print(validacion)
 
 		#datos sysacad
-		email = 'lucas.sebib@gmail.com'
+
+		email = 'el_lucas992@hotmail.com'
 		dni = 366366636
 		nombre = 'Lucas'
 
@@ -484,35 +485,35 @@ def vista_registrarse(request):
 			salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
 			activation_key = hashlib.sha1(salt+email).hexdigest()
 			key_expires = datetime.today() + timedelta(2)
-			asunto = 'Confirmacion de cuenta en Sysport'
+			asunto = 'Confirmacion de cuenta en SysSport'
 			direccion_servidor = 'http://127.0.0.1:8000/cuenta/confirmar'
 			cuerpo = "Hola %s, Gracias por registrarte. Para activar tu cuenta da click en este link en menos de 48 horas: %s/%s" % (nombre, direccion_servidor, activation_key)
 			
-			try:
-				print('esta por mandar')
-				send_mail(
-					asunto, 
-					cuerpo, 
-					'ver_cuenta@example.com', 
-					[email], 
-					fail_silently=True
-				)
-			except Exception as e:
-				print('no mando')
-				print(e)
-				error_mail = True
-				mensaje_error = e
+			
+			print('esta por mandar')
+			send_mail(
+				asunto, 
+				cuerpo, 
+				'ver_cuenta@example.com', 
+				[email], 
+				fail_silently=False
+			)
+			#except Exception as e:
+			#	print('no mando')
+			#	print(e)
+			#	error_mail = True
+			#	mensaje_error = e
 
-			if not error_mail:
-				a = Alumno(legajo=legajo, dni=dni)
-				a.save()
-				a.lista_deporte.add(lista_deporte)
-				a.save()
-				a.activation_key = activation_key
-				a.key_expires = key_expires
-				a.save()
-				url = 'vista_registracion_exitosa'
-				return HttpResponseRedirect(reverse(url))
+			#if not error_mail:
+			a = Alumno(legajo=legajo, dni=dni)
+			a.save()
+			a.lista_deporte.add(lista_deporte)
+			a.save()
+			a.activation_key = activation_key
+			a.key_expires = key_expires
+			a.save()
+			url = 'vista_registracion_exitosa'
+			return HttpResponseRedirect(reverse(url))
 	
 	ctx = {
 		'form': form,
