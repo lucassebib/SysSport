@@ -112,6 +112,7 @@ def actualizar_profes(request, pk):
     mensaje =''
     rechazo = False
 
+
     form.initial = {
         'first_name': p.first_name,
         'last_name': p.last_name,
@@ -132,8 +133,6 @@ def actualizar_profes(request, pk):
             nuevo_nombre = form.cleaned_data['first_name']
             nuevo_apellido = form.cleaned_data['last_name']
             nueva_usuario = form.cleaned_data['username']
-            nueva_contrasenia = form.cleaned_data['password']
-            contrasenia2 = form.cleaned_data['password2']
             nuevo_dni = form.cleaned_data['dni']
             nuevo_fechaN = form.cleaned_data['fecha_nacimiento']
             nuevo_sexo = form.cleaned_data['sexo']
@@ -141,7 +140,10 @@ def actualizar_profes(request, pk):
             nuevo_email = form.cleaned_data['email']
             nuevo_telefono =form.cleaned_data['telefono']
             nuevo_deporte = form.cleaned_data['lista_deporte']
-            
+
+            nueva_contrasenia = form.cleaned_data['password']
+            contrasenia2 = form.cleaned_data['password2']
+
             p.first_name = dar_formato(nuevo_nombre)
             p.last_name = dar_formato(nuevo_apellido)
             p.username = nueva_usuario
@@ -152,7 +154,7 @@ def actualizar_profes(request, pk):
             p.email = nuevo_email
             p.telefono = nuevo_telefono
 
-            if nueva_contrasenia==contrasenia2:
+            if (nueva_contrasenia !='' or nueva_contrasenia is not None) and nueva_contrasenia ==contrasenia2:
             	p.save()
             	p.lista_deporte = nuevo_deporte
             	p.set_password(nueva_contrasenia)
@@ -164,6 +166,8 @@ def actualizar_profes(request, pk):
 
             if rechazo:
             	return HttpResponseRedirect(reverse('listar_profes'))
+        else:
+        	form = PostForm()
 
        
 
@@ -324,22 +328,22 @@ def actualizar_alumnos(request, pk):
             a.sexo = nuevo_sexo
             a.foto = nuevo_foto
             a.email = nuevo_email
-            #a.password = nueva_contrasenia
-            #a.lista_deporte = nuevo_deporte
             a.telefono = nuevo_telefono
-            #a.set_password(nueva_contrasenia) 
-            #a.save()
-            if nueva_contrasenia==contrasenia2:
+    
+            if (nueva_contrasenia !='' or nueva_contrasenia is not None) and nueva_contrasenia ==contrasenia2:
             	a.save()
             	a.lista_deporte = nuevo_deporte
             	a.set_password(nueva_contrasenia)
             	rechazo = True
             	a.save()
+
             else:
-            	mensaje = '***Password no coinciden***'
+            	mensaje = '***Passwords no coinciden***'
 
             if rechazo:
             	return HttpResponseRedirect(reverse('listar_alumnos'))
+        else:
+        	form = PostForm()
            
     ctx = {
         'form': form,
@@ -403,7 +407,7 @@ def vista_pagina_inicio(request):
 					request.session["nombre"] = datos['nombre']
 					request.session["apellido"] = datos['apellido']
 					request.session["carrera"] = int(datos['carrera'])
-					request.session["correo"] = 'lucaaaaaaaaaaas.sebiiiiiiiiiib@gmail.com'
+					request.session["correo"] = 'lorenarambados@gmail.com'
 
 					# Tener en cuenta que: (1,"Masculino"),(2,"Femenino")
 					request.session["sexo"] = 1

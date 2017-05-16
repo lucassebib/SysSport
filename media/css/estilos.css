@@ -1,4 +1,7 @@
 /*HEADER*/
+.aviso{
+	color:blue;
+}
 .container-fluid.cabecera{
 	width: 970px;
 	padding-top: 5px;
@@ -25,6 +28,8 @@ a, li, h1, h2, h3, h4, p {
 	margin:0;
 	
 }
+
+
 label{
 	font-weight: normal;
 }
@@ -205,6 +210,8 @@ html, body{
 	padding: 0;
 	margin:0;
 }
+/*estilo para asteriscos rojos y frases en rojo*/
+
 /*LOGIN*/
 #login{
 	text-align: center;
@@ -343,3 +350,4 @@ html, body{
 		padding: 7px 25px;
 	}
 }
+
