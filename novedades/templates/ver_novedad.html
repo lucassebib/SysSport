@@ -3,9 +3,10 @@
 {% block contenido %}
 <div class="panel-info">
 	<div class="page-header panel-default">
-		<h1>
-			<button class="btn btn-default" type="button" onclick="history.back(-1)" /><span class="glyphicon glyphicon-arrow-left"></span></button>
-			<i>Novedad</i></h1>
+		<h1><i>Novedad</i>
+			<ul class=" navbar navbar-right nav-pills">
+				<button class="btn btn-default" type="button" onclick="history.back(-1)" /><span class="glyphicon glyphicon-arrow-left"></span></button>
+			</ul></h1>
 	</div>
 	<div class="page-content ">
 		<div class="fondo_mensaje esquinas">
@@ -68,6 +69,7 @@
 						
 					</div>
 				{% endfor %}
+
 					<div class="comentario">
 						<form class="form-horizontal" role="form" action='' method='POST'>{% csrf_token %}
 							<script> 
@@ -76,12 +78,15 @@
 									else cuentacampo.value = limite - campo.value.length; 
 									}
 							</script>
-							{{ formulario.as_p }}
-							
-							<input type="text" name="remLen" size="3" maxlength="3" value="125" readonly>
-							<div class="navbar-btn">
-								<button type="submit" class="btn btn-primary" name="boton_agregar">Comentar</button>
-							</div>
+
+							{% if usuario %}
+								{{ formulario.as_p }}
+								
+								<input type="text" name="remLen" size="3" maxlength="3" value="125" readonly>
+								<div class="navbar-btn">
+									<button type="submit" class="btn btn-primary" name="boton_agregar">Comentar</button>
+								</div>
+							{% endif %}
 					
 						</form>
 					</div>

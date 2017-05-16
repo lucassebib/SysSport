@@ -4,98 +4,102 @@
 <div class="panel-info">
 	<div class="page-header panel-default">
 		<h1>
-			
 			{% if request.user.is_staff %}
 			<button class="btn btn-default" type="button" onclick="history.back(-1)" /><span class="glyphicon glyphicon-arrow-left"></span></button>
 			{% endif %}
 			<i> Mi Perfil</i>
-			
-
-		</h1>
-	</div>
-	<ul class="navbar navbar-right nav-pills">
-		{% if request.user.is_staff %}
-		{% else %}
-			<a href="{% url 'editar_error' %}"><button class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></button></a>
-		{% endif %}
-	</ul>
-	<div class="page-content">
-		{% csrf_token %}
-			<div class="img-perfil">
-				<img src="{{profesor.foto_perfil.url}}" class="img-circle perfil" >
+			<ul class="navbar navbar-right nav-pills">
 				{% if request.user.is_staff %}
 				{% else %}
-					<form class="" role="form" enctype="multipart/form-data" action="" method="POST">{% csrf_token %}
-	        			{{ form.as_p }}
-	        			<div class="navbar-btn">
-	        				<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-camera"></span> Cambiar</button>
-	        			</div>
-	        			
-	        			<label>{{mensaje}}</label>
-	        		</form>
-        		{% endif %}
-			</div>
-			<table class="table table-condensed contacto-tabla">
-				<tr class="form-group">
-					<td><label class=" control-label">Nombre:  </label></td>
-					{% if nombre %}
-						<td><label class=" control-label"> {{nombre}} </label></td>
-					{% else %}
-						<td><label class=" control-label">  </label></td>
-					{% endif %}
-				</tr>
-				<tr class="form-group">
-					<td><label class="control-label">Apellido:  </label></td>
-					{% if apellido %}
-						<td><label class=" control-label"> {{apellido}} </label></td>
-					{% else %}
-						<td><label class=" control-label">  </label></td>
-					{% endif %}
-				</tr>
-				<tr class="form-group">
-					<td><label class=" control-label">Sexo:  </label></td>
-					<td><label class=" control-label">{{sexo}}</label></td>
-				</tr>
-				<tr class="form-group">
-					<td><label class=" control-label">DNI:  </label></td>
-					{% if dni %}
-						<td><label class=" control-label"> {{dni}}</label></td>
-					{% else %}
-						<td><label class=" control-label">  </label></td>
-					{% endif %}
-				</tr>
-				<tr class="form-group">
-					<td><label class=" control-label">Legajo:  </label></td>
-					{% if legajo %}
-						<td><label class=" control-label">{{legajo}}</label></td>
-					{% else %}
-						<td><label class=" control-label">  </label></td>
-					{% endif %}
-				</tr>
-				<tr class="form-group">
-					<td><label class="control-label">Fecha de Nacimiento:  </label></td>
-					{% if fecha_nacimiento %}
-						<td><label class="control-label">{{fecha_nacimiento}}</label></td>
-					{% else %}
-						<td><label class=" control-label">  </label></td>
-					{% endif %}
-				</tr>
-				<tr class="form-group">
-					<td><label class="control-label">Teléfono:  </label></td>
-					{% if telefono %}
-						<td><label class=" control-label">{{telefono}}</label></td>
-					{% else %}
-						<td><label class=" control-label">  </label></td>
-					{% endif %}
-				</tr>
-				<tr class="form-group">
-					<td><label class=" control-label">Dirección:  </label></td>
-					{% if legajo %}
-						<td><label class=" control-label">{{direccion}}</label></td>
-					{% else %}
-						<td><label class=" control-label">  </label></td>
-					{% endif %}
-				</tr>
+					<a title="Editar Perfil" href="{% url 'editar_error' %}"><button class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></button></a>
+				{% endif %}
+			</ul>
+		</h1>
+	</div>
+	
+	<div class="page-content">
+		{% csrf_token %}
+			
+			<table class="table" id= "perfil-tabla">
+				<thead>
+					<tr id="perfil-fila">
+						<td><img src="{{profesor.foto_perfil.url}}" class="img-circle perfil" ></td>
+						{% if request.user.is_staff %}
+						{% else %}
+						<td><form class="" role="form" enctype="multipart/form-data" action="" method="POST">
+							{% csrf_token %}
+			        		{{ form.as_p }}
+			        		<div class="navbar-btn">
+			        			<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-camera"></span> Cambiar</button>
+			        		</div>
+		        			<label>{{mensaje}}</label>
+			        		</form></td>
+		        		{% endif %}
+						
+					</tr>	
+				</thead>
+				<tbody>
+					<tr class="form-group">
+						<td><label class=" control-label">Nombre:  </label></td>
+						{% if nombre %}
+							<td><p> {{nombre}} </p></td>
+						{% else %}
+							<td><p>  </p></td>
+						{% endif %}
+					</tr>
+					<tr class="form-group">
+						<td><label class="control-label">Apellido:  </label></td>
+						{% if apellido %}
+							<td><p> {{apellido}} </p></td>
+						{% else %}
+							<td><label class=" control-label">  </label></td>
+						{% endif %}
+					</tr>
+					<tr class="form-group">
+						<td><label class=" control-label">Sexo:  </label></td>
+						<td><p>{{sexo}}</p></td>
+					</tr>
+					<tr class="form-group">
+						<td><label class=" control-label">DNI:  </label></td>
+						{% if dni %}
+							<td><p> {{dni}}</p></td>
+						{% else %}
+							<td><p>  </p></td>
+						{% endif %}
+					</tr>
+					<tr class="form-group">
+						<td><label class=" control-label">Legajo:  </label></td>
+						{% if legajo %}
+							<td><p>{{legajo}}</p></td>
+						{% else %}
+							<td><label class=" control-label">  </label></td>
+						{% endif %}
+					</tr>
+					<tr class="form-group">
+						<td><label class="control-label">Fecha de Nacimiento:  </label></td>
+						{% if fecha_nacimiento %}
+							<td><p>{{fecha_nacimiento}}</p></td>
+						{% else %}
+							<td><p>  </p></td>
+						{% endif %}
+					</tr>
+					<tr class="form-group">
+						<td><label class="control-label">Teléfono:  </label></td>
+						{% if telefono %}
+							<td><p>{{telefono}}</p></td>
+						{% else %}
+							<td><p>  </p></td>
+						{% endif %}
+					</tr>
+					<tr class="form-group">
+						<td><label class=" control-label">Dirección:  </label></td>
+						{% if legajo %}
+							<td><p>{{direccion}}</p></td>
+						{% else %}
+							<td><p>  </p></td>
+						{% endif %}
+					</tr>
+				</tbody>
 			</table>
 	</div>
 

@@ -39,20 +39,23 @@
 	    });
 	</script>
 	<div class="panel-info">
-		<div class="page-header panel-default">
-			<h1><i>Datos médicos</i></h1>
-		</div>
+		
 		<ul class="nav nav-tabs" role="tablist">
 			<li class="active" ><a href="#ficha_medica" data-toggle="tab" >Ficha Médica</a></li>
 			<li><a href="#informacion_medica" data-toggle="tab" >Información Médica</a></li>
 		</ul>
 		<div class="tab-content">
 		<!-- ################ PANEL FICHA MEDICA ####################################-->
+			
 			<div role="tabpanel" class="tab-pane fade in active" id="ficha_medica" >
-				<ul class="nav navbar-right">
+				<div class="page-header panel-default ">
+					<h3><i> Ficha Médica </i>
+					<ul class="nav navbar-right">
 					<a id="ver-info-datosMedicos" title="Info" type="text" type="button" class="btn">
 					<span class = "glyphicon glyphicon-info-sign"> </span></a> 
-				</ul>
+				</ul></h3>
+				</div>
+				
 				<div id="info-datosMedicos" class="navbar-text" style="display: none;">
 					<i><p>En este espacio usted podra subir su ficha medica.</p>
 					<p>La ficha medica es un documento que sera suministrado por los profes de los distintos deportes, y la que usted como alumno debera rellenar junto con su medico de confianza.</p>
@@ -63,10 +66,11 @@
 				{% if deportes %}
 				<table class="table table-striped">
 					<thead>
-						<tr>
+						<tr id="cabecera-tabla">
 							<th>Nombre</th>
 							<th>Nota Profesor</th>
 							<th>Archivo</th>
+							
 						</tr>
 					</thead>
 				{% for d in deportes %}
@@ -78,21 +82,22 @@
 								<td><a title="Descargar" type="text" href="{{d.ficha_medica.ficha_medica.url}}"> <span class = "glyphicon glyphicon-download-alt" >  </span> </a></td>
 
 							{% else %}
-								<td>El profesor de {{d.nombre}} no ha subido aun una ficha medica.</td>
+								<td>El profesor de {{d.nombre}} no ha subido aun una ficha médica.</td>
 								<td>-</td>
 							{% endif %}
+							
 						</tr>
 					</tbody>
 				{% endfor %}
 				</table>
 				<form method="POST" enctype="multipart/form-data">{% csrf_token %}
-					<h3>Fichas Médicas:</h3>
+					
 					<ul class="nav navbar-right">
 						<a  title="Info" type="text" id="ver-info-fichaMedica" type="button" class="btn">
 						<span class = "glyphicon glyphicon-info-sign"> </span> </a> 
 					</ul>
 					<div id="info-fichaMedica" class="navbar-text" style="display: none;">
-						<i><p>Para subir o modificar su ficha medica, seleccione la opcion 'Seleccionar archivo' y posteriormente haga click en Guardar...</p>
+						<i><p>Para subir o modificar su ficha médica, seleccione la opción 'Seleccionar archivo' y posteriormente haga click en Guardar...</p>
 						<p>Por favor, utilice el siguiente formato para el nombre de su archivo: DEPORTE_APELLIDO-NOMBRE_DNI</p></i>
 					</div>
 					{% for d in deportes %}
@@ -103,28 +108,30 @@
 							{% endif %}
 						{% else %}
 							{% if not d.ficha_medica %}
-								<li>Todavia no fue cargada la ficha medica de {{d.nombre}} </li>
+								
 							{% else %}
-								<li>No ha subido todavía su ficha médica de {{d.nombre}}</li>
-									
+								{{form.as_p}}
+								<div class="navbar-btn">
+									<button type='submit' class="btn btn-primary" value='Guardar' name="boton_guardar_form">Guardar</button>
+								</div>	
 							{% endif %} 
 						{% endif %}
 					{% endfor %}
-					{{form.as_p}}
-					<div class="navbar-btn">
-						<button type='submit' class="btn btn-primary" value='Guardar' name="boton_guardar_form">Guardar</button>
-					</div>
+
+					
 					
 				</form>
 				{% endif %} 
 			</div>
 			<!-- ################ PANEL INFORMACION MEDICA ####################################-->
 			<div role="tabpanel" class="tab-pane fade" id="informacion_medica" >
-				<ul class="nav navbar-right ">
+				<div class="page-header panel-default ">
+					<h3><i> Información Médica </i>
+					<ul class="nav navbar-right ">
 					<a  title="Info" type="text" id="ver-info-infoMedica" type="button" class="btn  ">
 					<span class = "glyphicon glyphicon-info-sign"> </span></a> 
-					
-				</ul>
+				</ul></h3>
+				</div>
 				<div id="info-infoMedica" class="navbar-text" style="display: none;">
 					<i>A continuacion, nos gustaria que nos suministres los siguientes datos.</p> 
 					Al finalizar, seleccione la opcion "Guardar". Podra dirigirse a esta seccion cada vez que quiera realizar alguna modificacion.</i> 	
@@ -132,9 +139,7 @@
 				<form class="form-horizontal" role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
 					<div class="well">
 						<div class=" panel-default">
-							<div class="panel-heading">
-								<h4><i><b>Información médica: </b></i></h4>
-							</div>
+							
 							<p>Grupo Sanguineo:</p> 
 							{{form_dm.grupo_sanguineo}}
 							<p>Alergias:</p> 

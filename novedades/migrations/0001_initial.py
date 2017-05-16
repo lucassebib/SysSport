@@ -20,6 +20,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('texto', models.TextField(verbose_name=b'comentario')),
                 ('autor', models.IntegerField()),
+                ('nombre_autor', models.CharField(max_length=150, null=True, blank=True)),
             ],
             options={
             },

@@ -32,22 +32,17 @@
 	<div class="panel-info">
 		<div class="page-header panel-default">
 			<h1><i>Novedades</i></h1>
-				
 		</div>	
-		<div class="page-content">
-			{% block buscador %}
-	 			{% include "buscador_novedades.html" %}
-	 		{% endblock %}
-			<div class="btn-group">
-				  <button class="btn dropdown-toggle btn-default" type="button"
-				          id="dropdownMenu1" data-toggle="dropdown">
-				     
-				    	Deportes
-				  
-				    <span class="caret"></span>
-				  </button>
 
-				  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+		{% block buscador %}
+ 			{% include "buscador_novedades.html" %}
+ 		{% endblock %}
+		<div class="form-horizontal">
+			<label id="filtradoNovedades">Filtrar por: </label>
+			<div class="btn-group">
+				<button class="btn dropdown-toggle btn-default" type="button" id="dropdownMenu1" data-toggle="dropdown">Ver todos <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 				    <li role="presentation">
 				        <a role="menuitem" tabindex="-1" class="nav-link" href="{% url 'novedades_alumnos' %}">Ver Todos</a>
 				    </li>
@@ -56,9 +51,10 @@
 						<a role="menuitem" tabindex="-1" class="nav-link" href="{% url 'ver_novedad_filtrado' d.id %}"> {{d.nombre}}</a>
 						{% endfor %}
 				    </li>
-				  </ul>
+				</ul>
 			</div>
-
+		</div>
+		<div class="page-content">
 			{% if posts %}					
 					{% for post in posts %}
 						<div class="fondo_mensaje esquinas">
@@ -86,7 +82,7 @@
 				{% endfor %}
 			{% else %}
 				{% if not mensaje %}
-					<p>Aun no se han subido Novedades para este deporte</p>
+					<p><i>Aún no se han subido Novedades para este deporte.</i></p>
 				{% endif %}
 			{% endif %}	
 		</div>

@@ -8,123 +8,121 @@
 			<button class="btn btn-default" type="button" onclick="history.back(-1)" /><span class="glyphicon glyphicon-arrow-left"></span></button>
 			{% endif %}
 			<i>Mi perfil </i>
-		</h1>
-	</div>
-	<ul class="navbar navbar-right nav-pills">
-		{% if request.user.is_staff %}
-		{% else %}
-			{% if is_invitado %}
-			 	<a href="{% url 'editar_perfil_alumno'  %}"><button class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></button></a>
-			{% else %}
-				<a href="{% url 'editar_error' %}"><span class="glyphicon glyphicon-edit"></span></a>
-			
-			{% endif %}
-		{% endif %}
-	</ul>
-	<div class="page-content">
-		<!--
-		<form class="form-horizontal" method='POST'>
-		-->
-		{% csrf_token %}
-			<div class="img-perfil">
-				<img src="{{alumno.foto_perfil.url}}" class=" img-circle perfil" >
+		
+			<ul class="navbar navbar-right nav-pills">
 				{% if request.user.is_staff %}
 				{% else %}
-					<form enctype="multipart/form-data" action="" method="POST">{% csrf_token %}
-	        			{{ form.as_p }}
-	        			<div class="navbar-btn">
-	        				<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-camera"></span> Cambiar</button>
-	        			</div>
-	        			<label>{{mensaje}}</label>
-	    			</form>
-	    		{% endif %}
-			</div>
-
-			
-			<table class="table table-condensed perfil-tabla">
-					<tr class="form-group">
-					<td><label class=" control-label">Nombre:  </label></td>
-					{% if nombre %}
-						<td><label class=" control-label"> {{nombre}} </label></td>
-					{% else %}
-						<td><label class=" control-label">  </label></td>
-					{% endif %}
-				</tr>
-				<tr class="form-group">
-					<td><label class="control-label">Apellido:  </label></td>
-					{% if apellido %}
-						<td><label class=" control-label"> {{apellido}} </label></td>
-					{% else %}
-						<td><label class=" control-label">  </label></td>
-					{% endif %}
-				</tr>
-				<tr class="form-group">
-					<td><label class=" control-label">Sexo:  </label></td>
-					<td><label class=" control-label">{{sexo}}</label></td>
-				</tr>
-				<tr class="form-group">
-					<td><label class=" control-label">DNI:  </label></td>
-					{% if dni %}
-						<td><label class=" control-label"> {{dni}}</label></td>
-					{% else %}
-						<td><label class=" control-label">  </label></td>
-					{% endif %}
-				</tr>
-				<tr class="form-group">
-					<td> <label class=" control-label">E-MAIL:  </label></td>
-					{% if email %}
-						<td> <label class=" control-label"> {{email}}</label></td>
-					{% else %}
-						<td><label class=" control-label">  </label></td>
-					{% endif %}
-				</tr>
-				<tr class="form-group">
-					{% if is_alumno %}
-						<td><label class=" control-label">Legajo:  </label></td>
-						<td><label class=" control-label">{{legajo}}</label></td>
-					{% endif %}
-
 					{% if is_invitado %}
-						<td><label class=" control-label">Institución:  </label></td>
-						<td><label class=" control-label">{{institucion}}</label></td>
+					 	<a href="{% url 'editar_perfil_alumno'  %}"><button class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></button></a>
+					{% else %}
+						<a href="{% url 'editar_error' %}"><span class="glyphicon glyphicon-edit"></span></a>
+					
 					{% endif %}
-				</tr>
-				{% if is_alumno %}
-					<tr class="form-group">
-						<td><label class=" control-label">Carrera:  </label></td>
-						<td><label class=" control-label">{{carrera}}</label></td>
-					</tr>
 				{% endif %}
-				<tr class="form-group">
-					<td><label class="control-label">Fecha de Nacimiento:  </label></td>
-					{% if fecha_nacimiento %}
-						<td><label class="control-label">{{fecha_nacimiento}}</label></td>
-					{% else %}
-						<td><label class=" control-label">  </label></td>
-					{% endif %}
-				</tr>
-				<tr class="form-group">
-					<td><label class="control-label">Teléfono:  </label></td>
-					{% if telefono %}
-						<td><label class=" control-label">{{telefono}}</label></td>
-					{% else %}
-						<td><label class=" control-label">  </label></td>
-					{% endif %}
-				</tr>
-				<tr class="form-group">
-					<td><label class=" control-label">Dirección:  </label></td>
-					{% if legajo %}
-						<td><label class=" control-label">{{direccion}}</label></td>
-					{% else %}
-						<td><label class=" control-label">  </label></td>
-					{% endif %}
-				</tr>
-			</table>
-		<!--
-		</form>
-		-->
+			</ul>
+		</h1>
 	</div>
-</div>
+	<div class="page-content">
+		{% csrf_token %}
+			<table class="table" id="perfil-tabla">
+				<thead>
+					<tr id="perfil-fila">
+						<td><img src="{{alumno.foto_perfil.url}}" class=" img-circle perfil" ></td>
+						{% if request.user.is_staff %}
+						{% else %}
+						<td><form enctype="multipart/form-data" action="" method="POST">
+							{% csrf_token %}
+		        			{{ form.as_p }}
+		        			<div class="navbar-btn">
+		        				<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-camera"></span> Cambiar</button>
+		        			</div>
+		        			<label>{{mensaje}}</label>
+			    			</form>	</td>
+			    		{% endif %}
+					</tr>	
+				</thead>
+				<tbody>
+					<tr class="form-group">
+						<td><label class=" control-label">Nombre:  </label></td>
+						{% if nombre %}
+							<td><p> {{nombre}} </p></td>
+						{% else %}
+							<td><label class=" control-label">  </label></td>
+						{% endif %}
+					</tr>
+					<tr class="form-group">
+						<td><label class=" control-label">Apellido:  </label></td>
+						{% if apellido %}
+							<td><p>{{apellido}} </p></td>
+						{% else %}
+							<td><p>  </p></td>
+						{% endif %}
+					</tr>
+					<tr class="form-group">
+						<td><label class=" control-label">Sexo:  </label></td>
+						<td><p>{{sexo}}</p></td>
+					</tr>
+					<tr class="form-group">
+						<td><label class=" control-label">DNI:  </label></td>
+						{% if dni %}
+							<td><p> {{dni}}</p></td>
+						{% else %}
+							<td><p>  </p></td>
+						{% endif %}
+					</tr>
+					<tr class="form-group">
+						<td> <label class=" control-label">E-MAIL:  </label></td>
+						{% if email %}
+							<td> <p> {{email}}</p></td>
+						{% else %}
+							<td><p>  </p></td>
+						{% endif %}
+					</tr>
+					<tr class="form-group">
+						{% if is_alumno %}
+							<td><label class=" control-label">Legajo:  </label></td>
+							<td><p>{{legajo}}</p></td>
+						{% endif %}
+
+						{% if is_invitado %}
+							<td><label class=" control-label">Institución:  </label></td>
+							<td><p>{{institucion}}</p></td>
+						{% endif %}
+					</tr>
+					{% if is_alumno %}
+						<tr class="form-group">
+							<td><label class=" control-label">Carrera:  </label></td>
+							<td><p>{{carrera}}</p></td>
+						</tr>
+					{% endif %}
+					<tr class="form-group">
+						<td><label class="control-label">Fecha de Nacimiento:  </label></td>
+						{% if fecha_nacimiento %}
+							<td><p>{{fecha_nacimiento}}</p></td>
+						{% else %}
+							<td><p>  </p></td>
+						{% endif %}
+					</tr>
+					<tr class="form-group">
+						<td><label class="control-label">Teléfono:  </label></td>
+						{% if telefono %}
+							<td><p>{{telefono}}</p</td>
+						{% else %}
+							<td><p>  </p></td>
+						{% endif %}
+					</tr>
+					<tr class="form-group">
+						<td><label class=" control-label">Dirección:  </label></td>
+						{% if legajo %}
+							<td><p>{{direccion}}</p></td>
+						{% else %}
+							<td><p>  </p></td>
+						{% endif %}
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 	
 {% endblock %}
 

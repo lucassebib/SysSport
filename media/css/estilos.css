@@ -26,12 +26,14 @@ a, li, h1, h2, h3, h4, p {
 	color: #000;
 	list-style: none;
 	margin:0;
+
 	
 }
 
 
 label{
 	font-weight: normal;
+
 }
 a:hover, a:focus{
 	color: #555;
@@ -46,17 +48,25 @@ html, body, .main.container-fluid, .container{
 html, body{
 	height: 100%;
 }
+.btn{
+	margin-bottom: -5px;
+}
 .caja{
   padding: 10px;
   border: solid 1px #fff;
   box-shadow: inset 1px 1px 2px 0 #707070;
 }
-.contacto-tabla{
-	border: 1px solid #666;
-	width: 80%;
-}
 .dropdown>li>a{
 	margin-left: 25px;
+}
+#filtradoNovedades{
+	margin-left: 15px;
+}
+#formBusqueda{
+	margin-left: 15px;
+}
+#div_escondido_autor, #div_escondido_fecha{
+	margin-left: 15px;
 }
 .form-control{
 	color: #808080;
@@ -73,9 +83,12 @@ html, body{
 	height: 50px;
 	min-width: 340px;
 }
+.has-feedback label ~ .form-control-feedback{
+	top: 10px;
+}
 .img-circle.perfil{
-	width: 260px;
-	height: 260px;
+	width: 160px;
+	height: 160px;
 }
 .img-perfil{
 	float: left;
@@ -139,9 +152,7 @@ html, body{
 }
 .navbar-right{
 	list-style-type: none;
-	padding-right:15px; 
 }
-
 .nav-tabs>li:active>a:hover, .pagination>li:active>a:hover {
 	border-color: #ffffff;
 	background-color: #fff;
@@ -149,7 +160,6 @@ html, body{
 }
 .page-header {
 	margin: 10px;
-	padding: 5px;
 	color: #eee;
 }
 .page-content{
@@ -163,13 +173,6 @@ html, body{
 .panel-info{
 	
 	margin: 10px;
-}
-.perfil-tabla, .contacto-tabla{
-	padding-top: 30px; 
-	text-align: left;
-}
-.perfil-tabla{
-	width: 40%;
 }
 .region-izquierda{
 	float: left;
@@ -188,19 +191,11 @@ html, body{
 .tab-content{
 	margin-top: 10px;
 }
-
-#contacto-fila{
-	padding-left: 10px;
-	background-color: #888;
-}
 #ficha_medica{
 	color: #444;
 }
-#link-Publicacion:hover{
-	color :#800080;
-}
 #link-Publicacion:link{
-	color :#00FF00;
+	
 	text-decoration:underline;
 }
 #syssport{

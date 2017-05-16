@@ -19,7 +19,7 @@ td{
 }
 
 .td_titulo{
-    width: 450px;
+    width: 550px;
     height: auto;
     margin: 0;
     padding-top: 0;
@@ -49,7 +49,6 @@ table.tr_comentario{
 }
 
 .titular-comentario {
-    height: 90px;
     overflow: hidden;
     padding: 5px 5px 0 !important;
 

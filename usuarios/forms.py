@@ -27,7 +27,7 @@ class FormularioDireccion(forms.ModelForm):
 class FormularioContactoDeUrgencia(forms.ModelForm):
 	class Meta:
 		model = ContactoDeUrgencia
-
+		
 	def __init__(self, *args, **kwargs):
     		super(FormularioContactoDeUrgencia, self).__init__(*args, **kwargs)
     		self.fields['nombre'].required = True

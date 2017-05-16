@@ -3,8 +3,10 @@ import time
 from datetime import datetime, date, time, timedelta
 
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loguear, logout
+
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.models import User
@@ -401,20 +403,24 @@ def vista_pagina_inicio(request):
 				if alumno_utn_bd and alumno_utn and alumno_utn_bd.is_active:
 					#--Se inicia sesion de un alumno UTN
 					#datos = obtener_datos_iniciales(usuario, password)	
-					datos = {'nombre': 'Lucas', 'apellido': 'Perez', 'carrera': 5}				
+					datos = {'nombre': 'Tahiel', 'apellido': 'Bastiani', 'carrera': 5}				
 					request.session["user"] = usuario
 					request.session['id_user']= alumno_utn_bd.id
 					request.session["nombre"] = datos['nombre']
 					request.session["apellido"] = datos['apellido']
 					request.session["carrera"] = int(datos['carrera'])
+<<<<<<< HEAD
 					request.session["correo"] = 'lorenarambados@gmail.com'
+=======
+					request.session["correo"] = 'elduendeloco@hotmail.com'
+>>>>>>> 27f874c8e5924cf73ed8d8711484a96d14b152f9
 
 					# Tener en cuenta que: (1,"Masculino"),(2,"Femenino")
 					request.session["sexo"] = 1
 					
-					request.session["fecha_nacimiento"] = '22/03/1992'
-					request.session["telefono"] = '3704217140'
-					request.session["direccion"] = 'Av 9 de Julio 1487'
+					request.session["fecha_nacimiento"] = 'DD/MM/AAAA'
+					request.session["telefono"] = '37042171212'
+					request.session["direccion"] = 'Lestani 123'
 					url = 'inicial_alumnos'
 					return HttpResponseRedirect(reverse(url))
 			except Exception as e:
@@ -476,7 +482,8 @@ def vista_registrarse(request):
 		print(validacion)
 
 		#datos sysacad
-		email = 'juanmartin_796@hotmail.com'
+
+		email = 'el_lucas992@hotmail.com'
 		dni = 366366636
 		nombre = 'Lucas'
 
@@ -486,35 +493,35 @@ def vista_registrarse(request):
 			salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
 			activation_key = hashlib.sha1(salt+email).hexdigest()
 			key_expires = datetime.today() + timedelta(2)
-			asunto = 'Confirmacion de cuenta en Sysport'
+			asunto = 'Confirmacion de cuenta en SysSport'
 			direccion_servidor = 'http://127.0.0.1:8000/cuenta/confirmar'
 			cuerpo = "Hola %s, Gracias por registrarte. Para activar tu cuenta da click en este link en menos de 48 horas: %s/%s" % (nombre, direccion_servidor, activation_key)
 			
-			try:
-				print('esta por mandar')
-				send_mail(
-					asunto, 
-					cuerpo, 
-					'ver_cuenta@example.com', 
-					[email], 
-					fail_silently=True
-				)
-			except Exception as e:
-				print('no mando')
-				print(e)
-				error_mail = True
-				mensaje_error = e
+			
+			print('esta por mandar')
+			send_mail(
+				asunto, 
+				cuerpo, 
+				'ver_cuenta@example.com', 
+				[email], 
+				fail_silently=False
+			)
+			#except Exception as e:
+			#	print('no mando')
+			#	print(e)
+			#	error_mail = True
+			#	mensaje_error = e
 
-			if not error_mail:
-				a = Alumno(legajo=legajo, dni=dni)
-				a.save()
-				a.lista_deporte.add(lista_deporte)
-				a.save()
-				a.activation_key = activation_key
-				a.key_expires = key_expires
-				a.save()
-				url = 'vista_registracion_exitosa'
-				return HttpResponseRedirect(reverse(url))
+			#if not error_mail:
+			a = Alumno(legajo=legajo, dni=dni)
+			a.save()
+			a.lista_deporte.add(lista_deporte)
+			a.save()
+			a.activation_key = activation_key
+			a.key_expires = key_expires
+			a.save()
+			url = 'vista_registracion_exitosa'
+			return HttpResponseRedirect(reverse(url))
 	
 	ctx = {
 		'form': form,
@@ -840,6 +847,7 @@ def agregar_contactoUrgencia(request):
 	form_direccion = FormularioDireccion()
 	guardar = True
 	mensaje_error = ''
+	mostrar_mensaje = False
 
 	if request.method == "POST":
 		form_principal = FormularioContactoDeUrgencia(request.POST)
@@ -854,7 +862,7 @@ def agregar_contactoUrgencia(request):
 			telefono = form_principal.cleaned_data['telefono']
 			if not telefono.isdigit():
 				guardar = False
-				mensaje_error = 'Error, solo se permiten numeros en el Telefono'
+				mensaje_error = 'Error: solo se permiten numeros en el Telefono'
 
 			form_direccion = FormularioDireccion(request.POST)
 
@@ -874,7 +882,7 @@ def agregar_contactoUrgencia(request):
 
 			if not validar_nro_dpto(nro_departamento):
 				guardar = False
-				mensaje_error = 'Error al ingresar Nro de Departamento.'
+				mensaje_error = 'Error: ingresar Nro de Departamento.'
 
 			provincia = request.POST.get('provincia')
 			provincia = dar_formato(provincia)
@@ -895,8 +903,10 @@ def agregar_contactoUrgencia(request):
 
 			if contador >=MAX_CONTACTO_URGENCIA:
 				guardar = False
+
+				mostrar_mensaje = True
 				mensaje_error = 'Solo es posible agregar como maximo: ' + str(MAX_CONTACTO_URGENCIA) + ' contacto/s'
-			
+
 			if guardar:
 				direccion = Direccion(calle=calle, altura=altura, piso=piso, nro_departamento=nro_departamento, provincia=provincia, localidad=localidad)
 				direccion.save()
@@ -912,11 +922,12 @@ def agregar_contactoUrgencia(request):
 				url = 'ver_contacto_urgencia'
 				return HttpResponseRedirect(reverse(url))
 		else:
-			mensaje_error = 'Faltan datos obligatorios'
+			mensaje_error = 'Error: faltan datos obligatorios'
 	ctx = {
 		'form_principal': form_principal,
 		'form_direccion': form_direccion,
 		'mensaje_error': mensaje_error,
+		'mostrar_mensaje': mostrar_mensaje,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
@@ -992,11 +1003,10 @@ def editar_contactoUrgencia(request, pk):
 			apellido = dar_formato(apellido)
 			parentezco = form_contacto.cleaned_data['parentezco']
 			parentezco = dar_formato(parentezco)
-
 			telefono = form_contacto.cleaned_data['telefono']
 			if not telefono.isdigit():
 				guardar = False
-				mensaje_error = 'Error, solo se permiten numeros en el Telefono'
+				mensaje_error = 'Error: solo se permiten numeros en el Telefono.'
 
 			form_direccion = FormularioDireccion(request.POST)
 
@@ -1018,7 +1028,7 @@ def editar_contactoUrgencia(request, pk):
 				
 			if not validar_nro_dpto(nro_departamento):
 				guardar = False
-				mensaje_error = 'Error al ingresar Nro de Departamento.'
+				mensaje_error = 'Error: ingresar Nro de Departamento.'
 
 			provincia = request.POST.get('provincia')
 			provincia = dar_formato(provincia)

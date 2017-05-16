@@ -10,158 +10,213 @@
 	}
 </script>
 <div class="panel-info">	
-	<div class="page-header panel-default">
-		<h1><i>{{alumno.get_full_name}} </i></h1>
-	</div>
-	<div class="page-content col-12 col-sm-12 col-lg-12">
-
-		<ul class="nav nav-tabs nav-pills" role="tablist">
-
+	<div class="page-content ">
+		<ul class="nav nav-tabs visible-lg visible-md visible-sm" role="tablist">
 			<li><a class="active" href="#datos_personales" data-toggle="tab" >Datos Personales</a></li>
 			<li><a href="#contactos_urgencia" data-toggle="tab" >Contactos de Urgencia</a></li>
 			{% if alumnoUTN %}
-				<li><a href="#info_academica" data-toggle="tab" >Informacion Academica</a></li>
+				<li><a href="#info_academica" data-toggle="tab" >Información Académica</a></li>
 			{% endif %}	
-			<li><a href="#info_medica" data-toggle="tab">Informacion Medica</a></li>
+			<li><a href="#info_medica" data-toggle="tab">Información Médica</a></li>
 		</ul>
-		<div class="tab-content">
-			
+		<ul class="nav nav-tabs visible-xs" role="tablist">
+			<li><a class="active" href="#datos_personales" data-toggle="tab" >Personal</a></li>
+			<li><a href="#contactos_urgencia" data-toggle="tab" >Contactos</a></li>
+			{% if alumnoUTN %}
+				<li><a href="#info_academica" data-toggle="tab">Académica</a></li>
+			{% endif %}	
+			<li><a href="#info_medica" data-toggle="tab">Médica</a></li>
+		</ul>
+			<div class="tab-content">
 			<!-- PANEL DATOS PERSONALES -->	
 				<div role="tabpanel" class="tab-pane fade in active" id="datos_personales">
-					<div class="col-md-3">
-						<img src="{{ alumno.foto_perfil.url }}" class="img-responsive img-circle" >
-					</div>
-					<table class="col-md-6">					
-						<tr class="form-group"><td>Nombre:</td> 
-						<td>{% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.first_name}} {% endif %} </td></tr>
-						<tr class="form-group"><td>Apellido:</td>
-						<td> {% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.last_name}} {% endif %} </td></tr>
-						<tr class="form-group"><td>DNI: </td>
-						<td>{{alumno.dni}} </td></tr>
-						<tr class="form-group"><td>Fecha de Nacimiento:</td>
-						<td> {% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.fecha_nacimiento}} {% endif %}</td>  </tr>
-						<tr class="form-group"><td>Telefono:</td>
-						<td> {% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.telefono}} {% endif %}  </td></tr>
-						{% if alumnoUTN %}
-						{% else %}
-							{% if alumno.direccion %}
-								<tr class="form-group"><td>Direccion:</td>
-								<td> {{alumno.direccion}}</td> </tr>
-							{% else %}
-								<tr class="form-group"><td>Direccion: -</td></tr>
+					
+					<table id="perfil-tabla" class="table ">
+						<thead>
+							<tr id="perfil-fila">
+								<th><img src="{{ alumno.foto_perfil.url }}" class=" img-circle perfil" ></th>
+								<th><h3><i>{{alumno.get_full_name}} </i></h3></th>
+							</tr>
+						</thead>	
+						<tbody>				
+							<tr >
+								<td><label> Nombre: </label>
+								</td> 
+								<td>{% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.first_name}} {% endif %}</td>
+							</tr>
+							<tr class="form-group">
+								<td><label>	Apellido: </label></td>
+								<td> {% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.last_name}} {% endif %}</td>
+							</tr>
+							<tr class="form-group">
+								<td><label>	DNI: </label></td>
+								<td>{{alumno.dni}} </td>
+							</tr>
+							<tr class="form-group">
+								<td><label> Fecha de Nacimiento: </label></td>
+								<td> {% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.fecha_nacimiento}} {% endif %}</td>  
+							</tr>
+							<tr class="form-group">
+								<td><label> Teléfono: </label></td>
+								<td> {% if alumnoUTN %} obtener del sysacad {% else %} {{alumno.telefono}} {% endif %} </td>
+							</tr>
+							{% if not alumnoUTN %}
+								<tr class="form-group">
+									<td><label> Dirección: </label></td>
+								{% if alumno.direccion %}
+										<td> {{alumno.direccion}}</td> </tr>
+								{% else %}
+									<tr class="form-group">
+										<td> - </td></tr>
+								{% endif %}
 							{% endif %}
-						{% endif %}
 
-						{% if alumnoInvitado %}
-							<tr class="form-group"><td>Institucion: </td>
-							<td>{{alumno.institucion}}</td></tr>
-						{% endif %}
+							{% if alumnoInvitado %}
+								<tr class="form-group">
+									<td><label>Institución: </label></td>
+									<td>{{alumno.institucion}}</td>
+								</tr>
+							{% endif %}
+						</tbody>
 					</table>
 				</div>
 				<div role="tabpanel" class="tab-pane fade" id="contactos_urgencia">
-					<div class="form-group">
-						<table class="table table-striped">
-							<thead>
-								<tr>
-									<th>Nombre</th>
-									<th>Apellido</th>
-									<th>Parentezco</th>
-									<th>Direccion</th>
-									<th>Telefono</th>
-								</tr>
-							</thead>
-							{% if contactos %}
-								{% for c in contactos %}
-							<tbody>
-								<tr>
-
-								<td>{{c.nombre}}</td>
-								<td>{{c.apellido}}</td>
-								<td>{{c.parentezco}}</td>
-								<td>{{c.direccion}}</td>
-								<td>{{c.telefono}}</td>
-
-								{% endfor %}
-							{% else %}
-									Sin contactos de urgencia
-							{% endif %}
+					<table id="contacto-tabla" class="table table-hover">
+						<thead>
+							<tr id="perfil-fila">
+								<th><img src="{{ alumno.foto_perfil.url }}" class=" img-circle perfil" ></th>
+								<th><h3><i>{{alumno.get_full_name}} </i></h3></th>
+							</tr>	
+							<tr id="cabecera-tabla">
+								<th>Nombre</th>
+								<th>Apellido</th>
+								<th>Parentezco</th>
+								<th>Dirección</th>
+								<th>Teléfono</th>
 							</tr>
-							</tbody>
-						</table>
-					</div>
+						</thead>
+						{% if contactos %}
+							{% for c in contactos %}
+								<tbody>
+									<tr>
+										<td>{{c.nombre}}</td>
+										<td>{{c.apellido}}</td>
+										<td>{{c.parentezco}}</td>
+										<td>{{c.direccion}}</td>
+										<td>{{c.telefono}}</td>
+									</tr>
+								</tbody>
+							{% endfor %}
+						{% else %}
+							Sin contactos de urgencia
+						{% endif %}
+					</table>
 				</div>
 			
 		<!-- PANEL DATOS ACADEMICOS -->	
 				{% if alumnoUTN %}
 					<div role="tabpanel" class="tab-pane fade" id="info_academica">
 						<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
-							<table class="form-group">
-								<div class="col-md-3">
-									<img src="{{ alumno.foto_perfil.url }}" class="img-responsive img-circle" >
-								</div>
-								<tr class="form-group"><td>
-								Legajo: </td>
-								<td>{{alumno.legajo}}</td></tr>
-													
-								<tr class="form-group"><td>
-								Carrera:</td>
-								<td> obtener del sysacad</td></tr>
-													
-								<tr class="form-group"><td>Condicion:</td></tr>
-								<tr class="form-group"><td><label>Periodo Inicial </label> </td>
-								<td><label><input class="text" type="date" name="fecha_desde"></label></td></tr>
-								
-								<tr class="form-group"><td><label>Periodo Final </label> </td> 
-								<td><label><input class="text" type="date" name="fecha_hasta"></label></td></tr>
-								<!--
-								<tr class="form-group"><td><label>Cantidad de Materias </label> </td>
-								<td><input class="text" type="Text"></td></tr>	
-								-->						
+							<table id="perfil-tabla" class="table">
+								<thead>
+									<tr id="perfil-fila">
+										<th><img src="{{ alumno.foto_perfil.url }}" class=" img-circle perfil" ></th>
+										<th><h3><i>{{alumno.get_full_name}} </i></h3></th>
+									</tr>
+								</thead>	
+								<tbody>				
+									<tr class="form-group">
+										<td><label> Legajo: </label></td>
+										<td>{{alumno.legajo}}</td>
+									</tr>
+									<tr class="form-group">
+										<td><label> Carrera: </label></td>
+										<td> obtener del sysacad</td>
+									</tr>
+									<tr class="form-group">
+										<td><label> Condición </label></td>
+									</tr>
+									<tr class="form-group">
+										<td><label>Período Inicial: </label></td>
+										<td><input class="text" type="date" name="fecha_desde"></td>
+									</tr>
+									<tr class="form-group">
+										<td><label>Período Final: </label></td> 
+										<td><input class="text" type="date" name="fecha_hasta"></td>
+									</tr>
+									<!--
+									<tr class="form-group"><td><label>Cantidad de Materias </label> </td>
+									<td><input class="text" type="Text"></td></tr>	
+									-->	
+								</tbody>					
 							</table>
 
 							<a href="popupex.html" onclick="return popitup('/cantidad/'+)"><input class="btn btn-primary" type='submit' name="boton_calcular" value='Calcular'></a>
 						</form>
-						
-							<tr class="form-group"><td><label>El alumno ha aprobado: </label> </td> 
-							<td><label><input class="text" type="text" value="{{cantidad}}"></label></td></tr>
+							<tr class="form-group">
+								<td><label>El alumno ha aprobado: </label> </td> 
+								<td><input class="text" type="text" value="{{cantidad}}"></td></tr>
 						
 					</div>
 				{% endif %}	
 
 		<!-- PANEL DATOS MEDICOS -->
 				<div role="tabpanel" class="tab-pane fade" id="info_medica">
-					<table class="form-group">
-						<div class="col-md-3">
-							<img src="{{ alumno.foto_perfil.url }}" class="img-responsive img-circle" >
-						</div>
-					<tr class="form-group"><td>Grupo Sanguineo:</td>
-					<td> {{alumno.datos_medicos.ver_grupo_sanguineo}}</td></tr>
-					<tr class="form-group"><td>Alergias:</td>
-					<td> {{alumno.datos_medicos.alergias}}</td></tr>
-					<tr class="form-group"><td>Toma medicamentos:</td>
-					<td> {{alumno.datos_medicos.ver_toma_medicamentos}}</td></tr>
-					<tr class="form-group"><td>¿Cuál/es?</td>
-					<td> {{alumno.datos_medicos.medicamentos_cuales}}</td></tr>
-					<tr class="form-group"><td>Cirujias:</td>
-					<td>{{alumno.datos_medicos.ver_tuvo_operaciones}}</td></tr>
-					<tr class="form-group"><td> ¿De qué tipo?</td><td> {{alumno.datos_medicos.operaciones_cuales}}</td></tr>
-					<tr class="form-group"><td>¿Tiene Obra Social?</td>
-					<td> {{alumno.datos_medicos.ver_tiene_osocial}}</td></tr>
-					<tr class="form-group"><td>Cuál/es?</td>
-					<td> {{alumno.datos_medicos.osocial_cual}}</td></tr>
-
-					{% if alumno.ficha_medica %}
-						<tr class="form-group"><td>Ficha Medica:</td><td> <a href="{{ alumno.ficha_medica.url }}">Descargar</a></td></tr>
-					{% endif %}
-					
-				</table>				
+					<table id="perfil-tabla" class="table ">
+						<thead>
+							<tr id="perfil-fila">
+								<th><img src="{{ alumno.foto_perfil.url }}" class=" img-circle perfil" ></th>
+								<th class="text-center"><h3><i>{{alumno.get_full_name}} </i></h3></th>
+							</tr>
+						</thead>	
+						<tbody>			
+							<tr class="form-group">
+								<td><label> Grupo Sanguíneo: </label></td>
+								<td> {{alumno.datos_medicos.ver_grupo_sanguineo}}</td>
+							</tr>
+							<tr class="form-group">
+								<td><label>Alergias:</label></td>
+								<td> {{alumno.datos_medicos.alergias}}</td>
+							</tr>
+							<tr class="form-group">
+								<td><label>Toma medicamentos:</label></td>
+								<td> {{alumno.datos_medicos.ver_toma_medicamentos}}</td>
+							</tr>
+							<tr class="form-group">
+								<td><label>¿Cuál/es?</label></td>
+								<td> {{alumno.datos_medicos.medicamentos_cuales}}</td>
+							</tr>
+							<tr class="form-group">
+								<td><label>Cirujías:</label></td>
+								<td>{{alumno.datos_medicos.ver_tuvo_operaciones}}</td>
+							</tr>
+							<tr class="form-group">
+								<td><label>¿De qué tipo?</label></td>
+								<td> {{alumno.datos_medicos.operaciones_cuales}}</td>
+							</tr>
+							<tr class="form-group">
+								<td><label>¿Tiene Obra Social?</label></td>
+								<td> {{alumno.datos_medicos.ver_tiene_osocial}}</td>
+							</tr>
+							<tr class="form-group">
+								<td><label>¿Cuál/es?</label></td>
+								<td> {{alumno.datos_medicos.osocial_cual}}</td>
+							</tr>
+							{% if alumno.ficha_medica %}
+							<tr class="form-group">
+								<td><label>Ficha Médica:</label></td>
+								<td> <a href="{{ alumno.ficha_medica.url }}">Descargar</a></td>
+							</tr>
+							{% endif %}
+						</tbody>
+					</table>				
+				</div>
+		
+			</div>
+			<input class="btn btn-primary" type="button" value="Volver" onclick="history.back(-1)" />
 		</div>
 		
 	</div>
-
-</div>
-<input class="btn btn-primary" type="button" value="Volver" onclick="history.back(-1)" />
-</div>
 {% endblock %}
 
 

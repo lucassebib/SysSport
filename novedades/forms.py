@@ -14,14 +14,17 @@ class FormularioComentario(forms.ModelForm):
 		model = Comentario
 		fields = ['texto']
 		widgets={
-			'texto': forms.Textarea(attrs={'cols':'60', 'rows':'20', 'onKeyDown':"contador(this.form.texto,this.form.remLen,125);", 'onKeyUp':"contador(this.form.mensaje,this.form.remLen,125);"})
+			'texto': forms.Textarea(attrs={'cols':'60', 'rows':'20','required':'True', 'onKeyDown':"contador(this.form.texto,this.form.remLen,125);", 'onKeyUp':"contador(this.form.mensaje,this.form.remLen,125);"})
 		}
 
 class FormularioNovedades(forms.ModelForm):
 	class Meta:
 		model = Novedades
 		fields = ['titulo', 'contenido', 'imagen','visibilidad', 'categoria']
-		contenido = forms.CharField(widget=forms.Textarea(attrs={'cols': '80', 'rows':'20'}))
+		widget={
+		 	'titulo': forms.TextInput(attrs={'required':'True'}),
+		 	'contenido': forms.Textarea(attrs={'cols': '80', 'rows':'20', 'required':'True'})
+		}
 		#categoria= forms.MultipleChoiceField( widget=forms.CheckboxSelectMultiple())
 		
 
@@ -30,16 +33,19 @@ class FormularioNovedades(forms.ModelForm):
 		deportes = Profesor.objects.get(id = user.id).lista_deporte.all()
 		self.fields["categoria"].widget = forms.CheckboxSelectMultiple()
 		self.fields["categoria"].queryset = Deporte.objects.filter(id__in=deportes)
-
+		#self.fields["visibilidad"] = 2
 
 class FormularioNovedadesAdmin(forms.ModelForm):
 	class Meta:
 		model = Novedades
+		fields = ['titulo', 'contenido', 'imagen', 'visibilidad', 'categoria']
 		exclude = ['lista_comentarios', 'autor']
-		widgets = {
-           'categoria': forms.CheckboxSelectMultiple,
-        }
-
+		widget={
+		 	'titulo': forms.TextInput(attrs={'required':'True'}),
+		 	'contenido': forms.Textarea(attrs={'cols': '80', 'rows':'20', 'required':'True'}),
+			'categoria': forms.CheckboxSelectMultiple,
+		}
+	
 	#def form_valid(self, form):
 	#	a = form.save(commit = False)
 	#	a.autor = self.request.user

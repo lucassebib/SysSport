@@ -1,0 +1,35 @@
+.table{
+	min-width: 310px;
+}
+#cabecera-tabla{
+	background-color: #eeeeee;
+}
+#contacto-fila{
+	padding-left: 10px;
+	background-color: #888;
+}
+#contacto-tabla, #perfil-tabla{
+	background-color: #ffffff;
+	padding-top: 30px; 
+}
+#deportes-tabla{
+	width: 310px;
+}
+#perfil-fila{
+	padding-left: 10px;
+	border-bottom: 1px solid #666; 
+}
+#perfil-tabla>tbody>tr>td{
+	background-color: #eeeeee;
+	padding-left: 3%;
+	padding-right: 10%;
+
+}
+
+.contacto-tabla{
+	border: 1px solid #666;
+	width: 80%;
+}
+.table > thead > tr > th{
+	vertical-align: middle;
+}

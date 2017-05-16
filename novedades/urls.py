@@ -7,11 +7,7 @@ from views import *
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^novedades/$', ListarNovedades.as_view(), name='listar-novedades'),
-    url(r'^novedades/(?P<pk>[0-9]+)/$', DetallesNovedades.as_view(), name='detalle-novedad'),
-    url(r'^novedades/crear/$', CrearNovedades.as_view(), name='crear-novedad'),
-    url(r'^novedades/modificar/(?P<pk>[0-9]+)/$', ActualizarNovedades.as_view(), name='actualizar-novedad'),
-    url(r'^novedades/eliminar/(?P<pk>[0-9]+)/$', EliminarNovedades.as_view(), name='eliminar-novedad'),
+
 )
 
 urlpatterns += patterns('',
@@ -30,14 +26,18 @@ urlpatterns += patterns('',
     url(r'^administrador/novedades/editar/(?P<pk>[0-9]+)/$', editar_novedades_admin, name='editar_novedad_admin'),
     url(r'^administrador/novedades/visualizar/(?P<pk>[0-9]+)/$', ver_novedad_admin, name='visualizar_novedad_admin'),
     url(r'^administrador/novedades/eliminar/(?P<pk>[0-9]+)/$', eliminar_novedad_admin, name='eliminar_novedad_admin'),
-
-
 )
-
 
 #Para profesores
 urlpatterns += patterns('',
-    url(r'^novedades_profesor$', novedades_profesores, name='novedades_profesores'),
+    url(r'^profesor/novedades_profesor$', novedades_profesores, name='novedades_profesores'),
+    url(r'^profesor/novedades/$', ListarNovedades.as_view(), name='listar-novedades'),
+    url(r'^profesor/novedades/(?P<pk>[0-9]+)/$', DetallesNovedades.as_view(), name='detalle-novedad'),
+    url(r'^profesor/novedades/crear/$', CrearNovedades.as_view(), name='crear-novedad'),
+    url(r'^profesor/novedades/modificar/(?P<pk>[0-9]+)/$', ActualizarNovedades.as_view(), name='actualizar-novedad'),
+    
+    url(r'^profesor/novedades/eliminar/(?P<pk>[0-9]+)/$', EliminarNovedades.as_view(), name='eliminar-novedad'),
+    #url(r'^profesor/novedades/modificar/(?P<pk>[0-9]+)/$', editar_novedad, name='actualizar-novedad'),
 )
 
     

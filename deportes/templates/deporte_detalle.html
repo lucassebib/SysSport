@@ -24,9 +24,7 @@
 					<label class="control-label">Horarios de entrenamientos:</label>
 					{% if entrenamientos %}
 						{% for e in entrenamientos %}
-							{{e.dia}}
-							{{e.horario_inicio}}
-							{{e.horario_fin}}
+							{{e.ver_horario_completo}}<br>
 						{% endfor %}
 					{% else %}
 						<p2>Todavia no se han cargado los horarios de entrenamiento.</p2>

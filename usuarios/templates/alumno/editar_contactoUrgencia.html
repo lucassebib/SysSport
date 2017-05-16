@@ -1,85 +1,116 @@
 {% extends "baseAlumno.html" %}
 {% block contenido %}
-	<div class="panel-info">
-		<div class="page-header">
-			<h1><i>Editar contacto de urgencia: </i><b>{{nombre_contacto}}</b> </h1>
-		</div>
+<script>window.jQuery || document.write('<script src="{% static "js/jquery.min.js" type="text/javascript"}""><\/script>')</script>
+<script>
+    $(document).ready(function(){ 
+      $('#ver-errores').on('click',function(){
+       $('#mostrar-icono-error').slideToggle('slow');
+      });
+    });
+</script>
+<div class="panel-info">
+	<div class="page-header">
+		<h1><i>Editar contacto de urgencia: </i><b>{{nombre_contacto}}</b> </h1>
+	</div>
 
-		<div class="page-content">
-			<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
-				<!--
-				<div class="well"> 
-					<div class=" panel-default">
-						<div class="panel-heading">
-							<h4><b>Datos Personales del Contacto:</b></h4>
-						</div>
-						{% for field in form_contacto %}
-				    		{% if field.label = 'Direccion' %}
-							<div class="panel-default">
-								<div class=" panel-heading ">
-									<h4><b>Direccion:</b></h4>
-								</div>
-									{% for field2 in form_direccion %}
-										<p>{{field2.label}}</p>
-										<p>{{field2}} </p>
-									{% endfor %}
-							</div>
-							{% else %}
-								<p>{{field.label}}</p>
-								<p>{{field}} </p>
-							{% endif %}	
-						{% endfor %}
+	<div class="page-content">
+		<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+			<!--
+			<div class="well"> 
+				<div class=" panel-default">
+					<div class="panel-heading">
+						<h4><b>Datos Personales del Contacto:</b></h4>
 					</div>
-				</div>
-				-->
-				<div class="well" > 
-					<div class=" panel-default">
-						<div class="panel-heading">
-							<h4><b>Datos Personales del Contacto:</b></h4>
+					{% for field in form_contacto %}
+			    		{% if field.label = 'Direccion' %}
+						<div class="panel-default">
+							<div class=" panel-heading ">
+								<h4><b>Direccion:</b></h4>
+							</div>
+								{% for field2 in form_direccion %}
+									<p>{{field2.label}}</p>
+									<p>{{field2}} </p>
+								{% endfor %}
 						</div>
-
+						{% else %}
+							<p>{{field.label}}</p>
+							<p>{{field}} </p>
+						{% endif %}	
+					{% endfor %}
+				</div>
+			</div>
+			-->
+			<div class="well"> 
+				<div class=" panel-default">
+					<li><strong style="color:red"><i>{{mensaje_error}}</i></strong></li>
+					<div class="panel-heading">
 						
-							{% for field in form_contacto %}
-								{%if field.errors %}
-									{% for error in field.errors %}
-										<div class="alert alert-danger">
-			                				<strong>{{ error|escape }}</strong>
-			            				</div>
-									{% endfor %}
-									{% for error in form_principal.non_field_errors %}
-								        <div class="alert alert-danger">
-								            <strong>{{ error|escape }}</strong>
-								        </div>
-			    					{% endfor %}
+						<h4><b>Datos Personales del Contacto:</b></h4>
+					</div>
+					{% for field in form_contacto %}
+						{% if not field.label = 'Direccion' and not field.errors %}
+							<div class="form-group has-success has-feedback" >
+								{{field.label_tag}}</br>
+								{{field}}
+								
+								</br>
+							</div>
+						{% endif %}
+						{% if field.errors %}
+							{% for error in field.errors %}
+								<div class="form-group has-error has-feedback">
+									{{field.label_tag}}</br>
+									{{field}}
 									
-								{% endif %}  	   		
-								{% if not field.label = 'Direccion' %}
-									<p>{{field.label}}</p>
-									<p>{{field}} </p>
-								{% endif %}	
-							{% endfor %}									
-							
-					</div>						
-					<div class=" panel-default">
-						<div class="panel-heading">
-							<h4><b>Direccion del Contacto:</b></h4>
-						</div>
+									<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+									<strong style="color:red">{{error|escape}}</strong>
+									</br>
+								</div>	
+							{% endfor %}		
+							{% for error in form_principal.non_field_errors %}
+								<div class=" form-group has-error has-feedback">
+									<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+										{{error|escape}}
+									</br>
+								</div>	
+								
+							{% endfor %}	
+						{% endif %}
 						
-							{% for field2 in form_direccion %}
-								<p>{{field2.label}}</p>
-								<p>{{field2}} </p>
+						
+						<!--{%if field.errors %}
+							{% for error in field.errors %}
+								<li><strong>{{ error|escape }}</strong></li>
 							{% endfor %}
-						
-					</div>		
-				</div>
-				<button class="btn btn-primary" type='submit' value='Guardar'>Guardar</button>
-				<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
-				{{mensaje_error}}
-				
-			</form>
-			
-		</div>
 
-	</div>	
+							{% for error in form_principal.non_field_errors %}
+						        {{ error|escape }}
+	    					{% endfor %}
+						{% endif %}  	   		-->
+					{% endfor %}	
+				</div>
+				<div class=" panel-default">
+					<div class="panel-heading">
+						<h4><b>Direccion del Contacto:</b></h4>
+					</div>
+					{% for field2 in form_direccion %}
+						<div class="form-group {% if field.errors %}has-error{% else %}has-success{% endif %} has-feedback">
+							{{field2.label_tag}}</br>
+							{{field2}}
+							
+							</br>
+						</div>
+					{% endfor %}
+				</div>		
+			</div>
+		
+			<button id="ver-errores" class="btn btn-primary" type='submit' value='Guardar'>Guardar</button>
+			<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
+					
+		</form>
+		
+	</div>
+
+</div>	
 
 {% endblock %}

@@ -3,12 +3,12 @@
 {% block contenido %}
 	<div class="panel-info">
 		<div class="page-header panel-default">
-			<h1><i>Ficha Medica para: </i><b>{{deporte.nombre}}</b></h1>
+			<h1><i>Ficha Médica para: </i><b>{{deporte.nombre}}</b></h1>
 		</div>
 		<div class="page-content col-12 col-sm-12 col-lg-12">
 			<ul class="nav nav-tabs" role="tablist">
-				<li class="nav-item active"><a class="nav-link active" data-toggle="tab" href="#ver_ficha_medica">Ver Ficha Medica</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#editar_ficha_medica">Cargar Ficha Medica</a></li>
+				<li class="nav-item active"><a class="nav-link active" data-toggle="tab" href="#ver_ficha_medica">Ver Ficha Médica</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#editar_ficha_medica">Cargar Ficha Médica</a></li>
 			</ul>
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane fade in active" id="ver_ficha_medica">
@@ -17,8 +17,8 @@
 						
 							<div class="form-group">
 								<label class=" control-label">Nombre del Archivo:  </label>
-								<link class=" control-label"><a href="{{ficha.ficha_medica.url}}">{{ficha.obtenerNombreArchivo}}</a></link>
-								<p>Haga clic en el nombre del archivo para descargar Ficha Medica</p>
+								<link class=" control-label"><a title="Descargar ficha médica" href="{{ficha.ficha_medica.url}}">{{ficha.obtenerNombreArchivo}}</a></link>
+								
 							</div>
 							<div class="form-group">
 								<label class=" control-label">Nota:  </label>

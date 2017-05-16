@@ -12,15 +12,15 @@
 	
 	<div class="panel-info">
 		<div class="page-header panel-default">
-			<h1><i>Contactos de Urgencia</i></h1>
-		</div>
-		<div class="page-content">
+			<h1><i>Contactos de Urgencia</i>
 			<ul class=" nav navbar-right">
 				<a title="Info" type="text" type="button"  class="btn" id="ver-info-contacto">
 				<span class = "glyphicon glyphicon-info-sign" > </span> </a> 
 				<a title="Agregar Contacto de Urgencia" href="{% url 'agregar_contactoUrgencia' %}"><button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></a>
 				
-			</ul></br>
+			</ul></h1>
+		</div>
+		<div class="page-content">
 			<div id="info-contacto" class="navbar-text" style="display:none;">
 				<i><p>Un contacto de Urgencia es una persona cercana a Usted a la que podremos localizar en caso de efectuarse alguna emergencia durante la realizacion de eventos deportivos o entrenamientos. Es por esto que resultaria de vital importancia que nos suministres este tipo de informacion.</p></i>
 			</div>	
@@ -29,7 +29,7 @@
 				
 				{% if contactos %}
 					{% for c in contactos %}
-						<table class="table table-condensed contacto-tabla">
+						<table class="table contacto-tabla" id="contacto-tabla">
 							<thead>
 
 								<tr id="contacto-fila">

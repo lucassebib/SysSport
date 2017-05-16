@@ -14,6 +14,7 @@
             <link rel="stylesheet" type="text/css" href="{% static "css/novedades.css" %} ">
             <link rel="stylesheet" type="text/css" href="{% static "css/deporte.css" %} ">
             <link rel="stylesheet" type="text/css" href="{% static "css/formularios.css" %} ">
+            <link rel="stylesheet" type="text/css" href="{% static "css/tablas.css" %} ">
             
             <script src="{% static "js/jquery.js" %}"></script>
             <script src="{% static "js/bootstrap.min.js" %}"></script>
@@ -50,18 +51,21 @@
                   			</button>
                         <span class="visible-xs navbar-header menu">
                           <div align="center">
-                            <p class="panel-title" id="hola_usuario">Hola, <b>{{ user.username }} </b></p>
+                            {% if user.is_authenticated or request.session.user %}
+                              <p class="panel-title" id="hola_usuario">Hola, <b>{{ user.username }} </b></p>
+                            {% endif %}
                           </div>
                         </span>
                   		</div>
                   		<div class="navbar-collapse collapse" id="navegacion-dep">
                   			<ul class="nav navbar-nav navbar-right ">
                   				{% if user.is_authenticated or request.session.user %}
-                            <li><p class="panel-title visible-lg visible-md visible-sm visible-xs " id="hola_usuario">Hola, <b>{% if request.session.user %}{{request.session.nombre}} {% else %} {{user.username}} {% endif %} </b></p></li>
-                            <li><a href="{% url 'url_logout'%}" >Salir</a></li> 
+                            <li><p class="panel-title visible-lg visible-md visible-sm " id="hola_usuario">Hola,
+                             <b>{% if request.session.user %}{{request.session.nombre}} {% else %} {{user.username}} {% endif %} </b></p></li>
+                            <li><a href="{% url 'url_logout'%}" ><span class="glyphicon glyphicon-log-out"></span> Salir</a></li> 
 	                    		{% else %}
-                              <li><a href="registrarse" >Registrarse</a></li>
-                              <li><a href="{% url 'url_logout'%}#login" class="navbar-link">Ingresar</a></li>
+                              <li><a href="registrarse" ><span class="glyphicon glyphicon-user"></span> Registrarse</a></li>
+                              <li><a href="{% url 'url_logout'%}#login" class="navbar-link"><span class="glyphicon glyphicon-log-in"></span> Ingresar</a></li>
                           {% endif %}
                   			</ul>
                   		</div>
