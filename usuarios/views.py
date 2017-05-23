@@ -409,11 +409,8 @@ def vista_pagina_inicio(request):
 					request.session["nombre"] = datos['nombre']
 					request.session["apellido"] = datos['apellido']
 					request.session["carrera"] = int(datos['carrera'])
-<<<<<<< HEAD
-					request.session["correo"] = 'lorenarambados@gmail.com'
-=======
 					request.session["correo"] = 'elduendeloco@hotmail.com'
->>>>>>> 27f874c8e5924cf73ed8d8711484a96d14b152f9
+
 
 					# Tener en cuenta que: (1,"Masculino"),(2,"Femenino")
 					request.session["sexo"] = 1
