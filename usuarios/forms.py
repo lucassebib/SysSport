@@ -67,13 +67,13 @@ class FormularioAltaProfe(forms.ModelForm):
 			'password': forms.PasswordInput(render_value=False, attrs={'required':'True'}),
 			'first_name':forms.TextInput(attrs={'size': 30,}),
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
-			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True'}),
+			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True', 'placeholder':'DD/MM/AA'}),
 			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
-			'telefono':forms.TextInput(attrs={'placeholder':'3624787542'}),
+			'telefono':forms.TextInput(attrs={'placeholder':'3624787542',}),
 			'dni':forms.TextInput(attrs={'placeholder':'34954568'}),
-			'telefono':forms.TextInput(attrs={'placeholder':'3624787542', 'requiered':'True'}),
+			'telefono':forms.TextInput(attrs={'placeholder':'3624787542', 'requiered':'False'}),
 			'lista_deporte': forms.CheckboxSelectMultiple(),
-        }
+			        }
  
   		fields = ['username', 'password', 'first_name', 'last_name', 'dni','fecha_nacimiento','sexo','foto_perfil','email','telefono','lista_deporte']
   	
@@ -81,12 +81,12 @@ class FormularioAltaProfe(forms.ModelForm):
 
 
 class FormularioEditarProfesor(forms.ModelForm):
-	password2 = forms.CharField(label='confirmar password', widget=forms.PasswordInput(render_value=False, attrs={'required':'False'}))
+	password2 = forms.CharField(label='confirmar password', widget=forms.PasswordInput(render_value=False))
 	class Meta:		
 		model = Profesor
 		widgets = {
 			'username':forms.TextInput(attrs={'required':'True'}),
-			'password': forms.PasswordInput(render_value=False, attrs={'required':'False'}),
+			'password':forms.PasswordInput(render_value=False),
 			'first_name':forms.TextInput(attrs={'size': 30,}),
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
 			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True'}),
@@ -99,6 +99,11 @@ class FormularioEditarProfesor(forms.ModelForm):
 
 
 		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email','telefono','lista_deporte' ]
+	
+	def __init__(self, *args, **kwargs):
+		super(self.__class__, self).__init__(*args, **kwargs)
+		self.fields['password'].required = False
+		self.fields['password2'].required = False
 
 
 
@@ -127,12 +132,12 @@ class FormularioAltaAlumnoInvitado(forms.ModelForm):
 
 
 class FormularioEditarAlumnoInvitado(forms.ModelForm):	
-	password2 = forms.CharField(label='', widget=forms.PasswordInput(render_value=False, attrs={'required':'False'}))
+	password2 = forms.CharField(label='confirmar password', widget=forms.PasswordInput(render_value=False))
 	class Meta:
 		model = Profesor
 		widgets = {
 			'username':forms.TextInput(attrs={'required':'True'}),
-			'password': forms.PasswordInput(render_value=False, attrs={'required':'False'}),
+			'password': forms.PasswordInput(render_value=False),
 			'first_name':forms.TextInput(attrs={'size': 30,}),
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
 			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True'}),
@@ -145,3 +150,9 @@ class FormularioEditarAlumnoInvitado(forms.ModelForm):
 
 
 		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email','telefono','lista_deporte' ]
+
+	def __init__(self, *args, **kwargs):
+		super(self.__class__, self).__init__(*args, **kwargs)
+		self.fields['password'].required = False
+		self.fields['password2'].required = False
+

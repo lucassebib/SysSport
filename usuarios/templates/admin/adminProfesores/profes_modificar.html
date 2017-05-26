@@ -1,6 +1,17 @@
 {% extends "baseAdmin.html" %}
 {% block contenido %}
+<<<<<<< HEAD
 	
+	<script type="text/javascript" type="text/javascript">
+function mostrar(contrasenia){
+	if (document.getElementById(contrasenia).style.display==''){
+		document.getElementById(contrasenia).style.display='none';
+
+	}else {
+		document.getElementById(contrasenia).style.display='';
+	}
+}
+</script>
 	<div class="panel-info">
 		<div class="page-header">
 			<h1><i>Modificar Perfil Profesor </i> </h1>
@@ -11,37 +22,38 @@
 					<div class=" panel-default">
 						<div class=" panel panel-heading">
 							<h4><b>Datos Personales del Profesor: </b></h4>
+							<p class="aviso"> (*) campos obligatorios</p>
 						</div>
 						
-						<label>Usuario</label> </br> {{form.username}}</br></br>
-						<label>Contraseña</label> </br>{{form.password}}</br></br>
-						<label>Repetir Contraseña</label> </br>{{form.password2}}</br></br>
-
+						<label>Usuario</label><b class="aviso"> *</b></br> {{form.username}}</br></br>
+						<p><a href="#" onclick="mostrar('contrasenia')";>Cambiar Contraseña</a></p>
+						<div style='display:none' id='contrasenia'>
+							<label>Contraseña</label> </br>{{form.password}}</br></br>
+							<label>Repetir Contraseña</label> </br>{{form.password2}}</br></br>
+						</div>
 						<p style = " color: red; ">{{mensaje}}</p>
-						
-						<label>Nombre</label></br>{{form.first_name}}</br></br>
-						<label>Apellido</label></br>{{form.last_name}}</br></br>
-						<label>DNI</label></br>{{form.dni}}</br></br>
-						<label>Fecha de Nacimiento</label></br>{{form.fecha_nacimiento}}</br></br>
-						<label>Sexo</label></br>{{form.sexo}}</br></br>
-						<label>Foto de perfil</label></br>{{form.foto_perfil}}</br></br>
-						<label>Email</label></br>{{form.email}}</br></br>
-						<label>Teléfono</label></br>{{form.telefono}}</br></br>
-						<label>Deportes</label></br>
-
+						<label>Nombre</label><b class="aviso"> *</b></br>{{form.first_name}}</br></br>
+						<label>Apellido</label><b class="aviso"> *</b></br>{{form.last_name}}</br></br>
+						<label>DNI</label><b class="aviso"> *</b></br>{{form.dni}}</br></br>
+						<label>Fecha de Nacimiento</label><b class="aviso"> *</b></br>{{form.fecha_nacimiento}}</br></br>
+						<label>Sexo</label><b class="aviso"> *</b></br>{{form.sexo}}</br></br>
+						<label>Foto de perfil</label><b class="aviso"> *</b></br>{{form.foto_perfil}}</br></br>
+						<label>Email</label><b class="aviso"> *</b></br>{{form.email}}</br></br>
+						<label>Teléfono</label><b class="aviso"> *</b></br>{{form.telefono}}</br></br>
+						<label>Deportes</label><b class="aviso"> *</b></br>
 						{% if form.lista_deporte %}
 									{{form.lista_deporte}}</br>
-								{% else %}
-									<p style = " color: red; ">Aún no se han cargado deportes, haz click <a href="{% url 'crear_deporte' %}"> aquí</a> </p>  
-									
-								{% endif %}							
-							
+									<p class="aviso"> Para cargar un nuevo deporte haz click<a href="{% url 'crear_deporte' %}"> Aquí</a></p>
+						{% else %}
+									<p class="aviso">Aún no se han cargado deportes, haz click <a href="{% url 'crear_deporte' %}"> aquí</a> </p>  
+
+						{% endif %}	
+
 					</div>
 				</div>
 				<button class="btn btn-primary" type='submit' value='Aceptar' name= 'bModificar'> Aceptar</button>
 				<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
 			</form>
-			
 		</div>
 	</div>
 {% endblock %}

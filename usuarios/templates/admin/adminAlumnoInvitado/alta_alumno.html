@@ -9,44 +9,41 @@
 					<div class=" panel-default">
 						<div class="panel-heading">
 							<h4>Datos del Usuario Invitado:</h4>
+							<p class="aviso"> (*) campos obligatorios</p>
 						</div>
-						<div class="panel">
-						Usuario</br> {{form.username}}</br>
-						Contraseña </br>{{form.password}}</br>
-						Repetir Contraseña </br>{{form.password2}}<br></br>
-						<p style = " color: red; ">{{mensaje}}</p>
+						<b>Usuario</b><b class="aviso"> *</b></br> {{form.username}}</br></br>
+								<b>Contraseña</b> <b class="aviso"> *</b></br>{{form.password}}</br>
+								<b>Repetir Contraseña</b> <b class="aviso"> *</b></br>{{form.password2}}<br></br>
 
-						Nombre</br>{{form.first_name}}</br>
-						Apellido</br>{{form.last_name}}</br>
-						DNI</br>{{form.dni}}</br>
-						Fecha de Nacimiento</br>{{form.fecha_nacimiento}}</br>
-						Sexo</br>{{form.sexo}}</br>
-						Foto de perfil</br>{{form.foto_perfil}}</br>
-						Email</br>{{form.email}}</br></br>
-						Telefono</br>{{form.telefono}}</br>
-						Deportes</br>{{form.lista_deporte}}</br>									
-						</div>		
-					</div>
-					{% for field in form %}
-									{%if field.errors %}
-									{% for error in field.errors %}
-										<div class="alert alert-danger">
-			                				<strong>{{ error|escape }}</strong>
-			            				</div>
-									{% endfor %}
-									{% for error in form_principal.non_field_errors %}
-								        <div class="alert alert-danger">
-								            <strong>{{ error|escape }}</strong>
-								        </div>
-			    					{% endfor %}
+								<p style = " color: red; ">
 									
-								{% endif %} 
-				{% endfor %}  
+								{{mensaje}}</p>
+
+								<b>Nombre</b><b class="aviso"> *</b></br>{{form.first_name}} </br>
+								<b>Apellido</b><b class="aviso"> *</b></br>{{form.last_name}} </br>
+								<b>DNI</b><b class="aviso"> *</b></br>{{form.dni}}</br></br>
+								<b>Fecha de Nacimiento</b><b class="aviso"> *</b></br>{{form.fecha_nacimiento}}</br></br>
+								<b>Sexo</b><b class="aviso"> *</b></br>{{form.sexo}}</br></br>
+								<b>Foto de perfil</b></br>{{form.foto_perfil}} </br></br>
+								<b>Email</b><b class="aviso"> *</b></br>{{form.email}} </br></br>
+								<b>Telefono</b></br>{{form.telefono}} </br></br>
+								<b>Deportes </b><b class="aviso"> *</b></br>
+
+								{% if form.lista_deporte %}
+									{{form.lista_deporte}}</br>
+									<p class="aviso"> Para cargar un nuevo deporte haz click
+								{% else %}
+
+									<p class="aviso" >Aún no se han cargado deportes, haz click
+								
+								{% endif %}
+								<a href="{% url 'crear_deporte' %}"> Aquí</a> </p>
+
+					</div>
 							
 				</div>
-				<button class="btn btn-primary" type='submit' value='Aceptar' name= 'boton_alta'> Aceptar</button>
-				<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>
-
+				<input  class="btn btn-primary"  type='submit' value='Aceptar' name= 'boton_alta'>
+				<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" /> Cancelar </button>
 			</form>
 			
 		</div>
