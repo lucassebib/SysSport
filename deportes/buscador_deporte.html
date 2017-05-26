@@ -3,7 +3,7 @@
 			<form id="formBusqueda" method="POST">{% csrf_token %}
 				<div class="form-horizontal">
 					<input type="text" name="q" value="{{query|escape }}">
-    				<button class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar"><span class="glyphicon glyphicon-search"> </span> Buscar</button>
+    				<button class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar"><span class="glyphicon glyphicon-search"> </span> Buscar</button></br></br>
 					<input type="radio" id="check_nombre" name="opcion" value="nombre" checked=""> Nombre
 					
 				</div>

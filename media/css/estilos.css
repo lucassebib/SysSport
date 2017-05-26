@@ -19,8 +19,9 @@
 }
 /*FIN HEADER*/
 /*BODY*/
-a, li, h1, h2, h3, h4, p {
-	color: #000;
+a, li, h1, h2, h3, h4, p, label {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #333;
 	list-style: none;
 	margin:0;
 
@@ -65,12 +66,13 @@ html, body{
     padding-right: 7px;
 }
 .jumbotron{
-	background-image: url("../img/banner2.jpg");
+	background-image: url("../img/fondo-cabecera.png");
 	background-repeat:no-repeat;
 	color: #fff;
-	padding: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
 	margin: 0;
-	height: 50px;
+	height: 300px;
 	min-width: 340px;
 }
 .has-feedback label ~ .form-control-feedback{
@@ -142,6 +144,7 @@ html, body{
 }
 .navbar-right{
 	list-style-type: none;
+	margin-right: 20px;
 }
 .nav-tabs>li:active>a:hover, .pagination>li:active>a:hover {
 	border-color: #ffffff;
@@ -211,8 +214,9 @@ html, body{
     .jumbotron { 
         background-repeat:no-repeat;
 		background-size: 100% 100%;
-        padding: 0px;
-        height: 230px;
+        padding-left: 10px;
+		padding-right: 10px;
+        height: 300px;
     }
     .navbar-header.menu, .navbar-default.menu{
     	width: 290px;
@@ -233,9 +237,11 @@ html, body{
  	}
  	
 	.jumbotron{
-		color: #fff;
-		padding: 0px;
-		height: 180px;
+		background-repeat:no-repeat;
+		background-size: 100% 100%;
+		padding-left: 10px;
+		padding-right: 10px;
+        height: 260px;
 	}
 	
 	.navbar-header.menu, .navbar-default.menu{
@@ -256,8 +262,9 @@ html, body{
 	background-repeat:no-repeat;
 	background-size: 100% 100%;
 	color: #fff;
-	padding: 0px;
-	height: 230px;
+	padding-left: 10px;
+	padding-right: 10px;
+	height: 260px;
 	}
 
  	.navbar-header.menu, .navbar-default.menu{
@@ -278,8 +285,9 @@ html, body{
 		background-repeat:no-repeat;
 		background-size: 100% 100%;
 		color: #fff;
-		padding: 0px;
-		height: 220px;
+		padding-left: 10px;
+		padding-right: 10px;
+		height: 230px;
 		
 	}
 	.navbar-header.menu, .navbar-default.menu{
@@ -290,7 +298,6 @@ html, body{
 		margin: 10px;
 	}
 	.region-principal{
-	
 		padding:0;
 		margin: 0;
 		width: 310px;
@@ -309,8 +316,9 @@ html, body{
 		background-repeat:no-repeat;
 		background-size: 100% 100%;
 		color: #fff;
-		padding: 0px;
-		height: 220px;
+		padding-left: 10px;
+		padding-right: 10px;
+		height: 200px;
 		
 	}
 	.navbar-header.menu, .navbar-default.menu{

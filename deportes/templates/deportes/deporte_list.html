@@ -10,19 +10,20 @@
 
 	<div class="page-content">
 		<form class="form-horizontal">{% csrf_token %}
-			<ul class=" navbar-right">
+			<ul class=" navbar navbar-right">
 			 	<a title="Nuevo Deporte" href="{% url 'crear-deporte' %}" ><span class="glyphicon glyphicon-plus"></span> Deporte</a>
 			 </ul>
 		 </form>
 		{% block buscador %}
 			{% include "buscador_deportes.html" %}
 		{% endblock %}
+	
 		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>Nombre</th>
 					<th>Descripción</th>
-					<th>Genero</th>
+					<th>Género</th>
 				</tr>
 			</thead>
 

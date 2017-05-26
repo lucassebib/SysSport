@@ -9,27 +9,25 @@
 				<form role="form" method="POST" enctype="multipart/form-data" accept-charset="utf-8">{% csrf_token %}
 					<div class="well ">
 						<div class=" panel-default">
-							<div class="panel-heading">
-								<h4>Datos Personales del Usuario Invitado:</h4>
+							<div class="panel panel-heading">
+								<h4><b>Datos Personales del Usuario Invitado:</b></h4>
 							</div>
 
-						<div class="panel">
-							Usuario</br> {{form.username}}</br>
-							Contraseña </br>{{form.password}}</br>
-							Repetir Contraseña </br>{{form.password2}}<br></br>
+							<label>Usuario</label></br> {{form.username}}</br></br>
+							<label>Contraseña</label> </br>{{form.password}}</br></br>
+							<label>Repetir Contraseña</label> </br>{{form.password2}}<br></br>
 							<p style = " color: red; ">{{mensaje}}</p>
-							Nombre</br>{{form.first_name}}</br>
-							Apellido</br>{{form.last_name}}</br>
-							DNI</br>{{form.dni}}</br>
-							Fecha de Nacimiento</br>{{form.fecha_nacimiento}}</br>
-							Sexo</br>{{form.sexo}}</br>
-							Foto de perfil</br>{{form.foto_perfil}}</br>
-							Email</br>{{form.email}}</br></br>
-							Telefono</br>{{form.telefono}}</br>
-							Deportes</br>{{form.lista_deporte}}</br>								
-						</div>		
-					</div>						
-
+							<label>Nombre</label></br>{{form.first_name}}</br></br>
+							<label>Apellido</label></br>{{form.last_name}}</br></br>
+							<label>DNI</label></br>{{form.dni}}</br></br>
+							<label>Fecha de Nacimiento</label></br>{{form.fecha_nacimiento}}</br></br>
+							<label>Sexo</label></br>{{form.sexo}}</br></br>
+							<label>Foto de perfil</label></br>{{form.foto_perfil}}</br></br>
+							<label>Email</label></br>{{form.email}}</br></br>
+							<label>Teléfono</label></br>{{form.telefono}}</br></br>
+							<label>Deportes</label></br>{{form.lista_deporte}}</br>							
+								
+						</div>						
 					</div>
 					<button class="btn btn-primary" type='submit' value='Aceptar' name= 'bModificar'> Aceptar</button>
 					<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>

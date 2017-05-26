@@ -11,18 +11,23 @@
 {% block contenido %}
 
 	<div class="page-header panel-default">
-			<h1><b><i>¡Bienvenidos!</i></b></h1>
+			<h2><i>UTN - FRRe - Área de Deportes </i></h2>
 	</div>
 	<div class="page-content">	
-		{% include "slider-inicial/slider-inicial.html" %}
-
-		<p1><i>Sys-Sport esta desarrollado para acercar a alumnos y profesores, logrando la mayor interacción entre ellos. Sys-Sport es comodo, rapido y seguro, vas a poder enterarte de todas las noticia, los eventos nuevos y cuando son tus horarios de entrenamiento...!!!!</i></p1>
+		<p><i>Sys-Sport fue desarrollado para toda la comunidad deportiva de la UTN Facultad Regional Resistencia con el objetivo de comunicar, organizar eventos y actividades deportivas. </i></p>
+		<div class="img-responsive">{% include "slider-inicial/slider-inicial.html" %}</div></br>
+	
 		<div class="text-gray-dark">
-			<h4>Accede a todos los beneficios de SysSport</h4>
-			<h4>Si sos alumno de la UTN-FRRE:</h4>
-			<li><p2>Ingresa con tu usuario y contraseña del Sysacad</p2></li>
-
-		</div>
+			<h4>¿Cómo acceder a SysSport?</h4>
+			<p>Si sos alumno de la UTN Facultad Regional Resistencia:</p>
+			<ul>
+				<li><span class="glyphicon glyphicon-ok"></span><p2> Ingresa con tu usuario y contraseña del Sysacad</p2></li>
+			</ul>
+			<p>Si no sos alumno: </p>
+			<ul>
+				<li><span class="glyphicon glyphicon-ok"></span><p2> Debes registrarte <a class="info" href="#">aqui</a></p2></li>
+			</ul>
+		</div>	
 	</div>
 	
 {% endblock %}

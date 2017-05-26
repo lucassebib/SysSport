@@ -3,33 +3,64 @@
 {% block contenido %}
 <div class="panel-info">
 	<div class="page-header panel-default">
-		<button id="boton-atras-deporte" class="btn btn-default" type="button" onclick="history.back(-1)" /><span class="glyphicon glyphicon-arrow-left"></span></button>
-		<h1><i>{{deporte.nombre}} </i></h1>
+		<h1><i>{{deporte.nombre}} </i>
+			<ul class=" navbar navbar-right nav-pills">
+				<button id="boton-atras-deporte" class="btn btn-default" type="button" onclick="history.back()" /><span class="glyphicon glyphicon-arrow-left"></span></button>
+			</ul>
+		</h1>
+
 	</div>
 	<div class="page-content">
 		<!-- PORTADA DEL DEPORTE -->
 		<div id="contenido-deporte">
-			<div id="deporte-portada">
+			<div id="deporte-portada" class="borde-der-izq">
 				<img src="{{deporte.foto.url}}" class="img-responsive img-deporte" >
 			</div>
 			<!-- ACA ESTA LA INFO DEL DEPORTE	-->
-			<div id="info-deporte">
-				<div class="form-group">
-					<label class="control-label"> Descripcion:</label> {{deporte.descripcion}}
-				</div>
-				<div class="form-group">
-					<label class="control-label">Generos aptos para el deporte:</label> {{deporte.ver_aptopara}}
-				</div>
-				<div class="form-group">
-					<label class="control-label">Horarios de entrenamientos:</label>
-					{% if entrenamientos %}
-						{% for e in entrenamientos %}
-							{{e.ver_horario_completo}}<br>
-						{% endfor %}
-					{% else %}
-						<p2>Todavia no se han cargado los horarios de entrenamiento.</p2>
-					{% endif %}
-				</div>
+			<div id="info-deporte" class="borde-der-izq">
+				<table class="table">
+					<thead>
+						<tr id="cabecera-tabla" class="borde-sup-inf">
+							<th> Descripción:</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>{{deporte.descripcion}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<table class="table">
+					<thead>
+						<tr id="cabecera-tabla" class="borde-sup-inf">
+							<th> Géneros aptos para el deporte:</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td> {{deporte.ver_aptopara}}</td>
+						</tr>
+					</tbody>
+				</table>	
+				<table class="table">
+					<thead>
+						<tr id="cabecera-tabla" class="borde-sup-inf">
+							<th> Horarios de entrenamientos:</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td> {% if entrenamientos %}
+									{% for e in entrenamientos %}
+										{{e.ver_horario_completo}}<br>
+									{% endfor %}
+								{% else %}
+									<p2>Todavia no se han cargado los horarios de entrenamiento.</p2>
+								{% endif %}
+							</td>
+						</tr>
+					</tbody>
+				</table>	
 			</div>
 		</div>
 		<!--INFORMACION DEL PROFESOR-->
@@ -37,15 +68,15 @@
 		{% if profesor %}
 			<table  id="info-profesor" >
 				{% for p in profesor %}
-					<tr>
-						<td class="form-group">
+					<tr >
+						<td id="profesor-fila" class="form-group">
 							<img src="{{p.foto_perfil.url}}" class=" img-circle perfil-profesor">
 						</td>
-						<td class="form-group">
+						<td id="profesor-fila" class="form-group">
 							<li><label class="control-label">Prof.</label>
 							 {{p.obtenerNombreCompleto}}					
 							 </li>
-							<li><label class="control-label">{{p.email}}</label></li>
+							<li><p>{{p.email}}</p></li>
 						</td>
 					</tr>
 				{% endfor %}

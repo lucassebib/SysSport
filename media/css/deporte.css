@@ -57,10 +57,7 @@
     text-decoration: none;
     font-size: 18px;
 }
-#boton-atras-deporte{
-    float: left;
-    margin-right: 10px;
-}
+
 /* Change the width of the three columns to 100% 
 (to stack horizontally on small screens) @media only screen and (max-width: 600px) {
     .columns {
@@ -81,20 +78,23 @@
   
 }
 #deporte-portada{
+    background-color: #e5e5e5;
     width: 100%;
     padding: 10px;
+    min-width: 342px;
 }
 #info-profesor{
     width: 30%;
-    padding: 10px;
     display: inline;
     float: left;
  
 }
 #info-deporte{
+    background-color: #e5e5e5;
     height: 100%;
     padding: 15px;
     float: left;
+    min-width: 342px;
  }
 .img-circle.perfil-profesor{
     width: 100px;
@@ -118,5 +118,6 @@
     #info-deporte{
         height: 100%;
         padding: 15px;
+        min-width: 310px;
      }
 }

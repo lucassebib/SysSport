@@ -25,7 +25,17 @@
 	padding-right: 10%;
 
 }
-
+#profesor-fila{
+	padding:6px;
+}
+.borde-sup-inf{
+	border-bottom: 1px solid #777;
+	border-top: 1px solid #777;
+}
+.borde-der-izq{
+	border-left: 1px solid #777;
+	border-right: 1px solid #777;	
+}
 .contacto-tabla{
 	border: 1px solid #666;
 	width: 80%;
