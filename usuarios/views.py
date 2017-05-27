@@ -50,7 +50,10 @@ from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccio
 def alta_profesor(request):
 	template = "admin/adminProfesores/alta_profe.html"
 	form = FormularioAltaProfe()
+	form_direccion = FormularioDireccion()
 	mensaje = ''
+	guardar = True
+	mensaje_error = ''
 	rechazo = False
 
 	if request.method == "POST" and 'boton_alta' in request.POST:
@@ -84,6 +87,41 @@ def alta_profesor(request):
 			#p.save()
 			
 
+
+
+			form_direccion = FormularioDireccion(request.POST)
+
+			calle = request.POST.get('calle')
+			calle = dar_formato(calle)
+			altura = request.POST.get('altura')
+			if altura == '':
+				altura = 0
+
+			piso = request.POST.get('piso')
+			if piso == '':
+				piso = 0
+
+			nro_departamento = request.POST.get('nro_departamento')
+			if not nro_departamento:
+				nro_departamento = ' '
+
+			if not validar_nro_dpto(nro_departamento):
+				guardar = False
+				mensaje_error = 'Error: ingresar Nro de Departamento.'
+
+			provincia = request.POST.get('provincia')
+			provincia = dar_formato(provincia)
+			
+			localidad = request.POST.get('localidad')
+			localidad = dar_formato(localidad)
+
+			if guardar:
+				direccion = Direccion(calle=calle, altura=altura, piso=piso, nro_departamento=nro_departamento, provincia=provincia, localidad=localidad)
+				direccion.save()
+				
+			p.direccion = direccion
+
+## guarda profesor
 			if contrasenia == contrasenia2:
 				p.save()
 				p.lista_deporte = lista_deporte
@@ -92,7 +130,8 @@ def alta_profesor(request):
 				p.save()
 			else:
 				mensaje = '***Passwords no coinciden***'
-				
+			
+
 
 			
 			if rechazo:
@@ -101,8 +140,10 @@ def alta_profesor(request):
 
 	ctx = {
 		'form': form,
+		'form_direccion':form_direccion,
 		'mensaje': mensaje,
 		'rechazo': rechazo,
+		'mensaje_error':mensaje_error,
 	}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
@@ -111,7 +152,10 @@ def actualizar_profes(request, pk):
     template = "admin/adminProfesores/profes_modificar.html"
     p = Profesor.objects.get(id=pk)
     form = FormularioEditarProfesor()
+    form_direccion = FormularioDireccion(request.POST or None, instance=direccion_instancia(p))
     mensaje =''
+    direccion = Direccion()
+    guardar = True
     rechazo = False
 
 
@@ -128,6 +172,7 @@ def actualizar_profes(request, pk):
         'lista_deporte' : p.lista_deporte.all()
         
     }
+    
     
     if request.method == 'POST'and 'bModificar' in request.POST:
         form = FormularioEditarProfesor(request.POST, request.FILES)
@@ -155,6 +200,35 @@ def actualizar_profes(request, pk):
             p.foto = nuevo_foto
             p.email = nuevo_email
             p.telefono = nuevo_telefono
+            calle = request.POST.get('calle')
+            calle = dar_formato(calle)
+            altura = request.POST.get('altura')
+            if altura == '':
+            	altura = 0
+
+            piso = request.POST.get('piso')
+            if piso == '':
+            	piso = 0
+            nro_departamento = request.POST.get('nro_departamento')
+            if not nro_departamento:
+            	nro_departamento = ' '
+            if not validar_nro_dpto(nro_departamento):
+            	guardar = False
+            	mensaje_error = 'Error: ingresar Nro de Departamento.'
+            provincia = request.POST.get('provincia')
+            provincia = dar_formato(provincia)
+            localidad = request.POST.get('localidad')
+            localidad = dar_formato(localidad)
+            if guardar:
+				direccion.calle =calle 
+				direccion.altura=altura
+				direccion.piso=piso
+				direccion.nro_departamento=nro_departamento.upper()
+				direccion.provincia=provincia
+				direccion.localidad=localidad
+				direccion.save()
+
+				p.direccion = direccion
 
             if (nueva_contrasenia !='' or nueva_contrasenia is not None) and nueva_contrasenia ==contrasenia2:
             	p.save()
@@ -175,11 +249,23 @@ def actualizar_profes(request, pk):
 
     ctx = {
         'form': form,
+        'form_direccion':form_direccion,
         'mensaje':mensaje,
         'rechazo':rechazo,
     }
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def direccion_instancia(persona_i):
+	try:
+		p = Direccion.objects.get(id=persona_i.direccion.id)
+		
+	except:
+		d = Direccion()
+		persona_i.direccion = d
+		p = d
+
+	return p
     
 def listar_profes(request):
 	template = "admin/adminProfesores/listar_profes.html"
@@ -213,7 +299,10 @@ def delete_profe(request, pk):
 def alta_alumno(request):
 	template = "admin/adminAlumnoInvitado/alta_alumno.html"
 	form = FormularioAltaAlumnoInvitado()
+	form_direccion = FormularioDireccion()
+	guardar = True
 	mensaje = ''
+	mensaje_error = ''
 	rechazo = False
 	#u = User.objects.get()
 
@@ -232,8 +321,10 @@ def alta_alumno(request):
 			email = form.cleaned_data['email']
 			telefono = form.cleaned_data['telefono']
 			lista_deporte = form.cleaned_data['lista_deporte']
+
             
 			a = UsuarioInvitado()
+
 			a.first_name = nombre
 			a.last_name = apellido
 			a.username = usuario
@@ -242,6 +333,38 @@ def alta_alumno(request):
 			a.foto = foto
 			a.email = email
 			a.telefono = telefono
+
+			form_direccion = FormularioDireccion(request.POST)
+
+			calle = request.POST.get('calle')
+			calle = dar_formato(calle)
+			altura = request.POST.get('altura')
+			if altura == '':
+				altura = 0
+
+			piso = request.POST.get('piso')
+			if piso == '':
+				piso = 0
+
+			nro_departamento = request.POST.get('nro_departamento')
+			if not nro_departamento:
+				nro_departamento = ' '
+
+			if not validar_nro_dpto(nro_departamento):
+				guardar = False
+				mensaje_error = 'Error: ingresar Nro de Departamento.'
+
+			provincia = request.POST.get('provincia')
+			provincia = dar_formato(provincia)
+			
+			localidad = request.POST.get('localidad')
+			localidad = dar_formato(localidad)
+
+			if guardar:
+				direccion = Direccion(calle=calle, altura=altura, piso=piso, nro_departamento=nro_departamento, provincia=provincia, localidad=localidad)
+				direccion.save()
+			a.direccion = direccion				
+
 
 			if contrasenia==contrasenia2:
 				a.save()
@@ -256,10 +379,10 @@ def alta_alumno(request):
 				return HttpResponseRedirect(reverse('listar_alumnos'))
 
 
-
-
 	ctx = {
 		'form': form,
+		'from_direccion': form_direccion,
+		'mensaje_error':mensaje_error,
 		'mensaje': mensaje,
 		'rechazo':rechazo,
 	}
@@ -289,8 +412,11 @@ def actualizar_alumnos(request, pk):
     template = "admin/adminAlumnoInvitado/alumno_modificar.html"
     a = UsuarioInvitado.objects.get(id=pk)
     form = FormularioEditarAlumnoInvitado()
+    form_direccion = FormularioDireccion(request.POST or None, instance=direccion_instancia(a))
     mensaje = ''
+    direccion = Direccion()
     rechazo = False
+    guardar = True
 
     form.initial = {
         'first_name': a.first_name,
@@ -331,6 +457,36 @@ def actualizar_alumnos(request, pk):
             a.foto = nuevo_foto
             a.email = nuevo_email
             a.telefono = nuevo_telefono
+            calle = request.POST.get('calle')
+            calle = dar_formato(calle)
+            altura = request.POST.get('altura')
+            if altura == '':
+            	altura = 0
+
+            piso = request.POST.get('piso')
+            if piso == '':
+            	piso = 0
+            nro_departamento = request.POST.get('nro_departamento')
+            if not nro_departamento:
+            	nro_departamento = ' '
+            if not validar_nro_dpto(nro_departamento):
+            	guardar = False
+            	mensaje_error = 'Error: ingresar Nro de Departamento.'
+            provincia = request.POST.get('provincia')
+            provincia = dar_formato(provincia)
+            localidad = request.POST.get('localidad')
+            localidad = dar_formato(localidad)
+            if guardar:
+				direccion.calle =calle 
+				direccion.altura=altura
+				direccion.piso=piso
+				direccion.nro_departamento=nro_departamento.upper()
+				direccion.provincia=provincia
+				direccion.localidad=localidad
+				direccion.save()
+
+				a.direccion = direccion
+
     
             if (nueva_contrasenia !='' or nueva_contrasenia is not None) and nueva_contrasenia ==contrasenia2:
             	a.save()
@@ -349,6 +505,7 @@ def actualizar_alumnos(request, pk):
            
     ctx = {
         'form': form,
+        'form_direccion':form_direccion,
         'mensaje':mensaje,
         'rechazo': rechazo,
 
@@ -1353,14 +1510,15 @@ def verPerfilProfesor(request, pk):
 			'mensaje': mensaje,
 			'legajo': profesor.legajo,
 			'profesor': profesor,
-			'usuario':request.user.username,
-			'nombre': request.user.first_name,
-			'apellido': request.user.last_name,
+			'usuario':profesor.username,
+			'nombre': profesor.first_name,
+			'apellido': profesor.last_name,
 			'dni': profesor.dni,
 			'sexo': profesor.ver_sexo,
 			'fecha_nacimiento': profesor.fecha_nacimiento,
 			'telefono': profesor.telefono,
-			'direccion': profesor.direccion,	
+			'direccion': profesor.direccion,
+			'email':profesor.email,	
 			'extiende': extiende,
 			}
 
@@ -1404,6 +1562,7 @@ def verPerfilInvitado(request, pk):
 			'sexo': mostrar_sexo(request.session['sexo']),
 			'fecha_nacimiento': request.session['fecha_nacimiento'],
 			'telefono': request.session['telefono'],
+			'email':alumno.email,
 			'direccion': request.session['direccion'],
 		} 	 
 	except Exception as e:
@@ -1413,11 +1572,12 @@ def verPerfilInvitado(request, pk):
 		ctx1 = {
 			'institucion': alumno.institucion,
 			'email': alumno.email,
-			'nombre': request.user.first_name,
-			'apellido': request.user.last_name,
+			'nombre': alumno.first_name,
+			'apellido': alumno.last_name,
 			'sexo': alumno.ver_sexo,
 			'fecha_nacimiento': alumno.fecha_nacimiento,
 			'telefono': alumno.telefono,
+			'email':alumno.email,
 			'direccion': alumno.direccion,
 		} 
 

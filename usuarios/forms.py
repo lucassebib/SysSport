@@ -69,13 +69,12 @@ class FormularioAltaProfe(forms.ModelForm):
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
 			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True', 'placeholder':'DD/MM/AA'}),
 			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
-			'telefono':forms.TextInput(attrs={'placeholder':'3624787542',}),
-			'dni':forms.TextInput(attrs={'placeholder':'34954568'}),
-			'telefono':forms.TextInput(attrs={'placeholder':'3624787542', 'requiered':'False'}),
+			'dni':forms.TextInput(attrs={'placeholder':''}),
+			'telefono':forms.TextInput(attrs={'placeholder':'', 'requiered':'False'}),
 			'lista_deporte': forms.CheckboxSelectMultiple(),
 			        }
  
-  		fields = ['username', 'password', 'first_name', 'last_name', 'dni','fecha_nacimiento','sexo','foto_perfil','email','telefono','lista_deporte']
+  		fields = ['username', 'password', 'first_name', 'last_name', 'dni','fecha_nacimiento','sexo','email','telefono','lista_deporte']
   	
 
 
@@ -89,16 +88,15 @@ class FormularioEditarProfesor(forms.ModelForm):
 			'password':forms.PasswordInput(render_value=False),
 			'first_name':forms.TextInput(attrs={'size': 30,}),
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
-			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True'}),
+			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True','placeholder':'DD/MM/AA'}),
 			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
-			'telefono':forms.TextInput(attrs={'placeholder':'3624787542'}),
-			'dni':forms.TextInput(attrs={'placeholder':'34954568'}),
-			'telefono':forms.TextInput(attrs={'placeholder':'3624787542', 'requiered':'True'}),
+			'dni':forms.TextInput(attrs={'placeholder':''}),
+			'telefono':forms.TextInput(attrs={'placeholder':'', 'requiered':'True'}),
 			'lista_deporte': forms.CheckboxSelectMultiple(),
         }
 
 
-		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email','telefono','lista_deporte' ]
+		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','email','telefono','lista_deporte' ]
 	
 	def __init__(self, *args, **kwargs):
 		super(self.__class__, self).__init__(*args, **kwargs)
@@ -117,16 +115,15 @@ class FormularioAltaAlumnoInvitado(forms.ModelForm):
 			'password': forms.PasswordInput(render_value=False, attrs={'required':'True'}),
 			'first_name':forms.TextInput(attrs={'size': 30,}),
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
-			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True'}),
+			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True', 'placeholder':'DD/MM/AA'}),
 			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
-			'telefono':forms.TextInput(attrs={'placeholder':'3624787542'}),
-			'dni':forms.TextInput(attrs={'placeholder':'34954568'}),
-			'telefono':forms.TextInput(attrs={'placeholder':'3624787542', 'requiered':'True'}),
+			'dni':forms.TextInput(attrs={'placeholder':''}),
+			'telefono':forms.TextInput(attrs={'placeholder':'', 'requiered':'True'}),
 			'lista_deporte': forms.CheckboxSelectMultiple(),
 			
         }
 
-		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email','telefono', 'lista_deporte' ]
+		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','email','telefono', 'lista_deporte' ]
 
 
 
@@ -140,16 +137,15 @@ class FormularioEditarAlumnoInvitado(forms.ModelForm):
 			'password': forms.PasswordInput(render_value=False),
 			'first_name':forms.TextInput(attrs={'size': 30,}),
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
-			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True'}),
+			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True', 'placeholder':'DD/MM/AA'}),
 			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
-			'telefono':forms.TextInput(attrs={'placeholder':'3624787542'}),
-			'dni':forms.TextInput(attrs={'placeholder':'34954568'}),
-			'telefono':forms.TextInput(attrs={'placeholder':'3624787542', 'requiered':'True'}),
+			'dni':forms.TextInput(attrs={'placeholder':''}),
+			'telefono':forms.TextInput(attrs={'placeholder':'', 'requiered':'True'}),
 			'lista_deporte': forms.CheckboxSelectMultiple(),
         }
 
 
-		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','foto_perfil','email','telefono','lista_deporte' ]
+		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','email','telefono','lista_deporte' ]
 
 	def __init__(self, *args, **kwargs):
 		super(self.__class__, self).__init__(*args, **kwargs)

@@ -11,7 +11,7 @@
 							<h4>Datos del Usuario Invitado:</h4>
 							<p class="aviso"> (*) campos obligatorios</p>
 						</div>
-						<b>Usuario</b><b class="aviso"> *</b></br> {{form.username}}</br></br>
+						        <b>Usuario</b><b class="aviso"> *</b></br> {{form.username}}</br></br>
 								<b>Contraseña</b> <b class="aviso"> *</b></br>{{form.password}}</br>
 								<b>Repetir Contraseña</b> <b class="aviso"> *</b></br>{{form.password2}}<br></br>
 
@@ -24,7 +24,7 @@
 								<b>DNI</b><b class="aviso"> *</b></br>{{form.dni}}</br></br>
 								<b>Fecha de Nacimiento</b><b class="aviso"> *</b></br>{{form.fecha_nacimiento}}</br></br>
 								<b>Sexo</b><b class="aviso"> *</b></br>{{form.sexo}}</br></br>
-								<b>Foto de perfil</b></br>{{form.foto_perfil}} </br></br>
+								
 								<b>Email</b><b class="aviso"> *</b></br>{{form.email}} </br></br>
 								<b>Telefono</b></br>{{form.telefono}} </br></br>
 								<b>Deportes </b><b class="aviso"> *</b></br>
@@ -40,6 +40,20 @@
 								<a href="{% url 'crear_deporte' %}"> Aquí</a> </p>
 
 					</div>
+					<div class=" panel-default">
+						<div class="panel-heading">
+							<h4><b>Direccion del Contacto:</b></h4>
+						</div>
+							<b>Calle</b></br> {{from_direccion.calle}}</br>
+							<b>Altura</b></br> {{from_direccion.altura}}</br>
+							<b>Piso</b></br> {{from_direccion.piso}}</br>
+							<b>Nro Departamento</b></br> {{from_direccion.nro_departamento}}</br>
+							<b>Provincia</b></br> {{from_direccion.provincia}}</br>
+							<b>Localidad</b></br> {{from_direccion.localidad}}</br>
+
+
+						
+					</div>	
 							
 				</div>
 				<input  class="btn btn-primary"  type='submit' value='Aceptar' name= 'boton_alta'>

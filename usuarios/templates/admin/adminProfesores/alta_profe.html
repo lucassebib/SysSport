@@ -26,7 +26,6 @@
 								<b>DNI</b><b class="aviso"> *</b></br>{{form.dni}}</br></br>
 								<b>Fecha de Nacimiento</b><b class="aviso"> *</b></br>{{form.fecha_nacimiento}}</br></br>
 								<b>Sexo</b><b class="aviso"> *</b></br>{{form.sexo}}</br></br>
-								<b>Foto de perfil</b></br>{{form.foto_perfil}} </br></br>
 								<b>Email</b><b class="aviso"> *</b></br>{{form.email}} </br></br>
 								<b>Telefono</b></br>{{form.telefono}} </br></br>
 								<b>Deportes </b><b class="aviso"> *</b></br>
@@ -42,6 +41,20 @@
 								<a href="{% url 'crear_deporte' %}"> Aquí</a> </p>
 
 					</div>
+					<div class=" panel-default">
+						<div class="panel-heading">
+							<h4><b>Direccion del Contacto:</b></h4>
+						</div>
+							<b>Calle</b></br> {{form_direccion.calle}}</br>
+							<b>Altura</b></br> {{form_direccion.altura}}</br>
+							<b>Piso</b></br> {{form_direccion.piso}}</br>
+							<b>Nro Departamento</b></br> {{form_direccion.nro_departamento}}</br>
+							<b>Provincia</b></br> {{form_direccion.provincia}}</br>
+							<b>Localidad</b></br> {{form_direccion.localidad}}</br>
+
+
+						
+					</div>	
 							
 				</div>
 				<input  class="btn btn-primary"  type='submit' value='Aceptar' name= 'boton_alta'>
