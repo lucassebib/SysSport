@@ -25,15 +25,12 @@ class FormularioNovedades(forms.ModelForm):
 		 	'titulo': forms.TextInput(attrs={'required':'True'}),
 		 	'contenido': forms.Textarea(attrs={'cols': '80', 'rows':'20', 'required':'True'})
 		}
-		#categoria= forms.MultipleChoiceField( widget=forms.CheckboxSelectMultiple())
-		
 
 	def __init__(self, user, *args, **kwargs):
 		super(FormularioNovedades, self).__init__(*args, **kwargs)
 		deportes = Profesor.objects.get(id = user.id).lista_deporte.all()
 		self.fields["categoria"].widget = forms.CheckboxSelectMultiple()
 		self.fields["categoria"].queryset = Deporte.objects.filter(id__in=deportes)
-		#self.fields["visibilidad"] = 2
 
 class FormularioNovedadesAdmin(forms.ModelForm):
 	class Meta:
@@ -45,11 +42,7 @@ class FormularioNovedadesAdmin(forms.ModelForm):
 		 	'contenido': forms.Textarea(attrs={'cols': '80', 'rows':'20', 'required':'True'}),
 			'categoria': forms.CheckboxSelectMultiple,
 		}
-	
-	#def form_valid(self, form):
-	#	a = form.save(commit = False)
-	#	a.autor = self.request.user
-	#	return super(FormularioNovedadesAdmin, self).form_valid(form)
+
 
 
 

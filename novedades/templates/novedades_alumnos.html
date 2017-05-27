@@ -77,6 +77,7 @@
 
 
 									<td class="td_titulo"><a href="{% url 'ver_novedades' post.id %}"><b><h3 class="titulo_novedad">{{post.titulo}}</h3></b></a>
+									<p>{{post.autor.first_name}} {{post.autor.last_name}}</p>
 									<p class="fecha">{{post.fecha_publicacion}}</p>
 									</td>
 									

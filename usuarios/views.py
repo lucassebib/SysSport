@@ -460,7 +460,7 @@ def vista_recuperar_clave(request):
 
 def vista_registrarse(request):
 	template = 'registro.html'
-	form = FormularioRegistracion()
+	form = FormularioRegistracion(request.POST or None)
 	mensaje_error = ''
 	error_mail = False
 
@@ -470,55 +470,52 @@ def vista_registrarse(request):
 		password = request.POST.get('password')
 		lista_deporte = request.POST.get('lista_deporte')
 
-		#validar datos
-		datos_validos = True
+		#Verifico si no existe registrados alumnos con el legajo ingresado
+		alumnos_registrados = Alumno.objects.get(legajo=int(legajo))
 
-		#validacion con el sysacad
-		validacion = True
-		#validacion = establecer_conexion(int(legajo), password)
-		print(validacion)
+		if not alumnos_registrados:
+			#validar datos
+			datos_validos = True
 
-		#datos sysacad
+			#validacion con el sysacad
+			validacion = True
+			#validacion = establecer_conexion(int(legajo), password)
 
-		email = 'el_lucas992@hotmail.com'
-		dni = 366366636
-		nombre = 'Lucas'
+			#datos sysacad
+			email = 'el_lucas992@hotmail.com'
+			dni = 366366636
+			nombre = 'Lucas'
 
-		#Creamos el alumno
-		if validacion and datos_validos:
-			#Enviar mail de confirmacion
-			salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
-			activation_key = hashlib.sha1(salt+email).hexdigest()
-			key_expires = datetime.today() + timedelta(2)
-			asunto = 'Confirmacion de cuenta en SysSport'
-			direccion_servidor = 'http://127.0.0.1:8000/cuenta/confirmar'
-			cuerpo = "Hola %s, Gracias por registrarte. Para activar tu cuenta da click en este link en menos de 48 horas: %s/%s" % (nombre, direccion_servidor, activation_key)
-			
-			
-			print('esta por mandar')
-			send_mail(
-				asunto, 
-				cuerpo, 
-				'ver_cuenta@example.com', 
-				[email], 
-				fail_silently=False
-			)
-			#except Exception as e:
-			#	print('no mando')
-			#	print(e)
-			#	error_mail = True
-			#	mensaje_error = e
+			#Creamos el alumno
+			if validacion and datos_validos:
+				#Enviar mail de confirmacion
+				salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
+				activation_key = hashlib.sha1(salt+email).hexdigest()
+				key_expires = datetime.today() + timedelta(2)
+				asunto = 'Confirmacion de cuenta en SysSport'
+				direccion_servidor = 'http://127.0.0.1:8000/cuenta/confirmar'
+				cuerpo = "Hola %s, Gracias por registrarte. Para activar tu cuenta da click en este link en menos de 48 horas: %s/%s" % (nombre, direccion_servidor, activation_key)
+							
+				print('esta por mandar')
+				send_mail(
+					asunto, 
+					cuerpo, 
+					'ver_cuenta@example.com', 
+					[email], 
+					fail_silently=False
+				)
 
-			#if not error_mail:
-			a = Alumno(legajo=legajo, dni=dni)
-			a.save()
-			a.lista_deporte.add(lista_deporte)
-			a.save()
-			a.activation_key = activation_key
-			a.key_expires = key_expires
-			a.save()
-			url = 'vista_registracion_exitosa'
-			return HttpResponseRedirect(reverse(url))
+				a = Alumno(legajo=legajo, dni=dni)
+				a.save()
+				a.lista_deporte.add(lista_deporte)
+				a.save()
+				a.activation_key = activation_key
+				a.key_expires = key_expires
+				a.save()
+				url = 'vista_registracion_exitosa'
+				return HttpResponseRedirect(reverse(url))
+		else:
+				mensaje_error = 'Ya existe un usuario con el legajo ingresado.'
 	
 	ctx = {
 		'form': form,

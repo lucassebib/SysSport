@@ -18,11 +18,11 @@
 					<div class="titular-comentario contenido-comentario esquinas">
 						<table cellpadding="0" cellspacing="2">
 							<tr>
-								<td class="td_perfil"><!--<a href="{% url 'ver_informacion_perfil_persona' post.obtener_idAutor %}"><img class="img_perfil" src="{{post.obtener_url_imagen}}"></a> -->
+								<td class="td_perfil">
 									{% if post.es_admin %}
 										<a href='#'></a>
 									{% else %}
-										<a href="{% url 'ver_informacion_perfil_persona' post.obtener_idAutor %}"{% endif %}>
+										<a href="{% url 'ver_informacion_perfil_persona' post.obtener_idAutor %}">{% endif %}
 										
 										<img class="img_perfil" src="{% if post.es_admin %}
 																		{{foto_admin}}
@@ -32,6 +32,7 @@
 									    </a>
 									</td>
 								<td class="td_titulo"><a href="{% url 'ver_novedades' post.id %}"><b><h3 class="titulo_novedad">{{post.titulo}}</h3></b></a>
+									<p>{{post.autor.first_name}} {{post.autor.last_name}}</p>
 									<p class="fecha">{{post.fecha_publicacion}}</p>
 								</td> 
 							</tr>

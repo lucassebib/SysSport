@@ -105,8 +105,6 @@ class Profesor(Persona):
 	def profesor_de(self):
 		return "\n -".join([d.nombre for d in self.lista_deporte.all()])
 
-
-
 class Alumno(models.Model):
 	foto_perfil = models.ImageField(upload_to='usuarios/fotos_de_perfil/', default="usuarios/fotos_de_perfil/None/default_profile.jpg")
 	legajo =  models.IntegerField(blank=True, null=True)

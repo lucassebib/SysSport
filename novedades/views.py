@@ -43,7 +43,6 @@ class ListarNovedades(ListView):
 
     def get_queryset(self):
     	queryset = super(ListarNovedades, self).get_queryset()
-        #queryset, mensaje = buscador_novedades_por_titulo(request, queryset, mensaje)
 
     	return queryset.filter(autor=self.request.user.id).order_by('-fecha_publicacion')
 
@@ -62,45 +61,9 @@ class CrearNovedades(CreateView):
 
 	def form_valid(self, form):	
 		a = form.save(commit = False)
-		#a.autor = Profesor.objects.get(id = self.request.user.id)
 		a.autor = self.request.user
 		return super(CrearNovedades, self).form_valid(form)
 
-"""
-def editar_novedad(request, pk):
-
-	template = "novedades/novedades_form.html"
-	novedad = Novedades.objects.get(id=pk)
-	form = FormularioNovedades(user=request.user)
-	visibilidad_default = novedad.visibilidad
-	form.initial = {
-		'titulo' : novedad.titulo, 
-		'contenido' : novedad.contenido,
-		'fecha_publicacion' : novedad.fecha_publicacion,
-		'imagen' : novedad.imagen,
-		'categoria' : novedad.categoria.all(),
-		'visibilidad': novedad.visibilidad,
-	}
-
-	if request.method == "POST" and 'boton_guardar' in request.POST:
-		form = FormularioNovedadesAdmin(request.POST, request.FILES)
-		if form.is_valid():
-			novedad.titulo = form.cleaned_data['titulo']
-			novedad.contenido = form.cleaned_data['contenido']
-			novedad.imagen = form.cleaned_data['imagen']
-			novedad.visibilidad = form.cleaned_data['visibilidad']
-			novedad.categoria = form.cleaned_data['categoria']
-			novedad.save()
-			return HttpResponseRedirect(reverse('listar-novedades'))
-
-
-	ctx = {
-		'form': form,
-		'visibilidad_default': visibilidad_default,		
-	}
-
-	return render_to_response(template, ctx, context_instance=RequestContext(request))
-"""
 class ActualizarNovedades(UpdateView):
     model = Novedades
     form_class = FormularioNovedades
@@ -108,11 +71,11 @@ class ActualizarNovedades(UpdateView):
     def get_form_kwargs(self):
     	kwargs = super(ActualizarNovedades, self ).get_form_kwargs()
     	kwargs['user'] = self.request.user
+
     	return kwargs
 
 	def form_valid(self, form):	
 		a = form.save(commit = False)
-		#a.autor = Profesor.objects.get(id = self.request.user.id)
 		a.autor = self.request.user
 		return super(CrearNovedades, self).form_valid(form)
  
@@ -231,7 +194,6 @@ def ver_novedad_admin(request, pk):
 	form = FormularioComentario()
 	id_usuario = request.user.id
 	novedad = Novedades.objects.get(id=pk)
-	#edicion = False
 	puede_editar_comentarios = True
 	mensaje = ''
 	extiende = 'baseAdmin.html'
@@ -245,7 +207,6 @@ def ver_novedad_admin(request, pk):
 			comentario.save()
 			novedad.lista_comentarios.add(comentario)
 			novedad.save()
-			#form = FormularioComentario() 
 
 			if not autor.id == novedad.autor.id and not autor.is_staff:
 				n = Notificacion()
@@ -285,11 +246,13 @@ def ver_novedades_visibilidadTodos(request):
 	extiende = extiende_de(id_usuario, request)
 	posts = Novedades.objects.filter(visibilidad__in=[1]).order_by('-fecha_publicacion')
 	posts, mensaje = buscador_novedades(request, posts, mensaje)
-	
+	a = perfil_admin
+
 	ctx = {
 		'posts': posts, 
 		'extiende': extiende,
 		'mensaje': mensaje,
+		'foto_admin': a,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
@@ -335,7 +298,6 @@ def ver_novedades(request, pk):
 			comentario.save()
 			novedad.lista_comentarios.add(comentario)
 			novedad.save()
-			#form = FormularioComentario() 
 
 			if not autor == novedad.autor.id and not novedad.autor.is_staff:
 				n = Notificacion()
@@ -357,13 +319,9 @@ def ver_novedades(request, pk):
 		novedad.save()
 		comentario = Comentario.objects.get(id=id_comentario_eliminar)
 		comentario.delete()
-
-	#if request.method == "POST" and 'boton_editar' in request.POST:
-		#mensaje='apretaste boton editar'
-		#edicion = True
 	
 	a = perfil_admin
-	#string() 
+
 	ctx = {
 		'novedad': novedad,
 		'formulario':form,
@@ -381,13 +339,16 @@ def novedades_profesores(request):
 	template = "novedades_profesores.html"
 	mensaje =''
 	posts = Novedades.objects.filter(autor=request.user.id) | Novedades.objects.filter(visibilidad__in=[1,2])
-	posts.order_by('fecha_publicacion')
+	#posts.order_by('-fecha_publicacion')
 	posts, mensaje = buscador_novedades(request, posts, mensaje)
 	pag = Paginate(request, posts, 3)
+	a = perfil_admin
+
 	ctx = {
 		'posts': pag['queryset'],
 		'paginator': pag,
      	'mensaje': mensaje,
+     	'foto_admin': a,
 	}
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
 

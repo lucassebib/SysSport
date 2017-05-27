@@ -11,7 +11,14 @@
 		<h1><i>Deportes</i></h1>
 	</div>
 	<div class="page-content">
-		<p><i>¡Animate a participar en alguno de estos deportes!</i><p/>
+		<br>
+		<h3><i>¡Animate a formar parte de alguno de estos deportes!</i></h3>
+		<br>
+
+		<div class="carousel-inner">
+			{% include "slider-deportes/slider-deportes.html" %}
+		</div>
+		<br>
 		
 		<div class="navbar">
 			{% for d in deportes %}
