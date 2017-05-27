@@ -68,11 +68,17 @@
 						{% endif %}
 					</tr>
 					<tr class="form-group">
+						<td><label class=" control-label">E-Mail:  </label></td>
+						
+							<td><p>{{email}}</p></td>
+
+					</tr>
+					<tr class="form-group">
 						<td><label class=" control-label">Legajo:  </label></td>
 						{% if legajo %}
 							<td><p>{{legajo}}</p></td>
 						{% else %}
-							<td><label class=" control-label">  </label></td>
+							<td><label class=" control-label"> -- </label></td>
 						{% endif %}
 					</tr>
 					<tr class="form-group">
@@ -91,13 +97,12 @@
 							<td><p>  </p></td>
 						{% endif %}
 					</tr>
+
 					<tr class="form-group">
 						<td><label class=" control-label">Dirección:  </label></td>
-						{% if legajo %}
+					
 							<td><p>{{direccion}}</p></td>
-						{% else %}
-							<td><p>  </p></td>
-						{% endif %}
+					
 					</tr>
 				</tbody>
 			</table>
