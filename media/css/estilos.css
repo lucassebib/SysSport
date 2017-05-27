@@ -2,6 +2,13 @@
 .aviso{
 	color:blue;
 }
+.img_novedad{
+	  max-width: 100%;
+	  overflow: hidden;
+	  margin: 0 auto;
+	  padding: 0;
+	  position: relative;
+}
 .container-fluid.cabecera{
 	width: 970px;
 	padding-top: 5px;

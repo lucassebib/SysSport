@@ -26,25 +26,6 @@ from usuarios.funciones import *
 from usuarios.forms import *
 from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccion, ContactoDeUrgencia, DatosMedicos, carreras_disponibles, MAX_CONTACTO_URGENCIA 
 
-################# ABM de usuario##########################################################
-"""def alta_usuario(request):
-	template = "admin/adminUsuario/alta_usuario.html"
-	form_profesor = FormularioAltaProfe()
-	form_alumno = FormularioAltaAlumnoInvitado()
-
-	if request.method == "POST" and 'boton_alta' and 'alumno' in request.POST:
-		form_alumno = FormularioAltaAlumnoInvitado()
-	 	#aca iria todo lo de alumno
-	else:
-		form_profesor = FormularioAltaProfe()
-		#aca iria todo lo del profe
-	ctx = {
-		'form_profesor':form_profesor
-		'from_alumno': form_alumno
-	}
-
-	return render_to_response(template, ctxt, context_instance = RequestContext(request))"""
-
 
 #################### AMB profeor Realizado Por el Admin ######################################
 def alta_profesor(request):
@@ -86,9 +67,6 @@ def alta_profesor(request):
 			#p.set_password(contrasenia)
 			#p.save()
 			
-
-
-
 			form_direccion = FormularioDireccion(request.POST)
 
 			calle = request.POST.get('calle')
@@ -121,7 +99,7 @@ def alta_profesor(request):
 				
 			p.direccion = direccion
 
-## guarda profesor
+			## guarda profesor
 			if contrasenia == contrasenia2:
 				p.save()
 				p.lista_deporte = lista_deporte
@@ -131,12 +109,8 @@ def alta_profesor(request):
 			else:
 				mensaje = '***Passwords no coinciden***'
 			
-
-
-			
 			if rechazo:
 				return HttpResponseRedirect(reverse('listar_profes'))
-
 
 	ctx = {
 		'form': form,
@@ -169,10 +143,8 @@ def actualizar_profes(request, pk):
         'foto_perfil':p.foto_perfil,
         'email':p.email,
         'telefono':p.telefono,
-        'lista_deporte' : p.lista_deporte.all()
-        
+        'lista_deporte' : p.lista_deporte.all()    
     }
-    
     
     if request.method == 'POST'and 'bModificar' in request.POST:
         form = FormularioEditarProfesor(request.POST, request.FILES)
@@ -245,15 +217,12 @@ def actualizar_profes(request, pk):
         else:
         	form = PostForm()
 
-       
-
     ctx = {
         'form': form,
         'form_direccion':form_direccion,
         'mensaje':mensaje,
         'rechazo':rechazo,
     }
-
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 def direccion_instancia(persona_i):
@@ -289,7 +258,6 @@ def delete_profe(request, pk):
 
 	ctx = {
 		'profe': p,
-
 	}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
@@ -521,9 +489,6 @@ def listar_alumnos(request):
     }
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 #######################################################################################################
-#######################################################################################################
-
-
 def vista_pagina_inicio(request):
 	form1 = FormularioAutenticacion()
 

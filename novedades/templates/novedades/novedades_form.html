@@ -25,14 +25,7 @@
         </div>
 		<div class="page-content">
 		
-			<form action='' method='POST'>{% csrf_token %}
-			<!--
-				{% for field in form %}
-			 		<div>
-			 		<p>{{field.label}}</p>
-					{{field}}	
-					</div>									
-				{% endfor %}  -->
+			<form action='' method='POST' enctype="multipart/form-data">{% csrf_token %}
 				<div class="form-group">
 					<label>Titulo: </label>
 					{{form.titulo}}
@@ -57,7 +50,6 @@
 						{% endfor %}
 					</select>	
 				</div>
-
 
 				<div class="form-group" id="div_escondido" style="display: none;">
 					<label>Categoria:</label>

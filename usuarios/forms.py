@@ -10,7 +10,7 @@ class FormularioAutenticacion(forms.Form):
 	password = forms.CharField(label='', widget=forms.PasswordInput(render_value=False, attrs={'placeholder': 'contrasena','class':'form-control', 'required':'True'}))
 
 class FormularioRegistracion(forms.ModelForm):
-	legajo = forms.CharField(label='legajo', widget=forms.TextInput(attrs={'placeholder':'legajo', 'class':'form-control', 'required':'True'}))
+	legajo = forms.CharField(label='legajo', widget=forms.NumberInput(attrs={'placeholder':'legajo', 'class':'form-control', 'required':'True'}))
 	password = forms.CharField(label='contrasena', widget=forms.PasswordInput(render_value=False, attrs={'placeholder': 'contrasena','class':'form-control', 'required':'True'}))
 
 	class Meta:

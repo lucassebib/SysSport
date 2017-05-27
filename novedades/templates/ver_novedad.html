@@ -29,6 +29,10 @@
 			</div>
 			<div class="text-justify texto_mensaje">
 				<p2>{{novedad.contenido|safe}}</p2>
+				
+				{% if novedad.imagen %}
+					<img src="{{novedad.imagen.url}}" class="img_novedad">							
+				{% endif %}
 		
 				<p><strong><b>Deporte: </b></strong>{{novedad.obtener_categorias}}</p>
 			</div>
