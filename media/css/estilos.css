@@ -38,7 +38,6 @@ a, li, h1, h2, h3, h4, p, label {
 	
 }
 
-
 label{
 	font-weight: normal;
 
@@ -56,6 +55,18 @@ html, body, .main.container-fluid, .container{
 html, body{
 	height: 100%;
 }
+.error_message{
+	padding: 10px;
+	background-color: #C6537B;
+	color: white;
+}
+
+.success_message{
+	padding: 10px;
+	background-color: #99D581;
+	color: white;
+}
+
 .btn{
 	margin-bottom: -5px;
 }

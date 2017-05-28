@@ -1178,14 +1178,23 @@ def editar_contactoUrgencia(request, pk):
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 #-----------------------------------------------#
+def datos_medicos_instancia(alumno):
+	try:
+		return alumno.datos_medicos
+	except:
+		dm = DatosMedicos()
+		dm.save()
+		alumno.datos_medicos = dm
+		return dm 
+
 def ver_datos_medicos(request):
 	template = "alumno/ver_datos_medicos.html"
 	id_alumno = request.user.id
 
 	form = FormularioCargarArchivo()
-	form_datosMedicos = FormularioDatosMedicos()
 
 	mensaje=''
+	mensaje_error_dm = ''
 	bandera = False
 
 	try:
@@ -1193,27 +1202,7 @@ def ver_datos_medicos(request):
 	except Exception as e:
 		alumno = UsuarioInvitado.objects.get(id=id_alumno)
 
-	if alumno.datos_medicos:
-		mensaje = 'alumno tiene dm'
-		dm = DatosMedicos.objects.get(id=alumno.datos_medicos.id)
-		form_datosMedicos.initial = {
-			'grupo_sanguineo':dm.grupo_sanguineo,
-			'alergias':dm.alergias,
-			'toma_medicamentos':dm.toma_medicamentos,
-			'medicamentos_cuales':dm.medicamentos_cuales,
-			'tuvo_operaciones':dm.tuvo_operaciones,
-			'operaciones_cuales':dm.operaciones_cuales,
-			'tiene_osocial':dm.tiene_osocial,
-			'osocial_cual':dm.osocial_cual,
-		}
-	else:
-		mensaje = 'creando dm para alumno'
-		dm = DatosMedicos()
-		dm.save()
-		alumno.datos_medicos = dm
-		alumno.save()
-
-	
+	form_datosMedicos = FormularioDatosMedicos(request.POST or None, instance = datos_medicos_instancia(alumno))
 
 	if request.method == 'POST' and 'boton_guardar_form' in request.POST:
 	        form = FormularioCargarArchivo(request.POST, request.FILES)
@@ -1223,14 +1212,13 @@ def ver_datos_medicos(request):
 	            	alumno.save()
                     return HttpResponseRedirect('')
                 else:
-                	mensaje = 'no ha subido ningun archivo'
+                	mensaje = 'No ha subido ningun archivo'
 	
 		
 	if request.method == 'POST' and 'boton_guardar_form_dm' in request.POST:
-		mensaje = 'entro al request post de boton '
 		form_datosMedicos = FormularioDatosMedicos(request.POST)
+		dm = DatosMedicos.objects.get(id=alumno.datos_medicos.id)
 		if form_datosMedicos.is_valid():
-			mensaje = 'entro al form is valid'
 			grupo_sanguineo = form_datosMedicos.cleaned_data['grupo_sanguineo'] 
 			alergias = form_datosMedicos.cleaned_data['alergias']
 			toma_medicamentos = form_datosMedicos.cleaned_data['toma_medicamentos']
@@ -1252,14 +1240,16 @@ def ver_datos_medicos(request):
 			dm.save()
 
 			alumno.datos_medicos = dm
-			mensaje = 'modificado'
+			messages.success(request, 'Sus Datos Medicos Han sido guardados Correctamente.')
 			alumno.save()
-			return HttpResponseRedirect('')
+			#return HttpResponseRedirect('')
+		else:
+			messages.error(request, 'Hubo problemas al guardar sus Datos Medicos. Por favor, intente nuevamente.')
 
 	ctx = {
 		'deportes': alumno.lista_deporte.all(),
 		'form': form,
-		'mensaje': mensaje,
+		'mensaje_error_dm': mensaje_error_dm,
 		'alumno': alumno,
 		'form_dm': form_datosMedicos,
 		'bandera': bandera,

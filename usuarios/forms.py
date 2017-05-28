@@ -56,6 +56,18 @@ class FormularioDatosMedicos(forms.ModelForm):
 	class Meta:
 		model = DatosMedicos
 
+	def  __init__(self, *args, **kwargs):
+		super(FormularioDatosMedicos, self).__init__(*args, **kwargs)
+		self.fields['toma_medicamentos'].widget.attrs.update({'id': 'visibilidad_medicamento',
+															  'onchange':"showContent('esconder_medicamentos', 'visibilidad_medicamento');"
+															})
+		self.fields['tuvo_operaciones'].widget.attrs.update({'id': 'visibilidad_operaciones',
+															  'onchange':"showContent('esconder_operaciones', 'visibilidad_operaciones');"
+															})
+		self.fields['tiene_osocial'].widget.attrs.update({'id': 'visibilidad_osocial',
+															  'onchange':"showContent('esconder_osocial', 'visibilidad_osocial');"
+															})
+
 ################## AMB usuarios##############################
 
 class FormularioAltaProfe(forms.ModelForm):
