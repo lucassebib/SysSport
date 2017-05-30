@@ -8,7 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 
-	url(r'^registrarse$', vista_registrarse),
+	url(r'^registrarse$', vista_registrarse, name='registrarse'),
 	url(r'^inicial-admin$', vista_inicial_admin, name= 'inicial_admin'),
 	url(r'^perfil/user/(?P<pk>[0-9]+)$',ver_informacion_perfil_persona, name='ver_informacion_perfil_persona'),
 	url(r'^editar_perfil$', editar_error, name= 'editar_error'),
@@ -20,8 +20,8 @@ urlpatterns = patterns('',
 #URLs RESET PASSWORD
 urlpatterns += patterns('',
 	url(r'^cambiar-pass$', cambiar_contrasenia),
-	url(r'^comprobar_usuario$',ver_tipo_usuario, name= 'ver_tipo_usuario'),
-	url(r'^error$', error_noInvitado, name = 'error_noInvitado'),
+	url(r'^recuperar$',ver_tipo_usuario, name= 'ver_tipo_usuario'),
+	url(r'^recuperar/result$', error_noInvitado, name = 'error_noInvitado'),
 
 	url(r'^password_reset$', password_reset, 
 		{ 'template_name' : 'registracion/password_reset_form.html' , 

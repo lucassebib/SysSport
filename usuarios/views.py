@@ -841,9 +841,11 @@ def ver_tipo_usuario(request):
 		correo = request.POST.get('correo')
 		dato = UsuarioInvitado.objects.filter(email= correo)
 		if dato:
-			return HttpResponseRedirect('/password_reset')
+			url = reverse('password_reset')
+			return HttpResponseRedirect(url)
 		else:
-			return HttpResponseRedirect('/error')
+			url = reverse('error_noInvitado')
+			return HttpResponseRedirect(url)
 
 
 	ctx = { 

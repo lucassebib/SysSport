@@ -1,19 +1,28 @@
-{% extends "base2.html" %}
-{% block inicio %}
-   <li class="{% if '#' == request.resolver_match.view_name %}active{% endif %}">
-    <a href="#">Inicio</a></li>
-{% endblock %}
+{% extends "usuario_noLogueado.html" %}
+{% block menu %}
+		{% if user.is_staff %}
+			{% include "menuAdmin.html" %}
+		{% endif %}
+	{% endblock %}
+
 
 
 {%  block contenido %}
    <div class="panel-info">
 
 		<div class="page-header">
-			<h1><i>Usuario No existe </i></h1>
+			<h1><i>OOOpss!  </i></h1>
 		</div>
 
+
 		<div class="page-content">
-			<h2>Usted no se encuentra registrado como usuario</h2>
+			<h3>Ha ocurrido un problema!...</h3>
+			<br>
+			<p>El usuario que usted ingreso, no se encuentra registrado en Sys-Sport!...</p>
+			<p>Recordar que solamente prodran recuperar su contraseña todos aquellos alumnos invitados.</p>
+			<p>Si sos alumno y ya te encuentras registrado en SysSport, y no recordas tu contraseña deberas dirigirte a las oficinas de Alumna para solicitar una nueva contraseña</p>
+			<br>
+			<p>Si todavia no te registrate y tenes un usuario haz click <a href="{% url 'registrarse' %}">aqui</a> para formar parte!...</p>
 		</div>
 
 		<input class="btn btn-default" type="button" value="Volver" onclick="history.back(-1)" />
