@@ -1173,13 +1173,16 @@ def editar_contactoUrgencia(request, pk):
 
 #-----------------------------------------------#
 def datos_medicos_instancia(alumno):
-	try:
-		return alumno.datos_medicos
-	except:
+
+	a = alumno.datos_medicos
+	if not a: 
 		dm = DatosMedicos()
 		dm.save()
 		alumno.datos_medicos = dm
-		return dm 
+		alumno.save()
+		a = alumno.datos_medicos
+
+	return a 
 
 def ver_datos_medicos(request):
 	template = "alumno/ver_datos_medicos.html"
