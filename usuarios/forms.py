@@ -77,7 +77,7 @@ class FormularioAltaProfe(forms.ModelForm):
 		widgets = {
 			'username':forms.TextInput(attrs={'required':'True'}),
 			'password': forms.PasswordInput(render_value=False, attrs={'required':'True'}),
-			'first_name':forms.TextInput(attrs={'size': 30,}),
+			'first_name':forms.TextInput(attrs={'size': 30,'required':'True'}),
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
 			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True', 'placeholder':'DD/MM/AA'}),
 			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
@@ -98,7 +98,7 @@ class FormularioEditarProfesor(forms.ModelForm):
 		widgets = {
 			'username':forms.TextInput(attrs={'required':'True'}),
 			'password':forms.PasswordInput(render_value=False),
-			'first_name':forms.TextInput(attrs={'size': 30,}),
+			'first_name':forms.TextInput(attrs={'size': 30,'required':'True'}),
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
 			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True','placeholder':'DD/MM/AA'}),
 			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
@@ -125,7 +125,7 @@ class FormularioAltaAlumnoInvitado(forms.ModelForm):
 		widgets = {
 			'username':forms.TextInput(attrs={'required':'True'}),
 			'password': forms.PasswordInput(render_value=False, attrs={'required':'True'}),
-			'first_name':forms.TextInput(attrs={'size': 30,}),
+			'first_name':forms.TextInput(attrs={'size': 30,'required':'True'}),
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
 			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True', 'placeholder':'DD/MM/AA'}),
 			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
@@ -147,7 +147,7 @@ class FormularioEditarAlumnoInvitado(forms.ModelForm):
 		widgets = {
 			'username':forms.TextInput(attrs={'required':'True'}),
 			'password': forms.PasswordInput(render_value=False),
-			'first_name':forms.TextInput(attrs={'size': 30,}),
+			'first_name':forms.TextInput(attrs={'size': 30,'required':'True'}),
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
 			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True', 'placeholder':'DD/MM/AA'}),
 			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),

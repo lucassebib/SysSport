@@ -12,6 +12,7 @@
         		 <p>Para registrarte debes ingresar con tu usuario y contraseña del Sysacad</p>
         	</div>
             <table class="registro">
+            {% include 'mensaje.html' %}
             	<form role="form" class="navbar-form" method="POST" accept-charset="utf-8">{% csrf_token %}
             	
 	                <tr class="form-horizontal">
@@ -27,7 +28,7 @@
 	                    <td>{{form.lista_deporte}}</td>
 	                </tr>
 	                <tr class="form-horizontal navbar">
-	                    <td><button type="submit" class="btn btn-primary" name="boton_enviar" value="enviar">Enviar</button>       {{mensaje_error}}</td>
+	                    <td><button type="submit" class="btn btn-primary" name="boton_enviar" value="enviar">Enviar</button>  </td>
 	                </tr>
 	             
 

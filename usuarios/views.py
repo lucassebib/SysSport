@@ -48,7 +48,6 @@ def alta_profesor(request):
 			dni = form.cleaned_data['dni']
 			fechaN = form.cleaned_data['fecha_nacimiento']
 			sexo = form.cleaned_data['sexo']
-			foto = form.cleaned_data['foto_perfil']
 			email = form.cleaned_data['email']
 			telefono = form.cleaned_data['telefono']
 			lista_deporte = form.cleaned_data['lista_deporte']
@@ -60,7 +59,6 @@ def alta_profesor(request):
 			p.dni = dni
 			p.fecha_nacimiento = fechaN
 			p.sexo = sexo
-			p.foto = foto
 			p.email = email
 			#p.password = contrasenia
 			p.telefono = telefono
@@ -107,7 +105,8 @@ def alta_profesor(request):
 				rechazo = True
 				p.save()
 			else:
-				mensaje = '***Passwords no coinciden***'
+				messages.error(request, 'Passwords no coinciden.')
+
 			
 			if rechazo:
 				return HttpResponseRedirect(reverse('listar_profes'))
@@ -140,7 +139,6 @@ def actualizar_profes(request, pk):
         'dni':p.dni,
         'fecha_nacimiento':p.fecha_nacimiento,
         'sexo':p.sexo,
-        'foto_perfil':p.foto_perfil,
         'email':p.email,
         'telefono':p.telefono,
         'lista_deporte' : p.lista_deporte.all()    
@@ -155,7 +153,6 @@ def actualizar_profes(request, pk):
             nuevo_dni = form.cleaned_data['dni']
             nuevo_fechaN = form.cleaned_data['fecha_nacimiento']
             nuevo_sexo = form.cleaned_data['sexo']
-            nuevo_foto = form.cleaned_data['foto_perfil']
             nuevo_email = form.cleaned_data['email']
             nuevo_telefono =form.cleaned_data['telefono']
             nuevo_deporte = form.cleaned_data['lista_deporte']
@@ -169,7 +166,6 @@ def actualizar_profes(request, pk):
             p.dni = nuevo_dni
             p.fecha_nacimiento = nuevo_fechaN
             p.sexo = nuevo_sexo
-            p.foto = nuevo_foto
             p.email = nuevo_email
             p.telefono = nuevo_telefono
             calle = request.POST.get('calle')
@@ -210,7 +206,7 @@ def actualizar_profes(request, pk):
             	p.save()
 
             else:
-            	mensaje = '***Passwords no coinciden***'
+            	messages.error(request, 'Passwords no coinciden.')
 
             if rechazo:
             	return HttpResponseRedirect(reverse('listar_profes'))
@@ -285,7 +281,6 @@ def alta_alumno(request):
 			dni = form.cleaned_data['dni']
 			fechaN = form.cleaned_data['fecha_nacimiento']
 			sexo = form.cleaned_data['sexo']
-			foto = form.cleaned_data['foto_perfil']
 			email = form.cleaned_data['email']
 			telefono = form.cleaned_data['telefono']
 			lista_deporte = form.cleaned_data['lista_deporte']
@@ -298,7 +293,6 @@ def alta_alumno(request):
 			a.username = usuario
 			a.fecha_nacimiento =fechaN
 			a.sexo = sexo
-			a.foto = foto
 			a.email = email
 			a.telefono = telefono
 
@@ -341,7 +335,7 @@ def alta_alumno(request):
 				rechazo = True
 				a.save()
 			else:
-				mensaje = '***Password no coinciden***'
+				messages.error(request, 'Passwords no coinciden.')
 
 			if rechazo:
 				return HttpResponseRedirect(reverse('listar_alumnos'))
@@ -393,7 +387,6 @@ def actualizar_alumnos(request, pk):
         'dni':a.dni,
         'fecha_nacimiento':a.fecha_nacimiento,
         'sexo':a.sexo,
-        'foto_perfil':a.foto_perfil,
         'email':a.email,
         'telefono':a.telefono,
         'lista_deporte' : a.lista_deporte.all()
@@ -411,7 +404,6 @@ def actualizar_alumnos(request, pk):
             nuevo_dni = form.cleaned_data['dni']
             nuevo_fechaN = form.cleaned_data['fecha_nacimiento']
             nuevo_sexo = form.cleaned_data['sexo']
-            nuevo_foto = form.cleaned_data['foto_perfil']
             nuevo_email = form.cleaned_data['email']
             nuevo_telefono =form.cleaned_data['telefono']
             nuevo_deporte = form.cleaned_data['lista_deporte']
@@ -464,7 +456,7 @@ def actualizar_alumnos(request, pk):
             	a.save()
 
             else:
-            	mensaje = '***Passwords no coinciden***'
+            	messages.error(request, 'Passwords no coinciden.')
 
             if rechazo:
             	return HttpResponseRedirect(reverse('listar_alumnos'))
@@ -593,7 +585,7 @@ def vista_registrarse(request):
 		lista_deporte = request.POST.get('lista_deporte')
 
 		#Verifico si no existe registrados alumnos con el legajo ingresado
-		alumnos_registrados = Alumno.objects.get(legajo=int(legajo))
+		alumnos_registrados = Alumno.objects.filter(legajo=int(legajo))
 
 		if not alumnos_registrados:
 			#validar datos
@@ -604,7 +596,7 @@ def vista_registrarse(request):
 			#validacion = establecer_conexion(int(legajo), password)
 
 			#datos sysacad
-			email = 'el_lucas992@hotmail.com'
+			email = 'lorenarambados@gmail.com'
 			dni = 366366636
 			nombre = 'Lucas'
 
@@ -637,7 +629,7 @@ def vista_registrarse(request):
 				url = 'vista_registracion_exitosa'
 				return HttpResponseRedirect(reverse(url))
 		else:
-				mensaje_error = 'Ya existe un usuario con el legajo ingresado.'
+				messages.error(request, 'Ya existe un usuario con el legajo ingresado.')
 	
 	ctx = {
 		'form': form,

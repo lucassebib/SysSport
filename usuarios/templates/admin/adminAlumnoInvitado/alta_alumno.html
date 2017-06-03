@@ -15,9 +15,7 @@
 								<b>Contraseña</b> <b class="aviso"> *</b></br>{{form.password}}</br>
 								<b>Repetir Contraseña</b> <b class="aviso"> *</b></br>{{form.password2}}<br></br>
 
-								<p style = " color: red; ">
-									
-								{{mensaje}}</p>
+								{% include 'mensaje.html' %}
 
 								<b>Nombre</b><b class="aviso"> *</b></br>{{form.first_name}} </br>
 								<b>Apellido</b><b class="aviso"> *</b></br>{{form.last_name}} </br>

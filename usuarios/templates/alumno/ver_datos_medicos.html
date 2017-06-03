@@ -143,14 +143,7 @@
 					Al finalizar, seleccione la opcion "Guardar". Podra dirigirse a esta seccion cada vez que quiera realizar alguna modificacion.</i> 	
 				</div>
 				<form class="form-horizontal" role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
-					{% if messages %}
-						<ul>
-						{% for m in messages %}
-							<li {% if m.tags %} class= "{{m.tags}}_message" {% endif %} >{{m}}</li>
-						{% endfor %}		
-						</ul>
-						
-					{% endif %}
+					{% include "mensaje.html" %}
 					<div class="well">
 						<div class=" panel-default">
 							
