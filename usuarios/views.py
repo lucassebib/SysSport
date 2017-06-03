@@ -595,7 +595,7 @@ def vista_registrarse(request):
 		lista_deporte = request.POST.get('lista_deporte')
 
 		#Verifico si no existe registrados alumnos con el legajo ingresado
-		alumnos_registrados = Alumno.objects.get(legajo=int(legajo))
+		alumnos_registrados = Alumno.objects.filter(legajo=int(legajo))
 
 		if not alumnos_registrados:
 			#validar datos
@@ -1183,13 +1183,16 @@ def editar_contactoUrgencia(request, pk):
 
 #-----------------------------------------------#
 def datos_medicos_instancia(alumno):
-	try:
-		return alumno.datos_medicos
-	except:
+
+	a = alumno.datos_medicos
+	if not a: 
 		dm = DatosMedicos()
 		dm.save()
 		alumno.datos_medicos = dm
-		return dm 
+		alumno.save()
+		a = alumno.datos_medicos
+
+	return a 
 
 def ver_datos_medicos(request):
 	template = "alumno/ver_datos_medicos.html"
