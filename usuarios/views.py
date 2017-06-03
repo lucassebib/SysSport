@@ -1,3 +1,5 @@
+
+#-!-coding: utf-8 -!-
 import hashlib, random
 import time
 from datetime import datetime, date, time, timedelta
@@ -604,7 +606,7 @@ def vista_registrarse(request):
 			#validacion = establecer_conexion(int(legajo), password)
 
 			#datos sysacad
-			email = 'el_lucas992@hotmail.com'
+			email = 'veroxbo@gmail.com'
 			dni = 366366636
 			nombre = 'Lucas'
 
@@ -1299,11 +1301,11 @@ def listar_alumnos_deporte(request, pk):
 
 	if request.method == 'POST' and 'btn_buscar' in request.POST:
 		if request.POST.get('q', '')=='':
-			mensaje = 'No ha introducido ningun termino en la busqueda'
+			mensaje = 'No ha introducido ningun término en la búsqueda'
 			consulta=''
 		else:
 			if not request.POST.get('opcion'):
-				mensaje = 'No ha introducido ningun parametro de busqueda'
+				mensaje = 'No ha introducido ningun parámetro de búsqueda'
 				consulta=''
 			else:
 				if request.POST.get('opcion') == 'legajo':
@@ -1314,7 +1316,7 @@ def listar_alumnos_deporte(request, pk):
 							mensaje = 'No se han encontrado coincidencias'
 					else:
 						consulta=''
-						mensaje='Ingrese un legajo numerico valido'
+						mensaje='Ingrese un legajo numérico válido'
 				else:
 					#Inicio Busqueda por apellido
 					if request.POST.get('opcion') == 'apellido' and 'btn_buscar' in request.POST:
@@ -1341,7 +1343,7 @@ def listar_alumnos_deporte(request, pk):
 								consulta = Alumno.objects.filter(carrera=opcion_carrera, lista_deporte__in=pk)
 							else:
 								consulta = ''
-								mensaje = 'No se han encontrado coincidencias.</br> Recordar que las busquedas por carrera se realizan mediante las iniciales. </br>ISI para Ingenieria en Sistema de Informacion. </br>IEM para Ingenieria Electromecanica. </br>IQ para Ingenieria Quimica. </br>TSP para Tecnico Superior en Programacion. </br>LAR para Licenciatura en Administracion Rural'
+								mensaje = 'No se han encontrado coincidencias.</br> Recordar que las búsquedas por carrera se realizan mediante las iniciales. </br>ISI para Ingeniería en Sistema de Información. </br>IEM para Ingeniería Electromécanica. </br>IQ para Ingeniería Química. </br>TSP para Técnico Superior en Programación. </br>LAR para Licenciatura en Administracion Rural'
 						
 	ctx = {
 		'mensaje': mensaje,
