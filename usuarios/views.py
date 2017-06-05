@@ -1,4 +1,3 @@
-
 #-!-coding: utf-8 -!-
 import hashlib, random
 import time
@@ -1212,14 +1211,14 @@ def ver_datos_medicos(request):
 	form_datosMedicos = FormularioDatosMedicos(request.POST or None, instance = datos_medicos_instancia(alumno))
 
 	if request.method == 'POST' and 'boton_guardar_form' in request.POST:
-	        form = FormularioCargarArchivo(request.POST, request.FILES)
+		form = FormularioCargarArchivo(request.POST, request.FILES)
 	        if form.is_valid():
 	            if request.FILES:
 	            	alumno.ficha_medica = form.cleaned_data['ficha_medica']
 	            	alumno.save()
                     return HttpResponseRedirect('')
                 else:
-                	mensaje = 'No ha subido ningun archivo'
+                	mensaje = 'No ha subido ningún archivo'
 	
 		
 	if request.method == 'POST' and 'boton_guardar_form_dm' in request.POST:
@@ -1247,11 +1246,11 @@ def ver_datos_medicos(request):
 			dm.save()
 
 			alumno.datos_medicos = dm
-			messages.success(request, 'Sus Datos Medicos Han sido guardados Correctamente.')
+			messages.success(request, 'Sus Datos Médicos han sido guardados correctamente.')
 			alumno.save()
 			#return HttpResponseRedirect('')
 		else:
-			messages.error(request, 'Hubo problemas al guardar sus Datos Medicos. Por favor, intente nuevamente.')
+			messages.error(request, 'Hubo problemas al guardar sus Datos Médicos. Por favor, intente nuevamente.')
 
 	ctx = {
 		'deportes': alumno.lista_deporte.all(),
