@@ -43,12 +43,7 @@
 	      });
 	    });
 	
-	    $(document).ready(function(){ 
-	      $('#eliminar').on('click',function(){
-	       $('#eliminar-msj').slideToggle('slow');
-	      });
-	    });
-
+	    
 	</script>
 	<div class="panel-info">
 		
@@ -150,12 +145,6 @@
 				</div>
 				<form class="form-horizontal" role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
 
-					{% if messages %}
-						{% for m in messages %}
-							<div id="eliminar-msj"><li {% if m.tags %} class= "{{m.tags}}_message" {% endif %} ><a id="eliminar" class="btn btn-sm"><span class = "glyphicon glyphicon-remove"> </span></a> {{m}}</li></div>
-						{% endfor %}		
-										
-					{% endif %}
 					{% include "mensaje.html" %}
 
 					<div class="well">

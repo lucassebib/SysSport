@@ -1,10 +1,9 @@
 
-	{% if messages %}
-		<ul>
-		{% for m in messages %}
-			<li {% if m.tags %} class= "{{m.tags}}_message" {% endif %} >{{m}}</li>
-		{% endfor %}		
-		</ul>
+		{% if messages %}
+			{% for m in messages %}
+				<div id="eliminar-msj"><li {% if m.tags %} class= "{{m.tags}}_message" {% endif %} ><a id="eliminar" class="btn btn-sm"><span class = "glyphicon glyphicon-remove"> </span></a> {{m}}</li></div>
+			{% endfor %}		
 							
-	{% endif %}
+		{% endif %}
+
 
