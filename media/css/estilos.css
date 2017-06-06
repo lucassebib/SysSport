@@ -34,7 +34,6 @@ a, li, h1, h2, h3, h4, p, label {
 	color: #333;
 	list-style: none;
 	margin:0;
-
 	
 }
 
@@ -50,10 +49,13 @@ html, body, .main.container-fluid, .container{
 	background-color: #D8D8D8;
 	overflow-x: hidden;
 	margin:0;
-	padding: 0;
+	padding:0;
 }
 html, body{
 	height: 100%;
+}
+textarea#id_alergias, textarea#id_medicamentos_cuales, textarea#id_operaciones_cuales, textarea#id_osocial_cual{
+	max-height: 100px; 
 }
 .error_message{
 	padding: 10px;
@@ -97,9 +99,7 @@ html, body{
 	background-image: url("../img/fondo-cabecera.png");
 	background-repeat:no-repeat;
 	color: #fff;
-	padding-left: 10px;
-	padding-right: 10px;
-	margin: 5px;
+	margin: 5px 0 5px 0;
 	height: 300px;
 	min-width: 340px;
 }
@@ -244,9 +244,10 @@ html, body{
     .jumbotron { 
         background-repeat:no-repeat;
 		background-size: 100% 100%;
+		/*margin: 0 0 5px 0; */
         padding-left: 10px;
 		padding-right: 10px;
-        height: 300px;
+        height: 330px;
     }
     .navbar-header.menu, .navbar-default.menu{
     	width: 290px;

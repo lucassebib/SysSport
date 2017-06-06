@@ -31,34 +31,10 @@
                 <ul class="nav nav-pills nav-stacked">
                     <li class="{% if 'modificar_perfil_profesor' == request.resolver_match.view_name %}active{% endif %}">
                     <a href="{% url 'modificar_perfil_profesor' %}">Ver Perfil</a></li>
+                    <li  class="{% if 'ver_notificaciones_profesor' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_notificaciones_profesor' %}">Ver notificaciones</a></li>
+                    <li class="{% if 'listar_parafichaMedica' == request.resolver_match.view_name %}active{% endif %}">
+                    <a href="{% url 'listar_parafichaMedica' %}">Ficha Médica</a></li>
                 </ul>
-            </div>
-        </div>
-    </div>
-
-    <!--Menu de Notificaciones -->
-    <div class=" sidebar-nav menu">
-          <div class="navbar navbar-default menu" role="navigation">
-            <div class="navbar-header menu">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#notificaciones-prof">
-                    <span class="sr-only">Desplegar/ocultar menu</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <span class="navbar-header menu">
-                    <div class="visible-xs panel-heading" align="center">
-                         <h3 class="panel-title">Notificaciones</h3>
-                    </div>
-                </span>
-            </div>
-            <div class="navbar-collapse collapse" id="notificaciones-prof">
-                <div class="visible-lg visible-md visible-sm panel-heading" align="center">
-                         <h3 class="panel-title">Notificaciones</h3>
-                </div>
-                <ul class="nav nav-pills nav-stacked">
-                   <li  class="{% if 'ver_notificaciones_profesor' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_notificaciones_profesor' %}">Ver notificaciones</a></li>
-                </ul> 
             </div>
         </div>
     </div>
@@ -120,34 +96,7 @@
             </div>
         </div>
     </div>
-
-    <!--Menu SUBIR ARCHIVOS -->
-    <div class=" sidebar-nav menu">
-          <div class="navbar navbar-default menu" role="navigation">
-            <div class="navbar-header menu">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#subir-prof">
-                    <span class="sr-only">Desplegar/ocultar menu</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <span class="navbar-header menu">
-                    <div class="visible-xs panel-heading" align="center">
-                         <h3 class="panel-title">Subir Archivos</h3>
-                    </div>
-                </span>
-            </div>
-            <div class="navbar-collapse collapse" id="subir-prof">
-                <div class="visible-lg visible-md visible-sm panel-heading " align="center">
-                         <h3 class="panel-title">Subir Archivos</h3>
-                </div>
-                <ul class="nav nav-pills nav-stacked">
-                    <li class="{% if 'listar_parafichaMedica' == request.resolver_match.view_name %}active{% endif %}">
-                    <a href="{% url 'listar_parafichaMedica' %}">Ficha Medica</a></li>
-                </ul> 
-            </div>
-        </div>
-    </div>   
+  
 {% endblock %}
 
 

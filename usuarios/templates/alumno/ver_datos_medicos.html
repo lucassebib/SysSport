@@ -22,38 +22,38 @@
 			showContent('esconder_osocial', 'visibilidad_osocial');
 		}
 	</script>
-	<script>window.jQuery || document.write('<script src="{% static "js/jquery.min.js" type="text/javascript"}""><\/script>')</script>
 	<script>
+		window.jQuery || document.write('<script src="{% static "js/jquery.min.js" type="text/javascript"}""><\/script>')
+	
 	    $(document).ready(function(){ 
 	      $('#ver-info-datosMedicos').on('click',function(){
 	       $('#info-datosMedicos').slideToggle('slow');
 	      });
 	    });
-	</script>
-	<script>
+	
 	    $(document).ready(function(){ 
 	      $('#ver-info-fichaMedica').on('click',function(){
 	       $('#info-fichaMedica').slideToggle('slow');
 	      });
 	    });
-	</script>
-	<script>
+	
 	    $(document).ready(function(){ 
 	      $('#ver-info-infoMedica').on('click',function(){
 	       $('#info-infoMedica').slideToggle('slow');
 	      });
 	    });
+	    
 	</script>
 	<div class="panel-info">
 		
-		<ul class="nav nav-tabs" role="tablist">
-			<li class="active" ><a href="#ficha_medica" data-toggle="tab" >Ficha Médica</a></li>
-			<li><a href="#informacion_medica" data-toggle="tab" >Información Médica</a></li>
+		<ul id="mytabs" class="nav nav-tabs" role="tablist">
+			<li class="active" ><a href="#ficha_medica" role="tab"data-toggle="tab" >Ficha Médica</a></li>
+			<li><a href="#informacion_medica" role="tab" data-toggle="tab" >Información Médica</a></li>
 		</ul>
 		<div class="tab-content">
 		<!-- ################ PANEL FICHA MEDICA ####################################-->
 			
-			<div role="tabpanel" class="tab-pane fade in active" id="ficha_medica" >
+			<div class="tab-pane fade in active" id="ficha_medica" >
 				<div class="page-header panel-default ">
 					<h3><i> Ficha Médica </i>
 					<ul class="nav navbar-right">
@@ -63,18 +63,18 @@
 				</div>
 				
 				<div id="info-datosMedicos" class="navbar-text" style="display: none;">
-					<i><p>En este espacio usted podra subir su ficha medica.</p>
-					<p>La ficha medica es un documento que sera suministrado por los profes de los distintos deportes, y la que usted como alumno debera rellenar junto con su medico de confianza.</p>
-					<p>Una vez rellenada, podra subir una copia de la misma para que sea visible por los profes de manera digital.</p>
-					<p>A continuacion le mostraremos la lista de deportes en los cuales se encuentra inscripto, como asi tambien el enlce para descargar la ficha medica y una nota del profesor.</p>
-					<p>Usted esta inscripto en los siguientes deportes:</p></i>
+					<i><p>En este espacio usted podra subir su ficha médica.</p>
+					<p>La ficha médica es un documento que será suministrado por los profesores de los distintos deportes, y usted como alumno deberá rellenar junto con su médico de confianza.</p>
+					<p>Una vez rellenada, podra subir una copia de la misma para que sea visible por los profesores de manera digital.</p>
+					<p>A continuación le mostraremos la lista de deportes en los cuales se encuentra inscripto, como así también el enlace para descargar la ficha médica y una nota del profesor.</p>
+					<p>Usted está inscripto en los siguientes deportes:</p></i>
 				</div>
 				{% if deportes %}
 				<table class="table table-striped">
 					<thead>
 						<tr id="cabecera-tabla">
 							<th>Nombre</th>
-							<th>Nota Profesor</th>
+							<th>Nota del Profesor</th>
 							<th>Archivo</th>
 							
 						</tr>
@@ -118,19 +118,17 @@
 							{% else %}
 								{{form.as_p}}
 								<div class="navbar-btn">
-									<button type='submit' class="btn btn-primary" value='Guardar' name="boton_guardar_form">Guardar</button>
+									<button type='submit' id="tabActualFichaMedica" class="btn btn-primary" value='Guardar' name="boton_guardar_form">Guardar</button>
 								</div>	
 							{% endif %} 
 						{% endif %}
 					{% endfor %}
 
-					
-					
 				</form>
 				{% endif %} 
 			</div>
 			<!-- ################ PANEL INFORMACION MEDICA ####################################-->
-			<div role="tabpanel" class="tab-pane fade" id="informacion_medica" >
+			<div class="tab-pane fade" id="informacion_medica" >
 				<div class="page-header panel-default ">
 					<h3><i> Información Médica </i>
 					<ul class="nav navbar-right ">
@@ -143,33 +141,37 @@
 					Al finalizar, seleccione la opcion "Guardar". Podra dirigirse a esta seccion cada vez que quiera realizar alguna modificacion.</i> 	
 				</div>
 				<form class="form-horizontal" role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+
 					{% include "mensaje.html" %}
+
 					<div class="well">
 						<div class=" panel-default">
 							
-							<p>Grupo Sanguineo:</p> 
-							{{form_dm.grupo_sanguineo}}
-							<p>Alergias:</p> 
-							{{form_dm.alergias}}
-							<p>Toma Medicamentos:</p> {{form_dm.toma_medicamentos}}
+							<p><label>Grupo Sanguineo:</label></p>
+							<p>{{form_dm.grupo_sanguineo}}</p></br>
+							<p><label>Alergias:</label></p>
+							<p>{{form_dm.alergias}}</p></br>
+							<p>Toma Medicamentos:</p>
+							<p>{{form_dm.toma_medicamentos}}</p></br>
 
-							<div class="form-group" id="esconder_medicamentos" style="display: none;">
-								<p>Cuales Medicamentos:</p> 
-								{{form_dm.medicamentos_cuales}}
+							<div id="esconder_medicamentos" style="display: none;">
+								<p><label>Qué Medicamentos:</label> </p>
+								<p>{{form_dm.medicamentos_cuales}}</p></br>
 							</div>
+							<p><label>Tuvo operaciones:</label></p>
+							<p>{{form_dm.tuvo_operaciones}}</p></br>
 							
-							<p>Tuvo operaciones:</p> {{form_dm.tuvo_operaciones}}
-							
-							<div class="form-group" id="esconder_operaciones" style="display: none;">
-								<p>Tipo de Operacion:</p> 
-								{{form_dm.operaciones_cuales}}
+							<div id="esconder_operaciones" style="display: none;">
+								<p><label>Tipo de Operación:</label> </p>
+								<p>{{form_dm.operaciones_cuales}}</p></br>
 							</div>
 
-							<p>Tiene Obra Social:</p> {{form_dm.tiene_osocial}}
+							<p><label>Tiene Obra Social:</label></p>
+							<p>{{form_dm.tiene_osocial}}</p></br>
 
-							<div class="form-group" id="esconder_osocial" style="display: none;">
-								<p>Que Obra Social:</p> 
-								{{form_dm.osocial_cual}}
+							<div id="esconder_osocial" style="display: none;">
+								<p><label>Qué Obra Social:</label> </p>
+								<p>{{form_dm.osocial_cual}}</p></br>
 							</div>
 
 						</div>

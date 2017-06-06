@@ -1,3 +1,4 @@
+#-!-coding: utf-8 -!-
 import hashlib, random
 import time
 from datetime import datetime, date, time, timedelta
@@ -595,6 +596,7 @@ def vista_registrarse(request):
 			#validacion = establecer_conexion(int(legajo), password)
 
 			#datos sysacad
+
 			email = 'lorenarambados@gmail.com'
 			dni = 366366636
 			nombre = 'Lucas'
@@ -1201,14 +1203,14 @@ def ver_datos_medicos(request):
 	form_datosMedicos = FormularioDatosMedicos(request.POST or None, instance = datos_medicos_instancia(alumno))
 
 	if request.method == 'POST' and 'boton_guardar_form' in request.POST:
-	        form = FormularioCargarArchivo(request.POST, request.FILES)
+		form = FormularioCargarArchivo(request.POST, request.FILES)
 	        if form.is_valid():
 	            if request.FILES:
 	            	alumno.ficha_medica = form.cleaned_data['ficha_medica']
 	            	alumno.save()
                     return HttpResponseRedirect('')
                 else:
-                	mensaje = 'No ha subido ningun archivo'
+                	mensaje = 'No ha subido ningún archivo'
 	
 		
 	if request.method == 'POST' and 'boton_guardar_form_dm' in request.POST:
@@ -1236,11 +1238,11 @@ def ver_datos_medicos(request):
 			dm.save()
 
 			alumno.datos_medicos = dm
-			messages.success(request, 'Sus Datos Medicos Han sido guardados Correctamente.')
+			messages.success(request, 'Sus Datos Médicos han sido guardados correctamente.')
 			alumno.save()
 			#return HttpResponseRedirect('')
 		else:
-			messages.error(request, 'Hubo problemas al guardar sus Datos Medicos. Por favor, intente nuevamente.')
+			messages.error(request, 'Hubo problemas al guardar sus Datos Médicos. Por favor, intente nuevamente.')
 
 	ctx = {
 		'deportes': alumno.lista_deporte.all(),
@@ -1293,11 +1295,11 @@ def listar_alumnos_deporte(request, pk):
 
 	if request.method == 'POST' and 'btn_buscar' in request.POST:
 		if request.POST.get('q', '')=='':
-			mensaje = 'No ha introducido ningun termino en la busqueda'
+			mensaje = 'No ha introducido ningun término en la búsqueda'
 			consulta=''
 		else:
 			if not request.POST.get('opcion'):
-				mensaje = 'No ha introducido ningun parametro de busqueda'
+				mensaje = 'No ha introducido ningun parámetro de búsqueda'
 				consulta=''
 			else:
 				if request.POST.get('opcion') == 'legajo':
@@ -1308,7 +1310,7 @@ def listar_alumnos_deporte(request, pk):
 							mensaje = 'No se han encontrado coincidencias'
 					else:
 						consulta=''
-						mensaje='Ingrese un legajo numerico valido'
+						mensaje='Ingrese un legajo numérico válido'
 				else:
 					#Inicio Busqueda por apellido
 					if request.POST.get('opcion') == 'apellido' and 'btn_buscar' in request.POST:
@@ -1335,7 +1337,7 @@ def listar_alumnos_deporte(request, pk):
 								consulta = Alumno.objects.filter(carrera=opcion_carrera, lista_deporte__in=pk)
 							else:
 								consulta = ''
-								mensaje = 'No se han encontrado coincidencias.</br> Recordar que las busquedas por carrera se realizan mediante las iniciales. </br>ISI para Ingenieria en Sistema de Informacion. </br>IEM para Ingenieria Electromecanica. </br>IQ para Ingenieria Quimica. </br>TSP para Tecnico Superior en Programacion. </br>LAR para Licenciatura en Administracion Rural'
+								mensaje = 'No se han encontrado coincidencias.</br> Recordar que las búsquedas por carrera se realizan mediante las iniciales. </br>ISI para Ingeniería en Sistema de Información. </br>IEM para Ingeniería Electromécanica. </br>IQ para Ingeniería Química. </br>TSP para Técnico Superior en Programación. </br>LAR para Licenciatura en Administracion Rural'
 						
 	ctx = {
 		'mensaje': mensaje,
