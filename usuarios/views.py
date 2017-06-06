@@ -414,7 +414,6 @@ def actualizar_alumnos(request, pk):
             a.dni = nuevo_dni
             a.fecha_nacimiento = nuevo_fechaN
             a.sexo = nuevo_sexo
-            a.foto = nuevo_foto
             a.email = nuevo_email
             a.telefono = nuevo_telefono
             calle = request.POST.get('calle')
