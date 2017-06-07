@@ -1247,7 +1247,7 @@ def ver_datos_medicos(request):
 			alumno.datos_medicos = dm
 			messages.success(request, 'Sus Datos Medicos Han sido guardados Correctamente.')
 			alumno.save()
-			#return HttpResponseRedirect('')
+			
 		else:
 			messages.error(request, 'Hubo problemas al guardar sus Datos Medicos. Por favor, intente nuevamente.')
 
