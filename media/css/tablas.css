@@ -1,5 +1,6 @@
 .table{
 	min-width: 310px;
+	max-width: 90%;
 }
 #cabecera-tabla{
 	background-color: #eeeeee;

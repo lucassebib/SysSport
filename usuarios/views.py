@@ -1,3 +1,4 @@
+#-!-coding: utf-8 -!-
 import hashlib, random
 import time
 from datetime import datetime, date, time, timedelta
@@ -48,7 +49,6 @@ def alta_profesor(request):
 			dni = form.cleaned_data['dni']
 			fechaN = form.cleaned_data['fecha_nacimiento']
 			sexo = form.cleaned_data['sexo']
-			foto = form.cleaned_data['foto_perfil']
 			email = form.cleaned_data['email']
 			telefono = form.cleaned_data['telefono']
 			lista_deporte = form.cleaned_data['lista_deporte']
@@ -60,7 +60,6 @@ def alta_profesor(request):
 			p.dni = dni
 			p.fecha_nacimiento = fechaN
 			p.sexo = sexo
-			p.foto = foto
 			p.email = email
 			#p.password = contrasenia
 			p.telefono = telefono
@@ -107,7 +106,8 @@ def alta_profesor(request):
 				rechazo = True
 				p.save()
 			else:
-				mensaje = '***Passwords no coinciden***'
+				messages.error(request, 'Passwords no coinciden.')
+
 			
 			if rechazo:
 				return HttpResponseRedirect(reverse('listar_profes'))
@@ -140,7 +140,6 @@ def actualizar_profes(request, pk):
         'dni':p.dni,
         'fecha_nacimiento':p.fecha_nacimiento,
         'sexo':p.sexo,
-        'foto_perfil':p.foto_perfil,
         'email':p.email,
         'telefono':p.telefono,
         'lista_deporte' : p.lista_deporte.all()    
@@ -155,7 +154,6 @@ def actualizar_profes(request, pk):
             nuevo_dni = form.cleaned_data['dni']
             nuevo_fechaN = form.cleaned_data['fecha_nacimiento']
             nuevo_sexo = form.cleaned_data['sexo']
-            nuevo_foto = form.cleaned_data['foto_perfil']
             nuevo_email = form.cleaned_data['email']
             nuevo_telefono =form.cleaned_data['telefono']
             nuevo_deporte = form.cleaned_data['lista_deporte']
@@ -169,7 +167,6 @@ def actualizar_profes(request, pk):
             p.dni = nuevo_dni
             p.fecha_nacimiento = nuevo_fechaN
             p.sexo = nuevo_sexo
-            p.foto = nuevo_foto
             p.email = nuevo_email
             p.telefono = nuevo_telefono
             calle = request.POST.get('calle')
@@ -210,7 +207,7 @@ def actualizar_profes(request, pk):
             	p.save()
 
             else:
-            	mensaje = '***Passwords no coinciden***'
+            	messages.error(request, 'Passwords no coinciden.')
 
             if rechazo:
             	return HttpResponseRedirect(reverse('listar_profes'))
@@ -285,7 +282,6 @@ def alta_alumno(request):
 			dni = form.cleaned_data['dni']
 			fechaN = form.cleaned_data['fecha_nacimiento']
 			sexo = form.cleaned_data['sexo']
-			foto = form.cleaned_data['foto_perfil']
 			email = form.cleaned_data['email']
 			telefono = form.cleaned_data['telefono']
 			lista_deporte = form.cleaned_data['lista_deporte']
@@ -298,7 +294,6 @@ def alta_alumno(request):
 			a.username = usuario
 			a.fecha_nacimiento =fechaN
 			a.sexo = sexo
-			a.foto = foto
 			a.email = email
 			a.telefono = telefono
 
@@ -341,7 +336,7 @@ def alta_alumno(request):
 				rechazo = True
 				a.save()
 			else:
-				mensaje = '***Password no coinciden***'
+				messages.error(request, 'Passwords no coinciden.')
 
 			if rechazo:
 				return HttpResponseRedirect(reverse('listar_alumnos'))
@@ -393,7 +388,6 @@ def actualizar_alumnos(request, pk):
         'dni':a.dni,
         'fecha_nacimiento':a.fecha_nacimiento,
         'sexo':a.sexo,
-        'foto_perfil':a.foto_perfil,
         'email':a.email,
         'telefono':a.telefono,
         'lista_deporte' : a.lista_deporte.all()
@@ -411,7 +405,6 @@ def actualizar_alumnos(request, pk):
             nuevo_dni = form.cleaned_data['dni']
             nuevo_fechaN = form.cleaned_data['fecha_nacimiento']
             nuevo_sexo = form.cleaned_data['sexo']
-            nuevo_foto = form.cleaned_data['foto_perfil']
             nuevo_email = form.cleaned_data['email']
             nuevo_telefono =form.cleaned_data['telefono']
             nuevo_deporte = form.cleaned_data['lista_deporte']
@@ -422,7 +415,6 @@ def actualizar_alumnos(request, pk):
             a.dni = nuevo_dni
             a.fecha_nacimiento = nuevo_fechaN
             a.sexo = nuevo_sexo
-            a.foto = nuevo_foto
             a.email = nuevo_email
             a.telefono = nuevo_telefono
             calle = request.POST.get('calle')
@@ -464,7 +456,7 @@ def actualizar_alumnos(request, pk):
             	a.save()
 
             else:
-            	mensaje = '***Passwords no coinciden***'
+            	messages.error(request, 'Passwords no coinciden.')
 
             if rechazo:
             	return HttpResponseRedirect(reverse('listar_alumnos'))
@@ -604,7 +596,8 @@ def vista_registrarse(request):
 			#validacion = establecer_conexion(int(legajo), password)
 
 			#datos sysacad
-			email = 'el_lucas992@hotmail.com'
+
+			email = 'lorenarambados@gmail.com'
 			dni = 366366636
 			nombre = 'Lucas'
 
@@ -637,7 +630,7 @@ def vista_registrarse(request):
 				url = 'vista_registracion_exitosa'
 				return HttpResponseRedirect(reverse(url))
 		else:
-				mensaje_error = 'Ya existe un usuario con el legajo ingresado.'
+				messages.error(request, 'Ya existe un usuario con el legajo ingresado.')
 	
 	ctx = {
 		'form': form,
@@ -1210,14 +1203,14 @@ def ver_datos_medicos(request):
 	form_datosMedicos = FormularioDatosMedicos(request.POST or None, instance = datos_medicos_instancia(alumno))
 
 	if request.method == 'POST' and 'boton_guardar_form' in request.POST:
-	        form = FormularioCargarArchivo(request.POST, request.FILES)
+		form = FormularioCargarArchivo(request.POST, request.FILES)
 	        if form.is_valid():
 	            if request.FILES:
 	            	alumno.ficha_medica = form.cleaned_data['ficha_medica']
 	            	alumno.save()
                     return HttpResponseRedirect('')
                 else:
-                	mensaje = 'No ha subido ningun archivo'
+                	mensaje = 'No ha subido ningún archivo'
 	
 		
 	if request.method == 'POST' and 'boton_guardar_form_dm' in request.POST:
@@ -1245,11 +1238,11 @@ def ver_datos_medicos(request):
 			dm.save()
 
 			alumno.datos_medicos = dm
-			messages.success(request, 'Sus Datos Medicos Han sido guardados Correctamente.')
+			messages.success(request, 'Sus Datos Médicos han sido guardados correctamente.')
 			alumno.save()
 			
 		else:
-			messages.error(request, 'Hubo problemas al guardar sus Datos Medicos. Por favor, intente nuevamente.')
+			messages.error(request, 'Hubo problemas al guardar sus Datos Médicos. Por favor, intente nuevamente.')
 
 	ctx = {
 		'deportes': alumno.lista_deporte.all(),
@@ -1302,11 +1295,11 @@ def listar_alumnos_deporte(request, pk):
 
 	if request.method == 'POST' and 'btn_buscar' in request.POST:
 		if request.POST.get('q', '')=='':
-			mensaje = 'No ha introducido ningun termino en la busqueda'
+			mensaje = 'No ha introducido ningun término en la búsqueda'
 			consulta=''
 		else:
 			if not request.POST.get('opcion'):
-				mensaje = 'No ha introducido ningun parametro de busqueda'
+				mensaje = 'No ha introducido ningun parámetro de búsqueda'
 				consulta=''
 			else:
 				if request.POST.get('opcion') == 'legajo':
@@ -1317,7 +1310,7 @@ def listar_alumnos_deporte(request, pk):
 							mensaje = 'No se han encontrado coincidencias'
 					else:
 						consulta=''
-						mensaje='Ingrese un legajo numerico valido'
+						mensaje='Ingrese un legajo numérico válido'
 				else:
 					#Inicio Busqueda por apellido
 					if request.POST.get('opcion') == 'apellido' and 'btn_buscar' in request.POST:
@@ -1344,7 +1337,7 @@ def listar_alumnos_deporte(request, pk):
 								consulta = Alumno.objects.filter(carrera=opcion_carrera, lista_deporte__in=pk)
 							else:
 								consulta = ''
-								mensaje = 'No se han encontrado coincidencias.</br> Recordar que las busquedas por carrera se realizan mediante las iniciales. </br>ISI para Ingenieria en Sistema de Informacion. </br>IEM para Ingenieria Electromecanica. </br>IQ para Ingenieria Quimica. </br>TSP para Tecnico Superior en Programacion. </br>LAR para Licenciatura en Administracion Rural'
+								mensaje = 'No se han encontrado coincidencias.</br> Recordar que las búsquedas por carrera se realizan mediante las iniciales. </br>ISI para Ingeniería en Sistema de Información. </br>IEM para Ingeniería Electromécanica. </br>IQ para Ingeniería Química. </br>TSP para Técnico Superior en Programación. </br>LAR para Licenciatura en Administracion Rural'
 						
 	ctx = {
 		'mensaje': mensaje,

@@ -23,14 +23,15 @@ function mostrar(contrasenia){
 							<h4><b>Datos Personales del Profesor: </b></h4>
 							<p class="aviso"> (*) campos obligatorios</p>
 						</div>
-						
 						<b>Usuario</b><b class="aviso"> *</b></br> {{form.username}}</br></br>
 						<p><a href="#" onclick="mostrar('contrasenia')";>Cambiar Contraseña</a></p>
 						<div style='display:none' id='contrasenia'>
 							<label>Contraseña</label> </br>{{form.password}}</br></br>
 							<label>Repetir Contraseña</label> </br>{{form.password2}}</br></br>
 						</div>
-						<p style = " color: red; ">{{mensaje}}</p>
+						
+						{% include 'mensaje.html' %}
+
 						<b>Nombre</b><b class="aviso"> *</b></br>{{form.first_name}}</br></br>
 						<b>Apellido</b><b class="aviso"> *</b></br>{{form.last_name}}</br></br>
 						<b>DNI</b><b class="aviso"> *</b></br>{{form.dni}}</br></br>
