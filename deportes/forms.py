@@ -20,6 +20,4 @@ class FormularioEditarDeporteProfesor(forms.ModelForm):
 	class Meta:
 	        model = Deporte
 	        fields = ['foto', 'descripcion']
-	        widget={
-	            'descripcion':forms.Textarea(attrs={'cols': '80', 'rows':'20', 'required':'True'})
-	        }
+	        
