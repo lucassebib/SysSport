@@ -16,15 +16,26 @@
 	        }
 		}
 
+
 		window.onload = function(){
 			showContent('esconder_medicamentos', 'visibilidad_medicamento');
 			showContent('esconder_operaciones', 'visibilidad_operaciones');
 			showContent('esconder_osocial', 'visibilidad_osocial');
+		
+			bandera = ('{{activar_infoMedica}}' == 'True');
+			
+			if ( bandera ) {	
+				document.getElementById("informacion").click();
+			}
+			
 		}
 
-		function foco(idElemento){
-			document.getElementById(idElemento).focus();
+		function foco(){
+			//document.getElementById(idElemento).focus();
+			document.getElementById("informacion").click();
 		}
+
+
 	</script>
 	<script>
 		window.jQuery || document.write('<script src="{% static "js/jquery.min.js" type="text/javascript"}""><\/script>')
@@ -51,8 +62,8 @@
 	<div class="panel-info">
 		
 		<ul id="mytabs" class="nav nav-tabs" role="tablist">
-			<li class="active" ><a href="#ficha_medica" role="tab"data-toggle="tab" >Ficha Médica</a></li>
-			<li><a href="#informacion_medica" role="tab" data-toggle="tab" >Información Médica</a></li>
+			<li class="active"><a href="#ficha_medica" role="tab" data-toggle="tab" >Ficha Médica</a></li>
+			<li><a href="#informacion_medica" id="informacion" role="tab" data-toggle="tab" >Información Médica</a></li>
 		</ul>
 		<div class="tab-content">
 		<!-- ################ PANEL FICHA MEDICA ####################################-->
@@ -181,7 +192,7 @@
 						</div>
 					</div>
 					
-					<button class="btn btn-primary" type="submit" value="Guardar" name="boton_guardar_form_dm" onclick="foco('informacion_medica')">Guardar</button>
+					<button class="btn btn-primary" type="submit" value="Guardar" name="boton_guardar_form_dm" >Guardar</button>
 					{{mensaje_error_dm}}
 				</form>	
 	   		</div>

@@ -314,6 +314,8 @@ def subir_fichaMedicaStandar(request, pk):
                     deporte.ficha_medica = nueva_ficha
                     deporte.save()
                     return HttpResponseRedirect('')
+        else:
+            print('error')
 
     ctx = {
         'mensaje': mensaje,

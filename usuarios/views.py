@@ -1189,6 +1189,8 @@ def ver_datos_medicos(request):
 	template = "alumno/ver_datos_medicos.html"
 	id_alumno = request.user.id
 
+	activar_infoMedica = False
+
 	form = FormularioCargarArchivo()
 
 	mensaje=''
@@ -1239,8 +1241,10 @@ def ver_datos_medicos(request):
 
 			alumno.datos_medicos = dm
 			messages.success(request, 'Sus Datos Médicos han sido guardados correctamente.')
+			activar_infoMedica = True
 			alumno.save()
-			
+			#return HttpResponseRedirect('')
+
 		else:
 			messages.error(request, 'Hubo problemas al guardar sus Datos Médicos. Por favor, intente nuevamente.')
 
@@ -1251,6 +1255,7 @@ def ver_datos_medicos(request):
 		'alumno': alumno,
 		'form_dm': form_datosMedicos,
 		'bandera': bandera,
+		'activar_infoMedica': activar_infoMedica,
 	}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))

@@ -15,7 +15,7 @@ def generar_rutaID(instance, filename):
 
 class FichaMedica(models.Model):
 	ficha_medica = models.FileField(upload_to='usuarios/deportes/fichas_medicas/', blank=True, validators=[valid_extension])
-	descripcion = models.TextField()
+	descripcion = models.TextField(blank=True)
 
 	def obtenerNombreArchivo(self):
 		return os.path.basename(self.ficha_medica.name)
