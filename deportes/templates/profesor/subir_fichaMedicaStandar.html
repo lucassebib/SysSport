@@ -6,9 +6,10 @@
 			<h1><i>Ficha Médica para: </i><b>{{deporte.nombre}}</b></h1>
 		</div>
 		<div class="page-content ">
-			{% if ficha %}
-				<div class="well well-lg">
+		<div class="well well-lg">
 					<h3>Actualmente:</h3><br>
+			{% if ficha %}
+				
 					<div class="form-group">
 						<label class=" control-label"><b>Nombre del Archivo:  </b></label>
 						{{ficha.obtenerNombreArchivo}}
@@ -22,11 +23,11 @@
 						<label class=" control-label"><b>Nota: </b></label>
 						<label class=" control-label"> {{ficha.descripcion}} </label>
 					</div>
-				</div>		
+						
 			{% else %}
-					<p>No se ha cargado el formulario de Ficha Médica</p>
+					<p>No se ha cargado aun una Ficha Médica</p>
 			{% endif %}
-
+			</div>
 			<div class="panel panel-default">
 			  <div class="panel-heading"><h3>Actualizar Ficha Medica</h3></div>
 			  <div class="panel-body">
