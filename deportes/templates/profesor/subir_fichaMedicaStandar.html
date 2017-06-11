@@ -7,33 +7,51 @@
 		</div>
 		<div class="page-content ">
 			{% if ficha %}
-				<div class="form-group">
-					<label class=" control-label"><b>Nombre del Archivo:  </b></label>
-					<link class=" control-label"><a title="Descargar ficha médica" href="{{ficha.ficha_medica.url}}">{{ficha.obtenerNombreArchivo}}</a></link>
-					
-				</div>
-				<div class="form-group">
-					<label class=" control-label"><b>Nota: </b></label>
-					<label class=" control-label"> {{ficha.descripcion}} </label>
-				</div>	
+				<div class="well well-lg">
+					<h3>Actualmente:</h3><br>
+					<div class="form-group">
+						<label class=" control-label"><b>Nombre del Archivo:  </b></label>
+						{{ficha.obtenerNombreArchivo}}
+
+						<a title="Descargar ficha médica" type="text" href="{{ficha.ficha_medica.url}}"> <span class = "glyphicon glyphicon-download-alt" ></span></a>
+
+						<a title="Eliminar ficha médica" type="text" href="{% url 'delete_fichamedica' ficha.id %}"><span class="glyphicon glyphicon-remove"></span></a>
+						
+					</div>
+					<div class="form-group">
+						<label class=" control-label"><b>Nota: </b></label>
+						<label class=" control-label"> {{ficha.descripcion}} </label>
+					</div>
+				</div>		
 			{% else %}
 					<p>No se ha cargado el formulario de Ficha Médica</p>
 			{% endif %}
-			<form method="POST" enctype="multipart/form-data">{% csrf_token %}
-				<div class="form-group">
-					<label><b>Ficha médica: </b></label>
-					{{form.ficha_medica}}
-				</div>
-				<div class="form-group">
-					<label><b> Descripción: </b></label><br>
-					{{form.descripcion}}
-				</div>
-				<div class="form-group">
-					
-					<button class="btn btn-primary" type='submit' value='Guardar'>Guardar</button>
-					<button class="btn btn-primary" type="button" value="Volver" onclick="history.back(-1)" />Volver</button>
-				</div>
-			</form>		
+
+			<div class="panel panel-default">
+			  <div class="panel-heading"><h3>Actualizar Ficha Medica</h3></div>
+			  <div class="panel-body">
+			    <p>...</p>
+
+			    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+					<div class="form-group">
+						<label><b>Ficha médica: </b></label>
+						{{form.ficha_medica}}
+					</div>
+					<div class="form-group">
+						<label><b> Descripción: </b></label><br>
+						{{form.descripcion}}
+					</div>
+					<div class="form-group">
+						
+						<button class="btn btn-primary" type='submit' value='Guardar'>Guardar</button>
+						<button class="btn btn-primary" type="button" value="Volver" onclick="history.back(-1)" />Volver</button>
+					</div>
+				</form>	
+
+			  </div>
+			</div>
+
+				
 		</div>			
 	</div>
 {% endblock %}

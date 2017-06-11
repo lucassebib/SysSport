@@ -24,6 +24,7 @@ urlpatterns = patterns('',
 urlpatterns += patterns('',
     url(r'^ficha_medica/deportes$', listar_parafichaMedica, name='listar_parafichaMedica'),
     url(r'^ficha_medica/editar_ficha/(?P<pk>[0-9]+)$', subir_fichaMedicaStandar, name='subir_ficha'),
+    url(r'^ficha_medica/eliminar/(?P<pk>[0-9]+)$', delete_fichamedica, name='delete_fichamedica'),
     url(r'^profesor/deporte/editar_informacion/(?P<pk>[0-9]+)$', editar_info_deporte, name='editar_info_deporte'),
     url(r'^profesor/deporte/editar_informacion/(?P<pk>[0-9]+)/agregar_entrenamiento/$', editar_entrenamiento_deporte, name='editar_entrenamiento_deporte'),
 )

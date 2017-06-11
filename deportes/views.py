@@ -39,20 +39,6 @@ def deporte_detalle(request, pk):
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 ############################### CRUD DEPORTES ##############################################
-#def lista_deportes(request):
-    #template = "lista_deportes.html"
-    
-    #ctx = {
-   #     'deportes': Deporte.objects.all(), 
-  #  }
-   
- #   return render_to_response(template, ctx, context_instance=RequestContext(request))
-
-#class DetallesDeportes(DetailView):
- #   model = Deporte
-#    context_object_name = 'deportes'
-
-# Crear deporte admin
 
 def crear_deporte(request):
     template = "deportes/deporte_form.html"
@@ -322,6 +308,21 @@ def subir_fichaMedicaStandar(request, pk):
         'mensaje': mensaje,
         'form': form,
         'deporte': deporte,
+        'ficha': ficha,
+    }
+
+    return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def delete_fichamedica(request, pk):
+    template = "profesor/delete_fichamedica.html"
+    ficha = FichaMedica.objects.get(id = pk)
+    deporte = Deporte.objects.get(ficha_medica=ficha)
+
+    if request.method == "POST":
+        url = reverse('subir_ficha', kwargs={'pk': deporte.id})
+        return HttpResponseRedirect(url)
+
+    ctx = {
         'ficha': ficha,
     }
 
