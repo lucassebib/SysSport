@@ -1229,12 +1229,21 @@ def ver_datos_medicos(request):
 			grupo_sanguineo = form_datosMedicos.cleaned_data['grupo_sanguineo'] 
 			alergias = form_datosMedicos.cleaned_data['alergias']
 			toma_medicamentos = form_datosMedicos.cleaned_data['toma_medicamentos']
-			medicamentos_cuales = form_datosMedicos.cleaned_data['medicamentos_cuales']
+			if toma_medicamentos == 1:
+				medicamentos_cuales = 'sin medicacion'
+			else:
+				medicamentos_cuales = form_datosMedicos.cleaned_data['medicamentos_cuales']
 			tuvo_operaciones = form_datosMedicos.cleaned_data['tuvo_operaciones']
-			operaciones_cuales = form_datosMedicos.cleaned_data['operaciones_cuales']
+			if tuvo_operaciones == 1:
+				operaciones_cuales = 'sin operaciones'
+			else:
+				operaciones_cuales = form_datosMedicos.cleaned_data['operaciones_cuales']
 			tiene_osocial = form_datosMedicos.cleaned_data['tiene_osocial']
-			osocial_cual = form_datosMedicos.cleaned_data['osocial_cual']
-
+			if tiene_osocial == 1:
+				osocial_cual = 'sin obra social'
+			else:
+				osocial_cual = form_datosMedicos.cleaned_data['osocial_cual']
+			
 			dm.grupo_sanguineo = grupo_sanguineo
 			dm.alergias = alergias
 			dm.toma_medicamentos = toma_medicamentos
