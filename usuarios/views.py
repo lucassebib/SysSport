@@ -1,4 +1,4 @@
-git commit -m "escribir comentario"#-!-coding: utf-8 -!-
+#-!-coding: utf-8 -!-
 import hashlib, random
 import time
 from datetime import datetime, date, time, timedelta
