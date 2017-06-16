@@ -3,17 +3,19 @@
 {% block contenido %}
 <div class="panel-info">
 	<div class="page-header">
-		<h1><i>Agregar Nuevo entrenamiento: {{mensaje}}</i></h1>
+		<h1><i>Agregar Nuevo entrenamiento {{mensaje}}</i></h1>
 	</div>
 
 	<div class="page-content">
 		<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
 			{% for field2 in form_entrenamiento %}
-				<label>{{field2.label}}</label>
-				<p>{{field2}} </p>
+				<div class="form-group">
+					<label><b>{{field2.label}}:</b></label>
+					<p>{{field2}} </p>
+				</div>
 			{% endfor %}
-			<input class="btn btn-default" type='submit' name='boton_guardar' value='Guardar'>
-			<input class="btn btn-default" type="button" value="Cancelar" onclick="history.back(-1)" />
+			<input class="btn btn-primary" type='submit' name='boton_guardar' value='Guardar'>
+			<input class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />
 		</form>
 		
 	</div>

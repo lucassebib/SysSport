@@ -1,4 +1,4 @@
-#-!-coding: utf-8 -!-
+git commit -m "escribir comentario"#-!-coding: utf-8 -!-
 import hashlib, random
 import time
 from datetime import datetime, date, time, timedelta
@@ -1187,13 +1187,13 @@ def datos_medicos_instancia(alumno):
 
 def ver_datos_medicos(request):
 	template = "alumno/ver_datos_medicos.html"
-	id_alumno = request.user.id
-
 	form = FormularioCargarArchivo()
-
+	id_alumno = request.user.id
+	activar_infoMedica = False
+	bandera = False
+	habilitar_subir_ficha = False
 	mensaje=''
 	mensaje_error_dm = ''
-	bandera = False
 
 	try:
 		alumno = Alumno.objects.get(legajo=request.session['user'])
@@ -1202,7 +1202,16 @@ def ver_datos_medicos(request):
 
 	form_datosMedicos = FormularioDatosMedicos(request.POST or None, instance = datos_medicos_instancia(alumno))
 
+	for d in alumno.lista_deporte.all():
+		if d.ficha_medica:
+			habilitar_subir_ficha = True
+
+	if request.method == 'POST' and 'eliminar_fm' in request.POST:
+		alumno.ficha_medica.delete()
+		messages.success(request, 'Su Ficha Medica ha sido eliminada correctamente.')
+
 	if request.method == 'POST' and 'boton_guardar_form' in request.POST:
+		print('boton guardar form')
 		form = FormularioCargarArchivo(request.POST, request.FILES)
 	        if form.is_valid():
 	            if request.FILES:
@@ -1210,9 +1219,9 @@ def ver_datos_medicos(request):
 	            	alumno.save()
                     return HttpResponseRedirect('')
                 else:
+                	print('else')
                 	mensaje = 'No ha subido ningún archivo'
-	
-		
+			
 	if request.method == 'POST' and 'boton_guardar_form_dm' in request.POST:
 		form_datosMedicos = FormularioDatosMedicos(request.POST)
 		dm = DatosMedicos.objects.get(id=alumno.datos_medicos.id)
@@ -1220,12 +1229,21 @@ def ver_datos_medicos(request):
 			grupo_sanguineo = form_datosMedicos.cleaned_data['grupo_sanguineo'] 
 			alergias = form_datosMedicos.cleaned_data['alergias']
 			toma_medicamentos = form_datosMedicos.cleaned_data['toma_medicamentos']
-			medicamentos_cuales = form_datosMedicos.cleaned_data['medicamentos_cuales']
+			if toma_medicamentos == 1:
+				medicamentos_cuales = 'sin medicacion'
+			else:
+				medicamentos_cuales = form_datosMedicos.cleaned_data['medicamentos_cuales']
 			tuvo_operaciones = form_datosMedicos.cleaned_data['tuvo_operaciones']
-			operaciones_cuales = form_datosMedicos.cleaned_data['operaciones_cuales']
+			if tuvo_operaciones == 1:
+				operaciones_cuales = 'sin operaciones'
+			else:
+				operaciones_cuales = form_datosMedicos.cleaned_data['operaciones_cuales']
 			tiene_osocial = form_datosMedicos.cleaned_data['tiene_osocial']
-			osocial_cual = form_datosMedicos.cleaned_data['osocial_cual']
-
+			if tiene_osocial == 1:
+				osocial_cual = 'sin obra social'
+			else:
+				osocial_cual = form_datosMedicos.cleaned_data['osocial_cual']
+			
 			dm.grupo_sanguineo = grupo_sanguineo
 			dm.alergias = alergias
 			dm.toma_medicamentos = toma_medicamentos
@@ -1239,9 +1257,12 @@ def ver_datos_medicos(request):
 
 			alumno.datos_medicos = dm
 			messages.success(request, 'Sus Datos Médicos han sido guardados correctamente.')
-			return HttpResponseRedirect(reverse('ver_datos_medicos'))
+
+			##return HttpResponseRedirect(reverse('ver_datos_medicos'))
+
+			activar_infoMedica = True
+
 			alumno.save()
-			#return HttpResponseRedirect('')
 		else:
 			messages.error(request, 'Hubo problemas al guardar sus Datos Médicos. Por favor, intente nuevamente.')
 
@@ -1252,6 +1273,8 @@ def ver_datos_medicos(request):
 		'alumno': alumno,
 		'form_dm': form_datosMedicos,
 		'bandera': bandera,
+		'habilitar_ficha': habilitar_subir_ficha,
+		'activar_infoMedica': activar_infoMedica,
 	}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))

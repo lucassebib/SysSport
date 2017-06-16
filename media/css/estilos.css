@@ -54,8 +54,9 @@ html, body, .main.container-fluid, .container{
 html, body{
 	height: 100%;
 }
-textarea#id_alergias, textarea#id_medicamentos_cuales, textarea#id_operaciones_cuales, textarea#id_osocial_cual{
-	max-height: 100px; 
+textarea{
+	min-width: 80%; 
+	min-height: 100px; 
 }
 .error_message{
 	padding: 10px;

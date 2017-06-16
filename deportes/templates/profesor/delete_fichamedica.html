@@ -1,0 +1,17 @@
+{% extends "baseProfesor.html" %}
+
+{% block contenido %}
+<div class="panel-default">
+	<div class="panel-heading" align="center">
+		<p>¿Está seguro que desea eliminar la siguiente Ficha Medica <b>{{ficha.obtenerNombreArchivo}}</b>?</p>
+	</div>
+	<div class="panel-body panel" align="center" >
+		<form action='' method='POST'>
+			{% csrf_token %}
+			<input class="btn btn-primary"  type='submit' value='Confirmar' name = 'bEliminar'>
+			<input class="btn btn-primary"  type="button" value="Cancelar" onclick="history.back(-1)" />
+		</form>
+	</div>	
+</div>
+
+{% endblock %}

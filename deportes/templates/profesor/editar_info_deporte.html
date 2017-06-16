@@ -1,54 +1,70 @@
 {% extends "baseProfesor.html" %}
 
 {% block contenido %}
-	<div class="panel-info">
+<div class="panel-info">
 	<div class="page-header panel-default">
-		<h1><i>Editar Informacion de: {{deporte}} </i></h1>
+		<h1><i>Editar Información de <b>{{deporte}} </b></i></h1>
 	</div>
 
 	<div class="page-content">
-		<p><i>A continuación podra editar informacion para el deporte seleccionado.</i></p>
+		<p><i>A continuación podrá editar información para el deporte seleccionado.</i></p>
 		<form role="form" method="POST" accept-charset="utf-8" enctype="multipart/form-data">{% csrf_token %}
-			<ul class=" nav navbar-var navbar-right nav-pills">
-		 		<li><a href="{% url 'editar_entrenamiento_deporte' deporte.id %}"><span class="glyphicon glyphicon-plus"></span> </span>Agregar Fecha de Entrenamiento</a></li>
-		 	</ul>
-		 	
-		 
+					 
 	 		<div class="form-group">
-	 			<label>Nombre del Deporte: </label></br>
+	 			<label><b>Nombre del Deporte: </b></label></br>
 	 			<input type="text" value="{{deporte.nombre}}" readonly>
 	 		</div>
 	 		<div class="form-group">
-	 			<label>Generos aptos: </label></br>
+	 			<label><b>Géneros aptos: </b></label></br>
 	 			<input type="text" value="{{deporte.ver_aptopara}}" readonly>
 	 		</div>
 		 		
 		 	
 			{% for field in form_deporte %}
-				{% if field.label == 'Foto' %}
-					<div class="form-group">
-						<label>Foto de Portada Actual: </label></br>
+				<div class="form-group">
+					{% if field.label == 'Foto' %}
+						<label><b>Foto de Portada Actual: </b></label></br>
 						<img src="{{deporte.foto.url}}" class="img-deporte" >
-						<p><i>Si desea cambiar la foto de portada actual, por favor seleccione una nueva aqui:</i></p>
-						</div>
-				{% endif %}
-				
-				<label>{{field.label}}</label>
-				<p>{{field}} </p>			
+						<p><i>Si desea cambiar la foto de portada actual, por favor seleccione una nueva imagen aquí:</i></p>
+					{% endif %}
+					<label><b>{{field.label}}</b></label>
+					<p>{{field}} </p>	
+				</div>		
 			{% endfor %}
-			<div>
-			<label>Fechas de Entrenamiento: </label>
-			{% if entrenamientos %}
-				{% for e in entrenamientos %}
-					<div class="form-group">
-						<p>{{e.ver_dia}} de {{e.ver_horario_inicio}} a {{e.ver_horario_fin}}
-						<button  type='submit' name="boton_eliminar" value=''><span class = "glyphicon glyphicon-remove"> </span></button>
-						<input class="btn btn-default" type='hidden' name="boton_eliminar_id" value='{{e.id}}'></p>
-					</div>
-				{% endfor %}		
-			{% else %}
-				<p><i>Usted todavia no ha ingresado un horario de entrenamiento para este deporte. Por Favor dirijase a la seccion Agregar Fecha de Entrenamiento.</i></p>
-			{% endif %}
+			<div class="form-group">
+				<label><b>Fechas de Entrenamiento: </b></label>
+				<ul class=" nav navbar-var navbar-right nav-pills">
+			 		<li><a title="Nuevo Entrenamiento" href="{% url 'editar_entrenamiento_deporte' deporte.id %}"><span class="glyphicon glyphicon-plus"></span></a></li>
+			 	</ul>
+		 	
+				{% if entrenamientos %}
+						<div class="form-group">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Día</th>
+										<th>Hora de inicio</th>
+										<th>Hora de fin</th>
+									</tr>
+								</thead>
+								
+								{% for e in entrenamientos %}
+								<tbody>
+									<tr>
+										<td>{{e.ver_dia}}</td>
+										<td>{{e.ver_horario_inicio}}</td>
+										<td>{{e.ver_horario_fin}}</td>
+										<td><button class="btn-default"  type='submit' name="boton_eliminar" value=''><span class = "glyphicon glyphicon-remove"> </span></button><input type='hidden' name="boton_eliminar_id" value='{{e.id}}'></td>
+									</tr>
+								</tbody>
+								{% endfor %}	
+								
+							</table>	
+						</div>
+						
+				{% else %}
+					<p><i>Usted todavía no ha ingresado un horario de entrenamiento para este deporte. Por Favor dirijase a la sección <a href="{% url 'editar_entrenamiento_deporte' deporte.id %}">Entrenamiento</a></i></p>
+				{% endif %}
 			</div>
 			<button class="btn btn-primary" type='submit' name="boton_guardar" value='Guardar'>Guardar</button>
 			<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>

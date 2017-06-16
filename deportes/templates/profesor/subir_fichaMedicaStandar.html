@@ -5,56 +5,57 @@
 		<div class="page-header panel-default">
 			<h1><i>Ficha Médica para: </i><b>{{deporte.nombre}}</b></h1>
 		</div>
-		<div class="page-content col-12 col-sm-12 col-lg-12">
-			<ul class="nav nav-tabs" role="tablist">
-				<li class="nav-item active"><a class="nav-link active" data-toggle="tab" href="#ver_ficha_medica">Ver Ficha Médica</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#editar_ficha_medica">Cargar Ficha Médica</a></li>
-			</ul>
-			<div class="tab-content">
-				<div role="tabpanel" class="tab-pane fade in active" id="ver_ficha_medica">
-					<div class="col-md-9">
-					{% if ficha %}
-						
-							<div class="form-group">
-								<label class=" control-label">Nombre del Archivo:  </label>
-								<link class=" control-label"><a title="Descargar ficha médica" href="{{ficha.ficha_medica.url}}">{{ficha.obtenerNombreArchivo}}</a></link>
-								
-							</div>
-							<div class="form-group">
-								<label class=" control-label">Nota:  </label>
-								<label class=" control-label"> {{ficha.descripcion}} </label>
-							</div>	
-						 
-					{% else %}
-							<p>No se ha cargado Ficha Medica</p>
-					{% endif %}
+		{% include "mensaje.html" %}
+		<div class="page-content ">
+			<div class="well well-lg">
+						<h3>Actualmente:</h3><br>
+				{% if ficha %}
 					<div class="form-group">
-						<button class="btn btn-primary" type="button" value="Volver" onclick="history.back(-1)" />Volver</button>
+						<label class=" control-label"><b>Nota: </b></label>
+						<label class=" control-label"> {{ficha.descripcion}} </label>
 					</div>
-					</div>	
+					<div class="form-group">
+						<label class=" control-label"><b>Nombre del Archivo:  </b></label>
+						{{ficha.obtenerNombreArchivo}}
+
+						<a title="Descargar ficha médica" type="text" href="{{ficha.ficha_medica.url}}"> <span class = "glyphicon glyphicon-download-alt" ></span></a>
+
+						<a title="Eliminar ficha médica" type="text" href="{% url 'delete_fichamedica' ficha.id %}"><span class="glyphicon glyphicon-remove"></span></a>
+						
+					</div>				
+				{% else %}
+						<p>No se ha cargado aun una Ficha Médica</p>
+				{% endif %}
 				</div>
 
-				<div role="tabpanel" class="tab-pane fade" id="editar_ficha_medica">
-					<form method="POST" enctype="multipart/form-data">{% csrf_token %}
+				<div class="panel panel-default">
+				  <div class="panel-heading"><h3>Actualizar Ficha Medica</h3></div>
+				  <div class="panel-body">
+				    <p>...</p>
+
+				    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+				    	{% include "formularios_error.html" %}
 						<div class="form-group">
-							<label>Ficha médica: </label>
+							<label><b>Ficha médica: </b></label>
 							{{form.ficha_medica}}
 						</div>
 						<div class="form-group">
-							<label> Descripción: </label><br>
+							<label><b> Descripción: </b></label><br>
 							{{form.descripcion}}
 						</div>
 						<div class="form-group">
 							
 							<button class="btn btn-primary" type='submit' value='Guardar'>Guardar</button>
+							<!--
 							<button class="btn btn-primary" type="button" value="Volver" onclick="history.back(-1)" />Volver</button>
+							-->
 						</div>
-					</form>		
+					</form>	
+
+				  </div>
 				</div>
-			
-			</div>
-			
-		</div>
-		
+
+				
+			</div>			
 	</div>
 {% endblock %}

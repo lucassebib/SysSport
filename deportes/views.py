@@ -1,3 +1,5 @@
+#-!-coding: utf-8 -!-
+from django.contrib import messages
 from django.contrib.auth import authenticate, login as loguear, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -38,20 +40,6 @@ def deporte_detalle(request, pk):
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 ############################### CRUD DEPORTES ##############################################
-#def lista_deportes(request):
-    #template = "lista_deportes.html"
-    
-    #ctx = {
-   #     'deportes': Deporte.objects.all(), 
-  #  }
-   
- #   return render_to_response(template, ctx, context_instance=RequestContext(request))
-
-#class DetallesDeportes(DetailView):
- #   model = Deporte
-#    context_object_name = 'deportes'
-
-# Crear deporte admin
 
 def crear_deporte(request):
     template = "deportes/deporte_form.html"
@@ -285,12 +273,13 @@ def inscribir_deporte(request, pk):
 def subir_fichaMedicaStandar(request, pk):
     template = "profesor/subir_fichaMedicaStandar.html"
     form = FormularioSubirFichaMedica()
-    deporte = Deporte.objects.get(id=pk)
-    
+    deporte = Deporte.objects.get(id=pk) 
+
     try:
         ficha = FichaMedica.objects.get(id=deporte.ficha_medica.id)
     except Exception as e:
         ficha = ""
+    
     mensaje= 'no llego'
     
     if request.method == 'POST':
@@ -304,8 +293,7 @@ def subir_fichaMedicaStandar(request, pk):
                     f.descripcion = form.cleaned_data['descripcion']
                     f.save()
                     deporte.ficha_medica = f
-                    deporte.save()
-                    return HttpResponseRedirect('')
+                    deporte.save()    
                 else:
                     nueva_ficha = FichaMedica()
                     nueva_ficha.ficha_medica = form.cleaned_data['ficha_medica']
@@ -313,12 +301,39 @@ def subir_fichaMedicaStandar(request, pk):
                     nueva_ficha.save()
                     deporte.ficha_medica = nueva_ficha
                     deporte.save()
-                    return HttpResponseRedirect('')
+                
+                load_page = True    
+                messages.success(request, 'La ficha medica ha sido actualizada correctamente.')
+                return HttpResponseRedirect('')
+            else:
+                messages.error(request, 'Ha ocurrido un problema! No ha subido ningun archivo.')
+
+        else:
+            print('error')
 
     ctx = {
         'mensaje': mensaje,
         'form': form,
         'deporte': deporte,
+        'ficha': ficha,
+    }
+
+    return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def delete_fichamedica(request, pk):
+    template = "profesor/delete_fichamedica.html"
+    ficha = FichaMedica.objects.get(id = pk)
+    deporte = Deporte.objects.get(ficha_medica=ficha)
+
+    if request.method == "POST":
+        deporte.ficha_medica = None
+        deporte.save()
+        ficha.ficha_medica.delete()
+        ficha.delete()
+        url = reverse('subir_ficha', kwargs={'pk': deporte.id})
+        return HttpResponseRedirect(url)
+
+    ctx = {
         'ficha': ficha,
     }
 
