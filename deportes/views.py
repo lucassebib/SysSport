@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
 from django.template import Context
+from django.db.models import Q
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
@@ -213,13 +214,14 @@ def inscripcion_deportes(request):
 
   
     ctx = {
-        'deportes': consulta, 
+        'deportes': Deporte.objects.filter(~Q(id__in=g.lista_deporte.all())), 
         'deportes_alumno': g.lista_deporte.all(),
         'darse_de_baja': darse_de_baja,
         'mensaje': mensaje,
         'is_invitado': usuario=='invitado'
        
     }
+
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 
@@ -233,7 +235,7 @@ def baja_deporte(request, pk):
 
     if request.method == "POST":
         alumno.lista_deporte.remove(pk)
-        url = 'ver_deportes_personas'
+        url = 'inscribir_deportes'
         return HttpResponseRedirect(reverse(url))   
 
     ctx = {
@@ -258,7 +260,7 @@ def inscribir_deporte(request, pk):
 
         if d.apto_para == sexo or d.apto_para == 3: 
             alumno.lista_deporte.add(d)
-            url = 'ver_deportes_personas'
+            url = 'inscribir_deportes'
             return HttpResponseRedirect(reverse(url)) 
         else:
             mensaje = "ESTE DEPORTE ES APTO PARA: " + d.ver_aptopara()    

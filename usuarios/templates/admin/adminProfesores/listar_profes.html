@@ -24,8 +24,9 @@
 								
 				</tr>
 			</thead>
-			<tbody>
+			
 			{% for p in profes %}
+			<tbody>
 				<tr>
 					<td><a href="{% url 'ver_perfil_profesor' p.id %}">{{p.first_name}}&nbsp{{p.last_name}}</a> </td>
 					<td>{{p.email}}</td>					

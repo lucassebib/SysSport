@@ -751,6 +751,15 @@ def editar_error(request):
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
+def listar_alumnosUTN(request):
+	template = "admin/lista_alumnoUTN.html"
+	ctx = {
+        'alumnos': Alumno.objects.all(),
+
+    }
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+
 ##########################################PARA ALUMNOS######################################################
 def modificarPerfilAlumno(request):
 	template = "alumno/modificar_perfil_alumno.html"
@@ -958,7 +967,6 @@ def agregar_contactoUrgencia(request):
 	form_direccion = FormularioDireccion()
 	guardar = True
 	mensaje_error = ''
-	mostrar_mensaje = False
 
 	if request.method == "POST":
 		form_principal = FormularioContactoDeUrgencia(request.POST)
@@ -1013,20 +1021,16 @@ def agregar_contactoUrgencia(request):
 				contador = contador + 1
 
 			if contador >=MAX_CONTACTO_URGENCIA:
-				guardar = False
-
-				mostrar_mensaje = True
 				mensaje_error = 'Solo es posible agregar como maximo: ' + str(MAX_CONTACTO_URGENCIA) + ' contacto/s'
+				messages.error(request, mensaje_error)
+				guardar = False
 
 			if guardar:
 				direccion = Direccion(calle=calle, altura=altura, piso=piso, nro_departamento=nro_departamento, provincia=provincia, localidad=localidad)
 				direccion.save()
 				
 				contacto = ContactoDeUrgencia(nombre=nombre, apellido=apellido, parentezco=parentezco, telefono=telefono, direccion=direccion)
-				contacto.save()
-
-				
-				
+				contacto.save()				
 				alumno.contactos_de_urgencia.add(contacto)
 				alumno.save()
 				
@@ -1038,7 +1042,6 @@ def agregar_contactoUrgencia(request):
 		'form_principal': form_principal,
 		'form_direccion': form_direccion,
 		'mensaje_error': mensaje_error,
-		'mostrar_mensaje': mostrar_mensaje,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
@@ -1229,12 +1232,21 @@ def ver_datos_medicos(request):
 			grupo_sanguineo = form_datosMedicos.cleaned_data['grupo_sanguineo'] 
 			alergias = form_datosMedicos.cleaned_data['alergias']
 			toma_medicamentos = form_datosMedicos.cleaned_data['toma_medicamentos']
-			medicamentos_cuales = form_datosMedicos.cleaned_data['medicamentos_cuales']
+			if toma_medicamentos == 1:
+				medicamentos_cuales = 'sin medicacion'
+			else:
+				medicamentos_cuales = form_datosMedicos.cleaned_data['medicamentos_cuales']
 			tuvo_operaciones = form_datosMedicos.cleaned_data['tuvo_operaciones']
-			operaciones_cuales = form_datosMedicos.cleaned_data['operaciones_cuales']
+			if tuvo_operaciones == 1:
+				operaciones_cuales = 'sin operaciones'
+			else:
+				operaciones_cuales = form_datosMedicos.cleaned_data['operaciones_cuales']
 			tiene_osocial = form_datosMedicos.cleaned_data['tiene_osocial']
-			osocial_cual = form_datosMedicos.cleaned_data['osocial_cual']
-
+			if tiene_osocial == 1:
+				osocial_cual = 'sin obra social'
+			else:
+				osocial_cual = form_datosMedicos.cleaned_data['osocial_cual']
+			
 			dm.grupo_sanguineo = grupo_sanguineo
 			dm.alergias = alergias
 			dm.toma_medicamentos = toma_medicamentos
@@ -1248,7 +1260,11 @@ def ver_datos_medicos(request):
 
 			alumno.datos_medicos = dm
 			messages.success(request, 'Sus Datos Médicos han sido guardados correctamente.')
+
+			##return HttpResponseRedirect(reverse('ver_datos_medicos'))
+
 			activar_infoMedica = True
+
 			alumno.save()
 		else:
 			messages.error(request, 'Hubo problemas al guardar sus Datos Médicos. Por favor, intente nuevamente.')

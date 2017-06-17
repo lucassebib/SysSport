@@ -1,0 +1,39 @@
+{% extends "baseAdmin.html" %}
+
+{% block contenido %}
+<div class="panel-info">
+	<div class="page-header panel-default">
+		<h1><i>Alumno UTN</i></h1>
+	</div>
+
+
+	<div class="page-content">
+		<form class="form-horizontal">{% csrf_token %}
+
+		 </form>
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nombre y Apellido</th>
+					<th>Email</th>
+					<th>Deporte</th>	
+								
+				</tr>
+			</thead>
+			
+			{% for a in alumnos %}
+			<tbody>
+				<tr>
+					<td><a href="#">
+					{{a.legajo}}&nbsp{{a.last_name}}</a> </td>
+					<td>{{a.email}}</td>					
+					<td>{{a.ver_lista_deporte}}</td>
+					
+			{% endfor %}
+			</tbody>
+		</table>
+		
+	</div>
+</div>
+{% endblock %}
