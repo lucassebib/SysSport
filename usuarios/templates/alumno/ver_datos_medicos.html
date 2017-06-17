@@ -146,6 +146,7 @@
 				</div>
 			<!-- ################ PANEL INFORMACION MEDICA ####################################-->
 			<div class="tab-pane fade" id="informacion_medica" >
+			<div class="tab-responsive"
 				<div class="page-header panel-default ">
 					<h3><i> Información Médica </i>
 					<ul class="nav navbar-right ">
@@ -191,11 +192,15 @@
 								<p>{{form_dm.osocial_cual}}</p></br>
 							</div>
 
+								<button class="btn btn-primary" type="submit" value="Guardar" name="boton_guardar_form_dm">Guardar</button>
+
+								{{mensaje_error_dm}}
+
 						</div>
+						</div>
+
 					</div>
-					
-					<button class="btn btn-primary" type="submit" value="Guardar" name="boton_guardar_form_dm" >Guardar</button>
-					{{mensaje_error_dm}}
+
 				</form>	
 	   		</div>
 		</div>

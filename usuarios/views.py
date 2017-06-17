@@ -1251,7 +1251,11 @@ def ver_datos_medicos(request):
 
 			alumno.datos_medicos = dm
 			messages.success(request, 'Sus Datos Médicos han sido guardados correctamente.')
+
+			##return HttpResponseRedirect(reverse('ver_datos_medicos'))
+
 			activar_infoMedica = True
+
 			alumno.save()
 		else:
 			messages.error(request, 'Hubo problemas al guardar sus Datos Médicos. Por favor, intente nuevamente.')
