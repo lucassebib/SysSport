@@ -63,7 +63,7 @@ textarea{
 }
 .error_message{
 	padding: 10px;
-	background-color: #C6537B;
+	background-color: rgba(231, 76, 60, 1);
 	color: white;
 }
 
@@ -107,7 +107,7 @@ textarea{
 	height: 300px;
 	min-width: 340px;
 }
-.has-feedback label ~ .form-control-feedback{
+.has-feedback, .form-control-feedback{
 	top: 10px;
 }
 .img-circle.perfil{
@@ -215,6 +215,10 @@ textarea{
 }
 .tab-content{
 	margin-top: 10px;
+}
+#eliminar{
+	float: right;
+	padding-top: 0;
 }
 #ficha_medica{
 	color: #444;

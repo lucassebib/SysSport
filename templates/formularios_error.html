@@ -1,18 +1,15 @@
 
-
 {% if field.errors %}
     {% for error in field.errors %}
         <div class="form-group has-error has-feedback">
-            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
             {{field.label_tag}}</br>
-            <strong class="text-danger" >{{error|escape}}</strong></br>
+            <strong class="text-danger">*{{error|escape}}</strong></br>
             {{field}}</br>
         </div>  
     {% endfor %}        
     {% for error in form_principal.non_field_errors %}
         <div class=" form-group has-error has-feedback">
-            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
-                 <strong class="text-danger" >{{error|escape}}</strong></br>
+            <strong class="text-danger">*{{error|escape}}</strong></br>
             </br>
         </div>  
     {% endfor %}    

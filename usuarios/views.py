@@ -554,7 +554,7 @@ def vista_pagina_inicio(request):
 							ctx = {"form1":form1, "mensaje": "Usuario Inactivo"}
 							return render_to_response(template,ctx, context_instance=RequestContext(request))
 					else:
-						ctx = {"form1":form1, "mensaje": "Nombre de usuario o password incorrectos"}
+						ctx = {"form1":form1, "mensaje": "Usuario o contraseña incorrectos"}
 						return render_to_response(template,ctx, context_instance=RequestContext(request))
 				except Exception as e:
 					if user.is_staff:
@@ -1196,7 +1196,7 @@ def ver_datos_medicos(request):
 	bandera = False
 	habilitar_subir_ficha = False
 	mensaje=''
-	mensaje_error_dm = ''
+	
 
 	try:
 		alumno = Alumno.objects.get(legajo=request.session['user'])
@@ -1272,7 +1272,6 @@ def ver_datos_medicos(request):
 	ctx = {
 		'deportes': alumno.lista_deporte.all(),
 		'form': form,
-		'mensaje_error_dm': mensaje_error_dm,
 		'alumno': alumno,
 		'form_dm': form_datosMedicos,
 		'bandera': bandera,
