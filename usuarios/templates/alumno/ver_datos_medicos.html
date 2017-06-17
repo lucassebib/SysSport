@@ -17,16 +17,16 @@
 		}
 
 		window.onload = function(){
-			showContent('esconder_medicamentos', 'visibilidad_medicamento');
-			showContent('esconder_operaciones', 'visibilidad_operaciones');
-			showContent('esconder_osocial', 'visibilidad_osocial');
-		
 			bandera = ('{{activar_infoMedica}}' == 'True');
 			
 			if ( bandera ) {	
 				document.getElementById("informacion").click();
 			}
-			
+
+			showContent('esconder_medicamentos', 'visibilidad_medicamento');
+			showContent('esconder_operaciones', 'visibilidad_operaciones');
+			showContent('esconder_osocial', 'visibilidad_osocial');
+		
 		}
 
 		window.jQuery || document.write('<script src="{% static "js/jquery.min.js" type="text/javascript"}""><\/script>')
