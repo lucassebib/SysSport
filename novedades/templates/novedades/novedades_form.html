@@ -26,10 +26,32 @@
 		<div class="page-content">
 		
 			<form action='' method='POST' enctype="multipart/form-data">{% csrf_token %}
+				{% for field in form %}
+				{% if not field.errors %}
+					{% if not field.label = 'Visibilidad' and not field.label = 'Categoria' %}
+						<div class="form-group has-success has-feedback" >
+							{{field.label_tag}}</br>
+							{{field}}</br>
+						</div>
+					{% endif %}
+				{% endif %}
+				 	{% include "formularios_error.html" %}
+				{% endfor %}
 				<div class="form-group">
-					<label>Titulo: </label>
-					{{form.titulo}}
+					<label>Visibilidad: </label>
+					<select name="visibilidad" id="visibilidad" onchange="javascript:showContent()">
+						{% for valor, opcion in form.visibilidad.field.choices %}
+					   		<option value="{{valor}}"
+					   			{% if valor == form.visibilidad.value %} selected="selected" {% endif %}>
+					   			{{opcion}} 
+					   		</option> 
+						{% endfor %}
+					</select>	
 				</div>
+				<!--<div class="form-group">
+						<label>Titulo: </label>
+						{{form.titulo}}
+					</div>
 				<div class="form-group">
 					<label>Contenido: </label>
 					{{form.contenido}}
@@ -37,25 +59,14 @@
 				<div class="form-group">
 					<label>Imagen: </label>
 					{{form.imagen}}
-				</div>
-				<div class="form-group">
-					<label>Visibilidad: </label>
-					<select name="visibilidad" id="visibilidad" onchange="javascript:showContent()">
-						{% for valor, opcion in form.visibilidad.field.choices %}
-					   		<option value="{{valor}}"
-					   				{% if valor == form.visibilidad.value %} selected="selected" {% endif %} 
-					   		>
-					   			{{opcion}} 
-					   		</option> 
-						{% endfor %}
-					</select>	
-				</div>
-
+				</div>-->
+				
+				
 				<div class="form-group" id="div_escondido" style="display: none;">
 					<label>Categoria:</label>
 					{{form.categoria}}
 				</div>
-
+				
 				<div class="form-group">
 					<button class="btn btn-primary" type='submit' value='Confirmar'>Confirmar</button>
 			    	<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />Cancelar</button>

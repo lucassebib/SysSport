@@ -6,12 +6,12 @@
 			<button class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar"><span class="glyphicon glyphicon-search"> </span> Buscar</button></br></br>
 			<input type="radio" id="check_autor" name="opcion" value="autor" onchange="javascript:showContent()" > Autor
 			<input type="radio" name="opcion" value="titulo" onchange="javascript:showContent()"> Titulo
-			<input type="radio" id="check_fecha" name="opcion" value="fecha" id="fecha" onchange="javascript:showContent()">Fecha
+			<input type="radio" id="check_fecha" name="opcion" value="fecha" id="fecha" onchange="javascript:showContent()"> Fecha
 			<div class="nav" id="div_escondido_autor" style="display: none;">
 				<form method="POST">{% csrf_token %}
 					Ingrese el parámetro de búsqueda por Autor:</br>
-					<input type="radio" name="opcion_autor" value="nombre" checked>Nombre</br>	
-					<input type="radio" name="opcion_autor" value="apellido">Apellido
+					<input type="radio" name="opcion_autor" value="nombre" checked> Nombre</br>	
+					<input type="radio" name="opcion_autor" value="apellido"> Apellido
 				</form>
 			</div>
 			<div class="nav" id="div_escondido_fecha" style="display: none;">

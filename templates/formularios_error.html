@@ -1,14 +1,20 @@
-{% if form.errors %}
-    {% for field in form %}
-        {% for error in field.errors %}
-            <div class="alert alert-danger">
-                <strong>{{ error|escape }}</strong>
-            </div>
-        {% endfor %}
-    {% endfor %}
-    {% for error in form.non_field_errors %}
-        <div class="alert alert-danger">
-            <strong>{{ error|escape }}</strong>
-        </div>
-    {% endfor %}
+
+
+{% if field.errors %}
+    {% for error in field.errors %}
+        <div class="form-group has-error has-feedback">
+            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+            {{field.label_tag}}</br>
+            <strong class="text-danger" >{{error|escape}}</strong></br>
+            {{field}}</br>
+        </div>  
+    {% endfor %}        
+    {% for error in form_principal.non_field_errors %}
+        <div class=" form-group has-error has-feedback">
+            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                 <strong class="text-danger" >{{error|escape}}</strong></br>
+            </br>
+        </div>  
+    {% endfor %}    
 {% endif %}
+

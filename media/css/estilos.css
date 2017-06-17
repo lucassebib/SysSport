@@ -36,7 +36,10 @@ a, li, h1, h2, h3, h4, p, label {
 	margin:0;
 	
 }
+p{
+	word-wrap: break-word;
 
+}
 label{
 	font-weight: normal;
 
@@ -55,8 +58,8 @@ html, body{
 	height: 100%;
 }
 textarea{
-	min-width: 80%; 
-	min-height: 100px; 
+	min-width: 50%; 
+	max-height: 100px; 
 }
 .error_message{
 	padding: 10px;
@@ -226,6 +229,11 @@ textarea{
 	color: #fff;
 	padding: 0;
 	margin:0;
+}
+#text_error{
+	text-align: center;
+	font-style: italic;
+	margin-top: 10px;
 }
 /*estilo para asteriscos rojos y frases en rojo*/
 

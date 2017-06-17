@@ -15,31 +15,6 @@
 
 	<div class="page-content">
 		<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
-			<!--
-			<div class="well"> 
-				<div class=" panel-default">
-					<div class="panel-heading">
-						<h4><b>Datos Personales del Contacto:</b></h4>
-					</div>
-					{% for field in form_contacto %}
-			    		{% if field.label = 'Direccion' %}
-						<div class="panel-default">
-							<div class=" panel-heading ">
-								<h4><b>Direccion:</b></h4>
-							</div>
-								{% for field2 in form_direccion %}
-									<p>{{field2.label}}</p>
-									<p>{{field2}} </p>
-								{% endfor %}
-						</div>
-						{% else %}
-							<p>{{field.label}}</p>
-							<p>{{field}} </p>
-						{% endif %}	
-					{% endfor %}
-				</div>
-			</div>
-			-->
 			<div class="well"> 
 				<div class=" panel-default">
 					<li><strong style="color:red"><i>{{mensaje_error}}</i></strong></li>
@@ -55,37 +30,8 @@
 								</br>
 							</div>
 						{% endif %}
-						{% if field.errors %}
-							{% for error in field.errors %}
-								<div class="form-group has-error has-feedback">
-									{{field.label_tag}}</br>
-									{{field}}
-									
-									<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-									<strong style="color:red">{{error|escape}}</strong>
-									</br>
-								</div>	
-							{% endfor %}		
-							{% for error in form_principal.non_field_errors %}
-								<div class=" form-group has-error has-feedback">
-									<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-										{{error|escape}}
-									</br>
-								</div>	
-								
-							{% endfor %}	
-						{% endif %}
+						{% include "formularios_error.html" %}
 						
-						
-						<!--{%if field.errors %}
-							{% for error in field.errors %}
-								<li><strong>{{ error|escape }}</strong></li>
-							{% endfor %}
-
-							{% for error in form_principal.non_field_errors %}
-						        {{ error|escape }}
-	    					{% endfor %}
-						{% endif %}  	   		-->
 					{% endfor %}	
 				</div>
 				<div class=" panel-default">

@@ -18,7 +18,15 @@
 						</div>
 						
 							{% for field in form_principal %}
-								{%if field.errors %}
+								{% if not field.label = 'Direccion' and not field.errors %}
+									<div class="form-group has-success has-feedback" >
+										{{field.label_tag}}</br>
+										{{field}}
+										
+										</br>
+									</div>
+								{% endif %}
+								<!--{%if field.errors %}
 									{% for error in field.errors %}
 										<div class="alert alert-danger">
 			                				<strong>{{ error|escape }}</strong>
@@ -31,11 +39,9 @@
 			    					{% endfor %}
 									
 								{% endif %}   		
+								-->
+								{% include "formularios_error.html" %}
 								
-								{% if not field.label = 'Direccion' %}
-									<p>{{field.label}}</p>
-									<p>{{field}} </p>
-								{% endif %}	
 							{% endfor %}									
 							
 					</div>						

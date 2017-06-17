@@ -98,6 +98,7 @@ table.tr_comentario{
     border-radius: 5px;
     color: #000;
     text-align: left;
+    min-height: 20px;
 }
 
 .comentario{
@@ -119,13 +120,8 @@ textarea#id_texto{
     border-collapse: collapse;
 }
 
-.tabla-comentario td{
+.tabla-comentario td,.tabla-comentario th{
      padding: 8px;
-}
-
-.tabla-comentario th{
-    padding: 8px;
-   
 }
 
 #mis_novedades{

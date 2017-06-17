@@ -2,16 +2,18 @@
 {% block contenido %}
 <div class="panel-default">
 		<div class="panel-heading" align="center">
-			<p>Esta a punto de inscribirse a:<u>{{deporte}}</u></p>
+			<p>Esta a punto de inscribirse a: <b> {{deporte}}</b></p>
 		</div>
+		
 		<div class="panel-body" align="center" >
-
-		<form action='' method='POST'>
-			{% csrf_token %}
-			<input class="btn btn-default" type='submit' value='Confirmar'>
-			<input class="btn btn-default" type="button" value="Cancelar" onclick="history.back(-1)" />
-		</form>
-			{{mensaje}}
+			<strong class="text-danger"> {{mensaje}}</strong>
+			<form action='' method='POST'>
+				{% csrf_token %}
+				<input class="btn btn-default" type='submit' value='Confirmar'>
+				<input class="btn btn-default" type="button" value="Cancelar" onclick="history.back(-1)" />
+			</form>
 		</div>
+		
+		
 	</div>
 {% endblock %}
