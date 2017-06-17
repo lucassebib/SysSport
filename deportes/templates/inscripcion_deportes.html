@@ -8,6 +8,45 @@
 		{% block buscador %}
 			{% include "buscador_deportes.html" %}
 		{% endblock %}
+
+	
+	<h3><i> Mis deportes</i></h3>
+	<table class=" table table-striped">
+			<thead>
+				<tr id="cabecera-tabla">
+					<th>Nombre</th>
+					<th>Descripción</th>
+					<th>Género</th>
+					<th>Estado</th>
+				</tr>
+			</thead>		
+			{% for d in deportes_alumno %}
+			<tbody>
+				<tr>
+					<td><a href="{% url 'deporte_detalle' d.id %}">{{d.nombre}} </a></td>
+					<td>{{d.descripcion}}</td>
+					<td>{{d.ver_aptopara}}</td>
+					<td>				
+						{% if d in deportes_alumno %}
+							{% if darse_de_baja %}
+								<a title="Baja" type="text" href="{% url 'desinscribir_deporte' d.id %}"><span class="glyphicon glyphicon-remove"></span></a>
+							{% endif %}
+							{% if is_invitado %}
+								<a title="OK" type="text" href="{% url 'inscripcion_deporte' d.id %}"><span class="glyphicon glyphicon-ok"></span></a>
+							{% endif %}	
+
+						{% endif %}
+
+					</td>
+					
+				</tr>
+			</tbody>
+			{% endfor %}
+		</table>
+
+
+	
+	<h3><i> Más Deportes </i></h3>
 	<table class=" table table-striped">
 			<thead>
 				<tr id="cabecera-tabla">
@@ -25,24 +64,25 @@
 					<td>{{d.ver_aptopara}}</td>
 					<td>				
 						{% if d in deportes_alumno %}
-							{% if darse_de_baja %}
-								<a title="Baja" type="text" href="{% url 'desinscribir_deporte' d.id %}"><span class="glyphicon glyphicon-remove"></span></a>
-							{% endif %}
 							{% if is_invitado %}
 								Inscripto
-							{% endif %}
+							{% endif %}	
+
 						{% else %}
 							{% if not is_invitado %}
 								<a title="Alta" type="text" href="{% url 'inscripcion_deporte' d.id %}"><span class="glyphicon glyphicon-plus"></span></a>
 							{% endif %}
 						
 						{% endif %}
+
 					</td>
 					
 				</tr>
 			</tbody>
 			{% endfor %}
 		</table>
+
+		
 	</div>
 	</div>
 {% endblock %}

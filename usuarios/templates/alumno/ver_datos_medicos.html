@@ -106,12 +106,13 @@
 				</ul>
 				
 				<div id="info-fichaMedica" class="navbar-text" style="display: none;">
-					<i><p>Para subir o modificar su ficha médica, seleccione la opción 'Seleccionar archivo' y posteriormente haga click en Guardar...</p>
-					<p>Por favor, utilice el siguiente formato para el nombre de su archivo: DEPORTE_APELLIDO-NOMBRE_DNI</p></i>
+					<i><p>Para subir o modificar su ficha médica, pulse la opción 'Seleccionar archivo' y posteriormente haga click en Guardar.</p></i>
+					
 				</div>
 				<div class="panel panel-default">
 				    <div class="panel-heading"><h3>Cargar Ficha Medica</h3></div>
 		  			<div class="panel-body">
+		  			<p class="aviso">Formato del nombre del archivo a subir: DEPORTE_APELLIDO-NOMBRE_DNI</p></i>
 		    			<p>...</p>
 						{%if habilitar_ficha %}
 						    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
@@ -121,7 +122,9 @@
 									<button type='submit' id="tabActualFichaMedica" class="btn btn-primary" value='Guardar' name="boton_guardar_form">Guardar</button>
 								</div>				
 							</form>
+
 						{% else %}
+
 							<p>Todavia no se han cargado Fichas Medicas para sus Deportes.</p>
 						{% endif %} 
 		  			</div>

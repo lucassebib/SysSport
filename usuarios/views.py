@@ -751,6 +751,15 @@ def editar_error(request):
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
+def listar_alumnosUTN(request):
+	template = "admin/lista_alumnoUTN.html"
+	ctx = {
+        'alumnos': Alumno.objects.all(),
+
+    }
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+
 ##########################################PARA ALUMNOS######################################################
 def modificarPerfilAlumno(request):
 	template = "alumno/modificar_perfil_alumno.html"
