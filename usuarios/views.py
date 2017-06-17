@@ -1255,18 +1255,14 @@ def ver_datos_medicos(request):
 			dm.operaciones_cuales = operaciones_cuales
 			dm.tiene_osocial = tiene_osocial
 			dm.osocial_cual = osocial_cual
-
 			dm.save()
-
 			alumno.datos_medicos = dm
 			messages.success(request, 'Sus Datos Médicos han sido guardados correctamente.')
-
-			##return HttpResponseRedirect(reverse('ver_datos_medicos'))
-
 			activar_infoMedica = True
-
 			alumno.save()
+
 		else:
+			activar_infoMedica = True
 			messages.error(request, 'Hubo problemas al guardar sus Datos Médicos. Por favor, intente nuevamente.')
 
 	ctx = {
