@@ -221,6 +221,7 @@ def inscripcion_deportes(request):
         'is_invitado': usuario=='invitado'
        
     }
+
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 

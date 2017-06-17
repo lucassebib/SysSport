@@ -967,7 +967,6 @@ def agregar_contactoUrgencia(request):
 	form_direccion = FormularioDireccion()
 	guardar = True
 	mensaje_error = ''
-	mostrar_mensaje = False
 
 	if request.method == "POST":
 		form_principal = FormularioContactoDeUrgencia(request.POST)
@@ -1022,20 +1021,16 @@ def agregar_contactoUrgencia(request):
 				contador = contador + 1
 
 			if contador >=MAX_CONTACTO_URGENCIA:
-				guardar = False
-
-				mostrar_mensaje = True
 				mensaje_error = 'Solo es posible agregar como maximo: ' + str(MAX_CONTACTO_URGENCIA) + ' contacto/s'
+				messages.error(request, mensaje_error)
+				guardar = False
 
 			if guardar:
 				direccion = Direccion(calle=calle, altura=altura, piso=piso, nro_departamento=nro_departamento, provincia=provincia, localidad=localidad)
 				direccion.save()
 				
 				contacto = ContactoDeUrgencia(nombre=nombre, apellido=apellido, parentezco=parentezco, telefono=telefono, direccion=direccion)
-				contacto.save()
-
-				
-				
+				contacto.save()				
 				alumno.contactos_de_urgencia.add(contacto)
 				alumno.save()
 				
@@ -1047,7 +1042,6 @@ def agregar_contactoUrgencia(request):
 		'form_principal': form_principal,
 		'form_direccion': form_direccion,
 		'mensaje_error': mensaje_error,
-		'mostrar_mensaje': mostrar_mensaje,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
