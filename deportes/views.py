@@ -183,12 +183,9 @@ def listar_deportes(request):
 def inscripcion_deportes(request):
     template = "inscripcion_deportes.html"
     id_usuario = request.user.id
-    consulta = Deporte.objects.all()
     mensaje =''
     usuario = ''
    
-    consulta, mensaje = buscador_deportes(request, consulta, mensaje)   
-
     darse_de_baja = False
     try:
         g = Alumno.objects.get(legajo=int(request.session['user']))
@@ -212,14 +209,15 @@ def inscripcion_deportes(request):
                         extiende = 'baseAdmin.html'
                         darse_de_baja = True
 
-  
+    consulta = Deporte.objects.filter(~Q(id__in=g.lista_deporte.all()))
+    consulta, mensaje = buscador_deportes(request, consulta, mensaje)  
+
     ctx = {
-        'deportes': Deporte.objects.filter(~Q(id__in=g.lista_deporte.all())), 
+        'deportes': consulta, 
         'deportes_alumno': g.lista_deporte.all(),
         'darse_de_baja': darse_de_baja,
         'mensaje': mensaje,
-        'is_invitado': usuario=='invitado'
-       
+        'is_invitado': usuario=='invitado'      
     }
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))
