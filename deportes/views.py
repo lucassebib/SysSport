@@ -133,9 +133,8 @@ def ver_deportes_personas(request):
     editar_info = False
     mensaje = ''
     g = ''
-    
-    try:
 
+    try:
         g = Alumno.objects.get(legajo=int(request.session['user']))
         extiende = 'baseAlumno.html'
     except Exception as e:
@@ -185,7 +184,7 @@ def inscripcion_deportes(request):
     id_usuario = request.user.id
     mensaje =''
     usuario = ''
-   
+    mensaje_alumno = ''
     darse_de_baja = False
     try:
         g = Alumno.objects.get(legajo=int(request.session['user']))
@@ -210,13 +209,21 @@ def inscripcion_deportes(request):
                         darse_de_baja = True
 
     consulta = Deporte.objects.filter(~Q(id__in=g.lista_deporte.all()))
-    consulta, mensaje = buscador_deportes(request, consulta, mensaje)  
+    consulta_alumno = g.lista_deporte.all()
+
+    if request.method == 'POST' and 'btn_buscar' in request.POST:
+        consulta, mensaje = buscador_deportes(request, consulta, mensaje)  
+        consulta_alumno, mensaje_alumno = buscador_deportes(request, consulta_alumno, mensaje_alumno)
+    else:
+        if request.method == 'POST' and 'btn_limpiar' in request.POST:  
+            return HttpResponseRedirect('')
 
     ctx = {
         'deportes': consulta, 
-        'deportes_alumno': g.lista_deporte.all(),
+        'deportes_alumno': consulta_alumno,
         'darse_de_baja': darse_de_baja,
         'mensaje': mensaje,
+        'mensaje_alumno': mensaje_alumno,
         'is_invitado': usuario=='invitado'      
     }
 

@@ -1,23 +1,20 @@
 from deportes.models import *
 
 # BUSCADOR
-def buscador_deportes(request, consulta, mensaje): 
-    if request.method == 'POST' and 'btn_buscar' in request.POST:
-        eliminar_filtro = True
-        if request.POST.get('q', '')=='':
-            mensaje = 'No ha introducido ningun termino en la busqueda'
-            consulta= Deporte.objects.all()
+def buscador_deportes(request, consulta, mensaje):  
+    if request.POST.get('q', '')=='':
+        mensaje = 'No ha introducido ningun termino en la busqueda'
+    else:
+        if not request.POST.get('opcion'):
+            mensaje = 'No ha introducido ningun parametro de busqueda'
+            consulta=''
         else:
-            if not request.POST.get('opcion'):
-                mensaje = 'No ha introducido ningun parametro de busqueda'
-                consulta=''
-            else:
-                #     BUSQUEDA POR TITULO
-                if request.POST.get('opcion') == 'nombre':
-                    nombre = request.POST.get('q')
-                    consulta = consulta.filter(nombre__contains=nombre)
-                    if not consulta:
-                        mensaje = 'No se han encontrado coincidencias'
+            #     BUSQUEDA POR TITULO
+            if request.POST.get('opcion') == 'nombre':
+                nombre = request.POST.get('q')
+                consulta = consulta.filter(nombre__contains=nombre)
+                if not consulta:
+                    mensaje = 'No se han encontrado coincidencias'
     return consulta, mensaje
 #finBUSCADOR
     
