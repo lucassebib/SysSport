@@ -355,9 +355,7 @@ def alta_alumno(request):
 def delete_alumno(request, pk):
 	template = "admin/adminAlumnoInvitado/alumno_confirm_delete.html"
 
-	#string(pk)
 	a = UsuarioInvitado.objects.get(id= pk)
-
 	
 	if request.method == 'POST' and 'bEliminar' in request.POST:
 		a.delete()
@@ -1196,7 +1194,6 @@ def ver_datos_medicos(request):
 	bandera = False
 	habilitar_subir_ficha = False
 	mensaje=''
-	
 
 	try:
 		alumno = Alumno.objects.get(legajo=request.session['user'])

@@ -68,7 +68,7 @@ class FormularioDatosMedicos(forms.ModelForm):
 		self.fields['tiene_osocial'].widget.attrs.update({'id': 'visibilidad_osocial',
 															  'onchange':"showContent('esconder_osocial', 'visibilidad_osocial');"
 															})
-
+	
 ################## AMB usuarios##############################
 
 class FormularioAltaProfe(forms.ModelForm):

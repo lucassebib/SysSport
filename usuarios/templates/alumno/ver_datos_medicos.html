@@ -2,10 +2,8 @@
 {% block contenido %}
 
 	<script type="text/javascript">
-		function showContent(div_escondido, visibilidad) {
-	        //element = document.getElementById("div_escondido"); 	        
+		function showContent(div_escondido, visibilidad) {	        
 	        element = document.getElementById(div_escondido); 
-	        //seleccion = document.getElementById("visibilidad");
 	        seleccion = document.getElementById(visibilidad);
 	        valor = seleccion.options[seleccion.selectedIndex].value;
 	        if (valor == '2') {
@@ -171,35 +169,30 @@
 						{% for field in form_dm %}
 							{% if not field.errors %}
 								<div class="form-group has-success has-feedback" >
-									<!--
-									<p><label>Grupo Sanguineo:</label></p>
-									<p>{{form_dm.grupo_sanguineo}}</p></br>
-									<p><label>Alergias:</label></p>
-									<p>{{form_dm.alergias}}</p></br>
-									<p>Toma Medicamentos:</p>
-									<p>{{form_dm.toma_medicamentos}}</p></br>
-									<div id="esconder_medicamentos" style="display: none;">
-										<p><label>Qué Medicamentos:</label> </p>
-										<p>{{form_dm.medicamentos_cuales}}</p></br>
+								 {% if field.name == 'osocial_cual' %}
+								 	<div id="esconder_osocial" style="display: none;">
+										{{field.label_tag}}</br>
+										{{field}}
 									</div>
-									<p><label>Tuvo operaciones:</label></p>
-									<p>{{form_dm.tuvo_operaciones}}</p></br>
+								 {% else %}
+								 	{% if field.name == 'operaciones_cuales' %}
+									 	<div id="esconder_operaciones" style="display: none;">
+											{{field.label_tag}}</br>
+											{{field}}
+										</div>
+									 {% else %}
+									 	{% if field.name == 'medicamentos_cuales' %}
+										 	<div id="esconder_medicamentos" style="display: none;">
+												{{field.label_tag}}</br>
+												{{field}}
+											</div>
+										 {% else %}
+										 	{{field.label_tag}}</br>
+											{{field}}
+										 {% endif %}
+									 {% endif %}
+								 {% endif %}
 									
-									<div id="esconder_operaciones" style="display: none;">
-										<p><label>Tipo de Operación:</label> </p>
-										<p>{{form_dm.operaciones_cuales}}</p></br>
-									</div>
-
-									<p><label>Tiene Obra Social:</label></p>
-									<p>{{form_dm.tiene_osocial}}</p></br>
-
-									<div id="esconder_osocial" style="display: none;">
-										<p><label>Qué Obra Social:</label> </p>
-										<p>{{form_dm.osocial_cual}}</p></br>
-									</div>
-								 -->
-									{{field.label_tag}}</br>
-									{{field}}
 								</div>
 							{% endif %}
 								{% include "formularios_error.html" %}
