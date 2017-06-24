@@ -3,24 +3,55 @@
 {% block contenido %}
 <div class="panel-info">
 	<div class="page-header panel-default">
-		<h1><i>{{deporte.nombre}} </i>
-			<ul class=" navbar navbar-right nav-pills">
-				<button id="boton-atras-deporte" class="btn btn-default" type="button" onclick="history.back()" /><span class="glyphicon glyphicon-arrow-left"></span></button>
-			</ul>
-		</h1>
-
+			<h1><button id="boton-atras-deporte" class="btn btn-default" type="button" onclick="history.back()" /><span class="glyphicon glyphicon-arrow-left"></span></button>
+		<i>{{deporte.nombre}} </i></h1>
 	</div>
 	<div class="page-content">
 		<!-- PORTADA DEL DEPORTE -->
 		<div id="contenido-deporte">
-			<div id="deporte-portada" class="borde-der-izq">
-				<img src="{{deporte.foto.url}}" class="img-responsive img-deporte" >
-			</div>
+			<table class="table tabla-deporte">
+				<thead>
+					<tr id="deporte-portada" >
+						<th id="imagen-portada"><img src="{{deporte.foto.url}}" class="img-responsive img-deporte" ></th>
+					
+						<!--INFORMACION DEL PROFESOR-->
+						<th id="profe-info">
+						{% if profesor %}
+							{% for p in profesor %}
+							<table >
+								<thead>
+								<tr id="info-profesor">
+									<th id="profesor-fila" >
+										<img src="{{p.foto_perfil.url}}" class=" img-circle perfil-profesor">
+									</th>
+									<th id="profesor-fila" >
+										<li><label class="control-label">Prof.</label>
+										 <p>{{p.obtenerNombreCompleto}}	</p>
+										 </li>
+										<li><p>{{p.email}}</p></li>
+									</th>
+								</tr>
+								</thead>
+							</table>
+						{% endfor %}
+						{% else %}
+							<div class=" form-group has-error has-feedback">
+								<strong id="text_error" class="text-danger"><p>Falta asignar Profesor</p></strong>
+							</div>
+			 			{% endif %}
+			 			</th>
+		 			</tr>
+					
+				</thead>
+				
+	
+			</table>
+			
 			<!-- ACA ESTA LA INFO DEL DEPORTE	-->
-			<div id="info-deporte" class="borde-der-izq">
-				<table class="table">
+			<div id="info-deporte">
+				<table class="table tabla-deporte">
 					<thead>
-						<tr id="cabecera-tabla" class="borde-sup-inf">
+						<tr id="cabecera-tabla" >
 							<th> Descripción:</th>
 						</tr>
 					</thead>
@@ -30,10 +61,10 @@
 						</tr>
 					</tbody>
 				</table>
-				<table class="table">
+				<table class="table tabla-deporte">
 					<thead>
-						<tr id="cabecera-tabla" class="borde-sup-inf">
-							<th> Géneros aptos para el deporte:</th>
+						<tr id="cabecera-tabla" >
+							<th>Géneros aptos para el deporte:</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -42,9 +73,9 @@
 						</tr>
 					</tbody>
 				</table>	
-				<table class="table">
+				<table class="table tabla-deporte">
 					<thead>
-						<tr id="cabecera-tabla" class="borde-sup-inf">
+						<tr id="cabecera-tabla" >
 							<th> Horarios de entrenamientos:</th>
 						</tr>
 					</thead>
@@ -55,7 +86,7 @@
 										{{e.ver_horario_completo}}<br>
 									{% endfor %}
 								{% else %}
-									<p2>Todavia no se han cargado los horarios de entrenamiento.</p2>
+									Todavia no se han cargado los horarios de entrenamiento.
 								{% endif %}
 							</td>
 						</tr>
@@ -63,27 +94,8 @@
 				</table>	
 			</div>
 		</div>
-		<!--INFORMACION DEL PROFESOR-->
 		
-		{% if profesor %}
-			<table  id="info-profesor" >
-				{% for p in profesor %}
-					<tr >
-						<td id="profesor-fila" class="form-group">
-							<img src="{{p.foto_perfil.url}}" class=" img-circle perfil-profesor">
-						</td>
-						<td id="profesor-fila" class="form-group">
-							<li><label class="control-label">Prof.</label>
-							 {{p.obtenerNombreCompleto}}					
-							 </li>
-							<li><p>{{p.email}}</p></li>
-						</td>
-					</tr>
-				{% endfor %}
-			</table>
-		{% else %}
-		 <p>--</p>
-		{% endif %}
+		
 	</div>
 </div>
 {% endblock %}

@@ -7,18 +7,9 @@
 		</div>
 
 	<div class="page-content">
-		<form method="POST">{% csrf_token %}
-			<label for="q">Busqueda: </label>
-    		<input type="text" name="q" value="{{query|escape }}">
-    		<button class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar">Buscar</button>
-    		<div class="radio">
-	    		<label class="radio-inline"><input type="radio" name="opcion" value="legajo">Legajo</label>
-	  			<label class="radio-inline"><input type="radio" name="opcion" value="carrera">Carrera</label>
-	  			<label class="radio-inline"><input type="radio" name="opcion" value="apellido">Apellido</label> 
-  			</div>
-		</form>
+		{% include "buscador_usuarios.html" %}
 		<div class=" panel-heading">
-			<h4>Seleccione alumno para ver informacion:</h4>
+			<p>Seleccione alumno para ver informacion:</p>
 		</div>
 		<table class="table table-striped">	
 			<thead>
@@ -29,29 +20,27 @@
 					<th> Legajo</th>
 				</tr>
 			</thead>
-			<tbody>
+			
 			{% if alumnos %}
 				{% for a in alumnos %}
+					<tbody>
 					<tr>
-						<th><a href="{% url 'info-alumno' a.id %}">{% if a.tipo_usuario == 'alumno' %}obtener del sysacad {% else %} {{a.obtenerNombreCompleto}} {% endif %}</a></th>
-				    	<th>{{a.tipo_usuario}}</th>
+						<td><a href="{% url 'info-alumno' a.id %}">{% if a.tipo_usuario == 'alumno' %}obtener del sysacad {% else %} {{a.obtenerNombreCompleto}} {% endif %}</a></td>
+				    	<td>{{a.tipo_usuario}}</td>
 				    	{% if a.tipo_usuario == 'alumno' %}
-				    		<th>obtener del sysacad</th>
-				    		<th>{{a.legajo}}</th>
+				    		<td>obtener del sysacad</td>
+				    		<td>{{a.legajo}}</td>
 				    	{% else %}
-				    		<th>-</th>
-				    		<th>-</th>
+				    		<td>-</td>
+				    		<td>-</td>
 				    	{% endif %} 	
-				    </tr>    				  		
+				    </tr>
+				    </tbody>    				  		
 				{% endfor %}
 			{% else %}
-				<tr>
-					<th><h4>{{mensaje|safe}}</h4>
-					<button class="btn btn-default" type="button" value="Volver" onclick="history.back(-1)" />Cancelar</button>
-
-				</tr>
+				
 			{% endif %}	
-			</tbody>
+			
 		</table>
 		<button class="btn btn-primary"  type="button" value="Volver" onclick="history.back(-1)" />Volver</button>
 		</div>

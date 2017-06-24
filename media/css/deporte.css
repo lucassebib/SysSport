@@ -25,7 +25,7 @@
 .price .header {
     color: #fff;
     font-size: 25px;
-    height: 80px;
+    
 }
 
 /* List items */
@@ -35,10 +35,18 @@
     text-align: center;
     background-color: #2c3e50;
 }
+
 .price a{
     text-decoration: none;
 }
- 
+ @media screen and (max-width:800px) {
+    .price li{
+        padding: 10px;
+    }
+    .price .header{
+        font-size: 18px;
+    }
+}
 
 /* Grey list item */
 .price .grey {
@@ -67,24 +75,24 @@
 }*/
 
 .img-deporte{
-    width: 80%;
-    height: 180px;
     border-radius: 7px;
+    max-height: 180px;
 }
 
 #contenido-deporte{
-    width: 60%;
-     float: left;
+    float: left;
   
 }
 #deporte-portada{
     background-color: #e5e5e5;
     width: 100%;
     padding: 10px;
-    min-width: 342px;
+    min-width: 320px;
+}
+#imagen-portada{
+    min-width: 50%;
 }
 #info-profesor{
-    width: 30%;
     display: inline;
     float: left;
  
@@ -92,32 +100,36 @@
 #info-deporte{
     background-color: #e5e5e5;
     height: 100%;
+    width: 100%;
     padding: 15px;
     float: left;
-    min-width: 342px;
+    min-width: 320px;
  }
 .img-circle.perfil-profesor{
     width: 100px;
     height: 100px;
     padding: 5px;
+    margin-left: 5px;
 }
 .footer{
     margin-top: 30px;
     margin-left: 0;
 }
 
-@media (max-width: 820px) {
-    #contenido-deporte{
-        width: 100%;
-         
-    }
-    #info-profesor{
-        padding: 10px;
-        display: inline;
-    }
+#profe-info{
+   min-width: 50%;
+}
+
+@media (max-width: 500px) {
+    .img-circle.perfil-profesor{
+    width: 70px;
+    height: 70px;
+    padding: 5px;
+    
+}
     #info-deporte{
         height: 100%;
-        padding: 15px;
-        min-width: 310px;
+        padding: 8px;
+        min-width: 320px;
      }
 }

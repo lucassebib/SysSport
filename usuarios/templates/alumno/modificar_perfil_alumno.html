@@ -8,8 +8,7 @@
 			<button class="btn btn-default" type="button" onclick="history.back(-1)" /><span class="glyphicon glyphicon-arrow-left"></span></button>
 			{% endif %}
 			<i>Mi perfil </i>
-		
-			<ul class="navbar navbar-right nav-pills">
+				<ul class="nav navbar-right">
 				{% if request.user.is_staff %}
 				{% else %}
 					{% if is_invitado %}

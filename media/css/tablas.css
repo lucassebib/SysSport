@@ -1,5 +1,5 @@
 .table{
-	min-width: 310px;
+	min-width: 300px;
 	max-width: 100%;
 }
 #cabecera-tabla{
@@ -14,7 +14,7 @@
 	padding-top: 30px; 
 }
 #deportes-tabla{
-	width: 310px;
+	width: 320px;
 }
 #perfil-fila{
 	padding-left: 10px;
@@ -26,9 +26,7 @@
 	padding-right: 10%;
 
 }
-#profesor-fila{
-	padding:6px;
-}
+
 .borde-sup-inf{
 	border-bottom: 1px solid #777;
 	border-top: 1px solid #777;
@@ -43,4 +41,5 @@
 }
 .table > thead > tr > th{
 	vertical-align: middle;
+	padding: 2px;
 }

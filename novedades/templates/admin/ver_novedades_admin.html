@@ -59,9 +59,10 @@
 					<th>Fecha Publicacion</th>
 				</tr>
 			</thead>				
-			<tbody>
+			
 				{% if novedades %}
 					{% for n in novedades %}
+						<tbody>
 						<tr>
 							<td><a href="{% url 'visualizar_novedad_admin' n.id %}">{{n.titulo}}</a></td>
 							<td>
@@ -87,6 +88,7 @@
 								<a title="Eliminar" href="{% url 'eliminar_novedad_admin' n.id %}"><span class="glyphicon glyphicon-remove"></span></a>
 							</td>
 						</tr>
+						</tbody>
 					{% endfor %}
 				{% else %}
 					<!--<tr>
@@ -98,7 +100,7 @@
 						<button class="btn btn-default" type="button" value="Volver" onclick="history.back(-1)" />Cancelar</button>
 					</tr>-->
 				{% endif %}							
-			</tbody>											
+														
 
 		</table>
 	</div>	

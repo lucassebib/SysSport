@@ -1356,7 +1356,7 @@ def listar_alumnos_deporte(request, pk):
 								consulta = Alumno.objects.filter(carrera=opcion_carrera, lista_deporte__in=pk)
 							else:
 								consulta = ''
-								mensaje = 'No se han encontrado coincidencias.</br> Recordar que las búsquedas por carrera se realizan mediante las iniciales. </br>ISI para Ingeniería en Sistema de Información. </br>IEM para Ingeniería Electromécanica. </br>IQ para Ingeniería Química. </br>TSP para Técnico Superior en Programación. </br>LAR para Licenciatura en Administracion Rural'
+								mensaje = 'No se han encontrado coincidencias. Recordar que las búsquedas por carrera se realizan mediante las iniciales. ISI para Ingeniería en Sistema de Información. IEM para Ingeniería Electromécanica. IQ para Ingeniería Química. TSP para Técnico Superior en Programación. LAR para Licenciatura en Administracion Rural'
 						
 	ctx = {
 		'mensaje': mensaje,
