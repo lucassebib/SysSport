@@ -186,6 +186,7 @@ def inscripcion_deportes(request):
     usuario = ''
     mensaje_alumno = ''
     darse_de_baja = False
+    press_btn_buscar = False
     try:
         g = Alumno.objects.get(legajo=int(request.session['user']))
         darse_de_baja = True
@@ -214,6 +215,7 @@ def inscripcion_deportes(request):
     if request.method == 'POST' and 'btn_buscar' in request.POST:
         consulta, mensaje = buscador_deportes(request, consulta, mensaje)  
         consulta_alumno, mensaje_alumno = buscador_deportes(request, consulta_alumno, mensaje_alumno)
+        press_btn_buscar = True
     else:
         if request.method == 'POST' and 'btn_limpiar' in request.POST:  
             return HttpResponseRedirect('')
@@ -224,7 +226,8 @@ def inscripcion_deportes(request):
         'darse_de_baja': darse_de_baja,
         'mensaje': mensaje,
         'mensaje_alumno': mensaje_alumno,
-        'is_invitado': usuario=='invitado'      
+        'is_invitado': usuario=='invitado', 
+        'press_btn_buscar': press_btn_buscar,     
     }
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))
