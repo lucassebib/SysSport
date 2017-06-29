@@ -27,6 +27,39 @@ from usuarios.funciones import *
 from usuarios.forms import *
 from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccion, ContactoDeUrgencia, DatosMedicos, carreras_disponibles, MAX_CONTACTO_URGENCIA 
 
+#################### RECUPERAR CONTRASEÑA ###############################
+def vista_recuperar_clave(request):
+	return render_to_response('recup_clave.html')
+
+def vista_confirmar_alta(request, activation_key):
+	template = 'registracion/confirmar_alta.html'
+	mensaje_error = ''
+	direccion_servidor = ''
+
+	# Verifica que el token de activacion sea valido
+	a = Alumno.objects.get(activation_key=activation_key)
+	
+	if not a:
+		mensaje_error = 'No ha sido posible activar la cuenta, intente nuevamente'
+	else:
+		# verifica si el token de activacion ha expirado y si es asi renderiza el html de registro expirado
+		if timezone.now() < a.key_expires:
+			# Si el token no ha expirado, se activa el usuario y se muestra el html de confirmacion
+			a.is_active = True
+			a.save()
+			mensaje_error = 'Cuentra creada con exito'
+		else:
+			mensaje_error = 'La autenticacion ha expirado'
+			
+	ctx = {
+		'mensaje_error': mensaje_error,
+	}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
+def vista_registracion_exitosa(request):
+	template = 'registracion/registracion_exitosa.html'
+	ctx = {}
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 #################### AMB profeor Realizado Por el Admin ######################################
 def alta_profesor(request):
@@ -479,194 +512,10 @@ def listar_alumnos(request):
     }
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 #######################################################################################################
-def vista_pagina_inicio(request):
-	form1 = FormularioAutenticacion()
-
-#	if request.user.is_authenticated() or request.session:
-#		id_usuario = request.user.id
-#		try:
-#			g = Alumno.objects.get(legajo=int(request.session['legajo']))
-#			return HttpResponseRedirect('/inicial_alumnos')
-#		except Exception as e:
-#			try:
-#				g = Profesor.objects.get(id=id_usuario)
-#				return HttpResponseRedirect('/inicial_profesores')
-#			except Exception as e:
-#				g = UsuarioInvitado.objects.get(id=id_usuario)
-#				return HttpResponseRedirect('/inicial_alumnos')	
-#	else:
-	template = "inicio.html"								
-	if request.method == "POST":
-		form1 = FormularioAutenticacion(request.POST)
-		if form1.is_valid():
-			usuario = form1.cleaned_data['username']
-			password = form1.cleaned_data['password']	
-			try:			
-				#request.session.flush()
-				#request.session.cycle_key()							
-				
-				#--Intento iniciar sesion de Alumno UTN
-				alumno_utn_bd = Alumno.objects.get(legajo=int(usuario))	
-				
-				#--Resultado de la autenticacion del Sysacad	
-				#alumno_utn = autenticacion(usuario, password)
-				alumno_utn = True
-
-				if alumno_utn_bd and alumno_utn and alumno_utn_bd.is_active:
-					#--Se inicia sesion de un alumno UTN
-					#datos = obtener_datos_iniciales(usuario, password)	
-					datos = {'nombre': 'Tahiel', 'apellido': 'Bastiani', 'carrera': 5}				
-					request.session["user"] = usuario
-					request.session['id_user']= alumno_utn_bd.id
-					request.session["nombre"] = datos['nombre']
-					request.session["apellido"] = datos['apellido']
-					request.session["carrera"] = int(datos['carrera'])
-					request.session["correo"] = 'elduendeloco@hotmail.com'
 
 
-					# Tener en cuenta que: (1,"Masculino"),(2,"Femenino")
-					request.session["sexo"] = 1
-					
-					request.session["fecha_nacimiento"] = 'DD/MM/AAAA'
-					request.session["telefono"] = '37042171212'
-					request.session["direccion"] = 'Lestani 123'
-					url = 'inicial_alumnos'
-					return HttpResponseRedirect(reverse(url))
-			except Exception as e:
-				#Inicia Sesion Alumno invitado, profesor o administrador
-				user = authenticate(username=usuario, password=password)
-	 			try:
-					if user is not None:
-						if user.is_active:
-							loguear(request, user)
-							id_usuario = request.user.id
-							try:
-								g = Profesor.objects.get(id=id_usuario)
-								url = 'inicial_profesores'
-								return HttpResponseRedirect(reverse(url))
-							except Exception as e:
-								g = UsuarioInvitado.objects.get(id=id_usuario)
-								url = 'inicial_alumnos'
-								return HttpResponseRedirect(reverse(url))									
-						else:
-							ctx = {"form1":form1, "mensaje": "Usuario Inactivo"}
-							return render_to_response(template,ctx, context_instance=RequestContext(request))
-					else:
-						ctx = {"form1":form1, "mensaje": "Usuario o contraseña incorrectos"}
-						return render_to_response(template,ctx, context_instance=RequestContext(request))
-				except Exception as e:
-					if user.is_staff:
-						url = 'inicial_admin'
-						return HttpResponseRedirect(reverse(url))
-
-	ctx = {"form1":form1, "mensaje":""}
-	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 
-def app_logout(request):
-	logout(request)
-	return HttpResponseRedirect('/inicio')
-
-def vista_recuperar_clave(request):
-	return render_to_response('recup_clave.html')
-
-def vista_registrarse(request):
-	template = 'registro.html'
-	form = FormularioRegistracion(request.POST or None)
-	mensaje_error = ''
-	error_mail = False
-
-	if request.method == 'POST' and 'boton_enviar' in request.POST:
-		#form = FormularioRegistracion(request.POST)		
-		legajo = request.POST.get('legajo')
-		password = request.POST.get('password')
-		lista_deporte = request.POST.get('lista_deporte')
-
-		#Verifico si no existe registrados alumnos con el legajo ingresado
-		alumnos_registrados = Alumno.objects.filter(legajo=int(legajo))
-
-		if not alumnos_registrados:
-			#validar datos
-			datos_validos = True
-
-			#validacion con el sysacad
-			validacion = True
-			#validacion = establecer_conexion(int(legajo), password)
-
-			#datos sysacad
-
-			email = 'lorenarambado@gmail.com'
-			dni = 366366636
-			nombre = 'Lucas'
-
-			#Creamos el alumno
-			if validacion and datos_validos:
-				#Enviar mail de confirmacion
-				salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
-				activation_key = hashlib.sha1(salt+email).hexdigest()
-				key_expires = datetime.today() + timedelta(2)
-				asunto = 'Confirmacion de cuenta en SysSport'
-				direccion_servidor = 'http://127.0.0.1:8000/cuenta/confirmar'
-				cuerpo = "Hola %s, Gracias por registrarte. Para activar tu cuenta da click en este link en menos de 48 horas: %s/%s" % (nombre, direccion_servidor, activation_key)
-							
-				print('esta por mandar')
-				send_mail(
-					asunto, 
-					cuerpo, 
-					'ver_cuenta@example.com', 
-					[email], 
-					fail_silently=False
-				)
-
-				a = Alumno(legajo=legajo, dni=dni)
-				a.save()
-				a.lista_deporte.add(lista_deporte)
-				a.save()
-				a.activation_key = activation_key
-				a.key_expires = key_expires
-				a.save()
-				url = 'vista_registracion_exitosa'
-				return HttpResponseRedirect(reverse(url))
-		else:
-				messages.error(request, 'Ya existe un usuario con el legajo ingresado.')
-	
-	ctx = {
-		'form': form,
-		'mensaje_error': mensaje_error,
-	}
-	return render_to_response(template, ctx, context_instance=RequestContext(request))
-
-def vista_confirmar_alta(request, activation_key):
-	template = 'registracion/confirmar_alta.html'
-	mensaje_error = ''
-	direccion_servidor = ''
-
-	# Verifica que el token de activacion sea valido
-	a = Alumno.objects.get(activation_key=activation_key)
-	
-	if not a:
-		mensaje_error = 'No ha sido posible activar la cuenta, intente nuevamente'
-	else:
-		# verifica si el token de activacion ha expirado y si es asi renderiza el html de registro expirado
-		print(a.key_expires)
-		print(timezone.now())
-		if timezone.now() < a.key_expires:
-			# Si el token no ha expirado, se activa el usuario y se muestra el html de confirmacion
-			a.is_active = True
-			a.save()
-			mensaje_error = 'Cuentra creada con exito'
-		else:
-			mensaje_error = 'La autenticacion ha expirado'
-			
-	ctx = {
-		'mensaje_error': mensaje_error,
-	}
-	return render_to_response(template, ctx, context_instance=RequestContext(request))
-
-def vista_registracion_exitosa(request):
-	template = 'registracion/registracion_exitosa.html'
-	ctx = {}
-	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 @login_required
 def vista_inicial_admin(request):	
@@ -1379,27 +1228,34 @@ def ver_informacion_alumno(request, pk):
 	template = "profesor/ver_informacion_alumno.html"
 	ctx = {}
 	datos_medicos = ''
+	mensaje = ''
 	cantidad =0
+	activar_infoAcademica = False
 	
 	try:
 		alumno = Alumno.objects.get(id=pk)
 		tipo_usuario = 'alumno'
 		legajo = alumno.legajo
-		
-		if request.method == 'POST' and 'boton_calcular' in request.POST:
-			f_desde = request.POST.get('fecha_desde')
-			f_hasta = request.POST.get('fecha_hasta')
-			cantidad = obtener_datos_academicos(username=str(legajo), f_desde=f_desde, f_hasta=f_hasta)
-
 	except Exception as e:
 		alumno = UsuarioInvitado.objects.get(id=pk)
 		tipo_usuario = 'invitado'
 
-	
 	try:
 		datos_medicos = DatosMedicos.objects.get(id=alumno.datos_medicos.id)
 	except Exception as e:
 		print(e)
+
+	if request.method == 'POST' and 'boton_calcular' in request.POST:
+		f_desde = request.POST.get('fecha_desde')
+		f_hasta = request.POST.get('fecha_hasta')
+		activar_infoAcademica = True
+		if f_desde == '' or f_hasta == '':
+			mensaje = 'No ha ingresado un rango de fechas validas.'
+		elif f_hasta<f_desde:
+			mensaje = 'El campo de Fecha de inicio no puede ser Mayor al de Fin.'
+		else:
+			cantidad = obtener_datos_academicos(username=str(legajo), f_desde=f_desde, f_hasta=f_hasta)
+			
 	
 	ctx = {
 		'alumno': alumno,
@@ -1407,7 +1263,8 @@ def ver_informacion_alumno(request, pk):
 		'alumnoUTN': tipo_usuario=='alumno',
 		'alumnoInvitado': tipo_usuario=='invitado',
 		'cantidad': cantidad,
-		#'dm': datos_medicos,
+		'activar_infoAcademica': activar_infoAcademica,
+		'mensaje': mensaje,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
  

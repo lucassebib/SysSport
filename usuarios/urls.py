@@ -7,14 +7,9 @@ from django.contrib.auth import views as auth_views
 admin.autodiscover()
 
 urlpatterns = patterns('',
-
-	url(r'^registrarse$', vista_registrarse, name='registrarse'),
 	url(r'^inicial-admin$', vista_inicial_admin, name= 'inicial_admin'),
 	url(r'^perfil/user/(?P<pk>[0-9]+)$',ver_informacion_perfil_persona, name='ver_informacion_perfil_persona'),
 	url(r'^editar_perfil$', editar_error, name= 'editar_error'),
-
-#	url(r'^cambiar-telefono$', cambiar_telefono),
-#	url(r'^cambiar-direccion$', cambiar_direccion),
 )
 
 #URLs RESET PASSWORD

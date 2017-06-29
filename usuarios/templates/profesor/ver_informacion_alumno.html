@@ -2,12 +2,13 @@
 
 {% block contenido %}
 <script language="javascript" type="text/javascript">
-
-	function popitup(url) {
-	    newwindow=window.open(url,'{{title}}','height=200,width=150');
-	    if (window.focus) {newwindow.focus()}
-	    return false;
+	window.onload = function(){
+		bandera = ('{{activar_infoAcademica}}' == 'True');				
+		if ( bandera ) {	
+			document.getElementById("informacion").click();
+		}		
 	}
+
 </script>
 <div class="panel-info">	
 	<div class="page-content ">
@@ -15,7 +16,7 @@
 			<li><a class="active" href="#datos_personales" data-toggle="tab" >Datos Personales</a></li>
 			<li><a href="#contactos_urgencia" data-toggle="tab" >Contactos de Urgencia</a></li>
 			{% if alumnoUTN %}
-				<li><a href="#info_academica" data-toggle="tab" >Información Académica</a></li>
+				<li><a href="#info_academica" id="informacion" data-toggle="tab" >Información Académica</a></li>
 			{% endif %}	
 			<li><a href="#info_medica" data-toggle="tab">Información Médica</a></li>
 		</ul>
@@ -151,11 +152,15 @@
 								</tbody>					
 							</table>
 
-							<a href="popupex.html" onclick="return popitup('/cantidad/'+)"><input class="btn btn-primary" type='submit' name="boton_calcular" value='Calcular'></a>
+							<div class="input-group">
+							  <span class="input-group-addon" id="basic-addon3">El Alumno ha aprobado: </span>
+							  <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="{{cantidad}}" readonly>
+							  <span class="input-group-addon" id="basic-addon3">Materias, en el Periodo seleccionado.</span>
+							</div>
+
+							<a href="popupex.html" onclick="return popitup('/cantidad/'+)"><input class="btn btn-primary" type='submit' name="boton_calcular" value='Calcular'></a> {{mensaje}}
 						</form>
-							<tr class="form-group">
-								<td><label>El alumno ha aprobado: </label> </td> 
-								<td><input class="text" type="text" value="{{cantidad}}"></td></tr>
+							
 						
 					</div>
 				{% endif %}	

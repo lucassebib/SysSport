@@ -5,22 +5,6 @@ from django.contrib.admin.widgets import AdminDateWidget
 from models import Alumno, Direccion, ContactoDeUrgencia, Persona, UsuarioInvitado, DatosMedicos, Profesor
 from django.db import models
 
-
-class FormularioAutenticacion(forms.Form):	
-	username = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'usuario', 'class':'form-control', 'required' :'True'}))
-	password = forms.CharField(label='', widget=forms.PasswordInput(render_value=False, attrs={'placeholder': 'contraseña','class':'form-control', 'required':'True'}))
-
-class FormularioRegistracion(forms.ModelForm):
-	legajo = forms.CharField(label='legajo', widget=forms.NumberInput(attrs={'placeholder':'legajo', 'class':'form-control', 'required':'True'}))
-	password = forms.CharField(label='contrasena', widget=forms.PasswordInput(render_value=False, attrs={'placeholder': 'contrasena','class':'form-control', 'required':'True'}))
-
-	class Meta:
-		model = Alumno
-		fields = ["legajo", "password", "lista_deporte"]
-		widgets = {
-           'lista_deporte': forms.Select(attrs={'class':'form-control'})
-        }
-
 class FormularioDireccion(forms.ModelForm):
 	class Meta:
 		model = Direccion
