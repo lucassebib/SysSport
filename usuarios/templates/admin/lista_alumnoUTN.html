@@ -15,10 +15,8 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Nombre y Apellido</th>
-					<th>Email</th>
-					<th>Deporte</th>	
-								
+					<th>Legajo</th>
+									
 				</tr>
 			</thead>
 			
@@ -29,6 +27,7 @@
 					{{a.legajo}}&nbsp{{a.last_name}}</a> </td>
 					<td>{{a.email}}</td>					
 					<td>{{a.ver_lista_deporte}}</td>
+					<td><a title="Eliminar" type="text" title="Eliminar" href="{% url 'delete_alumnoUTN' a.id %}"><span class="glyphicon glyphicon-remove"></span></a></td>
 					
 			{% endfor %}
 			</tbody>
