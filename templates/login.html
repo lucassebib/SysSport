@@ -14,14 +14,17 @@
 			    </label>
 			</div>-->
 				<div class="col-lg-offset-1 col-lg-10">   
-				    <button type="submit" class=" btn btn-primary" name="btn_ingresar" value="Login">Ingresar</button>
+				    <br><button type="submit" class=" btn btn-primary" name="btn_ingresar" value="Login">Ingresar</button>
 				</div>
 			</form>
 	</div>
-	<div class=" form-group has-error has-feedback">
-		<span class="glyphicon glyphicon-warning-sign"></span> 
-		<strong id="text_error" class="text-danger">{{mensaje}}</strong>
-	</div>
+	{% if mensaje  %}
+		<div class=" form-group has-error has-feedback">
+			<span class="glyphicon glyphicon-warning-sign"></span> 
+			<strong id="text_error" class="text-danger">{{mensaje}}</strong>
+		</div>	
+	{% endif %}
+	
 	<div class="panel-footer login">
   			<a href="{% url 'ver_tipo_usuario' %}">Olvidaste tu contraseña?</a><br/>
 			<a href="registrarse">Desea registrarse?</a><br/>
