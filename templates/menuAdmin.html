@@ -31,7 +31,7 @@
                         <div class=" collapse" id="adm-sub-usuarios">
                             <ul class="nav nav-pills nav-stacked dropdown">
                                                        
-                                <li class="{% if 'ver_usuarios' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'ver_usuarios' %}#contenido">Todos</a></li>
+                             
                                 <li class="{% if 'listar_profes' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar_profes' %}#contenido">Profesores</a></li>
                                 <li class="{% if 'listar_alumnos' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar_alumnos' %}#contenido">Alumnos Invitados</a></li>
                                 <li class="{% if 'listar_alumnosUTN' == request.resolver_match.view_name %}active{% endif %}"><a href="{% url 'listar_alumnosUTN' %}#contenido">Alumnos UTN-FRRE</a></li>

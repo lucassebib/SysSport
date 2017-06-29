@@ -757,6 +757,23 @@ def listar_alumnosUTN(request):
     }
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
+def delete_alumnoUTN(request, pk):
+	template = "admin/adminAlumnoInvitado/alumno_confirm_delete.html"
+
+	a = Alumno.objects.get(id= pk)
+	
+	if request.method == 'POST' and 'bEliminar' in request.POST:
+		a.delete()
+		url = 'listar_alumnosUTN'
+		return HttpResponseRedirect(reverse(url))
+
+	ctx = {
+		'alumno': a,
+
+	}
+
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
+
 
 ##########################################PARA ALUMNOS######################################################
 def modificarPerfilAlumno(request):

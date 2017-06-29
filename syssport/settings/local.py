@@ -9,14 +9,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'sqlserver_ado',
         'NAME': 'syssport',
-        'HOST': 'JAZMIN\SQLEXPRESS',
+        'HOST': 'localhost',
 
         'USER': 'proyecto',
         'PASSWORD': 'proyecto2016',
 
         'OPTIONS': {
                     'uncicode_result': 'True',
-                    'provider': 'SQLNCLI10',
+                    'provider': 'SQLNCLI11',
                     'use_mars': 'DataTypeCompatibility=80;MARS Connection=True;'
         }
     },

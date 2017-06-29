@@ -1,7 +1,7 @@
 {% extends "baseAlumno.html" %}
 {% block contenido %}
 <div class="panel-info">
-<div class="page-header panel-default">
+	<div class="page-header panel-default">
 		<h1><i>Deportes</i></h1>
 	</div>
 	<div class="page-content">
@@ -10,7 +10,7 @@
 		{% endblock %}
 
 	
-	<h3><i> Mis deportes</i></h3>
+	<h3> Mis deportes</h3>
 	<table class=" table table-striped">
 			<thead>
 				<tr id="cabecera-tabla">
@@ -46,7 +46,7 @@
 
 
 	
-	<h3><i> Más Deportes </i></h3>
+	<h3>Más Deportes</h3>
 	<table class=" table table-striped">
 			<thead>
 				<tr id="cabecera-tabla">
@@ -55,7 +55,7 @@
 					<th>Género</th>
 					<th>Estado</th>
 				</tr>
-			</thead>		
+			</thead>	
 			{% for d in deportes %}
 			<tbody>
 				<tr>
@@ -65,7 +65,7 @@
 					<td>				
 						{% if d in deportes_alumno %}
 							{% if is_invitado %}
-								Inscripto
+								<span class="glyphicon glyphicon-ok"></span>
 							{% endif %}	
 
 						{% else %}
@@ -84,5 +84,6 @@
 
 		
 	</div>
-	</div>
+</div>
+
 {% endblock %}
