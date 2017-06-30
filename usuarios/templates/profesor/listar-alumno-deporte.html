@@ -38,11 +38,9 @@
 				    </tbody>    				  		
 				{% endfor %}
 			{% else %}
-				
 			{% endif %}	
-			
 		</table>
-		<button class="btn btn-primary"  type="button" value="Volver" onclick="history.back(-1)" />Volver</button>
+		{% include "includes/_paginado.html" %}
 		</div>
 	</div>
 {% endblock %}

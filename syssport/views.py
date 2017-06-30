@@ -1,11 +1,16 @@
 #-!-coding: utf-8 -!-
+import hashlib, random
+import time
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as loguear, logout
+from django.core.mail import send_mail
 from django.core.urlresolvers import reverse, reverse_lazy
+from datetime import datetime, date, time, timedelta
 from django.shortcuts import render
 from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import Context
+from django.utils import timezone
 
 from .forms import FormularioAutenticacion, FormularioRegistracion
 
@@ -127,7 +132,7 @@ def vista_registrarse(request):
 			#validacion = establecer_conexion(int(legajo), password)
 
 			#datos sysacad
-			email = 'lorenarambado@gmail.com'
+			email = 'el_lucas992@hotmail.com'
 			dni = 366366636
 			nombre = 'Lucas'
 

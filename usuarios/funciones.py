@@ -1,5 +1,53 @@
+#-!-coding: utf-8 -!-
 from usuarios.models import Alumno, Profesor, UsuarioInvitado, carreras_disponibles, lista_sexos
 
+def buscador_alumnos(request, consulta, mensaje, pk):
+	if request.method == 'POST' and 'btn_buscar' in request.POST:
+		if request.POST.get('q', '')=='':
+			mensaje = 'No ha introducido ningun término en la búsqueda'
+			consulta=''
+		else:
+			if not request.POST.get('opcion'):
+				mensaje = 'No ha introducido ningun parámetro de búsqueda'
+				consulta=''
+			else:
+				if request.POST.get('opcion') == 'legajo':
+					legajo = request.POST.get('q')
+					if legajo.isdigit():
+						consulta = Alumno.objects.filter(lista_deporte__in=pk, legajo=request.POST.get('q'))
+						if not consulta:
+							mensaje = 'No se han encontrado coincidencias'
+					else:
+						consulta=''
+						mensaje='Ingrese un legajo numérico válido'
+				else:
+					#Inicio Busqueda por apellido
+					if request.POST.get('opcion') == 'apellido' and 'btn_buscar' in request.POST:
+						apellido = request.POST.get('q')
+						if apellido.isalpha():
+							consulta = Alumno.objects.filter(last_name__contains=apellido, lista_deporte__in=pk)
+							if not consulta:
+								mensaje = 'No se han encontrado coincidencias'
+						else:
+							consulta = ''
+							mensaje = 'Usted ha ingresado un apellido invalido'
+					#Fin busqueda por apellido
+					else:
+						#Inicio Busqueda por carrera
+						if request.POST.get('opcion') == 'carrera' and 'btn_buscar' in request.POST:
+							carrera = request.POST.get('q')
+							carrera = carrera.upper()
+							#((1,"ISI"),(2,"IQ"), (3, "IEM"), (4, "LAR"), (5, "TSP"), (6, "OTRO"))
+							opcion_carrera = ''
+							for c in carreras_disponibles:
+								if carrera == c[1]:
+									opcion_carrera = c[0]
+							if opcion_carrera:
+								consulta = Alumno.objects.filter(carrera=opcion_carrera, lista_deporte__in=pk)
+							else:
+								consulta = ''
+								mensaje = 'No se han encontrado coincidencias. Recordar que las búsquedas por carrera se realizan mediante las iniciales. ISI para Ingeniería en Sistema de Información. IEM para Ingeniería Electromécanica. IQ para Ingeniería Química. TSP para Técnico Superior en Programación. LAR para Licenciatura en Administracion Rural'
+	return consulta, mensaje						
 
 def obtener_id(request):
 	"""
