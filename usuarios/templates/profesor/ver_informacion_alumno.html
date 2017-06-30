@@ -136,6 +136,7 @@
 									</tr>
 									<tr class="form-group">
 										<td><label> Condición </label></td>
+										<td>obtener del sysacad</td>
 									</tr>
 									<tr class="form-group">
 										<td><label>Período Inicial: </label></td>
@@ -152,13 +153,19 @@
 								</tbody>					
 							</table>
 
-							<div class="input-group">
-							  <span class="input-group-addon" id="basic-addon3">El Alumno ha aprobado: </span>
-							  <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="{{cantidad}}" readonly>
-							  <span class="input-group-addon" id="basic-addon3">Materias, en el Periodo seleccionado.</span>
-							</div>
+							<table id="materias-tabla" class="table table-striped">
+								<tbody>
+									<tr>
+										<td><label>El Alumno ha aprobado: </label></td>
+										<td><input type="text" class="form-control" value="{{cantidad}}" readonly></td>
+										<td><label>Materias, en el Periodo seleccionado.</label></td>
+									
+										<td><a href="popupex.html" onclick="return popitup('/cantidad/'+)"><input class="btn btn-primary" type='submit' name="boton_calcular" value='Calcular'></a></td>
 
-							<a href="popupex.html" onclick="return popitup('/cantidad/'+)"><input class="btn btn-primary" type='submit' name="boton_calcular" value='Calcular'></a> {{mensaje}}
+									</tr>
+									<tr><label><strong class="text-danger">{{mensaje}}</strong></label> </tr>
+								</tbody>
+							</table>
 						</form>
 							
 						

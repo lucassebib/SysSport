@@ -16,6 +16,9 @@
 #deportes-tabla{
 	width: 320px;
 }
+#materias-tabla{
+	text-align: justify;
+}
 #perfil-fila{
 	padding-left: 10px;
 	border-bottom: 1px solid #666; 
