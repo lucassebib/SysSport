@@ -114,6 +114,9 @@ textarea#id_texto{
     margin-left: 5%;
     margin-right: 5%;
 }
+.pagination{
+    margin-left: 35%;
+}
 
 .tabla-comentario{
     text-align: left;
