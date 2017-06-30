@@ -34,6 +34,7 @@ def Paginate(request, queryset, pages):
             'queryset': pagina.object_list,
             'page': page,
             'pages': result_list.num_pages,
+            'list_page': range(1, result_list.num_pages + 1),
             'has_next': pagina.has_next(),
             'has_prev': pagina.has_previous(),
             'next_page': page+1,

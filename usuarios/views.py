@@ -1180,7 +1180,7 @@ def listar_alumnos_deporte(request, pk):
 
 	consulta, mensaje = buscador_alumnos(request,consulta, mensaje, pk)
 
-	consulta_paginada = pag = Paginate(request, list(consulta), 2)
+	consulta_paginada = pag = Paginate(request, list(consulta), 1)
 	ctx = {
 		'mensaje': mensaje,
 		'alumnos': consulta_paginada['queryset'],
