@@ -26,7 +26,7 @@ from peticiones.funciones import *
 from usuarios.funciones import *
 from usuarios.forms import *
 from usuarios.models import Alumno, Persona, Profesor, UsuarioInvitado, Direccion, ContactoDeUrgencia, DatosMedicos, carreras_disponibles, MAX_CONTACTO_URGENCIA 
-
+from novedades.paginacion import Paginate
 #################### RECUPERAR CONTRASEÑA ###############################
 def vista_recuperar_clave(request):
 	return render_to_response('recup_clave.html')
@@ -1178,55 +1178,13 @@ def listar_alumnos_deporte(request, pk):
 	alumnos = chain(Alumno.objects.filter(lista_deporte__in=pk ), UsuarioInvitado.objects.filter(lista_deporte__in=pk ))  
 	consulta = alumnos
 
-	if request.method == 'POST' and 'btn_buscar' in request.POST:
-		if request.POST.get('q', '')=='':
-			mensaje = 'No ha introducido ningun término en la búsqueda'
-			consulta=''
-		else:
-			if not request.POST.get('opcion'):
-				mensaje = 'No ha introducido ningun parámetro de búsqueda'
-				consulta=''
-			else:
-				if request.POST.get('opcion') == 'legajo':
-					legajo = request.POST.get('q')
-					if legajo.isdigit():
-						consulta = Alumno.objects.filter(lista_deporte__in=pk, legajo=request.POST.get('q'))
-						if not consulta:
-							mensaje = 'No se han encontrado coincidencias'
-					else:
-						consulta=''
-						mensaje='Ingrese un legajo numérico válido'
-				else:
-					#Inicio Busqueda por apellido
-					if request.POST.get('opcion') == 'apellido' and 'btn_buscar' in request.POST:
-						apellido = request.POST.get('q')
-						if apellido.isalpha():
-							consulta = Alumno.objects.filter(last_name__contains=apellido, lista_deporte__in=pk)
-							if not consulta:
-								mensaje = 'No se han encontrado coincidencias'
-						else:
-							consulta = ''
-							mensaje = 'Usted ha ingresado un apellido invalido'
-					#Fin busqueda por apellido
-					else:
-						#Inicio Busqueda por carrera
-						if request.POST.get('opcion') == 'carrera' and 'btn_buscar' in request.POST:
-							carrera = request.POST.get('q')
-							carrera = carrera.upper()
-							#((1,"ISI"),(2,"IQ"), (3, "IEM"), (4, "LAR"), (5, "TSP"), (6, "OTRO"))
-							opcion_carrera = ''
-							for c in carreras_disponibles:
-								if carrera == c[1]:
-									opcion_carrera = c[0]
-							if opcion_carrera:
-								consulta = Alumno.objects.filter(carrera=opcion_carrera, lista_deporte__in=pk)
-							else:
-								consulta = ''
-								mensaje = 'No se han encontrado coincidencias. Recordar que las búsquedas por carrera se realizan mediante las iniciales. ISI para Ingeniería en Sistema de Información. IEM para Ingeniería Electromécanica. IQ para Ingeniería Química. TSP para Técnico Superior en Programación. LAR para Licenciatura en Administracion Rural'
-						
+	consulta, mensaje = buscador_alumnos(request,consulta, mensaje, pk)
+
+	consulta_paginada = pag = Paginate(request, list(consulta), 2)
 	ctx = {
 		'mensaje': mensaje,
-		'alumnos': consulta,
+		'alumnos': consulta_paginada['queryset'],
+		'paginator': consulta_paginada,
 		'nombre': Deporte.objects.get(id=pk).nombre,
 	}
 	
