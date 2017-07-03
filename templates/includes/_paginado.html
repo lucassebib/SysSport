@@ -1,26 +1,24 @@
 <div class="pagination">
-	<ul class="navbar navbar-left">
-		{% if paginator.has_prev %}
-				<li><a href="?page={{ paginator.prev_page }}"><button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button></a></li>
-		{% endif %}
-	</ul>
+	<ul class="pager">
+		<li class=""><a href="?page={{ paginator.firstPage }}"><span aria-hidden="true">&larr;</span> Primero</a></li>
+		
+		<li class="{% if not paginator.has_prev %}disabled{% endif %}"><a href="?page={{ paginator.prev_page }}"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
 
-	{% for i in paginator.list_page %}
-		{% if paginator.page|add:'-1' <= i and paginator.page|add:'1' >= i %}
-			{% if paginator.page == i %}
-		        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-		    {% else %}
-		        <li><a href="?page={{ i }}">{{ i }}</a></li>
-		    {% endif %}
-		{% else %}
+		{% for i in paginator.list_page %}
+			{% if paginator.page|add:'-1' <= i and paginator.page|add:'1' >= i %}
+				{% if paginator.page == i %}
+			        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+			    {% else %}
+			        <li><a href="?page={{ i }}">{{ i }}</a></li>
+			    {% endif %}
+			{% else %}
+				
+			{% endif %}     
+	    {% endfor %}
+		
+		<li class="{% if not paginator.has_next %}disabled{% endif %}"><a href="?page={{ paginator.next_page }}"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
 			
-		{% endif %}     
-    {% endfor %}
-
-	<ul class="navbar navbar-right">		
-		{% if paginator.has_next %}
-				<li><a href="?page={{ paginator.next_page }}"><button class="btn btn-default"><span class="glyphicon glyphicon-chevron-right"></span></button></a></li>
-		{% endif %}		
+		<li class=""><a href="?page={{ paginator.pages }}">Ultimo <span aria-hidden="true">&rarr;</span></a></li>
 	</ul>
 </div>
-
+	
