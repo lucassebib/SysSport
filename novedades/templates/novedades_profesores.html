@@ -75,7 +75,7 @@
 		<h4>Aun no se han subido Novedades</h4>
 	{% endif %}
 	</div>
-
+<!--
 	<div class="pagination">
     	<ul class="navbar navbar-left">
 			{% if paginator.has_prev %}
@@ -88,6 +88,9 @@
 			{% endif %}
 			
 		</ul>
-	</div>
+	</div>-->
+	<center>
+		{% include "includes/_paginado.html" %}	
+	</center>
 </div>
 {% endblock %}

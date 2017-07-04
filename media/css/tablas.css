@@ -7,10 +7,13 @@
 }
 #contacto-fila{
 	padding-left: 10px;
-	background-color: #888;
+	background-color: #eee;
+}
+#contacto-fila>th>a{
+	color: #333;
 }
 #contacto-tabla, #perfil-tabla{
-	background-color: #ffffff;
+
 	padding-top: 30px; 
 }
 #deportes-tabla{
@@ -21,15 +24,21 @@
 }
 #perfil-fila{
 	padding-left: 10px;
-	border-bottom: 1px solid #666; 
+	border-bottom: 1px solid #ddd;
+	background-color: #eeeeee;
+	
 }
+
 #perfil-tabla>tbody>tr>td{
 	background-color: #eeeeee;
 	padding-left: 3%;
 	padding-right: 10%;
-
+	border-radius: 7px; 
+	border: 1.5px solid #ddd;
 }
-
+#perfil-tabla>thead{
+	border-radius: 7px; 
+}
 .borde-sup-inf{
 	border-bottom: 1px solid #777;
 	border-top: 1px solid #777;
@@ -39,10 +48,13 @@
 	border-right: 1px solid #777;	
 }
 .contacto-tabla{
-	border: 1px solid #666;
+	border: 2px solid #eee;
 	width: 80%;
 }
 .table > thead > tr > th{
 	vertical-align: middle;
 	padding: 2px;
+}
+th, td{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }

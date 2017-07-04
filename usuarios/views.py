@@ -268,8 +268,11 @@ def direccion_instancia(persona_i):
     
 def listar_profes(request):
 	template = "admin/adminProfesores/listar_profes.html"
+	profes= Profesor.objects.all()
+	pag = Paginate(request, profes, 5)
 	ctx = {
-        'profes': Profesor.objects.all(),
+		'paginator': pag,
+        'profes':pag['queryset'],
 
     }
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
@@ -506,9 +509,11 @@ def actualizar_alumnos(request, pk):
     
 def listar_alumnos(request):
 	template = "admin/adminAlumnoInvitado/listar_alumno.html"
+	alumnos= UsuarioInvitado.objects.all()
+	pag = Paginate(request, alumnos, 5)
 	ctx = {
-        'alumnos': UsuarioInvitado.objects.all(),
-
+		'paginator': pag,
+        'alumnos':pag['queryset'],
     }
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 #######################################################################################################
@@ -600,10 +605,13 @@ def editar_error(request):
 
 def listar_alumnosUTN(request):
 	template = "admin/lista_alumnoUTN.html"
+	alumnos= Alumno.objects.all()
+	pag = Paginate(request, alumnos, 5)
 	ctx = {
-        'alumnos': Alumno.objects.all(),
-
+		'paginator': pag,
+        'alumnos':pag['queryset'],
     }
+
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 def delete_alumnoUTN(request, pk):
@@ -1180,7 +1188,7 @@ def listar_alumnos_deporte(request, pk):
 
 	consulta, mensaje = buscador_alumnos(request,consulta, mensaje, pk)
 
-	consulta_paginada = pag = Paginate(request, list(consulta), 1)
+	consulta_paginada = pag = Paginate(request, list(consulta), 5)
 	ctx = {
 		'mensaje': mensaje,
 		'alumnos': consulta_paginada['queryset'],

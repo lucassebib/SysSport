@@ -1,10 +1,8 @@
 
 /* Create three columns of equal width */
 .columns {
-    float: left;
-    width:auto;
+    width:70%;
     padding: 8px;
-    
 }
 
 /* Style the list */
@@ -24,8 +22,7 @@
 /* Pricing header */
 .price .header {
     color: #fff;
-    font-size: 25px;
-    
+    font-size: 20px;
 }
 
 /* List items */
@@ -88,6 +85,9 @@
     width: 100%;
     padding: 10px;
     min-width: 320px;
+}
+#deporte-item{
+   padding-left:25% 
 }
 #imagen-portada{
     min-width: 50%;

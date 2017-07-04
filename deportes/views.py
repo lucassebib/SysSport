@@ -72,7 +72,7 @@ def detalleDeporte(request):
     mensaje =''
    
     consulta, mensaje = buscador_deportes(request, consulta, mensaje)   
-
+    
     ctx = {
         'deportes': consulta,
         'mensaje': mensaje,

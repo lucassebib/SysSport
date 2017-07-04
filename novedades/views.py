@@ -94,9 +94,11 @@ def ver_novedades_admin(request):
 	mes = ''
 	anio = ''
 	consulta, mensaje = buscador_novedades(request, consulta, mensaje)
-
+	pag = Paginate(request, consulta, 5)
+	
 	ctx = {
-		'novedades': consulta,
+		'paginator': pag,
+		'novedades': pag['queryset'],
 		'mensaje': mensaje,
 	}
 
@@ -246,10 +248,12 @@ def ver_novedades_visibilidadTodos(request):
 	extiende = extiende_de(id_usuario, request)
 	posts = Novedades.objects.filter(visibilidad__in=[1]).order_by('-fecha_publicacion')
 	posts, mensaje = buscador_novedades(request, posts, mensaje)
+	pag = Paginate(request, posts, 3)
 	a = perfil_admin
 
 	ctx = {
-		'posts': posts, 
+		'posts': pag['queryset'],
+		'paginator': pag,
 		'extiende': extiende,
 		'mensaje': mensaje,
 		'foto_admin': a,

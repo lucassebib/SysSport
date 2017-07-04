@@ -3,7 +3,7 @@ from deportes.models import *
 # BUSCADOR
 def buscador_deportes(request, consulta, mensaje):  
     if request.POST.get('q', '')=='':
-        mensaje = 'No ha introducido ningun termino en la busqueda'
+        mensaje = ''
     else:
         if not request.POST.get('opcion'):
             mensaje = 'No ha introducido ningun parametro de busqueda'
