@@ -171,7 +171,7 @@ class ProfesorAdmin(admin.ModelAdmin):
 admin.site.register(Profesor,ProfesorAdmin)
 
 class AlumnoAdmin(admin.ModelAdmin):
-	list_display = ('legajo', 'deportes_inscripto')
+	list_display = ('legajo', 'deportes_inscripto', 'key_expires')
 
 admin.site.register(Alumno,AlumnoAdmin)
 

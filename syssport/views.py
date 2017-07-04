@@ -144,24 +144,26 @@ def vista_registrarse(request):
 				asunto = 'Confirmacion de cuenta en SysSport'
 				direccion_servidor = 'http://127.0.0.1:8000/cuenta/confirmar'
 				cuerpo = "Hola %s, Gracias por registrarte. Para activar tu cuenta da click en este link en menos de 48 horas: %s/%s" % (nombre, direccion_servidor, activation_key)
-							
-				send_mail(
-					asunto, 
-					cuerpo, 
-					'ver_cuenta@example.com', 
-					[email], 
-					fail_silently=False
-				)
-
-				a = Alumno(legajo=legajo, dni=dni)
-				a.save()
-				a.lista_deporte.add(lista_deporte)
-				a.save()
-				a.activation_key = activation_key
-				a.key_expires = key_expires
-				a.save()
-				url = 'vista_registracion_exitosa'
-				return HttpResponseRedirect(reverse(url))
+				
+				try:
+					send_mail(
+						asunto, 
+						cuerpo, 
+						'ver_cuenta@example.com', 
+						[email], 
+						fail_silently=False
+					)
+					a = Alumno(legajo=legajo, dni=dni)
+					a.save()
+					a.lista_deporte.add(lista_deporte)
+					a.save()
+					a.activation_key = activation_key
+					a.key_expires = key_expires
+					a.save()
+					url = 'vista_registracion_exitosa'
+					return HttpResponseRedirect(reverse(url))
+				except Exception as e:
+					messages.error(request, 'Ha ocurrido un Problema, intente nuevamente...')							
 		else:
 				messages.error(request, 'Ya existe un usuario con el legajo ingresado.')
 	

@@ -19,9 +19,11 @@
 					<th>Género</th>
 					<th>Estado</th>
 				</tr>
-			</thead>		
-			{% for d in deportes_alumno %}
+			</thead>					
 			<tbody>
+			{% if deportes_alumno %}
+			{% for d in deportes_alumno %}
+			
 				<tr>
 					<td><a href="{% url 'deporte_detalle' d.id %}">{{d.nombre}} </a></td>
 					<td>{{d.descripcion}}</td>
@@ -32,7 +34,7 @@
 								<a title="Baja" type="text" href="{% url 'desinscribir_deporte' d.id %}"><span class="glyphicon glyphicon-remove"></span></a>
 							{% endif %}
 							{% if is_invitado %}
-								<a title="OK" type="text" href="{% url 'inscripcion_deporte' d.id %}"><span class="glyphicon glyphicon-ok"></span></a>
+								<span class="glyphicon glyphicon-ok">
 							{% endif %}	
 
 						{% endif %}
@@ -40,8 +42,15 @@
 					</td>
 					
 				</tr>
-			</tbody>
+			
 			{% endfor %}
+			{% else %}
+			<tr>
+				<td><p>Todavia no te has inscripto a ningun deporte!...</p></td>
+				<td></td><td></td><td></td>
+			</tr>
+			{% endif %}
+			</tbody>
 		</table>
 
 
@@ -69,7 +78,9 @@
 							{% endif %}	
 
 						{% else %}
-							{% if not is_invitado %}
+							{% if is_invitado %}
+								<span class="glyphicon glyphicon-ban-circle"></span>
+							{% else %}
 								<a title="Alta" type="text" href="{% url 'inscripcion_deporte' d.id %}"><span class="glyphicon glyphicon-plus"></span></a>
 							{% endif %}
 						

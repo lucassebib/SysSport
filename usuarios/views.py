@@ -36,20 +36,36 @@ def vista_confirmar_alta(request, activation_key):
 	mensaje_error = ''
 	direccion_servidor = ''
 
-	# Verifica que el token de activacion sea valido
-	a = Alumno.objects.get(activation_key=activation_key)
+	try:# Verifica que el token de activacion sea valido		
+		a = Alumno.objects.get(activation_key=activation_key)
+	except Exception as e:
+		mensaje_error = 'Ha ocurrido un problema y la cuenta no pudo ser activada con exito, por favor intente nuevamente Registrarse.'
+		ctx = {
+			'mensaje_error': mensaje_error,
+		}
+		return render_to_response(template, ctx, context_instance=RequestContext(request))
 	
 	if not a:
 		mensaje_error = 'No ha sido posible activar la cuenta, intente nuevamente'
+
 	else:
-		# verifica si el token de activacion ha expirado y si es asi renderiza el html de registro expirado
-		if timezone.now() < a.key_expires:
-			# Si el token no ha expirado, se activa el usuario y se muestra el html de confirmacion
-			a.is_active = True
-			a.save()
-			mensaje_error = 'Cuentra creada con exito'
+		
+		if a.is_active:
+			mensaje_error = 'La cuenta ya se encontraba activa, Inicia Sesion para disfrutar de todos los beneficios de Sys-Sport!!.'
+			ctx = {
+				'mensaje_error': mensaje_error,
+			}
+			return render_to_response(template, ctx, context_instance=RequestContext(request))
 		else:
-			mensaje_error = 'La autenticacion ha expirado'
+			# verifica si el token de activacion ha expirado y si es asi renderiza el html de registro expirado
+			if timezone.now() < a.key_expires:# Si el token no ha expirado, se activa el usuario y se muestra el html de confirmacion
+				
+				a.is_active = True
+				a.save()
+				mensaje_error = 'Cuentra creada con exito'
+			else:
+				mensaje_error = 'La autenticacion ha expirado'
+				a.delete()
 			
 	ctx = {
 		'mensaje_error': mensaje_error,
