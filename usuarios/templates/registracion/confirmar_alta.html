@@ -2,8 +2,14 @@
 
  {% block contenido %}
 	<div class="panel-info">
-		 <h1 class ="text-center">Resultado de la peticion: {{mensaje_error}}</h1>
+		<div class="page-header panel-default">
+			<h1><i>Registro</i></h1>
+		</div>
+		<div class="page-content">
+			 <p>{{mensaje_error}}</p>
 
-		 <p class="text-center"><a href="{% url 'url_login' %}"> Iniciar sesion</a></p>
+			 <p class="text-center"><a href="{% url 'url_login' %}"> Iniciar sesion</a></p>
+		</div>
+		
 	</div>
  {% endblock %}

@@ -14,7 +14,7 @@
 					{% if is_invitado %}
 					 	<a href="{% url 'editar_perfil_alumno'  %}"><button class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></button></a>
 					{% else %}
-						<a href="{% url 'editar_error' %}"><span class="glyphicon glyphicon-edit"></span></a>
+						<a href="{% url 'editar_error' %}"><button class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></button></a>
 					
 					{% endif %}
 				{% endif %}

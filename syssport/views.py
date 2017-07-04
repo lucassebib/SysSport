@@ -56,13 +56,13 @@ def vista_pagina_inicio(request):
 				if alumno_utn_bd and alumno_utn and alumno_utn_bd.is_active:
 					#--Se inicia sesion de un alumno UTN
 					#datos = obtener_datos_iniciales(usuario, password)	
-					datos = {'nombre': 'Tahiel', 'apellido': 'Bastiani', 'carrera': 5}				
+					datos = {'nombre': 'Gustavo', 'apellido': 'Avalos', 'carrera': 5}				
 					request.session["user"] = usuario
 					request.session['id_user']= alumno_utn_bd.id
 					request.session["nombre"] = datos['nombre']
 					request.session["apellido"] = datos['apellido']
 					request.session["carrera"] = int(datos['carrera'])
-					request.session["correo"] = 'elduendeloco@hotmail.com'
+					request.session["correo"] = 'veroxbo@gmail.com'
 
 					# Tener en cuenta que: (1,"Masculino"),(2,"Femenino")
 					request.session["sexo"] = 1
@@ -132,8 +132,8 @@ def vista_registrarse(request):
 			#validacion = establecer_conexion(int(legajo), password)
 
 			#datos sysacad
-			email = 'el_lucas992@hotmail.com'
-			dni = 366366636
+			email = 'veroxbo@gmail.com'
+			dni = 36678234
 			nombre = 'Lucas'
 
 			if validacion and datos_validos:
