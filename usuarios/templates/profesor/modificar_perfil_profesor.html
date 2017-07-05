@@ -11,7 +11,7 @@
 			<ul class="navbar navbar-right nav-pills">
 				{% if request.user.is_staff %}
 				{% else %}
-					<a title="Editar Perfil" href="{% url 'editar_error' %}"><button class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></button></a>
+					<a title="Editar Perfil" href="{% url 'editar_error' %}"><span class="glyphicon glyphicon-edit"></span></a>
 				{% endif %}
 			</ul>
 		</h1>

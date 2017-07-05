@@ -5,16 +5,16 @@
 	<div class="page-header panel-default">
 		<h1>
 			{% if request.user.is_staff %}
-			<button class="btn btn-default" type="button" onclick="history.back(-1)" /><span class="glyphicon glyphicon-arrow-left"></span></button>
+			<button class="btn btn-primary" type="button" onclick="history.back(-1)" ><span class="glyphicon glyphicon-arrow-left"></span></button>
 			{% endif %}
 			<i>Mi perfil </i>
 				<ul class="nav navbar-right">
 				{% if request.user.is_staff %}
 				{% else %}
 					{% if is_invitado %}
-					 	<a href="{% url 'editar_perfil_alumno'  %}"><button class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></button></a>
+					 	<a href="{% url 'editar_perfil_alumno'  %}"><span class="glyphicon glyphicon-edit"></span></a>
 					{% else %}
-						<a href="{% url 'editar_error' %}"><button class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></button></a>
+						<a href="{% url 'editar_error' %}"><span class="glyphicon glyphicon-edit"></span></a>
 					
 					{% endif %}
 				{% endif %}

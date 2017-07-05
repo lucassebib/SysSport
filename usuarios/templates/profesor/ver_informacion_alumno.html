@@ -81,12 +81,14 @@
 						</tbody>
 					</table>
 				</div>
+				<!-- CONTACTOS URGENCIA -->	
 				<div role="tabpanel" class="tab-pane fade" id="contactos_urgencia">
 					<table id="contacto-tabla" class="table table-hover">
 						<thead>
 							<tr id="perfil-fila">
 								<th><img src="{{ alumno.foto_perfil.url }}" class=" img-circle perfil" ></th>
-								<th><h3><i>{{alumno.get_full_name}} </i></h3></th>
+								<th colspan="4"><h3><i>{{alumno.get_full_name}} </i></h3></th>
+								
 							</tr>	
 							<tr id="cabecera-tabla">
 								<th>Nombre</th>
@@ -184,46 +186,81 @@
 						<tbody>			
 							<tr class="form-group">
 								<td><label> Grupo Sanguíneo: </label></td>
-								<td> {{alumno.datos_medicos.ver_grupo_sanguineo}}</td>
+								{%if alumno.datos_medicos %}
+									<td> {{alumno.datos_medicos.ver_grupo_sanguineo}}</td>
+								{% else %}
+									<td> N/N </td>
+								{% endif %}
 							</tr>
 							<tr class="form-group">
 								<td><label>Alergias:</label></td>
-								<td> {{alumno.datos_medicos.alergias}}</td>
+								{%if alumno.datos_medicos %}
+									<td> {{alumno.datos_medicos.alergias}}</td>
+								{% else %}
+									<td> N/N </td>
+								{% endif %}
 							</tr>
 							<tr class="form-group">
 								<td><label>Toma medicamentos:</label></td>
-								<td> {{alumno.datos_medicos.ver_toma_medicamentos}}</td>
+								{%if alumno.datos_medicos %}
+									<td> {{alumno.datos_medicos.ver_toma_medicamentos}}</td>
+								{% else %}
+									<td> N/N </td>
+								{% endif %}
 							</tr>
 							<tr class="form-group">
 								<td><label>¿Cuál/es?</label></td>
-								<td> {{alumno.datos_medicos.medicamentos_cuales}}</td>
+								{%if alumno.datos_medicos %}
+									<td> {{alumno.datos_medicos.medicamentos_cuales}}</td>
+								{% else %}
+									<td> N/N </td>
+								{% endif %}
 							</tr>
 							<tr class="form-group">
 								<td><label>Cirujías:</label></td>
-								<td>{{alumno.datos_medicos.ver_tuvo_operaciones}}</td>
+								{%if alumno.datos_medicos %}
+									<td>{{alumno.datos_medicos.ver_tuvo_operaciones}}</td>
+								{% else %}
+									<td> N/N </td>
+								{% endif %}
 							</tr>
 							<tr class="form-group">
 								<td><label>¿De qué tipo?</label></td>
-								<td> {{alumno.datos_medicos.operaciones_cuales}}</td>
+								{%if alumno.datos_medicos %}
+									<td> {{alumno.datos_medicos.operaciones_cuales}}</td>
+								{% else %}
+									<td> N/N </td>
+								{% endif %}
 							</tr>
 							<tr class="form-group">
 								<td><label>¿Tiene Obra Social?</label></td>
-								<td> {{alumno.datos_medicos.ver_tiene_osocial}}</td>
+								{%if alumno.datos_medicos %}
+									<td> {{alumno.datos_medicos.ver_tiene_osocial}}</td>
+								{% else %}
+									<td> N/N </td>
+								{% endif %}
 							</tr>
 							<tr class="form-group">
 								<td><label>¿Cuál/es?</label></td>
-								<td> {{alumno.datos_medicos.osocial_cual}}</td>
+								{%if alumno.datos_medicos %}
+									<td> {{alumno.datos_medicos.osocial_cual}}</td>
+								{% else %}
+									<td> N/N </td>
+								{% endif %}
 							</tr>
 							{% if alumno.ficha_medica %}
 							<tr class="form-group">
 								<td><label>Ficha Médica:</label></td>
-								<td> <a href="{{ alumno.ficha_medica.url }}">Descargar</a></td>
+								{%if alumno.datos_medicos %}
+									<td><a href="{{ alumno.ficha_medica.url }}">Descargar</a></td>
+								{% else %}
+									<td> N/N </td>
+								{% endif %}
 							</tr>
 							{% endif %}
 						</tbody>
 					</table>				
 				</div>
-		
 			</div>
 			<input class="btn btn-primary" type="button" value="Volver" onclick="history.back(-1)" />
 		</div>

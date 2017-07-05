@@ -61,7 +61,7 @@
 				<div class="page-header panel-default ">
 					<h3><i> Ficha Médica</i>		
 					<ul class="nav navbar-right">
-						<a id="ver-info-datosMedicos" title="Info" type="text" type="button" class="btn"><span class = "glyphicon glyphicon-info-sign"></span></a> 
+						<a id="ver-info-datosMedicos" title="Info" ><span class = "glyphicon glyphicon-info-sign"></span></a> 
 					</ul></h3>
 				</div>
 				
@@ -98,23 +98,25 @@
 						{% endfor %}
 					</table>
 				{% endif %}
-				<ul class="nav navbar-right">
-					<a  title="Info" type="text" id="ver-info-fichaMedica" type="button" class="btn">
-					<span class = "glyphicon glyphicon-info-sign"> </span> </a> 
-				</ul>
-				
-				<div id="info-fichaMedica" class="navbar-text" style="display: none;">
-					<i><p>Para subir o modificar su ficha médica, pulse la opción 'Seleccionar archivo' y posteriormente haga click en Guardar.</p></i>
-					
-				</div>
+								
 				<div class="panel panel-default">
-				    <div class="panel-heading"><h3>Cargar Ficha Medica</h3></div>
-		  			<div class="panel-body">
+				    <div class="panel-heading">
+				    	<h3>Cargar Ficha Medica
+					    	<ul class="nav navbar-right">
+								<a title="Info" id="ver-info-fichaMedica" ><span class = "glyphicon glyphicon-info-sign"></span></a> 
+							</ul>
+						</h3>
+					</div>
+					<div id="info-fichaMedica" class="navbar-text" style="display: none;">
+						<i><p>Para subir o modificar su ficha médica, pulse la opción 'Seleccionar archivo' y posteriormente haga click en Guardar.</p></i>
+						
+					</div>
+		  				<div class="panel-body">
 
-		  			<p class="aviso">Formato del nombre del archivo a subir: DEPORTE_APELLIDO-NOMBRE_DNI</p></i>
-		    			<p>...</p>
-						{%if habilitar_ficha %}
-						    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+		  					<p class="aviso">Formato del nombre del archivo a subir: DEPORTE_APELLIDO-NOMBRE_DNI</p></i>
+		    				<p>...</p>
+							{%if habilitar_ficha %}
+						   	 <form method="POST" enctype="multipart/form-data">{% csrf_token %}
 													
 								{{form.as_p}}
 								<div class="navbar-btn">
@@ -152,7 +154,7 @@
 				<div class="page-header panel-default ">
 					<h3><i> Información Médica </i>
 					<ul class="nav navbar-right ">
-					<a  title="Info" type="text" id="ver-info-infoMedica" type="button" class="btn  ">
+					<a  title="Info" id="ver-info-infoMedica" >
 					<span class = "glyphicon glyphicon-info-sign"> </span></a> 
 				</ul></h3>
 				</div>
