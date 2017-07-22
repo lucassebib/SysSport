@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('ficha_medica', models.FileField(blank=True, upload_to=b'usuarios/deportes/fichas_medicas/', validators=[usuarios.validators.valid_extension])),
-                ('descripcion', models.TextField()),
+                ('descripcion', models.TextField(blank=True)),
             ],
             options={
             },

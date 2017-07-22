@@ -1,4 +1,4 @@
-from deportes.models import *
+from deportes.models import Deporte
 
 # BUSCADOR
 def buscador_deportes(request, consulta, mensaje):  
@@ -17,4 +17,5 @@ def buscador_deportes(request, consulta, mensaje):
                     mensaje = 'No se han encontrado coincidencias'
     return consulta, mensaje
 #finBUSCADOR
+
     

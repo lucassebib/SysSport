@@ -1,5 +1,6 @@
 {% extends "baseProfesor.html" %}
 
+
 {% block contenido %}
 <div class="panel-info">
 	<div class="page-header">
@@ -8,11 +9,15 @@
 
 	<div class="page-content">
 		<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
-			{% for field2 in form_entrenamiento %}
+			{% include "mensaje.html" %}
+			{% for field in form_entrenamiento %}			
 				<div class="form-group">
-					<label><b>{{field2.label}}:</b></label>
-					<p>{{field2}} </p>
-				</div>
+					{% if not field.errors %}
+						<label><b>{{field.label}}:</b></label>
+						<p>{{field}} </p>
+					{% endif %}
+					{% include "formularios_error.html" %}
+				</div>				
 			{% endfor %}
 			<input class="btn btn-primary" type='submit' name='boton_guardar' value='Guardar'>
 			<input class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" />
@@ -22,3 +27,4 @@
 </div>
 
 {% endblock %}
+

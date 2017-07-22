@@ -23,19 +23,7 @@
 										</br>
 									</div>
 								{% endif %}
-								<!--{%if field.errors %}
-									{% for error in field.errors %}
-										<div class="alert alert-danger">
-			                				<strong>{{ error|escape }}</strong>
-			            				</div>
-									{% endfor %}
-									{% for error in form_principal.non_field_errors %}
-								        <div class="alert alert-danger">
-								            <strong>{{ error|escape }}</strong>
-								        </div>
-			    					{% endfor %}
-								{% endif %}   		
-								-->
+
 								{% include "formularios_error.html" %}
 
 							{% endfor %}									

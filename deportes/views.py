@@ -1,7 +1,11 @@
 #-!-coding: utf-8 -!-
+import json
+import datetime
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as loguear, logout
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response, RequestContext, get_object_or_404, redirect
@@ -178,7 +182,6 @@ def listar_deportes(request):
 
 
 ######################################## PARA ALUMNOS ##################################################
-
 def inscripcion_deportes(request):
     template = "inscripcion_deportes.html"
     id_usuario = request.user.id
@@ -404,9 +407,7 @@ def editar_info_deporte(request, pk):
     return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 def editar_entrenamiento_deporte(request, pk):
-
     template = "profesor/editar_entrenamiento_deporte.html"
-    mensaje = ''
     formulario_entrenamiento = FormularioCrearEntrenamiento()
     deporte = Deporte.objects.get(id=pk)
 
@@ -415,19 +416,22 @@ def editar_entrenamiento_deporte(request, pk):
         if formulario_entrenamiento.is_valid():
             e = Entrenamiento()
             e.dia = formulario_entrenamiento.cleaned_data['dia']
-            e.horario_inicio = formulario_entrenamiento.cleaned_data['horario_inicio']
-            e.horario_fin = formulario_entrenamiento.cleaned_data['horario_fin']
-            e.save()
-            deporte.entrenamientos.add(e)
-            deporte.save()
-            mensaje = 'se guardo'
-
-            url = reverse('editar_info_deporte', kwargs={'pk': pk})
-            return HttpResponseRedirect(url)
+            e.hora_inicio = formulario_entrenamiento.cleaned_data['hora_inicio'].split(':')[0]
+            e.minutos_inicio = formulario_entrenamiento.cleaned_data['hora_inicio'].split(':')[1]
+            e.hora_fin = formulario_entrenamiento.cleaned_data['hora_fin'].split(':')[0]
+            e.minutos_fin = formulario_entrenamiento.cleaned_data['hora_fin'].split(':')[1]    
+            
+            if datetime.datetime.strptime(formulario_entrenamiento.cleaned_data['hora_inicio'], '%H:%M') >= datetime.datetime.strptime(formulario_entrenamiento.cleaned_data['hora_fin'], '%H:%M'):
+                messages.error(request, 'El Horario de Inicio coincide o es menor que el Horario de Fin.')
+            else:
+                e.save()
+                deporte.entrenamientos.add(e)
+                deporte.save()
+                url = reverse('editar_info_deporte', kwargs={'pk': pk})
+                return HttpResponseRedirect(url)
     
     ctx = {
         'form_entrenamiento': formulario_entrenamiento,
-        'mensaje': mensaje,
     }
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))

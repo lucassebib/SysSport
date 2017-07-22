@@ -63,7 +63,7 @@
 						</div>
 						
 				{% else %}
-					<p><i>Usted todavía no ha ingresado un horario de entrenamiento para este deporte. Por Favor dirijase a la sección <a href="{% url 'editar_entrenamiento_deporte' deporte.id %}">Entrenamiento</a></i></p>
+					<p><i>Todavía no se ha ingresado un horario de entrenamiento.<a href="{% url 'editar_entrenamiento_deporte' deporte.id %}">Entrenamiento</a></i></p>
 				{% endif %}
 			</div>
 			<button class="btn btn-primary" type='submit' name="boton_guardar" value='Guardar'>Guardar</button>

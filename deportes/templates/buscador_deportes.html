@@ -1,7 +1,7 @@
-  <!-- BUSCADOR -->
 		<form id="formBusqueda" method="POST">{% csrf_token %}
 				
-			<input type="text" name="q" value="{{query|escape }}">
+			<input type="text" name="q" value="{{query|escape }}" id="busquedaDeporte">
+			
 			<button class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar"><span class="glyphicon glyphicon-search"> </span> Buscar</button>
 			<button class="btn btn-primary" type="submit" name="btn_limpiar" value="Buscar"><span class="glyphicon glyphicon-remove-circle"></span></button>
 			
@@ -14,5 +14,4 @@
 		<div class="form-group">
 		 	<p>{{mensaje}}</p>
 		 </div>
-<!-- FIN BUSCADOR -->
 
