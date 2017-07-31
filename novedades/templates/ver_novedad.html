@@ -44,30 +44,27 @@
 						<table class="tabla_comentario">
 							<tr>
 								<td class="td_perfil">
-									<!--<a href="{% url 'ver_informacion_perfil_persona' c.obtener_idAutor %}"><img class="img_perfil" src="{{c.obtener_url_imagen}}" ></a>
-									-->
 									{% if c.es_admin %}
 										<a href='#'></a>
 									{% else %}
-										<a href="{% url 'ver_informacion_perfil_persona' c.obtener_idAutor %}"{% endif %}>
-										
-										<img class="img_perfil" src="{% if c.es_admin %}
-																		{{foto_admin}}
-																	 {% else %}
-																	    {{c.obtener_url_imagen}}
-																	    {% endif %}" >
-									    </a>
-									
+										{% if c.is_persona %}
+										    <a href="{% url 'ver_informacion_perfil_persona' c.obtener_idAutor  %}">	
+											<img class="img_perfil" src="{% if c.es_admin %}{{foto_admin}} {% else %}{{c.obtener_url_imagen}}{% endif %}"></a>
+										{% else %}	
+											<a href="{% url 'ver_informacion_perfil_utn' c.obtener_idAutor  %}">	
+											<img class="img_perfil" src="{% if c.es_admin %}{{foto_admin}} {% else %}{{c.obtener_url_imagen}}{% endif %}"></a>
+										{% endif %}
+											
+									{% endif %}								
 								</td>
 								
 								<td class="td_titulo">
-									<h4>{{ c.nombre_autor }}</h4>
+									<h4>{{ c.nombre_autor}}</h4>
 									<p class="fecha">{{c.fecha_publicacion}}</p>					
 								</td>
 								<td >{% if c.obtener_idAutor = usuario.id or puede_editar_comentarios %}
 										<form method="POST">{% csrf_token %}
 											<button type="submit" class="btn-default" name="boton_eliminar" value="{{c.id}}"><span class="glyphicon glyphicon-remove"></span></button>
-											<!--<td><button type="submit" name="boton_editar" value="{{c.id}}">Editar</button> </td> -->
 										</form>
 									
 									{% endif %}</td>
@@ -76,8 +73,7 @@
 						</table>
 					</div>
 					<div class="text-justify texto_mensaje">
-						<p>{{ c.texto }}</p>
-						
+						<p>{{ c.texto }}</p>		
 					</div>
 				{% endfor %}
 

@@ -295,11 +295,8 @@ def listar_profes(request):
 
 def delete_profe(request, pk):
 	template = "admin/adminProfesores/profe_confirm_delete.html"
-
-	#string(pk)
 	p = Profesor.objects.get(id= pk)
 
-	
 	if request.method == 'POST' and 'bEliminar' in request.POST:
 		p.delete()
 		url = 'listar_profes'
@@ -321,7 +318,6 @@ def alta_alumno(request):
 	mensaje = ''
 	mensaje_error = ''
 	rechazo = False
-	#u = User.objects.get()
 
 	if request.method == "POST" and 'boton_alta' in request.POST:
 		form = FormularioAltaAlumnoInvitado(request.POST , request.FILES)
@@ -533,70 +529,63 @@ def listar_alumnos(request):
     }
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 #######################################################################################################
-
-
-
-
-
 @login_required
 def vista_inicial_admin(request):	
 	template = "admin/inicial_admin.html"
 	return render_to_response(template, context_instance=RequestContext(request))
 
-
 def ver_informacion_perfil_persona(request, pk):
 	template = "ver_informacion_perfil_persona.html"
-	
 	id_usuario = obtener_id(request)
-	
 	tipo_usuario = "" 
+	persona_visitada = Persona.objects.get(id=pk)
+	extiende = extiende_de(id_usuario, request)
+	ctx1 = {}	
 
 	try:
-		persona_visitada = Persona.objects.get(id=pk)
-	except Exception as e:
-		persona_visitada = Alumno.objects.get(id=pk)
-		
-	extiende = extiende_de(id_usuario, request)
-	
-	ctx1 = {}	
-	try:
-		g_visitado = Alumno.objects.get(id=pk)
-		tipo_usuario_visitado = 'alumno'
-		#OBTENER VALORES DEL SYSACAD
-		carrera = 'obtener del sysacad'
-		ctx1 = {
-			'carrera': carrera,
-		}
+		g_visitado = Profesor.objects.get(id=pk)
+		tipo_usuario_visitado = 'profesor'
 	except Exception as e:
 		try:
-			g_visitado = Profesor.objects.get(id=pk)
-			tipo_usuario_visitado = 'profesor'
+			g_visitado = UsuarioInvitado.objects.get(id=pk)
+			tipo_usuario_visitado = "invitado"				
+			ctx1 = {
+				'institucion': g_visitado.institucion,
+			} 	
 		except Exception as e:
-			try:
-				g_visitado = UsuarioInvitado.objects.get(id=pk)
-				tipo_usuario_visitado = "invitado"				
-				ctx1 = {
-					'institucion': g_visitado.institucion,
-				} 	
-			except Exception as e:
-				try:
-					extiende = 'usuario_noLogueado.html'
-				except Exception as e:
-					if request.user.is_staff:
-						extiende = 'baseAdmin.html'
-
+			extiende = 'usuario_noLogueado.html'
+				
 	ctx = {
 			'extiende': extiende,
 			'persona': persona_visitada,
 			'is_invitado': "invitado"==tipo_usuario_visitado,
 			'is_alumno': "alumno"==tipo_usuario_visitado,
 			'is_profesor': "profesor"==tipo_usuario_visitado,
+			}
+	ctx.update(ctx1)
+	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
+def ver_informacion_perfil_utn(request, pk):
+	template = "ver_informacion_perfil_persona.html"
+	id_usuario = obtener_id(request)
+	tipo_usuario = "" 
+	persona_visitada = Alumno.objects.get(legajo=pk)
+	extiende = extiende_de(id_usuario, request)
+	ctx1 = {}	
+	tipo_usuario_visitado = 'alumno'
+	carrera = 'obtener del sysacad'	
+				
+	ctx = {
+			'carrera': carrera,
+			'extiende': extiende,
+			'persona': persona_visitada,
+			'is_invitado': "invitado"==tipo_usuario_visitado,
+			'is_alumno': "alumno"==tipo_usuario_visitado,
+			'is_profesor': "profesor"==tipo_usuario_visitado,
 			}
 	ctx.update(ctx1)
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
-
 def editar_error(request):
 	template = "editar_error.html"
 	extiende = ''

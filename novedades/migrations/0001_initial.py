@@ -19,8 +19,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('texto', models.TextField(verbose_name=b'comentario')),
-                ('autor', models.IntegerField()),
+                ('autor', models.IntegerField(null=True, blank=True)),
                 ('nombre_autor', models.CharField(max_length=150, null=True, blank=True)),
+                ('is_persona', models.BooleanField(default=True)),
             ],
             options={
             },

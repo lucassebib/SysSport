@@ -37,7 +37,6 @@ urlpatterns += patterns('',
     url(r'^profesor/novedades/modificar/(?P<pk>[0-9]+)/$', ActualizarNovedades.as_view(), name='actualizar-novedad'),
     
     url(r'^profesor/novedades/eliminar/(?P<pk>[0-9]+)/$', EliminarNovedades.as_view(), name='eliminar-novedad'),
-    #url(r'^profesor/novedades/modificar/(?P<pk>[0-9]+)/$', editar_novedad, name='actualizar-novedad'),
 )
 
     

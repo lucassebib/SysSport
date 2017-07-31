@@ -19,15 +19,10 @@ from usuarios.models import Alumno, Profesor, UsuarioInvitado, Persona, perfil_a
 from usuarios.funciones import *
 from novedades.funciones import *
 from novedades.forms import FormularioComentario, FormularioNovedades, FormularioNovedadesAdmin
-
 from paginacion import Paginate
 
-
-
 def vista_index_alumnos(request):
-
 	template = "inicial_alumnos.html"
-
 	return render_to_response(template, context_instance=RequestContext(request))
 
 @login_required	
@@ -36,7 +31,6 @@ def vista_index_profesores(request):
 	return render_to_response(template, context_instance=RequestContext(request))
 
 ##################################CRUD NOVEDADES PROFESOR########################################	
-
 class ListarNovedades(ListView):
     model = Novedades
     context_object_name = 'novedades'
@@ -71,7 +65,6 @@ class ActualizarNovedades(UpdateView):
     def get_form_kwargs(self):
     	kwargs = super(ActualizarNovedades, self ).get_form_kwargs()
     	kwargs['user'] = self.request.user
-
     	return kwargs
 
 	def form_valid(self, form):	
@@ -83,7 +76,6 @@ class EliminarNovedades(DeleteView):
     model = Novedades
     context_object_name = 'novedades'
     success_url = reverse_lazy('listar-novedades')
-
 
 ################################## NOVEDADES PARA ADMINISTRADOR ########################################
 def ver_novedades_admin(request):
@@ -105,7 +97,6 @@ def ver_novedades_admin(request):
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 def eliminar_novedad_admin(request, pk):
-
 	template = "admin/eliminar_novedad_admin.html"
 	novedad = Novedades.objects.get(id=pk)
 
@@ -135,7 +126,6 @@ def editar_novedades_admin(request, pk):
 		'categoria' : novedad.categoria.all(),
 	}
 	
-
 	if request.method == "POST" and 'boton_guardar' in request.POST:
 		form = FormularioNovedadesAdmin(request.POST, request.FILES)
 		if form.is_valid():
@@ -146,7 +136,6 @@ def editar_novedades_admin(request, pk):
 			novedad.categoria = form.cleaned_data['categoria']
 			novedad.save()
 			return HttpResponseRedirect(reverse('ver_novedades_admin'))
-
 	
 	ctx = {
 		'form': form,		
@@ -266,12 +255,13 @@ def ver_novedades(request, pk):
 	id_usuario = request.user.id
 	novedad = Novedades.objects.get(id=pk)
 	puede_editar_comentarios = False
-	mensaje = ''
 	g = ''
+	is_persona = True
 	
 	try:
 		g = Alumno.objects.get(legajo=int(request.session['user']))
 		extiende = 'baseAlumno.html'
+		is_persona = False
 	except Exception as e:
 		try:
 			g = Profesor.objects.get(id=id_usuario)
@@ -292,13 +282,15 @@ def ver_novedades(request, pk):
 		form = FormularioComentario(request.POST)
 		if form.is_valid():
 			texto = form.cleaned_data['texto']
-			autor = g.id
+
 			try:
 				nombre_completo = request.session['nombre'] + ' ' + request.session['apellido'] 
+				autor = request.session["user"]
 			except Exception as e:
-				nombre_completo = Persona.objects.get(id=request.user.id).obtenerNombreCompleto() 
+				nombre_completo = Persona.objects.get(id=request.user.id).obtenerNombreCompleto()
+				autor = g.id 
 			
-			comentario = Comentario(texto=texto, autor=autor, nombre_autor=nombre_completo)
+			comentario = Comentario(texto=texto, autor=autor, nombre_autor=nombre_completo, is_persona=is_persona)
 			comentario.save()
 			novedad.lista_comentarios.add(comentario)
 			novedad.save()
@@ -317,14 +309,11 @@ def ver_novedades(request, pk):
 			return HttpResponseRedirect('')
 	
 	if request.method == "POST" and 'boton_eliminar' in request.POST:
-		mensaje = 'tendria que eliminar'
 		id_comentario_eliminar = request.POST.get('boton_eliminar')
 		novedad.lista_comentarios.remove(id_comentario_eliminar)
 		novedad.save()
 		comentario = Comentario.objects.get(id=id_comentario_eliminar)
 		comentario.delete()
-	
-	a = perfil_admin
 
 	ctx = {
 		'novedad': novedad,
@@ -332,9 +321,8 @@ def ver_novedades(request, pk):
 		'comentarios':novedad.lista_comentarios.all().order_by('-id'),
 		'extiende': extiende,
 		'puede_editar_comentarios': puede_editar_comentarios,
-		'mensaje': mensaje,
 		'usuario': g,
-		'foto_admin': a,
+		'foto_admin': perfil_admin,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 

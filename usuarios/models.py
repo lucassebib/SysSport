@@ -110,7 +110,6 @@ class Alumno(models.Model):
 	legajo =  models.IntegerField(blank=True, null=True)
 	dni = models.BigIntegerField(blank=True, null=True)
 	ficha_medica = models.FileField(upload_to='usuarios/fichas_medicas/', blank=True, validators=[valid_extension])
-	#carrera = models.IntegerField(choices=carreras_disponibles, default=1)
 	lista_deporte = models.ManyToManyField(Deporte, verbose_name='Deportes Inscripto')
 	contactos_de_urgencia = models.ManyToManyField(ContactoDeUrgencia, verbose_name='Contacto de Urgencia', blank=True, null=True)
 	datos_medicos = models.ForeignKey(DatosMedicos, blank=True, null=True)

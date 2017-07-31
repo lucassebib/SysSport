@@ -24,8 +24,10 @@
 				</tr>
 			</thead>
 
-			{% for a in alumnos %}
+			
 			<tbody>
+			{% if alumnos %}	
+			{% for a in alumnos %}
 				<tr>
 					<td> <a href="{% url 'ver_perfil_invitado' a.id %}">{{a.first_name}}&nbsp{{a.last_name}}</a></td>
 					<td>{{a.email}}</td>
@@ -33,13 +35,18 @@
 					<td> <a title="Editar" type="text" title="Modificar" href="{% url 'actualizar_alumnos' a.id %}"><span class="glyphicon glyphicon-edit"></span></a></td>
 					<td><a title="Eliminar" type="text" title="Eliminar" href="{% url 'delete_alumno' a.id %}"><span class="glyphicon glyphicon-remove"></span></a></td>
 				</tr>
-			</tbody>
 			{% endfor %}
+
+			{% else %}
+				<tr><td><p>No existen Alumnos invitados.</p></td><td></td><td></td></tr>
+			{% endif %}
+			</tbody>
+			
 		</table>
 		
 	</div>
 	<center>
-		{% include "includes/_paginado.html" %}	
+		{% if alumnos %}{% include "includes/_paginado.html" %}	{% endif %}
 	</center>
 </div>
 {% endblock %}

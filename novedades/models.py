@@ -12,29 +12,25 @@ from usuarios.models import Persona, Alumno
 
 class Comentario(models.Model):
 	texto = models.TextField( verbose_name ='comentario')
-	autor = models.IntegerField()
+	autor = models.IntegerField(blank=True, null=True)
 	nombre_autor = models.CharField(max_length=150, blank=True, null=True)
+	is_persona = models.BooleanField(default=True)
 
 	def obtener_url_imagen(self):
 		id_autor = self.autor
-		try:
-			url_foto = Persona.objects.get(id=id_autor).foto_perfil.url
-		except Exception as e:
-			url_foto = Alumno.objects.get(id=id_autor).foto_perfil.url
-		
-		return url_foto
+		if self.is_persona:
+			return Persona.objects.get(id=id_autor).foto_perfil.url
+		else:
+			return Alumno.objects.get(id=id_autor).foto_perfil.url
 		
 	def obtener_idAutor(self):
 		return self.autor
 
 	def es_admin(self):
-		a=False
-		try:
-			a = User.objects.get(id=self.autor).is_staff
-		except Exception as e:
-			print(e)
-		print(a)
-		return a
+		if self.is_persona:
+			return User.objects.get(id=self.autor).is_staff
+		else:
+			return False
 
 LIMITE_CARACTERES_NOVEDAD = 250
 
@@ -43,7 +39,6 @@ class Novedades(models.Model):
 	titulo = models.CharField(max_length=100)
 	contenido = tinymce_models.HTMLField()
 	fecha_publicacion = models.DateTimeField(auto_now_add=True)
-	#autor = models.ForeignKey(Profesor, blank=True, null=True)
 	autor = models.ForeignKey(User, blank=True, null=True)   
 	imagen = models.ImageField(upload_to='fotos_posts', blank=True, null=True)
 	visibilidad = models.IntegerField(choices=pueden_ver, default=2)
