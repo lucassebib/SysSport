@@ -111,11 +111,9 @@ def eliminar_novedad_admin(request, pk):
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 def editar_novedades_admin(request, pk):
-
 	template = "admin/editar_novedad_admin.html"
 	novedad = Novedades.objects.get(id=pk)
 	
-
 	form = FormularioNovedadesAdmin()
 	form.initial = {
 		'titulo' : novedad.titulo, 
@@ -262,15 +260,18 @@ def ver_novedades(request, pk):
 		g = Alumno.objects.get(legajo=int(request.session['user']))
 		extiende = 'baseAlumno.html'
 		is_persona = False
+		identificador = g.legajo
 	except Exception as e:
 		try:
 			g = Profesor.objects.get(id=id_usuario)
+			identificador = g.id
 			extiende = 'baseProfesor.html'
 			if novedad.autor.id == id_usuario:
 				puede_editar_comentarios = True
 		except Exception as e:
 			try:
 				g = UsuarioInvitado.objects.get(id=id_usuario)
+				identificador = g.id
 				extiende = 'baseAlumno.html'
 			except Exception as e:
 				if request.user.is_staff:
@@ -323,6 +324,7 @@ def ver_novedades(request, pk):
 		'puede_editar_comentarios': puede_editar_comentarios,
 		'usuario': g,
 		'foto_admin': perfil_admin,
+		'identificador': identificador,
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 

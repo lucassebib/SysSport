@@ -62,12 +62,17 @@
 									<h4>{{ c.nombre_autor}}</h4>
 									<p class="fecha">{{c.fecha_publicacion}}</p>					
 								</td>
-								<td >{% if c.obtener_idAutor = usuario.id or puede_editar_comentarios %}
+								<td >
+			
+									{% if c.obtener_idAutor = identificador or puede_editar_comentarios %}
 										<form method="POST">{% csrf_token %}
 											<button type="submit" class="btn-default" name="boton_eliminar" value="{{c.id}}"><span class="glyphicon glyphicon-remove"></span></button>
 										</form>
 									
-									{% endif %}</td>
+									{% endif %}
+		
+									
+								</td>
 							</tr>
 								
 						</table>

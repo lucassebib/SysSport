@@ -17,11 +17,10 @@ class Comentario(models.Model):
 	is_persona = models.BooleanField(default=True)
 
 	def obtener_url_imagen(self):
-		id_autor = self.autor
 		if self.is_persona:
-			return Persona.objects.get(id=id_autor).foto_perfil.url
+			return Persona.objects.get(id=self.autor).foto_perfil.url
 		else:
-			return Alumno.objects.get(id=id_autor).foto_perfil.url
+			return Alumno.objects.get(legajo=self.autor).foto_perfil.url
 		
 	def obtener_idAutor(self):
 		return self.autor
