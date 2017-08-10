@@ -17,10 +17,12 @@
 				{% for n in lista_notificaciones %}
 					<tr>
 						<td class="text-justify"> <a href="{% url 'ver_informacion_perfil_persona' n.id_autor_comentario%}" id = "link-Publicacion" >{{n.autor_comentario}}</a> ha hecho un comentario sobre su <a href="{% url 'ver_novedades' n.novedad.id %}" id = "link-Publicacion">Publicación</a></td>
-
-						<td><form method="POST">{% csrf_token %}
-							<button class="btn-default" type="submit" name="boton_eliminarNotificacion" value="{{n.id}}" ><span class="glyphicon glyphicon-remove" ></span></button>
-						</form></td>
+						<td>{{n.fecha_comentario}}</td>
+						<td>
+							<form method="POST">{% csrf_token %}
+								<button class="btn-default" type="submit" name="boton_eliminarNotificacion" value="{{n.id}}" ><span class="glyphicon glyphicon-remove" ></span></button>
+							</form>
+						</td>
 					</tr>
 				{% endfor %}
 			</table>

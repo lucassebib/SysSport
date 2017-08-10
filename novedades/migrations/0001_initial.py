@@ -22,6 +22,7 @@ class Migration(migrations.Migration):
                 ('autor', models.IntegerField(null=True, blank=True)),
                 ('nombre_autor', models.CharField(max_length=150, null=True, blank=True)),
                 ('is_persona', models.BooleanField(default=True)),
+                ('fecha_comentario', models.DateTimeField(auto_now_add=True)),
             ],
             options={
             },
@@ -33,6 +34,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('id_autor_comentario', models.IntegerField()),
                 ('autor_comentario', models.CharField(max_length=50)),
+                ('fecha_comentario', models.DateTimeField(auto_now_add=True)),
                 ('notificar_a', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={

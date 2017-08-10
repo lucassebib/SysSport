@@ -15,6 +15,7 @@ class Comentario(models.Model):
 	autor = models.IntegerField(blank=True, null=True)
 	nombre_autor = models.CharField(max_length=150, blank=True, null=True)
 	is_persona = models.BooleanField(default=True)
+	fecha_comentario = models.DateTimeField(auto_now_add=True)
 
 	def obtener_url_imagen(self):
 		if self.is_persona:
@@ -82,6 +83,9 @@ class Notificacion(models.Model):
 	autor_comentario = models.CharField(max_length=50)
 	notificar_a = models.ForeignKey(User)
 	novedad = models.ForeignKey(Novedades)
+	fecha_comentario = models.DateTimeField(auto_now_add=True)
+
+
 
 
 ##################AGREGAMOS CLASES AL PANEL DE ADMINISTRACION##################################

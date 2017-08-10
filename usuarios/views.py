@@ -389,7 +389,7 @@ def alta_alumno(request):
 			if rechazo:
 				return HttpResponseRedirect(reverse('listar_alumnos'))
 
-
+	print(form.errors)
 	ctx = {
 		'form': form,
 		'from_direccion': form_direccion,
