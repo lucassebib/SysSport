@@ -8,11 +8,11 @@ ALLOWED_HOSTS = []
 DATABASES = {
     'default': {
         'ENGINE': 'sqlserver_ado',
-        'NAME': 'syssport',
-        'HOST': 'localhost',
+        'NAME': 'syssport2',
+        'HOST': 'LAILA\SQLEXPRESS',
 
         'USER': 'proyecto',
-        'PASSWORD': 'proyecto2016',
+        'PASSWORD': 'proyecto2018',
 
         'OPTIONS': {
                     'uncicode_result': 'True',

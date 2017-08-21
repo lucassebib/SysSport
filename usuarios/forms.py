@@ -52,6 +52,8 @@ class FormularioDatosMedicos(forms.ModelForm):
 		self.fields['tiene_osocial'].widget.attrs.update({'id': 'visibilidad_osocial',
 															  'onchange':"showContent('esconder_osocial', 'visibilidad_osocial');"
 															})
+		self.fields['tiene_osocial'].label = "Obra social"
+		self.fields['osocial_cual'].label = "Obra social"
 	
 ################## AMB usuarios##############################
 
