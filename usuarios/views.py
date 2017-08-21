@@ -333,6 +333,7 @@ def alta_alumno(request):
 			email = form.cleaned_data['email']
 			telefono = form.cleaned_data['telefono']
 			lista_deporte = form.cleaned_data['lista_deporte']
+			institucion = form.cleaned_data['institucion']
 
             
 			a = UsuarioInvitado()
@@ -344,6 +345,7 @@ def alta_alumno(request):
 			a.sexo = sexo
 			a.email = email
 			a.telefono = telefono
+			a.institucion = institucion
 
 			form_direccion = FormularioDireccion(request.POST)
 
@@ -436,7 +438,8 @@ def actualizar_alumnos(request, pk):
         'sexo':a.sexo,
         'email':a.email,
         'telefono':a.telefono,
-        'lista_deporte' : a.lista_deporte.all()
+        'lista_deporte' : a.lista_deporte.all(),
+        'institucion': a.institucion
         
     }
     
@@ -454,6 +457,7 @@ def actualizar_alumnos(request, pk):
             nuevo_email = form.cleaned_data['email']
             nuevo_telefono =form.cleaned_data['telefono']
             nuevo_deporte = form.cleaned_data['lista_deporte']
+            nuevo_institucion = form.cleaned_data['institucion']
             
             a.first_name = nuevo_nombre
             a.last_name = nuevo_apellido
@@ -463,6 +467,7 @@ def actualizar_alumnos(request, pk):
             a.sexo = nuevo_sexo
             a.email = nuevo_email
             a.telefono = nuevo_telefono
+            a.institucion = nuevo_institucion
             calle = request.POST.get('calle')
             calle = dar_formato(calle)
             altura = request.POST.get('altura')

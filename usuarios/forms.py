@@ -111,16 +111,18 @@ class FormularioAltaAlumnoInvitado(forms.ModelForm):
 			'username':forms.TextInput(attrs={'required':'True'}),
 			'password': forms.PasswordInput(render_value=False, attrs={'required':'True'}),
 			'first_name':forms.TextInput(attrs={'size': 30,'required':'True'}),
-			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
-			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True', 'placeholder':'DD/MM/AA'}),
+			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),	
+			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True', 'placeholder':'DD/MM/AA'}),	
 			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
 			'dni':forms.TextInput(attrs={'placeholder':''}),
 			'telefono':forms.TextInput(attrs={'placeholder':'', 'requiered':'True'}),
 			'lista_deporte': forms.CheckboxSelectMultiple(),
+			'institucion':forms.TextInput(attrs={'size':30, 'placeholder':'San Fernando Rey', 'requiered':'False'})
 			
         }
 
-		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','email','telefono', 'lista_deporte' ]
+		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','email','telefono', 'lista_deporte', 'institucion' ]
+
 
 
 
@@ -128,7 +130,7 @@ class FormularioAltaAlumnoInvitado(forms.ModelForm):
 class FormularioEditarAlumnoInvitado(forms.ModelForm):	
 	password2 = forms.CharField(label='confirmar password', widget=forms.PasswordInput(render_value=False))
 	class Meta:
-		model = Profesor
+		model = UsuarioInvitado
 		widgets = {
 			'username':forms.TextInput(attrs={'required':'True'}),
 			'password': forms.PasswordInput(render_value=False),
@@ -139,10 +141,12 @@ class FormularioEditarAlumnoInvitado(forms.ModelForm):
 			'dni':forms.TextInput(attrs={'placeholder':''}),
 			'telefono':forms.TextInput(attrs={'placeholder':'', 'requiered':'True'}),
 			'lista_deporte': forms.CheckboxSelectMultiple(),
+			'institucion':forms.TextInput(attrs={'size':30, 'placeholder':'San Fernando Rey', 'requiered':'False'})
+
         }
 
 
-		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','email','telefono','lista_deporte' ]
+		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','email','telefono','lista_deporte','institucion' ]
 
 	def __init__(self, *args, **kwargs):
 		super(self.__class__, self).__init__(*args, **kwargs)
