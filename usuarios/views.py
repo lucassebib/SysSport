@@ -260,8 +260,7 @@ def actualizar_profes(request, pk):
 
             if rechazo:
             	return HttpResponseRedirect(reverse('listar_profes'))
-        else:
-        	form = PostForm()
+
 
     ctx = {
         'form': form,
@@ -511,8 +510,7 @@ def actualizar_alumnos(request, pk):
 
             if rechazo:
             	return HttpResponseRedirect(reverse('listar_alumnos'))
-        else:
-        	form = PostForm()
+
            
     ctx = {
         'form': form,
@@ -1378,6 +1376,7 @@ def verPerfilInvitado(request, pk):
 			'email': request.session['correo'],
 			'nombre': request.session['nombre'],
 			'apellido': request.session['apellido'],
+			'DNI':request.session['dni'],
 			'sexo': mostrar_sexo(request.session['sexo']),
 			'fecha_nacimiento': request.session['fecha_nacimiento'],
 			'telefono': request.session['telefono'],
@@ -1393,6 +1392,7 @@ def verPerfilInvitado(request, pk):
 			'email': alumno.email,
 			'nombre': alumno.first_name,
 			'apellido': alumno.last_name,
+			'dni':alumno.dni,
 			'sexo': alumno.ver_sexo,
 			'fecha_nacimiento': alumno.fecha_nacimiento,
 			'telefono': alumno.telefono,

@@ -66,7 +66,7 @@ class FormularioAltaProfe(forms.ModelForm):
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
 			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True', 'placeholder':'DD/MM/AA'}),
 			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
-			'dni':forms.TextInput(attrs={'placeholder':''}),
+			'dni':forms.TextInput(attrs={'placeholder':'','required':'True'}),
 			'telefono':forms.TextInput(attrs={'placeholder':'', 'requiered':'False'}),
 			'lista_deporte': forms.CheckboxSelectMultiple(),
 			        }
@@ -87,7 +87,7 @@ class FormularioEditarProfesor(forms.ModelForm):
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
 			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True','placeholder':'DD/MM/AA'}),
 			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
-			'dni':forms.TextInput(attrs={'placeholder':''}),
+			'dni':forms.TextInput(attrs={'placeholder':'','required':'True'}),
 			'telefono':forms.TextInput(attrs={'placeholder':'', 'requiered':'True'}),
 			'lista_deporte': forms.CheckboxSelectMultiple(),
         }
@@ -114,7 +114,7 @@ class FormularioAltaAlumnoInvitado(forms.ModelForm):
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),	
 			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True', 'placeholder':'DD/MM/AA'}),	
 			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
-			'dni':forms.TextInput(attrs={'placeholder':''}),
+			'dni':forms.TextInput(attrs={'placeholder':'','required':'True'}),
 			'telefono':forms.TextInput(attrs={'placeholder':'', 'requiered':'True'}),
 			'lista_deporte': forms.CheckboxSelectMultiple(),
 			'institucion':forms.TextInput(attrs={'size':30, 'placeholder':'San Fernando Rey', 'requiered':'False'})
@@ -138,7 +138,7 @@ class FormularioEditarAlumnoInvitado(forms.ModelForm):
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
 			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True', 'placeholder':'DD/MM/AA'}),
 			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
-			'dni':forms.TextInput(attrs={'placeholder':''}),
+			'dni':forms.TextInput(attrs={'placeholder':'','required':'True'}),
 			'telefono':forms.TextInput(attrs={'placeholder':'', 'requiered':'True'}),
 			'lista_deporte': forms.CheckboxSelectMultiple(),
 			'institucion':forms.TextInput(attrs={'size':30, 'placeholder':'San Fernando Rey', 'requiered':'False'})
