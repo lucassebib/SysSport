@@ -1,23 +1,49 @@
 {% extends "baseAdmin.html" %}
 {% block contenido %}
 
-	<div class="well ">
-		<div class="panel-info">
-			<h2><i>Alta Profesor</b> </h2>
-					
+	<div class="panel-info">
+		<div class="page-header panel-default">
+			<h1><i>Alta Profesor</i> </h1>
+		</div>	
+		<div class="page-content">	
 			<form role="form" method="POST" enctype="multipart/form-data" accept-charset="utf-8">{% csrf_token %}
-				<div class="panel" > 
+				{% include 'mensaje.html' %}
+				<div class="well" > 
 					<div class=" panel-default">
-						<div class="panel-heading">
-							<h4>Datos del Profesor:</h4>
+						<div class="panel panel-heading">
+							<h4><b>Datos del Profesor:</b></h4>
 							<p class="aviso"> (*) campos obligatorios</p>
 						</div>
+							{% for field in form %}
+								{% if not field.errors %}
+									
+									{% if field.label = 'lista_deporte' %}
+										{% if form.lista_deporte %}
+											{{form.lista_deporte}}</br>
+											<p class="aviso"> Para cargar un nuevo deporte haz click
+										{% else %}
 
+											<p class="aviso" >Aún no se han cargado deportes, haz click
+											
+										{% endif %}
+										<a href="{% url 'crear_deporte' %}"> Aquí</a> </p>
+									{% endif %}
+
+									<div class="form-group has-success has-feedback" >
+										{{field.label_tag}}<b class="aviso"> *</b></br>
+										{{field}}
+										
+										</br>
+									</div>
+								{% endif %}
+
+								{% include "formularios_error.html" %}
+
+							{% endfor %}			
+							<!--
 								<b>Usuario</b><b class="aviso"> *</b></br> {{form.username}}</br></br>
 								<b>Contraseña</b> <b class="aviso"> *</b></br>{{form.password}}</br>
 								<b>Repetir Contraseña</b> <b class="aviso"> *</b></br>{{form.password2}}<br></br>
-
-								{% include 'mensaje.html' %}
 
 								<b>Nombre</b><b class="aviso"> *</b></br>{{form.first_name}} </br>
 								<b>Apellido</b><b class="aviso"> *</b></br>{{form.last_name}} </br>
@@ -37,28 +63,33 @@
 								
 								{% endif %}
 								<a href="{% url 'crear_deporte' %}"> Aquí</a> </p>
-
-					</div>
+-->
+					</div> 
 					<div class=" panel-default">
-						<div class="panel-heading">
-							<h4><b>Direccion del Contacto:</b></h4>
+						<div class="panel panel-heading">
+							<h4><b>Dirección:</b></h4>
 						</div>
-							<b>Calle</b></br> {{form_direccion.calle}}</br>
+						{% for field in form_direccion %}
+							<div class="form-group has-success has-feedback" >
+								{{field.label_tag}}</br>
+								{{field}}
+								
+								</br>
+							</div>
+							<!--<b>Calle</b></br> {{form_direccion.calle}}</br>
 							<b>Altura</b></br> {{form_direccion.altura}}</br>
 							<b>Piso</b></br> {{form_direccion.piso}}</br>
 							<b>Nro Departamento</b></br> {{form_direccion.nro_departamento}}</br>
 							<b>Provincia</b></br> {{form_direccion.provincia}}</br>
-							<b>Localidad</b></br> {{form_direccion.localidad}}</br>
+							<b>Localidad</b></br> {{form_direccion.localidad}}</br> -->
 
-
-						
+						{% endfor %}
 					</div>	
-							
+						
 				</div>
 				<input  class="btn btn-primary"  type='submit' value='Aceptar' name= 'boton_alta'>
 				<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" /> Cancelar </button>
-			</form>
-			
+		</div>	
 		</div>
 	</div>
 {% endblock %}

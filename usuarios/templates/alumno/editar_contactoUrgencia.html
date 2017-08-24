@@ -15,16 +15,17 @@
 
 	<div class="page-content">
 		<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
+		{% include "mensaje.html" %}
 			<div class="well"> 
 				<div class=" panel-default">
-					<li><strong style="color:red"><i>{{mensaje_error}}</i></strong></li>
 					<div class=" panel panel-heading">
 						<h4><b>Datos Personales del Contacto:</b></h4>
+						<p class="aviso"> (*) campos obligatorios</p>
 					</div>
 					{% for field in form_contacto %}
 						{% if not field.label = 'Direccion' and not field.errors %}
 							<div class="form-group has-success has-feedback" >
-								{{field.label_tag}}</br>
+								{{field.label_tag}}<b class="aviso"> *</b></br>
 								{{field}}
 								
 								</br>

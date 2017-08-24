@@ -5,7 +5,7 @@
 	<div class="page-header panel-default">
 		<h1>
 			{% if request.user.is_staff %}
-			<button class="btn btn-default" type="button" onclick="history.back(-1)" /><span class="glyphicon glyphicon-arrow-left"></span></button>
+			<button title="Volver" class="btn btn-volver" id="boton-atras-deporte" onclick="history.back()" /><span class="glyphicon glyphicon-arrow-left"></span></button>
 			{% endif %}
 			<i> Mi Perfil</i>
 			<ul class="navbar navbar-right nav-pills">
@@ -23,8 +23,9 @@
 			<table class="table" id= "perfil-tabla">
 				<thead>
 					<tr id="perfil-fila">
-						<td><img src="{{profesor.foto_perfil.url}}" class="img-circle perfil" ></td>
+						<th><img src="{{profesor.foto_perfil.url}}" class="img-circle perfil" ></th>
 						{% if request.user.is_staff %}
+						<th></th>
 						{% else %}
 						<td><form class="" role="form" enctype="multipart/form-data" action="" method="POST">
 							{% csrf_token %}

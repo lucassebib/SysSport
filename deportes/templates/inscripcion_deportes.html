@@ -22,10 +22,10 @@
 					<th>Estado</th>
 				</tr>
 			</thead>					
-			<tbody>
+			
 			{% if deportes_alumno %}
 			{% for d in deportes_alumno %}
-			
+			<tbody>
 				<tr>
 					<td><a href="{% url 'deporte_detalle' d.id %}">{{d.nombre}} </a></td>
 					<td>{{d.descripcion}}</td>
@@ -44,15 +44,17 @@
 					</td>
 					
 				</tr>
-			
+			</tbody>
 			{% endfor %}
 			{% else %}
-			<tr>
-				<td><p>Todavia no te has inscripto a ningun deporte!...</p></td>
-				<td></td><td></td><td></td>
-			</tr>
-			{% endif %}
+			<tbody>
+				<tr>
+					<td><p>Todavia no te has inscripto a ningun deporte!...</p></td>
+					<td></td><td></td><td></td>
+				</tr>
 			</tbody>
+			{% endif %}
+			
 		</table>
 
 

@@ -1,12 +1,14 @@
-{% extends "baseAdmin.html" %}
+{% extends "baseAdmin.html" %} 
 {% block contenido %}
 	<div class="panel-info">	
 		<div class="page-header">
-		 	<h1><i>Modificar Perfil Profesor </i> </h1>
+		 	<h1><button title="Volver" class="btn btn-volver" id="boton-atras-deporte" onclick="history.back()" /><span class="glyphicon glyphicon-arrow-left"></span></button>
+		 	<i>Modificar Perfil Profesor </i> </h1>
 		</div>
 		<div class="page-content">		
 			<form role="form" method="POST" accept-charset="utf-8">{% csrf_token %}
-				<div class="well ">
+			{% include 'mensaje.html' %}
+				<div class="well">
 					<div class=" panel-default">
 						<div class="panel panel-heading">
 							<h4><b>Datos Personales del Profesor:</b></h4>
@@ -15,7 +17,7 @@
 							{% for field in form %}	   		
 								{{field.label_tag}}</br>
 								{{field}} 
-								
+								{% include "formularios_error.html" %}
 							{% endfor %}									
 							
 					</div>

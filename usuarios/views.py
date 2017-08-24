@@ -82,9 +82,7 @@ def alta_profesor(request):
 	template = "admin/adminProfesores/alta_profe.html"
 	form = FormularioAltaProfe()
 	form_direccion = FormularioDireccion()
-	mensaje = ''
 	guardar = True
-	mensaje_error = ''
 	rechazo = False
 
 	if request.method == "POST" and 'boton_alta' in request.POST:
@@ -133,7 +131,7 @@ def alta_profesor(request):
 
 			if not validar_nro_dpto(nro_departamento):
 				guardar = False
-				mensaje_error = 'Error: ingresar Nro de Departamento.'
+				messages.error(request,'Error: Ingresar Nro de Departamento.')
 
 			provincia = request.POST.get('provincia')
 			provincia = dar_formato(provincia)
@@ -160,14 +158,13 @@ def alta_profesor(request):
 			
 			if rechazo:
 				return HttpResponseRedirect(reverse('listar_profes'))
-
+		else:
+			messages.error(request,'Error: faltan datos obligatorios')
 	ctx = {
 		'form': form,
 		'form_direccion':form_direccion,
-		'mensaje': mensaje,
 		'rechazo': rechazo,
-		'mensaje_error':mensaje_error,
-	}
+		}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
@@ -176,7 +173,6 @@ def actualizar_profes(request, pk):
     p = Profesor.objects.get(id=pk)
     form = FormularioEditarProfesor()
     form_direccion = FormularioDireccion(request.POST or None, instance=direccion_instancia(p))
-    mensaje =''
     direccion = Direccion()
     guardar = True
     rechazo = False
@@ -232,7 +228,7 @@ def actualizar_profes(request, pk):
             	nro_departamento = ' '
             if not validar_nro_dpto(nro_departamento):
             	guardar = False
-            	mensaje_error = 'Error: ingresar Nro de Departamento.'
+            	messages.error(request, 'Error: ingresar Nro de Departamento.')
             provincia = request.POST.get('provincia')
             provincia = dar_formato(provincia)
             localidad = request.POST.get('localidad')
@@ -266,7 +262,6 @@ def actualizar_profes(request, pk):
     ctx = {
         'form': form,
         'form_direccion':form_direccion,
-        'mensaje':mensaje,
         'rechazo':rechazo,
     }
     return render_to_response(template, ctx, context_instance=RequestContext(request))
@@ -316,7 +311,6 @@ def alta_alumno(request):
 	form_direccion = FormularioDireccion()
 	guardar = True
 	mensaje = ''
-	mensaje_error = ''
 	rechazo = False
 
 	if request.method == "POST" and 'boton_alta' in request.POST:
@@ -363,7 +357,7 @@ def alta_alumno(request):
 
 			if not validar_nro_dpto(nro_departamento):
 				guardar = False
-				mensaje_error = 'Error: ingresar Nro de Departamento.'
+				messages.error(request, 'Error: ingresar Nro de Departamento.')
 
 			provincia = request.POST.get('provincia')
 			provincia = dar_formato(provincia)
@@ -393,7 +387,6 @@ def alta_alumno(request):
 	ctx = {
 		'form': form,
 		'from_direccion': form_direccion,
-		'mensaje_error':mensaje_error,
 		'mensaje': mensaje,
 		'rechazo':rechazo,
 	}
@@ -477,7 +470,7 @@ def actualizar_alumnos(request, pk):
             	nro_departamento = ' '
             if not validar_nro_dpto(nro_departamento):
             	guardar = False
-            	mensaje_error = 'Error: ingresar Nro de Departamento.'
+            	messages.error(request, 'Error: ingresar Nro de Departamento.')
             provincia = request.POST.get('provincia')
             provincia = dar_formato(provincia)
             localidad = request.POST.get('localidad')
@@ -512,7 +505,6 @@ def actualizar_alumnos(request, pk):
     ctx = {
         'form': form,
         'form_direccion':form_direccion,
-        'mensaje':mensaje,
         'rechazo': rechazo,
 
     }
@@ -843,8 +835,7 @@ def agregar_contactoUrgencia(request):
 	form_principal = FormularioContactoDeUrgencia()
 	form_direccion = FormularioDireccion()
 	guardar = True
-	mensaje_error = ''
-
+	
 	if request.method == "POST":
 		form_principal = FormularioContactoDeUrgencia(request.POST)
 		if form_principal.is_valid():
@@ -858,7 +849,7 @@ def agregar_contactoUrgencia(request):
 			telefono = form_principal.cleaned_data['telefono']
 			if not telefono.isdigit():
 				guardar = False
-				mensaje_error = 'Error: solo se permiten numeros en el Telefono'
+				messages.error(request,'Error: Solo se permiten números en el Teléfono. Sin espacios')
 
 			form_direccion = FormularioDireccion(request.POST)
 
@@ -878,7 +869,7 @@ def agregar_contactoUrgencia(request):
 
 			if not validar_nro_dpto(nro_departamento):
 				guardar = False
-				mensaje_error = 'Error: ingresar Nro de Departamento.'
+				messages.error(request,'Error: ingresar Nro de Departamento')
 
 			provincia = request.POST.get('provincia')
 			provincia = dar_formato(provincia)
@@ -914,12 +905,11 @@ def agregar_contactoUrgencia(request):
 				url = 'ver_contacto_urgencia'
 				return HttpResponseRedirect(reverse(url))
 		else:
-			mensaje_error = 'Error: faltan datos obligatorios'
+			messages.error(request,'Error: faltan datos obligatorios')
 	ctx = {
 		'form_principal': form_principal,
 		'form_direccion': form_direccion,
-		'mensaje_error': mensaje_error,
-	}
+		}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
 def ver_contacto_urgencia(request):
@@ -965,8 +955,7 @@ def editar_contactoUrgencia(request, pk):
 	contacto = ContactoDeUrgencia.objects.get(id=pk)
 	direccion = Direccion.objects.get(id=contacto.direccion.id)
 	guardar = True
-	mensaje_error = ''
-
+	
 	form_contacto = FormularioContactoDeUrgencia()
 	form_contacto.initial = {
 		'nombre': contacto.nombre,
@@ -996,9 +985,9 @@ def editar_contactoUrgencia(request, pk):
 			parentezco = dar_formato(parentezco)
 			telefono = form_contacto.cleaned_data['telefono']
 			if not telefono.isdigit():
+				
+				messages.error = (request, 'Error: Solo se permiten números en el Teléfono. Sin espacios.')
 				guardar = False
-				mensaje_error = 'Error: solo se permiten numeros en el Telefono.'
-
 			form_direccion = FormularioDireccion(request.POST)
 
 			calle = request.POST.get('calle')
@@ -1019,7 +1008,7 @@ def editar_contactoUrgencia(request, pk):
 				
 			if not validar_nro_dpto(nro_departamento):
 				guardar = False
-				mensaje_error = 'Error: ingresar Nro de Departamento.'
+				messages.error = (request,'Error: Ingresar Nro de Departamento')
 
 			provincia = request.POST.get('provincia')
 			provincia = dar_formato(provincia)
@@ -1047,8 +1036,7 @@ def editar_contactoUrgencia(request, pk):
 		'nombre_contacto' : contacto.obtenerNombreCompleto,
 		'form_contacto': form_contacto,
 		'form_direccion': form_direccion,
-		'mensaje_error': mensaje_error,
-	}
+			}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
@@ -1072,8 +1060,7 @@ def ver_datos_medicos(request):
 	activar_infoMedica = False
 	bandera = False
 	habilitar_subir_ficha = False
-	mensaje=''
-
+	
 	try:
 		alumno = Alumno.objects.get(legajo=request.session['user'])
 	except Exception as e:
@@ -1099,7 +1086,7 @@ def ver_datos_medicos(request):
                     return HttpResponseRedirect('')
                 else:
                 	print('else')
-                	mensaje = 'No ha subido ningún archivo'
+                	messages.error =(request, 'No ha subido ningún archivo') 
 			
 	if request.method == 'POST' and 'boton_guardar_form_dm' in request.POST:
 		form_datosMedicos = FormularioDatosMedicos(request.POST)
@@ -1216,7 +1203,6 @@ def ver_informacion_alumno(request, pk):
 	template = "profesor/ver_informacion_alumno.html"
 	ctx = {}
 	datos_medicos = ''
-	mensaje = ''
 	cantidad =0
 	activar_infoAcademica = False
 	
@@ -1238,9 +1224,9 @@ def ver_informacion_alumno(request, pk):
 		f_hasta = request.POST.get('fecha_hasta')
 		activar_infoAcademica = True
 		if f_desde == '' or f_hasta == '':
-			mensaje = 'No ha ingresado un rango de fechas validas.'
+			messages.error = (request, 'No ha ingresado un rango de fechas válidas')
 		elif f_hasta<f_desde:
-			mensaje = 'El campo de Fecha de inicio no puede ser Mayor al de Fin.'
+			messages.error = (request, 'El campo de Fecha de inicio no puede ser Mayor al de Fin.')
 		else:
 			cantidad = obtener_datos_academicos(username=str(legajo), f_desde=f_desde, f_hasta=f_hasta)
 			
@@ -1277,7 +1263,7 @@ def modificarPerfilProfesor(request):
 				p.save()
 				return HttpResponseRedirect('')
 			else:
-				mensaje='no ha seleccionado ninguna imagen'
+				mensaje='No ha seleccionado ninguna imagen.'
 
 	ctx = {
 			'form': form,

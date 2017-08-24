@@ -1,22 +1,40 @@
 {% extends "baseAdmin.html" %}
 {% block contenido %}
-	<div class="well ">
-		<div class="panel-info">
-			<h2><i>Alta Usuario Invitado  {{mensaje}}</b> </h2>
-					
+	<div class="panel-info">
+			<div class="page-header panel-default">
+			<h2><i>Alta Usuario Invitado </i> </h2>
+		</div>
+		<div class="page-content">		
 			<form role="form" enctype="multipart/form-data" method="POST" accept-charset="utf-8">{% csrf_token %}
-				<div class="panel" > 
+			{% include 'mensaje.html' %}
+				<div class="well" > 
 					<div class=" panel-default">
-						<div class="panel-heading">
-							<h4>Datos del Usuario Invitado:</h4>
+						<div class="panel panel-heading">
+							<h4><b>Datos del Usuario Invitado:</b></h4>
 							<p class="aviso"> (*) campos obligatorios</p>
 						</div>
-						        <b>Usuario</b><b class="aviso"> *</b></br> {{form.username}}</br></br>
+						{% for field in form %}
+								{% if not field.errors %}
+									{% if not field.label = 'Contraseña' %}
+										<div class="form-group has-success has-feedback" >
+											{{field.label_tag}}<b class="aviso"> *</b></br>
+											{{field}}
+											
+											</br>
+										</div>
+									{% endif %}
+
+								{% endif %}
+
+								{% include "formularios_error.html" %}
+
+							{% endfor %}	
+							<!--
+						        <b>Nombre de Usuario</b><b class="aviso"> *</b></br> {{form.username}}</br></br>
 								<b>Contraseña</b> <b class="aviso"> *</b></br>{{form.password}}</br>
 								<b>Repetir Contraseña</b> <b class="aviso"> *</b></br>{{form.password2}}<br></br>
 
-								{% include 'mensaje.html' %}
-
+								
 								<b>Nombre</b><b class="aviso"> *</b></br>{{form.first_name}} </br>
 								<b>Apellido</b><b class="aviso"> *</b></br>{{form.last_name}} </br>
 								<b>DNI</b><b class="aviso"> *</b></br>{{form.dni}}</br></br>
@@ -24,7 +42,7 @@
 								<b>Sexo</b><b class="aviso"> *</b></br>{{form.sexo}}</br></br>
 								
 								<b>Email</b><b class="aviso"> *</b></br>{{form.email}} </br></br>
-								<b>Telefono</b></br>{{form.telefono}} </br></br>
+								<b>Teléfono</b></br>{{form.telefono}} </br></br>
 								<b>Deportes </b><b class="aviso"> *</b></br>
 
 								{% if form.lista_deporte %}
@@ -36,23 +54,30 @@
 								
 								{% endif %}
 								<a href="{% url 'crear_deporte' %}"> Aquí</a> </p>
-
+	-->
 					</div>
+
 					<div class=" panel-default">
-						<div class="panel-heading">
-							<h4><b>Direccion del Contacto:</b></h4>
+						<div class="panel panel-heading ">
+							<h4><b>Dirección:</b></h4>
 						</div>
-							<b>Calle</b></br> {{from_direccion.calle}}</br>
-							<b>Altura</b></br> {{from_direccion.altura}}</br>
-							<b>Piso</b></br> {{from_direccion.piso}}</br>
-							<b>Nro Departamento</b></br> {{from_direccion.nro_departamento}}</br>
-							<b>Provincia</b></br> {{from_direccion.provincia}}</br>
-							<b>Localidad</b></br> {{from_direccion.localidad}}</br>
+						{% for field in from_direccion %}
+							<div class="form-group has-success has-feedback" >
+								{{field.label_tag}}</br>
+								{{field}}
+								
+								</br>
+							</div>
+							<!--<b>Calle</b></br> {{form_direccion.calle}}</br>
+							<b>Altura</b></br> {{form_direccion.altura}}</br>
+							<b>Piso</b></br> {{form_direccion.piso}}</br>
+							<b>Nro Departamento</b></br> {{form_direccion.nro_departamento}}</br>
+							<b>Provincia</b></br> {{form_direccion.provincia}}</br>
+							<b>Localidad</b></br> {{form_direccion.localidad}}</br> -->
 
-
-						
-					</div>	
+						{% endfor %}
 							
+					</div>
 				</div>
 				<input  class="btn btn-primary"  type='submit' value='Aceptar' name= 'boton_alta'>
 				<button class="btn btn-primary" type="button" value="Cancelar" onclick="history.back(-1)" /> Cancelar </button>

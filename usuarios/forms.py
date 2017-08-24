@@ -1,9 +1,10 @@
 #-!-coding: utf-8 -!-
 from django import forms
 from django.forms import ClearableFileInput, TextInput
-from django.contrib.admin.widgets import AdminDateWidget 
+from django.contrib.admin.widgets import AdminDateWidget
 from models import Alumno, Direccion, ContactoDeUrgencia, Persona, UsuarioInvitado, DatosMedicos, Profesor
 from django.db import models
+from django.forms.extras.widgets import SelectDateWidget
 
 class FormularioDireccion(forms.ModelForm):
 	class Meta:
@@ -55,6 +56,7 @@ class FormularioDatosMedicos(forms.ModelForm):
 	
 ################## AMB usuarios##############################
 
+years = range(1900, 2050)
 class FormularioAltaProfe(forms.ModelForm):
 	password2 = forms.CharField(label='confirmar password:', widget=forms.PasswordInput(render_value=False, attrs={'required':'True'}))
 	class Meta:		
@@ -64,10 +66,10 @@ class FormularioAltaProfe(forms.ModelForm):
 			'password': forms.PasswordInput(render_value=False, attrs={'required':'True'}),
 			'first_name':forms.TextInput(attrs={'size': 30,'required':'True'}),
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
-			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True', 'placeholder':'DD/MM/AA'}),
-			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
-			'dni':forms.TextInput(attrs={'placeholder':''}),
-			'telefono':forms.TextInput(attrs={'placeholder':'', 'requiered':'False'}),
+			'fecha_nacimiento':TextInput(attrs={'type': 'date', 'required':'True'}),
+			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'required':'True'}),
+			'dni':forms.TextInput(attrs={'placeholder':'', 'required':'True'}),
+			'telefono':forms.TextInput(attrs={'placeholder':'', 'required':'False'}),
 			'lista_deporte': forms.CheckboxSelectMultiple(),
 			        }
  
@@ -85,10 +87,10 @@ class FormularioEditarProfesor(forms.ModelForm):
 			'password':forms.PasswordInput(render_value=False),
 			'first_name':forms.TextInput(attrs={'size': 30,'required':'True'}),
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
-			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True','placeholder':'DD/MM/AA'}),
-			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
-			'dni':forms.TextInput(attrs={'placeholder':''}),
-			'telefono':forms.TextInput(attrs={'placeholder':'', 'requiered':'True'}),
+			'fecha_nacimiento':TextInput(attrs={'type': 'date', 'required':'True'}),
+			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'required':'True'}),
+			'dni':forms.TextInput(attrs={'placeholder':'', 'required':'True'}),
+			'telefono':forms.TextInput(attrs={'placeholder':'', 'requid':'True'}),
 			'lista_deporte': forms.CheckboxSelectMultiple(),
         }
 
@@ -112,10 +114,10 @@ class FormularioAltaAlumnoInvitado(forms.ModelForm):
 			'password': forms.PasswordInput(render_value=False, attrs={'required':'True'}),
 			'first_name':forms.TextInput(attrs={'size': 30,'required':'True'}),
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
-			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True', 'placeholder':'DD/MM/AA'}),
-			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
-			'dni':forms.TextInput(attrs={'placeholder':''}),
-			'telefono':forms.TextInput(attrs={'placeholder':'', 'requiered':'True'}),
+			'fecha_nacimiento':TextInput(attrs={'type': 'date', 'required':'True'}),
+			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'required':'True'}),
+			'dni':forms.TextInput(attrs={'placeholder':'', 'required':'True'}),
+			'telefono':forms.TextInput(attrs={'placeholder':'', 'required':'True'}),
 			'lista_deporte': forms.CheckboxSelectMultiple(),
 			
         }
@@ -134,10 +136,10 @@ class FormularioEditarAlumnoInvitado(forms.ModelForm):
 			'password': forms.PasswordInput(render_value=False),
 			'first_name':forms.TextInput(attrs={'size': 30,'required':'True'}),
 			'last_name':forms.TextInput(attrs={'size': 30, 'required':'True'}),
-			'fecha_nacimiento':AdminDateWidget(attrs={'required':'True', 'placeholder':'DD/MM/AA'}),
-			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'requiered':'True'}),
-			'dni':forms.TextInput(attrs={'placeholder':''}),
-			'telefono':forms.TextInput(attrs={'placeholder':'', 'requiered':'True'}),
+			'fecha_nacimiento':TextInput(attrs={'type': 'date', 'required':'True'}),
+			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'required':'True'}),
+			'dni':forms.TextInput(attrs={'placeholder':'', 'required':'True'}),
+			'telefono':forms.TextInput(attrs={'placeholder':'', 'required':'True'}),
 			'lista_deporte': forms.CheckboxSelectMultiple(),
         }
 

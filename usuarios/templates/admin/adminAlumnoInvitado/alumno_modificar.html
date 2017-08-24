@@ -11,21 +11,22 @@ function mostrar(contrasenia){
 }
 </script>	
 		<div class="panel-info">
-			<div class="page-header">
-				<h2>Modificar <i> Perfil Usuario Invitado </i> </h2>
+			<div class="page-header panel-default">
+				<h1> <button title="Volver" class="btn btn-volver" id="boton-atras-deporte" onclick="history.back()" /><span class="glyphicon glyphicon-arrow-left"></span></button>
+				Modificar <i> Perfil Usuario Invitado </i> </h1>
 			</div>
 			<div class="page-content">		
 				<form role="form" method="POST" enctype="multipart/form-data" accept-charset="utf-8">{% csrf_token %}
-					<div class="panel">
-						<div class=" panel-default">
-
+				{% include 'mensaje.html' %}
+					<div class="well" > 
+					<div class=" panel-default">
 							<div class="panel panel-heading">
 								<h4><b>Datos Personales del Usuario Invitado:</b></h4>
 								<p class="aviso"> (*) campos obligatorios</p>
 							</div>
-
+					
 							<b>Usuario</b><b class="aviso"> *</b></br> {{form.username}}</br></br>
-							<p><a href="#" onclick="mostrar('contrasenia')";>Cambiar Contraseña</a></p>
+							<p><a href="#" onclick="mostrar('contrasenia')";><b>Cambiar Contraseña</b></a></p></br>
 							<div style='display:none' id='contrasenia'>
 								<b>Contraseña</b> </br>{{form.password}}</br></br>
 								<b>Repetir Contraseña</b> </br>{{form.password2}}<br></br>
@@ -43,7 +44,6 @@ function mostrar(contrasenia){
 							<b>Teléfono</b><b class="aviso"> *</b></br>{{form.telefono}}</br></br>
 							<b>Deportes</b><b class="aviso"> *</b></br>{{form.lista_deporte}}</br>				
 							{% if form.lista_deporte %}
-									</br>
 									<p class="aviso"> Para cargar un nuevo deporte haz click<a href="{% url 'crear_deporte' %}"> Aquí</a></p>
 							{% else %}
 									<p class="aviso">Aún no se han cargado deportes, haz click <a href="{% url 'crear_deporte' %}"> aquí</a> </p>  
@@ -52,15 +52,25 @@ function mostrar(contrasenia){
 								
 						</div>	
 						<div class=" panel-default">
-						<div class="panel-heading">
-							<h4><b>Direccion del Contacto:</b></h4>
+						<div class="panel panel-heading">
+							<h4><b>Dirección del Contacto:</b></h4>
 						</div>
-							<b>Calle</b> </br> {{form_direccion.calle}}</br>
+						{% for field in form_direccion %}
+							<div class="form-group has-success has-feedback" >
+								{{field.label_tag}}</br>
+								{{field}}
+								
+								</br>
+							</div>
+							<!--<b>Calle</b></br> {{form_direccion.calle}}</br>
 							<b>Altura</b></br> {{form_direccion.altura}}</br>
 							<b>Piso</b></br> {{form_direccion.piso}}</br>
 							<b>Nro Departamento</b></br> {{form_direccion.nro_departamento}}</br>
 							<b>Provincia</b></br> {{form_direccion.provincia}}</br>
-							<b>Localidad</b></br> {{form_direccion.localidad}}</br>						
+							<b>Localidad</b></br> {{form_direccion.localidad}}</br> -->
+
+						{% endfor %}
+									
 					</div>					
 					</div>					
 				
