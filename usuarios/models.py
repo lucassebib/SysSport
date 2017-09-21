@@ -1,12 +1,9 @@
 import os
 import datetime
-
 from datetime import tzinfo, timedelta, datetime, date
-
 from django.contrib import admin
 from django.contrib.auth.models import User as Usuario
 from django.db import models
-
 from deportes.models import Deporte
 from .validators import valid_extension
 

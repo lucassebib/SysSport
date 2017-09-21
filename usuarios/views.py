@@ -214,6 +214,7 @@ def actualizar_profes(request, pk):
             p.sexo = nuevo_sexo
             p.email = nuevo_email
             p.telefono = nuevo_telefono
+            
             calle = request.POST.get('calle')
             calle = dar_formato(calle)
             altura = request.POST.get('altura')
@@ -256,8 +257,7 @@ def actualizar_profes(request, pk):
 
             if rechazo:
             	return HttpResponseRedirect(reverse('listar_profes'))
-        else:
-        	form = PostForm()
+
 
     ctx = {
         'form': form,
@@ -327,17 +327,19 @@ def alta_alumno(request):
 			email = form.cleaned_data['email']
 			telefono = form.cleaned_data['telefono']
 			lista_deporte = form.cleaned_data['lista_deporte']
+			institucion = form.cleaned_data['institucion']
 
             
 			a = UsuarioInvitado()
 
-			a.first_name = nombre
-			a.last_name = apellido
+			a.first_name = dar_formato(nombre)
+			a.last_name = dar_formato(apellido)
 			a.username = usuario
 			a.fecha_nacimiento =fechaN
 			a.sexo = sexo
 			a.email = email
 			a.telefono = telefono
+			a.institucion = dar_formato(institucion)
 
 			form_direccion = FormularioDireccion(request.POST)
 
@@ -429,7 +431,8 @@ def actualizar_alumnos(request, pk):
         'sexo':a.sexo,
         'email':a.email,
         'telefono':a.telefono,
-        'lista_deporte' : a.lista_deporte.all()
+        'lista_deporte' : a.lista_deporte.all(),
+        'institucion': a.institucion
         
     }
     
@@ -447,15 +450,18 @@ def actualizar_alumnos(request, pk):
             nuevo_email = form.cleaned_data['email']
             nuevo_telefono =form.cleaned_data['telefono']
             nuevo_deporte = form.cleaned_data['lista_deporte']
+            nuevo_institucion = form.cleaned_data['institucion']
             
-            a.first_name = nuevo_nombre
-            a.last_name = nuevo_apellido
+            a.first_name = dar_formato(nuevo_nombre)
+            a.last_name = dar_formato(nuevo_apellido)
             a.username = nueva_usuario
             a.dni = nuevo_dni
             a.fecha_nacimiento = nuevo_fechaN
             a.sexo = nuevo_sexo
             a.email = nuevo_email
             a.telefono = nuevo_telefono
+            a.institucion = dar_formato(nuevo_institucion)
+
             calle = request.POST.get('calle')
             calle = dar_formato(calle)
             altura = request.POST.get('altura')
@@ -499,8 +505,7 @@ def actualizar_alumnos(request, pk):
 
             if rechazo:
             	return HttpResponseRedirect(reverse('listar_alumnos'))
-        else:
-        	form = PostForm()
+
            
     ctx = {
         'form': form,
@@ -1359,6 +1364,7 @@ def verPerfilInvitado(request, pk):
 			'email': request.session['correo'],
 			'nombre': request.session['nombre'],
 			'apellido': request.session['apellido'],
+			'DNI':request.session['dni'],
 			'sexo': mostrar_sexo(request.session['sexo']),
 			'fecha_nacimiento': request.session['fecha_nacimiento'],
 			'telefono': request.session['telefono'],
@@ -1374,6 +1380,7 @@ def verPerfilInvitado(request, pk):
 			'email': alumno.email,
 			'nombre': alumno.first_name,
 			'apellido': alumno.last_name,
+			'dni':alumno.dni,
 			'sexo': alumno.ver_sexo,
 			'fecha_nacimiento': alumno.fecha_nacimiento,
 			'telefono': alumno.telefono,

@@ -53,6 +53,8 @@ class FormularioDatosMedicos(forms.ModelForm):
 		self.fields['tiene_osocial'].widget.attrs.update({'id': 'visibilidad_osocial',
 															  'onchange':"showContent('esconder_osocial', 'visibilidad_osocial');"
 															})
+		self.fields['tiene_osocial'].label = "Obra social"
+		self.fields['osocial_cual'].label = "Obra social"
 	
 ################## AMB usuarios##############################
 
@@ -70,6 +72,7 @@ class FormularioAltaProfe(forms.ModelForm):
 			'email':forms.TextInput(attrs={'size':30, 'placeholder':'suemail@gmail.com', 'required':'True'}),
 			'dni':forms.TextInput(attrs={'placeholder':'', 'required':'True'}),
 			'telefono':forms.TextInput(attrs={'placeholder':'', 'required':'False'}),
+
 			'lista_deporte': forms.CheckboxSelectMultiple(),
 			        }
  
@@ -119,10 +122,12 @@ class FormularioAltaAlumnoInvitado(forms.ModelForm):
 			'dni':forms.TextInput(attrs={'placeholder':'', 'required':'True'}),
 			'telefono':forms.TextInput(attrs={'placeholder':'', 'required':'True'}),
 			'lista_deporte': forms.CheckboxSelectMultiple(),
+			'institucion':forms.TextInput(attrs={'size':30, 'placeholder':'San Fernando Rey', 'requiered':'False'})
 			
         }
 
-		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','email','telefono', 'lista_deporte' ]
+		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','email','telefono', 'lista_deporte', 'institucion' ]
+
 
 
 
@@ -130,7 +135,7 @@ class FormularioAltaAlumnoInvitado(forms.ModelForm):
 class FormularioEditarAlumnoInvitado(forms.ModelForm):	
 	password2 = forms.CharField(label='confirmar password', widget=forms.PasswordInput(render_value=False))
 	class Meta:
-		model = Profesor
+		model = UsuarioInvitado
 		widgets = {
 			'username':forms.TextInput(attrs={'required':'True'}),
 			'password': forms.PasswordInput(render_value=False),
@@ -141,10 +146,12 @@ class FormularioEditarAlumnoInvitado(forms.ModelForm):
 			'dni':forms.TextInput(attrs={'placeholder':'', 'required':'True'}),
 			'telefono':forms.TextInput(attrs={'placeholder':'', 'required':'True'}),
 			'lista_deporte': forms.CheckboxSelectMultiple(),
+			'institucion':forms.TextInput(attrs={'size':30, 'placeholder':'San Fernando Rey', 'requiered':'False'})
+
         }
 
 
-		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','email','telefono','lista_deporte' ]
+		fields = ['username', 'password', 'first_name', 'last_name','dni','fecha_nacimiento','sexo','email','telefono','lista_deporte','institucion' ]
 
 	def __init__(self, *args, **kwargs):
 		super(self.__class__, self).__init__(*args, **kwargs)
