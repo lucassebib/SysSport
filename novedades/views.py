@@ -1,3 +1,4 @@
+#-!-coding: utf-8 -!-
 import datetime
 from datetime import datetime, date, time, timedelta
 
@@ -85,13 +86,14 @@ def ver_novedades_admin(request):
 	dia = ''
 	mes = ''
 	anio = ''
-	consulta, mensaje = buscador_novedades(request, consulta, mensaje)
+	consulta, mensaje, query = buscador_novedades(request, consulta, mensaje)
 	pag = Paginate(request, consulta, 5)
 	
 	ctx = {
 		'paginator': pag,
 		'novedades': pag['queryset'],
 		'mensaje': mensaje,
+		'query': query
 	}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
@@ -234,7 +236,7 @@ def ver_novedades_visibilidadTodos(request):
 
 	extiende = extiende_de(id_usuario, request)
 	posts = Novedades.objects.filter(visibilidad__in=[1]).order_by('-fecha_publicacion')
-	posts, mensaje = buscador_novedades(request, posts, mensaje)
+	posts, mensaje, query = buscador_novedades(request, posts, mensaje)
 	pag = Paginate(request, posts, 3)
 	a = perfil_admin
 
@@ -244,6 +246,7 @@ def ver_novedades_visibilidadTodos(request):
 		'extiende': extiende,
 		'mensaje': mensaje,
 		'foto_admin': a,
+		'query': query
 	}
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
 
@@ -334,7 +337,7 @@ def novedades_profesores(request):
 	mensaje =''
 	posts = Novedades.objects.filter(autor=request.user.id) | Novedades.objects.filter(visibilidad__in=[1,2])
 	#posts.order_by('-fecha_publicacion')
-	posts, mensaje = buscador_novedades(request, posts, mensaje)
+	posts, mensaje, query = buscador_novedades(request, posts, mensaje)
 	pag = Paginate(request, posts, 3)
 	a = perfil_admin
 
@@ -343,6 +346,7 @@ def novedades_profesores(request):
 		'paginator': pag,
      	'mensaje': mensaje,
      	'foto_admin': a,
+     	'query': query
 	}
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
 
@@ -358,7 +362,7 @@ def novedades_alumnos(request):
 
 	posts = Novedades.objects.filter(visibilidad__in=[1,2]) | Novedades.objects.filter(visibilidad__in=[3], categoria__in=alumno.obtener_deportes())
 	posts.order_by('-fecha_publicacion')
-	posts, mensaje = buscador_novedades(request, posts, mensaje)
+	posts, mensaje, query = buscador_novedades(request, posts, mensaje)
 	pag = Paginate(request, posts, 3)
 
 	deportes = alumno.obtener_deportes()
@@ -371,6 +375,7 @@ def novedades_alumnos(request):
      	'paginator': pag,
      	'mensaje': mensaje,
      	'foto_admin': a,
+        'query': query
 	}
 	return render_to_response(template, ctx , context_instance=RequestContext(request))
 
@@ -386,13 +391,14 @@ def ver_novedad_filtrado(request, pk):
 	posts = Novedades.objects.filter(categoria__in=pk)
 	deportes = alumno.obtener_deportes()
 
-	posts, mensaje = buscador_novedades(request, posts, mensaje)
+	posts, mensaje, query = buscador_novedades(request, posts, mensaje)
 
 	ctx = {
 
 		'posts': posts.order_by('-fecha_publicacion'),
 		'deportes': deportes,
 		'mensaje': mensaje,
+		'query': query
 	}
 
 	return render_to_response(template, ctx ,  context_instance=RequestContext(request))

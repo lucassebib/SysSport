@@ -1,8 +1,8 @@
 <!-- BUSCADOR -->
  	
-		<form method="POST">{% csrf_token %}
+		<form method="GET">{% csrf_token %}
 			
-    		<input type="text" name="q" value="{{query|escape }}">
+    		<input type="text" name="q" value="{{query|escape }}" placeholder="Escribir usuario">
     		<button class="btn btn-primary" type="submit" name="btn_buscar" value="Buscar"><span class="glyphicon glyphicon-search"> </span> Buscar</button>
     		<div class="radio">
 	    		<label class="radio-inline"><input type="radio" name="opcion" value="legajo">Legajo</label>

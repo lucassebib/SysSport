@@ -2,19 +2,19 @@
 from usuarios.models import Alumno, Profesor, UsuarioInvitado, carreras_disponibles, lista_sexos
 
 def buscador_alumnos(request, consulta, mensaje, pk):
-	if request.method == 'POST' and 'btn_buscar' in request.POST:
-		if request.POST.get('q', '')=='':
+	if request.method == 'GET' and 'btn_buscar' in request.GET:
+		if request.GET.get('q', '')=='':
 			mensaje = 'No ha introducido ningun término en la búsqueda'
 			consulta=''
 		else:
-			if not request.POST.get('opcion'):
+			if not request.GET.get('opcion'):
 				mensaje = 'No ha introducido ningun parámetro de búsqueda'
 				consulta=''
 			else:
-				if request.POST.get('opcion') == 'legajo':
-					legajo = request.POST.get('q')
+				if request.GET.get('opcion') == 'legajo':
+					legajo = request.GET.get('q')
 					if legajo.isdigit():
-						consulta = Alumno.objects.filter(lista_deporte__in=pk, legajo=request.POST.get('q'))
+						consulta = Alumno.objects.filter(lista_deporte__in=pk, legajo=request.GET.get('q'))
 						if not consulta:
 							mensaje = 'No se han encontrado coincidencias'
 					else:
@@ -22,8 +22,8 @@ def buscador_alumnos(request, consulta, mensaje, pk):
 						mensaje='Ingrese un legajo numérico válido'
 				else:
 					#Inicio Busqueda por apellido
-					if request.POST.get('opcion') == 'apellido' and 'btn_buscar' in request.POST:
-						apellido = request.POST.get('q')
+					if request.GET.get('opcion') == 'apellido' and 'btn_buscar' in request.GET:
+						apellido = request.GET.get('q')
 						if apellido.isalpha():
 							consulta = Alumno.objects.filter(last_name__contains=apellido, lista_deporte__in=pk)
 							if not consulta:
@@ -34,7 +34,7 @@ def buscador_alumnos(request, consulta, mensaje, pk):
 					#Fin busqueda por apellido
 					else:
 						#Inicio Busqueda por carrera
-						if request.POST.get('opcion') == 'carrera' and 'btn_buscar' in request.POST:
+						if request.GET.get('opcion') == 'carrera' and 'btn_buscar' in request.GET:
 							carrera = request.POST.get('q')
 							carrera = carrera.upper()
 							#((1,"ISI"),(2,"IQ"), (3, "IEM"), (4, "LAR"), (5, "TSP"), (6, "OTRO"))

@@ -75,11 +75,12 @@ def detalleDeporte(request):
     consulta = Deporte.objects.all()
     mensaje =''
    
-    consulta, mensaje = buscador_deportes(request, consulta, mensaje)   
+    consulta, mensaje, query = buscador_deportes(request, consulta, mensaje)   
     
     ctx = {
         'deportes': consulta,
         'mensaje': mensaje,
+        'query': query
     }
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))
@@ -215,8 +216,8 @@ def inscripcion_deportes(request):
     consulta_alumno = g.lista_deporte.all()
 
     if request.method == 'POST' and 'btn_buscar' in request.POST:
-        consulta, mensaje = buscador_deportes(request, consulta, mensaje)  
-        consulta_alumno, mensaje_alumno = buscador_deportes(request, consulta_alumno, mensaje_alumno)
+        consulta, mensaje, query = buscador_deportes(request, consulta, mensaje)  
+        consulta_alumno, mensaje_alumno, query = buscador_deportes(request, consulta_alumno, mensaje_alumno)
     else:
         if request.method == 'POST' and 'btn_limpiar' in request.POST:  
             return HttpResponseRedirect('')
@@ -227,7 +228,8 @@ def inscripcion_deportes(request):
         'darse_de_baja': darse_de_baja,
         'mensaje': mensaje,
         'mensaje_alumno': mensaje_alumno,
-        'is_invitado': usuario=='invitado'      
+        'is_invitado': usuario=='invitado',      
+        'query': query
     }
 
     return render_to_response(template, ctx, context_instance=RequestContext(request))

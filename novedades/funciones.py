@@ -1,29 +1,27 @@
+#-!-coding: utf-8 -!-
 import datetime
 from datetime import date
 from novedades.models import *
 	# BUSCADOR
 def buscador_novedades(request, consulta, mensaje):	
-
-	if request.method == 'POST' and 'btn_buscar' in request.POST:
-		if request.POST.get('q', '')=='':
-			mensaje = 'No ha introducido ningun termino en la busqueda'
-			consulta= ''
-		else:
-			if not request.POST.get('opcion'):
-				mensaje = 'No ha introducido ningun parametro de busqueda'
+	query = request.GET.get('q', '')
+	if request.method == 'GET' and 'btn_buscar' in request.GET:
+		if query:
+			if not request.GET.get('opcion'):
+				mensaje = 'No ha introducido ningún parámetro de búsqueda.'
 				consulta=''
 			else:
 				#     BUSQUEDA POR TITULO
-				if request.POST.get('opcion') == 'titulo':
-					titulo = request.POST.get('q')
-					consulta = consulta.filter(titulo__contains=titulo)
+				if request.GET.get('opcion') == 'titulo':
+					titulo = request.GET.get('q')
+					consulta = consulta.filter(titulo__icontains=titulo)
 					if not consulta:
 						mensaje = 'No se han encontrado coincidencias'
 
 				else:
 					#   BUSQUEDA POR FECHA
-					if request.POST.get('opcion')=='fecha':
-						fecha = request.POST.get('q')
+					if request.GET.get('opcion')=='fecha':
+						fecha = request.GET.get('q')
 						seleccionados = request.POST.getlist("fecha")						
 
 						#VALIDAR ENTRADA DE FECHA
@@ -94,7 +92,7 @@ def buscador_novedades(request, consulta, mensaje):
 								mes = fecha[3:5]
 								anio = fecha[6:]
 								fecha2 = datetime.date(int(anio), int(mes), int(dia))
-								consulta = consulta.filter(fecha_publicacion__contains=fecha2)
+								consulta = consulta.filter(fecha_publicacion__icontains=fecha2)
 							else:
 								if 'dia' in seleccionados and 'mes' in seleccionados and not 'anio' in seleccionados:
 									#DD/MM
@@ -143,13 +141,13 @@ def buscador_novedades(request, consulta, mensaje):
 					
 					else:
 						# BUSQUEDA POR AUTOR
-						if request.POST.get('opcion')=='autor':
-							nombre_apellido = request.POST.get('q')
-							if 'opcion_autor' in request.POST:
-								if request.POST.get('opcion_autor')=='nombre':
-									usuarios = User.objects.filter(first_name__contains=nombre_apellido)
+						if request.GET.get('opcion')=='autor':
+							nombre_apellido = request.GET.get('q')
+							if 'opcion_autor' in request.GET:
+								if request.GET.get('opcion_autor')=='nombre':
+									usuarios = User.objects.filter(first_name__icontains=nombre_apellido)
 								else:
-									usuarios = User.objects.filter(last_name__contains=nombre_apellido)
+									usuarios = User.objects.filter(last_name__icontains=nombre_apellido)
 							else:
 								consulta = ''
 								mensaje = 'No ha ingresado ningun parametro de busqueda para Autor'
@@ -159,29 +157,29 @@ def buscador_novedades(request, consulta, mensaje):
 								consulta = ''
 								mensaje = 'No se han encontrado coincidencias para: ' +  request.POST.get('q')
 	
-	return consulta, mensaje
+	return consulta, mensaje, query
 	#finBUSCADOR
 	
 	#BUSCADOR_POR_TITULO
 	def buscador_novedades_por_titulo(request, consulta, mensaje):	
 
-		if request.method == 'POST' and 'btn_buscar' in request.POST:
-			if request.POST.get('q', '')=='':
+		if request.method == 'GET' and 'btn_buscar' in request.GET:
+			if request.GET.get('q', '')=='':
 				mensaje = 'No ha introducido ningun termino en la busqueda'
 				consulta= ''
 			else:
-				if not request.POST.get('opcion'):
+				if not request.GET.get('opcion'):
 					mensaje = 'No ha introducido ningun parametro de busqueda'
 					consulta=''
 				else:
 					#     BUSQUEDA POR TITULO
-					if request.POST.get('opcion') == 'titulo':
-						titulo = request.POST.get('q')
-						consulta = consulta.filter(titulo__contains=titulo)
+					if request.GET.get('opcion') == 'titulo':
+						titulo = request.GET.get('q')
+						consulta = consulta.filter(titulo__icontains=titulo)
 						if not consulta:
 							mensaje = 'No se han encontrado coincidencias'
 
-	return consulta, mensaje
+	return consulta, mensaje, query
 	#finBUSCADOR
 
 #*************************************************************************************
