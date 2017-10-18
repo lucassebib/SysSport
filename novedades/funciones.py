@@ -150,12 +150,12 @@ def buscador_novedades(request, consulta, mensaje):
 									usuarios = User.objects.filter(last_name__icontains=nombre_apellido)
 							else:
 								consulta = ''
-								mensaje = 'No ha ingresado ningun parametro de busqueda para Autor'
+								mensaje = 'No ha ingresado ningun parámetro de búsqueda para Autor.'
 							
 							consulta = consulta.filter(autor__in = usuarios)
 							if not consulta:
 								consulta = ''
-								mensaje = 'No se han encontrado coincidencias para: ' +  request.POST.get('q')
+								mensaje = 'No se han encontrado coincidencias para: ' +  request.GET.get('q')
 	
 	return consulta, mensaje, query
 	#finBUSCADOR

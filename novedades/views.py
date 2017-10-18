@@ -93,7 +93,7 @@ def ver_novedades_admin(request):
 		'paginator': pag,
 		'novedades': pag['queryset'],
 		'mensaje': mensaje,
-		'query': query
+		'query': query,
 	}
 
 	return render_to_response(template, ctx, context_instance=RequestContext(request))
