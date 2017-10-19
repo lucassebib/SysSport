@@ -13,7 +13,7 @@
 							<h4><b>Datos del Usuario Invitado:</b></h4>
 							<p class="aviso"> (*) campos obligatorios</p>
 						</div>
-						{% for field in form %}
+						<!--{% for field in form %}
 								{% if not field.errors %}
 									{% if not field.label = 'Contraseña' %}
 										<div class="form-group has-success has-feedback" >
@@ -28,8 +28,8 @@
 
 								{% include "formularios_error.html" %}
 
-							{% endfor %}	
-							<!--
+							{% endfor %}	-->
+							
 						        <b>Nombre de Usuario</b><b class="aviso"> *</b></br> {{form.username}}</br></br>
 								<b>Contraseña</b> <b class="aviso"> *</b></br>{{form.password}}</br>
 								<b>Repetir Contraseña</b> <b class="aviso"> *</b></br>{{form.password2}}<br></br>
@@ -63,7 +63,7 @@
 								
 								{% endif %}
 								<a href="{% url 'crear_deporte' %}"> Aquí</a> </p>
-	-->
+	
 					</div>
 
 					<div class=" panel-default">

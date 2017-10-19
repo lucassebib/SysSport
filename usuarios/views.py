@@ -1183,7 +1183,7 @@ def listar_alumnos_deporte(request, pk):
 	alumnos = chain(Alumno.objects.filter(lista_deporte__in=pk ), UsuarioInvitado.objects.filter(lista_deporte__in=pk ))  
 	consulta = alumnos
 
-	consulta, mensaje, query = buscador_alumnos(request, consulta, mensaje, pk)
+	consulta, mensaje, query = buscador_alumnos(request, consulta, mensaje, pk, alumnos)
 
 	consulta_paginada = pag = Paginate(request, list(consulta), 5)
 	ctx = {

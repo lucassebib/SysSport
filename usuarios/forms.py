@@ -76,7 +76,7 @@ class FormularioAltaProfe(forms.ModelForm):
 			'lista_deporte': forms.CheckboxSelectMultiple(),
 			        }
  
-  		fields = ['username', 'password', 'first_name', 'last_name', 'dni','fecha_nacimiento','sexo','email','telefono','lista_deporte']
+  		fields = ['username', 'password','first_name', 'last_name', 'dni','fecha_nacimiento','sexo','email','telefono','lista_deporte']
   	
 
 

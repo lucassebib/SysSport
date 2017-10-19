@@ -2,54 +2,50 @@
 from usuarios.models import *
 from django.db.models import Q
 
-def buscador_alumnos(request, consulta, mensaje, pk):
+def buscador_alumnos(request, consulta, mensaje, pk, alumnos):
 	query = request.GET.get('q', '')
 	if request.method == 'GET' and 'btn_buscar' in request.GET:
 		if query=='':
-			mensaje = 'No ha introducido ningun término en la búsqueda'
-			consulta=''
+		#	mensaje = 'No ha introducido ningun término en la búsqueda'
+			consulta = alumnos#chain(Alumno.objects.filter(lista_deporte__in=pk ), UsuarioInvitado.objects.filter(lista_deporte__in=pk ))  
+	
 		else:
-			if not request.GET.get('opcion'):
-				mensaje = 'No ha introducido ningún parámetro de búsqueda'
-				consulta=''
+			if request.GET.get('opcion') == 'legajo':
+				legajo = request.GET.get('q')
+				if legajo.isdigit():
+					consulta = Alumno.objects.filter(lista_deporte__in=pk, legajo=request.GET.get('q'))
+					if not consulta:
+						mensaje = 'No se han encontrado coincidencias'
+				else:
+					consulta=''
+					mensaje='Ingrese un legajo numérico válido'
 			else:
-				#BUSQUEDA POR LEGAJO
-				if request.GET.get('opcion') == 'legajo':
-					legajo = request.GET.get('q')
-					if legajo.isdigit():
-						consulta = Alumno.objects.filter(lista_deporte__in=pk, legajo=request.GET.get('q'))
+				#Inicio Busqueda por apellido
+				if request.GET.get('opcion') == 'apellido':
+					apellido = request.GET.get('q')
+					if apellido.isalpha():
+						consulta = UsuarioInvitado.objects.filter(Q(last_name__icontains=apellido), lista_deporte__in=pk)
 						if not consulta:
 							mensaje = 'No se han encontrado coincidencias'
-					else:
-						consulta=''
-						mensaje='Ingrese un legajo numérico válido'
+					"""else:
+						consulta = ''
+						mensaje = 'Usted ha ingresado un apellido inválid"""
+				#Fin busqueda por apellido
 				else:
-					#Inicio Busqueda por apellido
-					if request.GET.get('opcion') == 'apellido':
-						apellido = request.GET.get('q')
-						if apellido.isalpha():
-							consulta = Alumno.objects.filter(Q(last_name__icontains=apellido), lista_deporte__in=pk)
-							if not consulta:
-								mensaje = 'No se han encontrado coincidencias'
+					#Inicio Busqueda por carrera
+					if request.GET.get('opcion') == 'carrera':
+						carrera = request.GET.get('q')
+						carrera = carrera.upper()
+						#((1,"ISI"),(2,"IQ"), (3, "IEM"), (4, "LAR"), (5, "TSP"), (6, "OTRO"))
+						opcion_carrera = ''
+						for c in carreras_disponibles:
+							if carrera == c[1]:
+								opcion_carrera = c[0]
+						if opcion_carrera:
+							consulta = Alumno.objects.filter(carrera=opcion_carrera, lista_deporte__in=pk)
 						else:
 							consulta = ''
-							mensaje = 'Usted ha ingresado un apellido inválido'
-					#Fin busqueda por apellido
-					else:
-						#Inicio Busqueda por carrera
-						if request.GET.get('opcion') == 'carrera':
-							carrera = request.GET.get('q')
-							carrera = carrera.upper()
-							#((1,"ISI"),(2,"IQ"), (3, "IEM"), (4, "LAR"), (5, "TSP"), (6, "OTRO"))
-							opcion_carrera = ''
-							for c in carreras_disponibles:
-								if carrera == c[1]:
-									opcion_carrera = c[0]
-							if opcion_carrera:
-								consulta = Alumno.objects.filter(carrera=opcion_carrera, lista_deporte__in=pk)
-							else:
-								consulta = ''
-								mensaje = 'No se han encontrado coincidencias. Recordar que las búsquedas por carrera se realizan mediante las iniciales. ISI para Ingeniería en Sistema de Información. IEM para Ingeniería Electromécanica. IQ para Ingeniería Química. TSP para Técnico Superior en Programación. LAR para Licenciatura en Administracion Rural'
+							mensaje = 'No se han encontrado coincidencias. Recordar que las búsquedas por carrera se realizan mediante las iniciales. ISI para Ingeniería en Sistema de Información. IEM para Ingeniería Electromécanica. IQ para Ingeniería Química. TSP para Técnico Superior en Programación. LAR para Licenciatura en Administracion Rural'
 	return consulta, mensaje, query						
 
 def obtener_id(request):
@@ -141,3 +137,5 @@ def validar_nro_dpto(nro_dpto):
 				return True
 
 	return flag
+
+
